@@ -1,0 +1,75 @@
+/* Base styles */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  padding: 10px;
+  margin: 0;
+  width: 320px;
+  background-color: #fff;
+  color: #333;
+}
+
+/* Headings */
+h2 {
+  margin-top: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Link styles for sites */
+#siteList {
+  padding-left: 20px;
+  list-style: none;
+  margin: 0;
+}
+
+#siteList li {
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+#siteList a {
+  color: #007bff;
+  text-decoration: none;
+  margin-right: 6px;
+}
+
+#siteList a:hover {
+  text-decoration: underline;
+}
+
+/* Refresh button styling */
+#refreshButton {
+  display: inline-flex;
+  align-items: center;
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 10px;
+  gap: 6px;
+}
+
+#refreshButton:hover {
+  background-color: #e0e0e0;
+}
+
+/* Optional: Use emoji or Unicode for icon support */
+.icon {
+  font-family: "Segoe UI Symbol", "Apple Color Emoji", "Noto Color Emoji", "Segoe UI Emoji", sans-serif;
+  font-size: 16px;
+  vertical-align: middle;
+}
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 24px;
+  border-radius: 4px;
+  z-index: 1000;
+}
+.toast-success { background: #4CAF50; color: white; }
+.toast-error { background: #F44336; color: white; }
+.toast-info { background: #2196F3; color: white; }

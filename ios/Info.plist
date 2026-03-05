@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+		<string>com.kreativekoala.surfsense.sync</string>
+	</array>
+	<key>NSFamilyControlsUsageDescription</key>
+	<string>SurfSense uses Screen Time data to show you how much time you spend on apps and websites, helping you build healthier digital habits.</string>
+</dict>
+</plist>

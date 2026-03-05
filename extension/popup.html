@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>SurfSense Dashboard</title>
+    <link rel="stylesheet" href="popup.css" />
+    <style>
+      body {
+        font-family: sans-serif;
+        padding: 10px;
+        width: 320px;
+      }
+
+      h2 {
+        margin-top: 15px;
+        font-size: 18px;
+        color: #333;
+      }
+
+      ul {
+        padding-left: 20px;
+        font-size: 14px;
+      }
+
+      .category-section {
+        margin-top: 20px;
+      }
+
+      #refreshBtn {
+        margin-top: 10px;
+        padding: 6px 10px;
+        font-size: 12px;
+        background-color: #0078d7;
+        color: white;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+
+      canvas {
+        margin-top: 15px;
+        max-width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Top 5 Sites</h2>
+    <ul id="siteList"></ul>
+
+    <div class="category-section">
+      <h2>Time by Category</h2>
+      <canvas id="categoryChart" width="280" height="180"></canvas>
+      <script src="chart.umd.js"></script>
+      <button id="refreshButton">
+        <span class="icon">&#x1F504;</span> Refresh
+      </button>
+    </div>
+    <div class="section">
+      <h3>Add devices you want to monitor for usage</h3>
+      <button id="addOtherDeviceBtn">Add Device</button>
+      <div id="addDeviceForm" style="display: none;">
+        <input type="text" id="otherDeviceCode" placeholder="6-digit code" maxlength="6" pattern="[0-9]{6}" />
+        <input type="text" id="otherDeviceName" placeholder="Device Name" maxlength="64" />
+        <button id="submitOtherDevice">Submit</button>
+      </div>
+      <div id="otherDevicesUsage"></div>
+    </div>
+    <div class="section">
+      <h3>Linked Devices</h3>
+      <div id="linkedDevices">
+        <!-- Devices will appear here -->
+      </div>
+      <h3>View this extension's usage on a different device</h3>
+      <button id="generateCodeBtn" class="btn">Generate Linking Code</button>
+      <div id="linkingCodeContainer" style="display: none;">
+        <p>Your linking code: <span id="linkingCode"></span></p>
+        <p>Enter this code on your mobile device</p>
+      </div>
+    </div>
+    <script src="popup.js"></script>
+  </body>
+</html>

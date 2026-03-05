@@ -1,0 +1,33 @@
+# macOS
+.DS_Store
+._*
+
+# Xcode
+DerivedData/
+build/
+*.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+**/*.xcuserstate
+SourcePackages/
+*.noindex/
+*.noindex
+
+# Android
+.gradle/
+**/build/
+local.properties
+.idea/
+*.iml
+.cxx/
+
+# Node
+node_modules/
+
+# Python
+__pycache__/
+*.pyc
+venv/
+
+# General
+*.log
+*.tmp

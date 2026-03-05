@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="result_title" type="id" />
+    <item name="result_url" type="id" />
+    <item name="result_query" type="id" />
+</resources>

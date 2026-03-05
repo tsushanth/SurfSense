@@ -1,0 +1,37 @@
+{
+  "name": "usage-tracker-backend",
+  "version": "2.0.0",
+  "description": "backend to track usage for website tracker",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tsushanth/usage-tracker-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tsushanth/usage-tracker-backend/issues"
+  },
+  "homepage": "https://github.com/tsushanth/usage-tracker-backend#readme",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.49.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "express-rate-limit": "^7.5.0",
+    "openai": "^4.98.0",
+    "p-limit": "^7.3.0",
+    "pino": "^9.6.0"
+  },
+  "devDependencies": {
+    "pino-pretty": "^13.0.0",
+    "vitest": "^4.0.18"
+  }
+}
