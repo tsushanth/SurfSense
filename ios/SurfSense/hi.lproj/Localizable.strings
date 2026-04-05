@@ -1,0 +1,177 @@
+/* Localizable.strings - Hindi
+   SurfSense */
+
+/* MARK: - Tab Bar (MainContentView) */
+"This Device" = "यह डिवाइस";
+"Linked Devices" = "जुड़े हुए डिवाइस";
+"Trends" = "रुझान";
+"Settings" = "सेटिंग्स";
+
+/* MARK: - AddDeviceView */
+"Add Device" = "डिवाइस जोड़ें";
+"Enter the 6-digit code from the device you want to link" = "जिस डिवाइस को जोड़ना चाहते हैं उसका 6 अंकों का कोड दर्ज करें";
+"Device Code" = "डिवाइस कोड";
+"Linking Device..." = "डिवाइस जोड़ा जा रहा है...";
+"Link Device" = "डिवाइस जोड़ें";
+"Device Linked!" = "डिवाइस जुड़ गया!";
+"OK" = "ठीक है";
+"Unknown Device" = "अज्ञात डिवाइस";
+
+/* MARK: - CategoryBreakdownView / TotalUsageCard */
+"Category Breakdown" = "श्रेणी विश्लेषण";
+"Total Screen Time" = "कुल स्क्रीन टाइम";
+
+/* MARK: - CodeDisplayView */
+"Your sharing code:" = "आपका शेयरिंग कोड:";
+"Code expires in %@ minutes" = "कोड %@ मिनट में समाप्त हो जाएगा";
+"Copy Code" = "कोड कॉपी करें";
+"New Code" = "नया कोड";
+"Code Copied!" = "कोड कॉपी हो गया!";
+"The sharing code has been copied to your clipboard." = "शेयरिंग कोड आपके क्लिपबोर्ड में कॉपी हो गया है।";
+
+/* MARK: - DailyUsageSummaryCard / UnifiedUsageCard */
+"Total screen time today" = "आज का कुल स्क्रीन टाइम";
+
+/* MARK: - DeviceRow */
+"Last sync: %@" = "आखिरी सिंक: %@";
+"Unlink" = "अलग करें";
+
+/* MARK: - ErrorViewComponent */
+"Try Again" = "फिर से कोशिश करें";
+
+/* MARK: - InfoCardComponent */
+"How to get a code" = "कोड कैसे प्राप्त करें";
+"Open the app on the device you want to link" = "जिस डिवाइस को जोड़ना चाहते हैं उस पर ऐप खोलें";
+"Go to Linked Devices tab" = "जुड़े हुए डिवाइस टैब पर जाएं";
+"Tap 'Share This Device'" = "'इस डिवाइस को शेयर करें' पर टैप करें";
+"Generate and share the 6-digit code" = "6 अंकों का कोड बनाएं और शेयर करें";
+
+/* MARK: - LinkedDeviceCard */
+"Last seen %@" = "आखिरी बार देखा गया %@";
+"View details" = "विवरण देखें";
+
+/* MARK: - LinkedDevicesView */
+"Quick Actions" = "त्वरित कार्य";
+"Share This Device" = "इस डिवाइस को शेयर करें";
+"Loading linked devices..." = "जुड़े हुए डिवाइस लोड हो रहे हैं...";
+"Remove Device" = "डिवाइस हटाएं";
+"Cancel" = "रद्द करें";
+"Remove" = "हटाएं";
+"Are you sure you want to remove %@? This device will no longer be able to track your usage." = "क्या आप वाकई %@ को हटाना चाहते हैं? यह डिवाइस अब आपके उपयोग को ट्रैक नहीं कर पाएगा।";
+"Linked Devices (%@)" = "जुड़े हुए डिवाइस (%@)";
+
+/* MARK: - PrivacyNoticeCard */
+"Privacy Notice" = "गोपनीयता सूचना";
+"Sharing this code will allow others to view your device usage data. Only share with trusted individuals." = "इस कोड को शेयर करने से दूसरे आपके डिवाइस उपयोग डेटा को देख सकेंगे। केवल भरोसेमंद लोगों के साथ शेयर करें।";
+
+/* MARK: - QuickStatsView */
+"Quick Stats" = "त्वरित आंकड़े";
+"Most used category" = "सबसे ज़्यादा उपयोग की गई श्रेणी";
+
+/* MARK: - SettingsView */
+"Screen Time Auth" = "स्क्रीन टाइम प्रमाणीकरण";
+"API Key" = "API कुंजी";
+"Stored" = "संग्रहीत";
+"Missing" = "अनुपलब्ध";
+"Last Data Update" = "आखिरी डेटा अपडेट";
+"Never" = "कभी नहीं";
+"Cached Categories" = "कैश्ड श्रेणियां";
+"Diagnostics" = "डायग्नोस्टिक्स";
+"Screen Time tracking requires a physical device with Screen Time enabled in iOS Settings." = "स्क्रीन टाइम ट्रैकिंग के लिए iOS सेटिंग्स में स्क्रीन टाइम सक्षम वाला एक भौतिक डिवाइस आवश्यक है।";
+"Auto Sync" = "ऑटो सिंक";
+"Sync Interval" = "सिंक अंतराल";
+"%@ minutes" = "%@ मिनट";
+"Data Sync" = "डेटा सिंक";
+"When enabled, usage data syncs automatically across your linked devices." = "सक्षम होने पर, उपयोग डेटा आपके जुड़े हुए डिवाइसों में स्वचालित रूप से सिंक होता है।";
+"Usage Alerts" = "उपयोग अलर्ट";
+"Weekly Reports" = "साप्ताहिक रिपोर्ट";
+"Notifications" = "सूचनाएं";
+"Receive insights about your device usage patterns." = "अपने डिवाइस उपयोग पैटर्न के बारे में जानकारी प्राप्त करें।";
+"Device ID" = "डिवाइस ID";
+"Copy Full ID" = "पूरी ID कॉपी करें";
+"Device Name" = "डिवाइस का नाम";
+"Device" = "डिवाइस";
+"About" = "ऐप के बारे में";
+"Version" = "संस्करण";
+"Privacy Policy" = "गोपनीयता नीति";
+"Terms of Service" = "सेवा की शर्तें";
+"Reset All Data" = "सभी डेटा रीसेट करें";
+"This will remove all local data and unlink all devices." = "इससे सभी स्थानीय डेटा हटा दिया जाएगा और सभी डिवाइस अलग हो जाएंगे।";
+"Reset All Data?" = "सभी डेटा रीसेट करें?";
+"Reset" = "रीसेट";
+"This action cannot be undone. All your local data will be deleted and devices will be unlinked." = "यह कार्रवाई पूर्ववत नहीं की जा सकती। आपका सभी स्थानीय डेटा हटा दिया जाएगा और डिवाइस अलग हो जाएंगे।";
+"Approved" = "स्वीकृत";
+"Denied" = "अस्वीकृत";
+"Not Requested" = "अनुरोधित नहीं";
+
+/* MARK: - AboutView */
+"SurfSense" = "SurfSense";
+"Track your digital wellness across all your devices" = "अपने सभी डिवाइसों पर अपनी डिजिटल वेलनेस को ट्रैक करें";
+"Made with ❤️" = "❤️ से बनाया गया";
+"© 2025 SurfSense" = "© 2025 SurfSense";
+"Done" = "हो गया";
+
+/* MARK: - ShareDeviceView */
+"Allow others to track this device" = "दूसरों को इस डिवाइस को ट्रैक करने दें";
+"Generate a code that others can use to link and monitor this device's usage" = "एक कोड बनाएं जिसे दूसरे इस डिवाइस के उपयोग को जोड़ने और मॉनिटर करने के लिए उपयोग कर सकते हैं";
+"Generating Code..." = "कोड बनाया जा रहा है...";
+"Generate Sharing Code" = "शेयरिंग कोड बनाएं";
+
+/* MARK: - SuccessViewComponent */
+"Successfully linked with" = "सफलतापूर्वक जुड़ गया:";
+"Add Another Device" = "एक और डिवाइस जोड़ें";
+
+/* MARK: - SupportingViews */
+"Unable to load devices" = "डिवाइस लोड नहीं हो सके";
+"No Linked Devices" = "कोई जुड़ा हुआ डिवाइस नहीं";
+"Add your first device to start tracking usage across all your devices" = "सभी डिवाइसों पर उपयोग ट्रैक करना शुरू करने के लिए अपना पहला डिवाइस जोड़ें";
+
+/* MARK: - ThisDeviceView */
+"Data updated: %@" = "डेटा अपडेट: %@";
+"No data from Screen Time extension yet. Scroll up to check the report above." = "स्क्रीन टाइम एक्सटेंशन से अभी तक कोई डेटा नहीं। ऊपर स्क्रॉल करके रिपोर्ट देखें।";
+"Syncing %@ categories..." = "%@ श्रेणियां सिंक हो रही हैं...";
+"Synced successfully" = "सफलतापूर्वक सिंक हो गया";
+"No usage data to sync — use your device and come back" = "सिंक करने के लिए कोई उपयोग डेटा नहीं — अपना डिवाइस इस्तेमाल करें और वापस आएं";
+"Sync to Server" = "सर्वर पर सिंक करें";
+"Syncing..." = "सिंक हो रहा है...";
+"Enable Screen Time Tracking" = "स्क्रीन टाइम ट्रैकिंग सक्षम करें";
+"SurfSense needs permission to access your screen time data. This uses Apple's Screen Time framework and requires Face ID or passcode verification." = "SurfSense को आपके स्क्रीन टाइम डेटा तक पहुंचने की अनुमति चाहिए। यह Apple के स्क्रीन टाइम फ्रेमवर्क का उपयोग करता है और Face ID या पासकोड सत्यापन की आवश्यकता होती है।";
+"Grant Access" = "एक्सेस दें";
+"Screen Time Access Denied" = "स्क्रीन टाइम एक्सेस अस्वीकृत";
+"Please ensure Screen Time is enabled in iOS Settings, then try granting access again." = "कृपया सुनिश्चित करें कि iOS सेटिंग्स में स्क्रीन टाइम सक्षम है, फिर दोबारा एक्सेस देने का प्रयास करें।";
+"Open Settings" = "सेटिंग्स खोलें";
+
+/* MARK: - TrendsView */
+"7 Days" = "7 दिन";
+"14 Days" = "14 दिन";
+"30 Days" = "30 दिन";
+"Time Period" = "समय अवधि";
+"Usage Trends" = "उपयोग रुझान";
+"No Usage Data Yet" = "अभी तक कोई उपयोग डेटा नहीं";
+"Start tracking your usage to see trends over time." = "समय के साथ रुझान देखने के लिए अपने उपयोग को ट्रैक करना शुरू करें।";
+"Summary" = "सारांश";
+"Total" = "कुल";
+"Daily Avg" = "दैनिक औसत";
+"Peak Day" = "शीर्ष दिन";
+"Daily Usage" = "दैनिक उपयोग";
+"Minutes" = "मिनट";
+"Daily Details" = "दैनिक विवरण";
+"No data" = "कोई डेटा नहीं";
+
+/* MARK: - TotalUsageCard (QuickStatsCard) */
+"Most used: %@" = "सबसे ज़्यादा उपयोग: %@";
+
+/* MARK: - UnifiedUsageCard */
+"All Devices" = "सभी डिवाइस";
+
+/* MARK: - ReportView (UsageReportExtension) */
+"No usage data yet" = "अभी तक कोई उपयोग डेटा नहीं";
+"Screen Time Today" = "आज का स्क्रीन टाइम";
+
+/* MARK: - ViewModels */
+"Unknown" = "अज्ञात";
+"None" = "कोई नहीं";
+"iPhone" = "iPhone";
+"Android Phone" = "Android फ़ोन";
+"Computer" = "कंप्यूटर";
+"Browser" = "ब्राउज़र";

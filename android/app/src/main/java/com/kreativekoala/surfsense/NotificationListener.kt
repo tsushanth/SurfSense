@@ -68,7 +68,7 @@ class NotificationListener : NotificationListenerService() {
 
         val builder = NotificationCompat.Builder(this, "notification_channel")
             .setSmallIcon(R.drawable.ic_notification)
-            .setContentTitle("New Notification: $title")
+            .setContentTitle(getString(R.string.new_notification_title, title))
             .setContentText(text)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setAutoCancel(true)

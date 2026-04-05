@@ -11,7 +11,7 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:text="URL"
+        android:text="@string/url_placeholder"
         android:maxLines="1"
         android:ellipsize="end"
         android:textSize="14sp"/>
@@ -20,7 +20,7 @@
         android:id="@+id/tvInterval"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="60 min"
+        android:text="@string/interval_placeholder"
         android:paddingEnd="8dp" />
 
     <ImageView
@@ -28,11 +28,11 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:src="@android:drawable/ic_menu_delete"
-        android:contentDescription="Delete" />
+        android:contentDescription="@string/cd_delete" />
     <ImageView
         android:id="@+id/btnRefresh"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:src="@drawable/baseline_refresh_24"
-        android:contentDescription="Refresh" />
+        android:contentDescription="@string/cd_refresh" />
 </LinearLayout>

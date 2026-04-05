@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">SurfSense</string>
+
+    <!-- Navigation Tabs -->
+    <string name="tab_this_device">هذا الجهاز</string>
+    <string name="tab_linked_devices">الأجهزة المرتبطة</string>
+    <string name="tab_trends">الاتجاهات</string>
+    <string name="tab_settings">الإعدادات</string>
+
+    <!-- Content Descriptions -->
+    <string name="cd_refresh">تحديث</string>
+
+    <!-- This Device Screen -->
+    <string name="loading_usage_data">جارٍ تحميل بيانات الاستخدام\u2026</string>
+    <string name="today_usage_title">استخدام اليوم</string>
+    <string name="no_usage_data_yet">لا توجد بيانات استخدام بعد</string>
+    <string name="no_usage_data_description">انقر على "مزامنة الآن" لجمع وتحميل بيانات استخدام جهازك. يتطلب ذلك إذن الوصول للاستخدام.</string>
+    <string name="sync_now">مزامنة الآن</string>
+
+    <!-- Linked Devices Screen -->
+    <string name="linked_devices_usage_title">استخدام الأجهزة المرتبطة</string>
+    <string name="no_linked_devices">لا توجد أجهزة مرتبطة</string>
+    <string name="no_linked_devices_description">أضف جهازك الأول لبدء تتبع الاستخدام عبر جميع أجهزتك</string>
+    <string name="add_device">إضافة جهاز</string>
+    <string name="share_this_device">مشاركة هذا الجهاز</string>
+
+    <!-- Remove Device Dialog -->
+    <string name="remove_device_title">إزالة الجهاز</string>
+    <string name="remove_device_message">هل أنت متأكد أنك تريد إزالة %1$s؟ لن يتمكن هذا الجهاز من تتبع استخدامك بعد الآن.</string>
+    <string name="remove">إزالة</string>
+    <string name="cancel">إلغاء</string>
+
+    <!-- Add Device Dialog -->
+    <string name="enter_code_prompt">أدخل الرمز المكون من %1$d أرقام من الجهاز الذي تريد ربطه</string>
+    <string name="device_code_label">رمز الجهاز</string>
+    <string name="device_linked_success">تم ربط الجهاز بنجاح!</string>
+    <string name="link_device">ربط الجهاز</string>
+    <string name="done">تم</string>
+
+    <!-- Share Device Dialog -->
+    <string name="share_device_description">أنشئ رمزًا يمكن للآخرين استخدامه لربط ومراقبة استخدام هذا الجهاز</string>
+    <string name="your_sharing_code">رمز المشاركة الخاص بك:</string>
+    <string name="code_expires_in">ينتهي الرمز خلال %1$d دقيقة</string>
+    <string name="copy">نسخ</string>
+    <string name="new_code">رمز جديد</string>
+    <string name="generating">جارٍ الإنشاء\u2026</string>
+    <string name="generate_sharing_code">إنشاء رمز مشاركة</string>
+    <string name="code_copied">تم نسخ الرمز</string>
+
+    <!-- Trends Screen -->
+    <string name="period_7_days">7 أيام</string>
+    <string name="period_14_days">14 يومًا</string>
+    <string name="period_30_days">30 يومًا</string>
+    <string name="no_usage_data_trends">لا توجد بيانات استخدام بعد</string>
+    <string name="no_usage_data_trends_description">ابدأ تتبع استخدامك لرؤية الاتجاهات بمرور الوقت.</string>
+    <string name="summary">ملخص</string>
+    <string name="stat_total">الإجمالي</string>
+    <string name="stat_daily_avg">المعدل اليومي</string>
+    <string name="stat_peak_day">يوم الذروة</string>
+    <string name="daily_usage">الاستخدام اليومي</string>
+    <string name="category_breakdown">تفصيل الفئات</string>
+    <string name="daily_details">التفاصيل اليومية</string>
+    <string name="no_data">لا توجد بيانات</string>
+    <string name="usage_trends_title">اتجاهات الاستخدام</string>
+
+    <!-- Settings Screen -->
+    <string name="section_data_sync">مزامنة البيانات</string>
+    <string name="auto_sync">مزامنة تلقائية</string>
+    <string name="sync_interval">فترة المزامنة</string>
+    <string name="sync_interval_value">%1$d دقيقة</string>
+    <string name="section_device">الجهاز</string>
+    <string name="device_id">معرّف الجهاز</string>
+    <string name="device_name">اسم الجهاز</string>
+    <string name="section_about">حول</string>
+    <string name="about">حول</string>
+    <string name="version">الإصدار</string>
+    <string name="privacy_policy">سياسة الخصوصية</string>
+    <string name="terms_of_service">شروط الخدمة</string>
+    <string name="section_data">البيانات</string>
+    <string name="reset_all_data">إعادة تعيين جميع البيانات</string>
+    <string name="reset_all_data_title">إعادة تعيين جميع البيانات؟</string>
+    <string name="reset_all_data_message">لا يمكن التراجع عن هذا الإجراء. سيتم حذف جميع بياناتك المحلية وإلغاء ربط الأجهزة.</string>
+    <string name="reset">إعادة تعيين</string>
+    <string name="data_reset">تم إعادة تعيين البيانات</string>
+
+    <!-- About Dialog -->
+    <string name="about_tagline">تتبع صحتك الرقمية عبر جميع أجهزتك</string>
+
+    <!-- Usage Card -->
+    <string name="total_screen_time_today">إجمالي وقت الشاشة اليوم</string>
+    <string name="quick_stats">إحصائيات سريعة</string>
+    <string name="most_used_category">الفئة الأكثر استخدامًا</string>
+
+    <!-- Layout XML -->
+    <string name="enter_6_digit_code">أدخل الرمز المكون من 6 أرقام</string>
+    <string name="fetching_code">جارٍ جلب الرمز\u2026</string>
+    <string name="enter_linking_code">أدخل رمز الربط</string>
+    <string name="cd_no_data">لا توجد بيانات</string>
+    <string name="cd_total">الإجمالي</string>
+    <string name="cd_average">المعدل</string>
+    <string name="cd_peak">الذروة</string>
+    <string name="default_time">0 س</string>
+    <string name="settings">الإعدادات</string>
+    <string name="refresh_data">تحديث البيانات</string>
+    <string name="url_placeholder">URL</string>
+    <string name="interval_placeholder">60 دقيقة</string>
+    <string name="cd_delete">حذف</string>
+
+    <!-- Notifications -->
+    <string name="new_notification_title">إشعار جديد: %1$s</string>
+</resources>

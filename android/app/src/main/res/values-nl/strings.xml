@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">SurfSense</string>
+
+    <!-- Navigation Tabs -->
+    <string name="tab_this_device">Dit apparaat</string>
+    <string name="tab_linked_devices">Gekoppelde apparaten</string>
+    <string name="tab_trends">Trends</string>
+    <string name="tab_settings">Instellingen</string>
+
+    <!-- Content Descriptions -->
+    <string name="cd_refresh">Vernieuwen</string>
+
+    <!-- This Device Screen -->
+    <string name="loading_usage_data">Gebruiksgegevens laden\u2026</string>
+    <string name="today_usage_title">Gebruik vandaag</string>
+    <string name="no_usage_data_yet">Nog geen gebruiksgegevens</string>
+    <string name="no_usage_data_description">Tik op \"Nu synchroniseren\" om de gebruiksgegevens van je apparaat te verzamelen en te uploaden. Hiervoor is de machtiging Gebruikstoegang vereist.</string>
+    <string name="sync_now">Nu synchroniseren</string>
+
+    <!-- Linked Devices Screen -->
+    <string name="linked_devices_usage_title">Gebruik gekoppelde apparaten</string>
+    <string name="no_linked_devices">Geen gekoppelde apparaten</string>
+    <string name="no_linked_devices_description">Voeg je eerste apparaat toe om het gebruik op al je apparaten bij te houden</string>
+    <string name="add_device">Apparaat toevoegen</string>
+    <string name="share_this_device">Dit apparaat delen</string>
+
+    <!-- Remove Device Dialog -->
+    <string name="remove_device_title">Apparaat verwijderen</string>
+    <string name="remove_device_message">Weet je zeker dat je %1$s wilt verwijderen? Dit apparaat kan je gebruik niet meer bijhouden.</string>
+    <string name="remove">Verwijderen</string>
+    <string name="cancel">Annuleren</string>
+
+    <!-- Add Device Dialog -->
+    <string name="enter_code_prompt">Voer de %1$d-cijferige code in van het apparaat dat je wilt koppelen</string>
+    <string name="device_code_label">Apparaatcode</string>
+    <string name="device_linked_success">Apparaat succesvol gekoppeld!</string>
+    <string name="link_device">Apparaat koppelen</string>
+    <string name="done">Klaar</string>
+
+    <!-- Share Device Dialog -->
+    <string name="share_device_description">Genereer een code die anderen kunnen gebruiken om het gebruik van dit apparaat te koppelen en te monitoren</string>
+    <string name="your_sharing_code">Je deelcode:</string>
+    <string name="code_expires_in">Code verloopt over %1$d minuten</string>
+    <string name="copy">Kopiëren</string>
+    <string name="new_code">Nieuwe code</string>
+    <string name="generating">Genereren\u2026</string>
+    <string name="generate_sharing_code">Deelcode genereren</string>
+    <string name="code_copied">Code gekopieerd</string>
+
+    <!-- Trends Screen -->
+    <string name="period_7_days">7 dagen</string>
+    <string name="period_14_days">14 dagen</string>
+    <string name="period_30_days">30 dagen</string>
+    <string name="no_usage_data_trends">Nog geen gebruiksgegevens</string>
+    <string name="no_usage_data_trends_description">Begin je gebruik bij te houden om trends te zien.</string>
+    <string name="summary">Samenvatting</string>
+    <string name="stat_total">Totaal</string>
+    <string name="stat_daily_avg">Dagelijks gem.</string>
+    <string name="stat_peak_day">Piekdag</string>
+    <string name="daily_usage">Dagelijks gebruik</string>
+    <string name="category_breakdown">Categorieoverzicht</string>
+    <string name="daily_details">Dagelijkse details</string>
+    <string name="no_data">Geen gegevens</string>
+    <string name="usage_trends_title">Gebruikstrends</string>
+
+    <!-- Settings Screen -->
+    <string name="section_data_sync">Gegevenssynchronisatie</string>
+    <string name="auto_sync">Automatisch synchroniseren</string>
+    <string name="sync_interval">Synchronisatie-interval</string>
+    <string name="sync_interval_value">%1$d minuten</string>
+    <string name="section_device">Apparaat</string>
+    <string name="device_id">Apparaat-ID</string>
+    <string name="device_name">Apparaatnaam</string>
+    <string name="section_about">Over</string>
+    <string name="about">Over</string>
+    <string name="version">Versie</string>
+    <string name="privacy_policy">Privacybeleid</string>
+    <string name="terms_of_service">Servicevoorwaarden</string>
+    <string name="section_data">Gegevens</string>
+    <string name="reset_all_data">Alle gegevens wissen</string>
+    <string name="reset_all_data_title">Alle gegevens wissen?</string>
+    <string name="reset_all_data_message">Deze actie kan niet ongedaan worden gemaakt. Al je lokale gegevens worden verwijderd en apparaten worden ontkoppeld.</string>
+    <string name="reset">Wissen</string>
+    <string name="data_reset">Gegevens gewist</string>
+
+    <!-- About Dialog -->
+    <string name="about_tagline">Houd je digitale welzijn bij op al je apparaten</string>
+
+    <!-- Usage Card -->
+    <string name="total_screen_time_today">Totale schermtijd vandaag</string>
+    <string name="quick_stats">Snelle statistieken</string>
+    <string name="most_used_category">Meest gebruikte categorie</string>
+
+    <!-- Layout XML -->
+    <string name="enter_6_digit_code">Voer 6-cijferige code in</string>
+    <string name="fetching_code">Code ophalen\u2026</string>
+    <string name="enter_linking_code">Voer koppelcode in</string>
+    <string name="cd_no_data">Geen gegevens</string>
+    <string name="cd_total">Totaal</string>
+    <string name="cd_average">Gemiddelde</string>
+    <string name="cd_peak">Piek</string>
+    <string name="default_time">0u</string>
+    <string name="settings">Instellingen</string>
+    <string name="refresh_data">Gegevens vernieuwen</string>
+    <string name="url_placeholder">URL</string>
+    <string name="interval_placeholder">60 min</string>
+    <string name="cd_delete">Verwijderen</string>
+
+    <!-- Notifications -->
+    <string name="new_notification_title">Nieuwe melding: %1$s</string>
+</resources>

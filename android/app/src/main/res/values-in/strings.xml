@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">SurfSense</string>
+
+    <!-- Navigation Tabs -->
+    <string name="tab_this_device">Perangkat Ini</string>
+    <string name="tab_linked_devices">Perangkat Tertaut</string>
+    <string name="tab_trends">Tren</string>
+    <string name="tab_settings">Pengaturan</string>
+
+    <!-- Content Descriptions -->
+    <string name="cd_refresh">Segarkan</string>
+
+    <!-- This Device Screen -->
+    <string name="loading_usage_data">Memuat data penggunaan\u2026</string>
+    <string name="today_usage_title">Penggunaan Hari Ini</string>
+    <string name="no_usage_data_yet">Belum Ada Data Penggunaan</string>
+    <string name="no_usage_data_description">Ketuk "Sinkronkan Sekarang" untuk mengumpulkan dan mengunggah data penggunaan perangkat Anda. Ini memerlukan izin Akses Penggunaan.</string>
+    <string name="sync_now">Sinkronkan Sekarang</string>
+
+    <!-- Linked Devices Screen -->
+    <string name="linked_devices_usage_title">Penggunaan Perangkat Tertaut</string>
+    <string name="no_linked_devices">Tidak Ada Perangkat Tertaut</string>
+    <string name="no_linked_devices_description">Tambahkan perangkat pertama Anda untuk mulai melacak penggunaan di semua perangkat Anda</string>
+    <string name="add_device">Tambah Perangkat</string>
+    <string name="share_this_device">Bagikan Perangkat Ini</string>
+
+    <!-- Remove Device Dialog -->
+    <string name="remove_device_title">Hapus Perangkat</string>
+    <string name="remove_device_message">Apakah Anda yakin ingin menghapus %1$s? Perangkat ini tidak akan dapat melacak penggunaan Anda lagi.</string>
+    <string name="remove">Hapus</string>
+    <string name="cancel">Batal</string>
+
+    <!-- Add Device Dialog -->
+    <string name="enter_code_prompt">Masukkan kode %1$d digit dari perangkat yang ingin Anda tautkan</string>
+    <string name="device_code_label">Kode Perangkat</string>
+    <string name="device_linked_success">Perangkat berhasil ditautkan!</string>
+    <string name="link_device">Tautkan Perangkat</string>
+    <string name="done">Selesai</string>
+
+    <!-- Share Device Dialog -->
+    <string name="share_device_description">Buat kode yang dapat digunakan orang lain untuk menautkan dan memantau penggunaan perangkat ini</string>
+    <string name="your_sharing_code">Kode berbagi Anda:</string>
+    <string name="code_expires_in">Kode kedaluwarsa dalam %1$d menit</string>
+    <string name="copy">Salin</string>
+    <string name="new_code">Kode Baru</string>
+    <string name="generating">Membuat\u2026</string>
+    <string name="generate_sharing_code">Buat Kode Berbagi</string>
+    <string name="code_copied">Kode disalin</string>
+
+    <!-- Trends Screen -->
+    <string name="period_7_days">7 Hari</string>
+    <string name="period_14_days">14 Hari</string>
+    <string name="period_30_days">30 Hari</string>
+    <string name="no_usage_data_trends">Belum Ada Data Penggunaan</string>
+    <string name="no_usage_data_trends_description">Mulai lacak penggunaan Anda untuk melihat tren dari waktu ke waktu.</string>
+    <string name="summary">Ringkasan</string>
+    <string name="stat_total">Total</string>
+    <string name="stat_daily_avg">Rata-rata Harian</string>
+    <string name="stat_peak_day">Hari Puncak</string>
+    <string name="daily_usage">Penggunaan Harian</string>
+    <string name="category_breakdown">Rincian Kategori</string>
+    <string name="daily_details">Detail Harian</string>
+    <string name="no_data">Tidak ada data</string>
+    <string name="usage_trends_title">Tren Penggunaan</string>
+
+    <!-- Settings Screen -->
+    <string name="section_data_sync">Sinkronisasi Data</string>
+    <string name="auto_sync">Sinkronisasi Otomatis</string>
+    <string name="sync_interval">Interval Sinkronisasi</string>
+    <string name="sync_interval_value">%1$d menit</string>
+    <string name="section_device">Perangkat</string>
+    <string name="device_id">ID Perangkat</string>
+    <string name="device_name">Nama Perangkat</string>
+    <string name="section_about">Tentang</string>
+    <string name="about">Tentang</string>
+    <string name="version">Versi</string>
+    <string name="privacy_policy">Kebijakan Privasi</string>
+    <string name="terms_of_service">Ketentuan Layanan</string>
+    <string name="section_data">Data</string>
+    <string name="reset_all_data">Atur Ulang Semua Data</string>
+    <string name="reset_all_data_title">Atur Ulang Semua Data?</string>
+    <string name="reset_all_data_message">Tindakan ini tidak dapat dibatalkan. Semua data lokal Anda akan dihapus dan perangkat akan ditautkan ulang.</string>
+    <string name="reset">Atur Ulang</string>
+    <string name="data_reset">Data diatur ulang</string>
+
+    <!-- About Dialog -->
+    <string name="about_tagline">Lacak kesehatan digital Anda di semua perangkat</string>
+
+    <!-- Usage Card -->
+    <string name="total_screen_time_today">Total waktu layar hari ini</string>
+    <string name="quick_stats">Statistik Cepat</string>
+    <string name="most_used_category">Kategori paling banyak digunakan</string>
+
+    <!-- Layout XML -->
+    <string name="enter_6_digit_code">Masukkan Kode 6 Digit</string>
+    <string name="fetching_code">Mengambil kode\u2026</string>
+    <string name="enter_linking_code">Masukkan kode tautan</string>
+    <string name="cd_no_data">Tidak ada data</string>
+    <string name="cd_total">Total</string>
+    <string name="cd_average">Rata-rata</string>
+    <string name="cd_peak">Puncak</string>
+    <string name="default_time">0j</string>
+    <string name="settings">Pengaturan</string>
+    <string name="refresh_data">Segarkan Data</string>
+    <string name="url_placeholder">URL</string>
+    <string name="interval_placeholder">60 mnt</string>
+    <string name="cd_delete">Hapus</string>
+
+    <!-- Notifications -->
+    <string name="new_notification_title">Notifikasi Baru: %1$s</string>
+</resources>

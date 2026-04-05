@@ -1,0 +1,121 @@
+<resources>
+    <string name="app_name">SurfSense</string>
+
+    <!-- Navigation Tabs -->
+    <string name="tab_this_device">Cet Appareil</string>
+    <string name="tab_linked_devices">Appareils Liés</string>
+    <string name="tab_trends">Tendances</string>
+    <string name="tab_settings">Paramètres</string>
+
+    <!-- Content Descriptions -->
+    <string name="cd_refresh">Actualiser</string>
+
+    <!-- This Device Screen -->
+    <string name="loading_usage_data">Chargement des données d\'utilisation\u2026</string>
+    <string name="today_usage_title">Utilisation d\'Aujourd\'hui</string>
+    <string name="no_usage_data_yet">Pas Encore de Données d\'Utilisation</string>
+    <string name="no_usage_data_description">Appuyez sur « Synchroniser Maintenant » pour collecter et téléverser les données d\'utilisation de votre appareil. Cela nécessite l\'autorisation d\'accès aux données d\'utilisation.</string>
+    <string name="sync_now">Synchroniser Maintenant</string>
+
+    <!-- Linked Devices Screen -->
+    <string name="linked_devices_usage_title">Utilisation des Appareils Liés</string>
+    <string name="no_linked_devices">Aucun Appareil Lié</string>
+    <string name="no_linked_devices_description">Ajoutez votre premier appareil pour commencer à suivre l\'utilisation sur tous vos appareils</string>
+    <string name="add_device">Ajouter un Appareil</string>
+    <string name="share_this_device">Partager Cet Appareil</string>
+
+    <!-- Remove Device Dialog -->
+    <string name="remove_device_title">Supprimer l\'Appareil</string>
+    <string name="remove_device_message">Êtes-vous sûr de vouloir supprimer %1$s ? Cet appareil ne pourra plus suivre votre utilisation.</string>
+    <string name="remove">Supprimer</string>
+    <string name="cancel">Annuler</string>
+
+    <!-- Add Device Dialog -->
+    <string name="enter_code_prompt">Entrez le code à %1$d chiffres de l\'appareil que vous souhaitez lier</string>
+    <string name="device_code_label">Code de l\'Appareil</string>
+    <string name="device_linked_success">Appareil lié avec succès !</string>
+    <string name="link_device">Lier l\'Appareil</string>
+    <string name="done">Terminé</string>
+
+    <!-- Share Device Dialog -->
+    <string name="share_device_description">Générez un code que d\'autres peuvent utiliser pour lier et surveiller l\'utilisation de cet appareil</string>
+    <string name="your_sharing_code">Votre code de partage :</string>
+    <string name="code_expires_in">Le code expire dans %1$d minutes</string>
+    <string name="copy">Copier</string>
+    <string name="new_code">Nouveau Code</string>
+    <string name="generating">Génération\u2026</string>
+    <string name="generate_sharing_code">Générer un Code de Partage</string>
+    <string name="code_copied">Code copié</string>
+
+    <!-- Trends Screen -->
+    <string name="period_7_days">7 Jours</string>
+    <string name="period_14_days">14 Jours</string>
+    <string name="period_30_days">30 Jours</string>
+    <string name="no_usage_data_trends">Pas Encore de Données d\'Utilisation</string>
+    <string name="no_usage_data_trends_description">Commencez à suivre votre utilisation pour voir les tendances au fil du temps.</string>
+    <string name="summary">Résumé</string>
+    <string name="stat_total">Total</string>
+    <string name="stat_daily_avg">Moyenne Quotidienne</string>
+    <string name="stat_peak_day">Jour de Pointe</string>
+    <string name="daily_usage">Utilisation Quotidienne</string>
+    <string name="category_breakdown">Répartition par Catégorie</string>
+    <string name="daily_details">Détails Quotidiens</string>
+    <string name="no_data">Aucune donnée</string>
+    <string name="usage_trends_title">Tendances d\'Utilisation</string>
+
+    <!-- Settings Screen -->
+    <string name="section_data_sync">Synchronisation des Données</string>
+    <string name="auto_sync">Synchronisation Automatique</string>
+    <string name="sync_interval">Intervalle de Synchronisation</string>
+    <string name="sync_interval_value">%1$d minutes</string>
+    <string name="section_device">Appareil</string>
+    <string name="device_id">ID de l\'Appareil</string>
+    <string name="device_name">Nom de l\'Appareil</string>
+    <string name="section_about">À Propos</string>
+    <string name="about">À Propos</string>
+    <string name="version">Version</string>
+    <string name="privacy_policy">Politique de Confidentialité</string>
+    <string name="terms_of_service">Conditions d\'Utilisation</string>
+    <string name="section_data">Données</string>
+    <string name="reset_all_data">Réinitialiser Toutes les Données</string>
+    <string name="reset_all_data_title">Réinitialiser Toutes les Données ?</string>
+    <string name="reset_all_data_message">Cette action est irréversible. Toutes vos données locales seront supprimées et les appareils seront déliés.</string>
+    <string name="reset">Réinitialiser</string>
+    <string name="data_reset">Données réinitialisées</string>
+
+    <!-- About Dialog -->
+    <string name="about_tagline">Suivez votre bien-être numérique sur tous vos appareils</string>
+
+    <!-- Usage Card -->
+    <string name="total_screen_time_today">Temps d\'écran total aujourd\'hui</string>
+    <string name="quick_stats">Statistiques Rapides</string>
+    <string name="most_used_category">Catégorie la plus utilisée</string>
+
+    <!-- Layout XML: dialog_link_device.xml -->
+    <string name="enter_6_digit_code">Entrez le Code à 6 Chiffres</string>
+
+    <!-- Layout XML: dialog_generate_code.xml -->
+    <string name="fetching_code">Récupération du code\u2026</string>
+
+    <!-- Layout XML: activity_link_device.xml -->
+    <string name="enter_linking_code">Entrez le code de liaison</string>
+
+    <!-- Layout XML: activity_trends.xml -->
+    <string name="cd_no_data">Aucune donnée</string>
+    <string name="cd_total">Total</string>
+    <string name="cd_average">Moyenne</string>
+    <string name="cd_peak">Pointe</string>
+    <string name="default_time">0h</string>
+
+    <!-- Layout XML: activity_main.xml -->
+    <string name="settings">Paramètres</string>
+    <string name="refresh_data">Actualiser les Données</string>
+
+    <!-- Layout XML: item_tracker_row.xml -->
+    <string name="url_placeholder">URL</string>
+    <string name="interval_placeholder">60 min</string>
+    <string name="cd_delete">Supprimer</string>
+
+    <!-- Notifications -->
+    <string name="new_notification_title">Nouvelle Notification : %1$s</string>
+</resources>

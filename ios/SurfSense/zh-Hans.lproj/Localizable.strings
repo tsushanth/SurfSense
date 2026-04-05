@@ -1,0 +1,177 @@
+/* Localizable.strings - Simplified Chinese
+   SurfSense */
+
+/* MARK: - Tab Bar (MainContentView) */
+"This Device" = "此设备";
+"Linked Devices" = "已关联设备";
+"Trends" = "趋势";
+"Settings" = "设置";
+
+/* MARK: - AddDeviceView */
+"Add Device" = "添加设备";
+"Enter the 6-digit code from the device you want to link" = "输入要关联设备的6位代码";
+"Device Code" = "设备代码";
+"Linking Device..." = "正在关联设备...";
+"Link Device" = "关联设备";
+"Device Linked!" = "设备已关联！";
+"OK" = "好";
+"Unknown Device" = "未知设备";
+
+/* MARK: - CategoryBreakdownView / TotalUsageCard */
+"Category Breakdown" = "分类详情";
+"Total Screen Time" = "总屏幕使用时间";
+
+/* MARK: - CodeDisplayView */
+"Your sharing code:" = "您的共享代码：";
+"Code expires in %@ minutes" = "代码将在%@分钟后过期";
+"Copy Code" = "复制代码";
+"New Code" = "新代码";
+"Code Copied!" = "代码已复制！";
+"The sharing code has been copied to your clipboard." = "共享代码已复制到剪贴板。";
+
+/* MARK: - DailyUsageSummaryCard / UnifiedUsageCard */
+"Total screen time today" = "今日总屏幕使用时间";
+
+/* MARK: - DeviceRow */
+"Last sync: %@" = "上次同步：%@";
+"Unlink" = "取消关联";
+
+/* MARK: - ErrorViewComponent */
+"Try Again" = "重试";
+
+/* MARK: - InfoCardComponent */
+"How to get a code" = "如何获取代码";
+"Open the app on the device you want to link" = "在要关联的设备上打开应用";
+"Go to Linked Devices tab" = "前往已关联设备选项卡";
+"Tap 'Share This Device'" = "点击\"共享此设备\"";
+"Generate and share the 6-digit code" = "生成并共享6位代码";
+
+/* MARK: - LinkedDeviceCard */
+"Last seen %@" = "上次在线 %@";
+"View details" = "查看详情";
+
+/* MARK: - LinkedDevicesView */
+"Quick Actions" = "快捷操作";
+"Share This Device" = "共享此设备";
+"Loading linked devices..." = "正在加载已关联设备...";
+"Remove Device" = "移除设备";
+"Cancel" = "取消";
+"Remove" = "移除";
+"Are you sure you want to remove %@? This device will no longer be able to track your usage." = "确定要移除%@吗？此设备将无法再追踪您的使用情况。";
+"Linked Devices (%@)" = "已关联设备 (%@)";
+
+/* MARK: - PrivacyNoticeCard */
+"Privacy Notice" = "隐私声明";
+"Sharing this code will allow others to view your device usage data. Only share with trusted individuals." = "共享此代码将允许他人查看您的设备使用数据。请仅与信任的人共享。";
+
+/* MARK: - QuickStatsView */
+"Quick Stats" = "快速统计";
+"Most used category" = "最常使用的类别";
+
+/* MARK: - SettingsView */
+"Screen Time Auth" = "屏幕使用时间授权";
+"API Key" = "API密钥";
+"Stored" = "已存储";
+"Missing" = "缺失";
+"Last Data Update" = "上次数据更新";
+"Never" = "从未";
+"Cached Categories" = "缓存的类别";
+"Diagnostics" = "诊断";
+"Screen Time tracking requires a physical device with Screen Time enabled in iOS Settings." = "屏幕使用时间追踪需要在iOS设置中启用屏幕使用时间的实体设备。";
+"Auto Sync" = "自动同步";
+"Sync Interval" = "同步间隔";
+"%@ minutes" = "%@分钟";
+"Data Sync" = "数据同步";
+"When enabled, usage data syncs automatically across your linked devices." = "启用后，使用数据将在您的已关联设备之间自动同步。";
+"Usage Alerts" = "使用提醒";
+"Weekly Reports" = "每周报告";
+"Notifications" = "通知";
+"Receive insights about your device usage patterns." = "接收有关您设备使用模式的洞察。";
+"Device ID" = "设备ID";
+"Copy Full ID" = "复制完整ID";
+"Device Name" = "设备名称";
+"Device" = "设备";
+"About" = "关于";
+"Version" = "版本";
+"Privacy Policy" = "隐私政策";
+"Terms of Service" = "服务条款";
+"Reset All Data" = "重置所有数据";
+"This will remove all local data and unlink all devices." = "这将删除所有本地数据并取消关联所有设备。";
+"Reset All Data?" = "重置所有数据？";
+"Reset" = "重置";
+"This action cannot be undone. All your local data will be deleted and devices will be unlinked." = "此操作无法撤消。所有本地数据将被删除，设备将被取消关联。";
+"Approved" = "已批准";
+"Denied" = "已拒绝";
+"Not Requested" = "未请求";
+
+/* MARK: - AboutView */
+"SurfSense" = "SurfSense";
+"Track your digital wellness across all your devices" = "在所有设备上追踪您的数字健康";
+"Made with ❤️" = "用❤️制作";
+"© 2025 SurfSense" = "© 2025 SurfSense";
+"Done" = "完成";
+
+/* MARK: - ShareDeviceView */
+"Allow others to track this device" = "允许他人追踪此设备";
+"Generate a code that others can use to link and monitor this device's usage" = "生成一个代码，他人可以使用它来关联和监控此设备的使用情况";
+"Generating Code..." = "正在生成代码...";
+"Generate Sharing Code" = "生成共享代码";
+
+/* MARK: - SuccessViewComponent */
+"Successfully linked with" = "已成功关联";
+"Add Another Device" = "添加另一个设备";
+
+/* MARK: - SupportingViews */
+"Unable to load devices" = "无法加载设备";
+"No Linked Devices" = "无已关联设备";
+"Add your first device to start tracking usage across all your devices" = "添加您的第一个设备，开始追踪所有设备的使用情况";
+
+/* MARK: - ThisDeviceView */
+"Data updated: %@" = "数据更新：%@";
+"No data from Screen Time extension yet. Scroll up to check the report above." = "屏幕使用时间扩展尚无数据。请向上滚动查看上方的报告。";
+"Syncing %@ categories..." = "正在同步%@个类别...";
+"Synced successfully" = "同步成功";
+"No usage data to sync — use your device and come back" = "没有可同步的使用数据——请使用您的设备后再回来";
+"Sync to Server" = "同步到服务器";
+"Syncing..." = "同步中...";
+"Enable Screen Time Tracking" = "启用屏幕使用时间追踪";
+"SurfSense needs permission to access your screen time data. This uses Apple's Screen Time framework and requires Face ID or passcode verification." = "SurfSense需要权限来访问您的屏幕使用时间数据。这使用Apple的屏幕使用时间框架，需要Face ID或密码验证。";
+"Grant Access" = "授予访问权限";
+"Screen Time Access Denied" = "屏幕使用时间访问被拒绝";
+"Please ensure Screen Time is enabled in iOS Settings, then try granting access again." = "请确保在iOS设置中启用了屏幕使用时间，然后再次尝试授予访问权限。";
+"Open Settings" = "打开设置";
+
+/* MARK: - TrendsView */
+"7 Days" = "7天";
+"14 Days" = "14天";
+"30 Days" = "30天";
+"Time Period" = "时间段";
+"Usage Trends" = "使用趋势";
+"No Usage Data Yet" = "暂无使用数据";
+"Start tracking your usage to see trends over time." = "开始追踪您的使用情况，查看随时间变化的趋势。";
+"Summary" = "摘要";
+"Total" = "总计";
+"Daily Avg" = "日均";
+"Peak Day" = "峰值日";
+"Daily Usage" = "每日使用";
+"Minutes" = "分钟";
+"Daily Details" = "每日详情";
+"No data" = "无数据";
+
+/* MARK: - TotalUsageCard (QuickStatsCard) */
+"Most used: %@" = "最常使用：%@";
+
+/* MARK: - UnifiedUsageCard */
+"All Devices" = "所有设备";
+
+/* MARK: - ReportView (UsageReportExtension) */
+"No usage data yet" = "暂无使用数据";
+"Screen Time Today" = "今日屏幕使用时间";
+
+/* MARK: - ViewModels */
+"Unknown" = "未知";
+"None" = "无";
+"iPhone" = "iPhone";
+"Android Phone" = "Android手机";
+"Computer" = "电脑";
+"Browser" = "浏览器";

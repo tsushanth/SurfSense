@@ -1,0 +1,121 @@
+<resources>
+    <string name="app_name">SurfSense</string>
+
+    <!-- Navigation Tabs -->
+    <string name="tab_this_device">Ang Device na Ito</string>
+    <string name="tab_linked_devices">Mga Naka-link na Device</string>
+    <string name="tab_trends">Mga Trend</string>
+    <string name="tab_settings">Mga Setting</string>
+
+    <!-- Content Descriptions -->
+    <string name="cd_refresh">I-refresh</string>
+
+    <!-- This Device Screen -->
+    <string name="loading_usage_data">Nilo-load ang data ng paggamit\u2026</string>
+    <string name="today_usage_title">Paggamit Ngayong Araw</string>
+    <string name="no_usage_data_yet">Wala Pang Data ng Paggamit</string>
+    <string name="no_usage_data_description">I-tap ang "I-sync Ngayon" upang mangolekta at mag-upload ng data ng paggamit ng iyong device. Nangangailangan ito ng pahintulot sa Pag-access ng Paggamit.</string>
+    <string name="sync_now">I-sync Ngayon</string>
+
+    <!-- Linked Devices Screen -->
+    <string name="linked_devices_usage_title">Paggamit ng Mga Naka-link na Device</string>
+    <string name="no_linked_devices">Walang Naka-link na Device</string>
+    <string name="no_linked_devices_description">Magdagdag ng iyong unang device upang simulan ang pagsubaybay sa paggamit sa lahat ng iyong mga device</string>
+    <string name="add_device">Magdagdag ng Device</string>
+    <string name="share_this_device">Ibahagi ang Device na Ito</string>
+
+    <!-- Remove Device Dialog -->
+    <string name="remove_device_title">Alisin ang Device</string>
+    <string name="remove_device_message">Sigurado ka bang gusto mong alisin ang %1$s? Ang device na ito ay hindi na makakasubaybay sa iyong paggamit.</string>
+    <string name="remove">Alisin</string>
+    <string name="cancel">Kanselahin</string>
+
+    <!-- Add Device Dialog -->
+    <string name="enter_code_prompt">Ilagay ang %1$d-digit na code mula sa device na gusto mong i-link</string>
+    <string name="device_code_label">Code ng Device</string>
+    <string name="device_linked_success">Matagumpay na na-link ang device!</string>
+    <string name="link_device">I-link ang Device</string>
+    <string name="done">Tapos na</string>
+
+    <!-- Share Device Dialog -->
+    <string name="share_device_description">Gumawa ng code na magagamit ng iba upang mag-link at subaybayan ang paggamit ng device na ito</string>
+    <string name="your_sharing_code">Ang iyong sharing code:</string>
+    <string name="code_expires_in">Mag-e-expire ang code sa %1$d minuto</string>
+    <string name="copy">Kopyahin</string>
+    <string name="new_code">Bagong Code</string>
+    <string name="generating">Ginagawa\u2026</string>
+    <string name="generate_sharing_code">Gumawa ng Sharing Code</string>
+    <string name="code_copied">Nakopya ang code</string>
+
+    <!-- Trends Screen -->
+    <string name="period_7_days">7 Araw</string>
+    <string name="period_14_days">14 na Araw</string>
+    <string name="period_30_days">30 Araw</string>
+    <string name="no_usage_data_trends">Wala Pang Data ng Paggamit</string>
+    <string name="no_usage_data_trends_description">Simulan ang pagsubaybay sa iyong paggamit upang makita ang mga trend sa paglipas ng panahon.</string>
+    <string name="summary">Buod</string>
+    <string name="stat_total">Kabuuan</string>
+    <string name="stat_daily_avg">Arawang Average</string>
+    <string name="stat_peak_day">Pinakamataas na Araw</string>
+    <string name="daily_usage">Arawang Paggamit</string>
+    <string name="category_breakdown">Detalye ng Kategorya</string>
+    <string name="daily_details">Mga Detalye Araw-araw</string>
+    <string name="no_data">Walang data</string>
+    <string name="usage_trends_title">Mga Trend ng Paggamit</string>
+
+    <!-- Settings Screen -->
+    <string name="section_data_sync">Pag-sync ng Data</string>
+    <string name="auto_sync">Awtomatikong Pag-sync</string>
+    <string name="sync_interval">Pagitan ng Pag-sync</string>
+    <string name="sync_interval_value">%1$d minuto</string>
+    <string name="section_device">Device</string>
+    <string name="device_id">ID ng Device</string>
+    <string name="device_name">Pangalan ng Device</string>
+    <string name="section_about">Tungkol</string>
+    <string name="about">Tungkol</string>
+    <string name="version">Bersyon</string>
+    <string name="privacy_policy">Patakaran sa Privacy</string>
+    <string name="terms_of_service">Mga Tuntunin ng Serbisyo</string>
+    <string name="section_data">Data</string>
+    <string name="reset_all_data">I-reset Lahat ng Data</string>
+    <string name="reset_all_data_title">I-reset Lahat ng Data?</string>
+    <string name="reset_all_data_message">Hindi na maibabalik ang aksyon na ito. Lahat ng iyong lokal na data ay mabubura at ang mga device ay madi-disconnect.</string>
+    <string name="reset">I-reset</string>
+    <string name="data_reset">Na-reset ang data</string>
+
+    <!-- About Dialog -->
+    <string name="about_tagline">Subaybayan ang iyong digital na kalusugan sa lahat ng iyong mga device</string>
+
+    <!-- Usage Card -->
+    <string name="total_screen_time_today">Kabuuang oras ng screen ngayong araw</string>
+    <string name="quick_stats">Mabilis na Estadistika</string>
+    <string name="most_used_category">Pinaka-ginagamit na kategorya</string>
+
+    <!-- Layout XML: dialog_link_device.xml -->
+    <string name="enter_6_digit_code">Ilagay ang 6 na Digit na Code</string>
+
+    <!-- Layout XML: dialog_generate_code.xml -->
+    <string name="fetching_code">Kinukuha ang code\u2026</string>
+
+    <!-- Layout XML: activity_link_device.xml -->
+    <string name="enter_linking_code">Ilagay ang linking code</string>
+
+    <!-- Layout XML: activity_trends.xml -->
+    <string name="cd_no_data">Walang data</string>
+    <string name="cd_total">Kabuuan</string>
+    <string name="cd_average">Average</string>
+    <string name="cd_peak">Pinakamataas</string>
+    <string name="default_time">0o</string>
+
+    <!-- Layout XML: activity_main.xml -->
+    <string name="settings">Mga Setting</string>
+    <string name="refresh_data">I-refresh ang Data</string>
+
+    <!-- Layout XML: item_tracker_row.xml -->
+    <string name="url_placeholder">URL</string>
+    <string name="interval_placeholder">60 min</string>
+    <string name="cd_delete">Tanggalin</string>
+
+    <!-- Notifications -->
+    <string name="new_notification_title">Bagong Notification: %1$s</string>
+</resources>

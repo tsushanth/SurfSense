@@ -38,7 +38,7 @@
                 style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Settings"
+                android:text="@string/settings"
                 app:icon="@drawable/ic_settings"
                 app:iconGravity="textStart"
                 app:iconTint="?android:attr/textColorPrimary" />
@@ -59,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:text="Refresh Data"
+            android:text="@string/refresh_data"
             app:icon="@drawable/ic_refresh"
             app:iconGravity="textStart"/>
 

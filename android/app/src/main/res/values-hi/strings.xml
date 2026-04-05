@@ -1,0 +1,121 @@
+<resources>
+    <string name="app_name">SurfSense</string>
+
+    <!-- Navigation Tabs -->
+    <string name="tab_this_device">यह डिवाइस</string>
+    <string name="tab_linked_devices">लिंक किए गए डिवाइस</string>
+    <string name="tab_trends">रुझान</string>
+    <string name="tab_settings">सेटिंग्स</string>
+
+    <!-- Content Descriptions -->
+    <string name="cd_refresh">रीफ़्रेश</string>
+
+    <!-- This Device Screen -->
+    <string name="loading_usage_data">उपयोग डेटा लोड हो रहा है\u2026</string>
+    <string name="today_usage_title">आज का उपयोग</string>
+    <string name="no_usage_data_yet">अभी कोई उपयोग डेटा नहीं</string>
+    <string name="no_usage_data_description">अपने डिवाइस का उपयोग डेटा एकत्र और अपलोड करने के लिए "अभी सिंक करें" पर टैप करें। इसके लिए उपयोग एक्सेस अनुमति आवश्यक है।</string>
+    <string name="sync_now">अभी सिंक करें</string>
+
+    <!-- Linked Devices Screen -->
+    <string name="linked_devices_usage_title">लिंक किए गए डिवाइस का उपयोग</string>
+    <string name="no_linked_devices">कोई लिंक किया गया डिवाइस नहीं</string>
+    <string name="no_linked_devices_description">अपने सभी डिवाइस पर उपयोग ट्रैकिंग शुरू करने के लिए अपना पहला डिवाइस जोड़ें</string>
+    <string name="add_device">डिवाइस जोड़ें</string>
+    <string name="share_this_device">यह डिवाइस शेयर करें</string>
+
+    <!-- Remove Device Dialog -->
+    <string name="remove_device_title">डिवाइस हटाएँ</string>
+    <string name="remove_device_message">क्या आप वाकई %1$s को हटाना चाहते हैं? यह डिवाइस अब आपके उपयोग को ट्रैक नहीं कर पाएगा।</string>
+    <string name="remove">हटाएँ</string>
+    <string name="cancel">रद्द करें</string>
+
+    <!-- Add Device Dialog -->
+    <string name="enter_code_prompt">जिस डिवाइस को लिंक करना चाहते हैं उसका %1$d अंकों का कोड दर्ज करें</string>
+    <string name="device_code_label">डिवाइस कोड</string>
+    <string name="device_linked_success">डिवाइस सफलतापूर्वक लिंक हो गया!</string>
+    <string name="link_device">डिवाइस लिंक करें</string>
+    <string name="done">हो गया</string>
+
+    <!-- Share Device Dialog -->
+    <string name="share_device_description">एक कोड जनरेट करें जिसका उपयोग अन्य लोग इस डिवाइस के उपयोग को लिंक और मॉनिटर करने के लिए कर सकते हैं</string>
+    <string name="your_sharing_code">आपका शेयरिंग कोड:</string>
+    <string name="code_expires_in">कोड %1$d मिनट में समाप्त हो जाएगा</string>
+    <string name="copy">कॉपी</string>
+    <string name="new_code">नया कोड</string>
+    <string name="generating">जनरेट हो रहा है\u2026</string>
+    <string name="generate_sharing_code">शेयरिंग कोड जनरेट करें</string>
+    <string name="code_copied">कोड कॉपी हो गया</string>
+
+    <!-- Trends Screen -->
+    <string name="period_7_days">7 दिन</string>
+    <string name="period_14_days">14 दिन</string>
+    <string name="period_30_days">30 दिन</string>
+    <string name="no_usage_data_trends">अभी कोई उपयोग डेटा नहीं</string>
+    <string name="no_usage_data_trends_description">समय के साथ रुझान देखने के लिए अपने उपयोग को ट्रैक करना शुरू करें।</string>
+    <string name="summary">सारांश</string>
+    <string name="stat_total">कुल</string>
+    <string name="stat_daily_avg">दैनिक औसत</string>
+    <string name="stat_peak_day">शीर्ष दिन</string>
+    <string name="daily_usage">दैनिक उपयोग</string>
+    <string name="category_breakdown">श्रेणी विश्लेषण</string>
+    <string name="daily_details">दैनिक विवरण</string>
+    <string name="no_data">कोई डेटा नहीं</string>
+    <string name="usage_trends_title">उपयोग रुझान</string>
+
+    <!-- Settings Screen -->
+    <string name="section_data_sync">डेटा सिंक</string>
+    <string name="auto_sync">ऑटो सिंक</string>
+    <string name="sync_interval">सिंक अंतराल</string>
+    <string name="sync_interval_value">%1$d मिनट</string>
+    <string name="section_device">डिवाइस</string>
+    <string name="device_id">डिवाइस आईडी</string>
+    <string name="device_name">डिवाइस का नाम</string>
+    <string name="section_about">जानकारी</string>
+    <string name="about">जानकारी</string>
+    <string name="version">संस्करण</string>
+    <string name="privacy_policy">गोपनीयता नीति</string>
+    <string name="terms_of_service">सेवा की शर्तें</string>
+    <string name="section_data">डेटा</string>
+    <string name="reset_all_data">सभी डेटा रीसेट करें</string>
+    <string name="reset_all_data_title">सभी डेटा रीसेट करें?</string>
+    <string name="reset_all_data_message">यह क्रिया पूर्ववत नहीं की जा सकती। आपका सभी स्थानीय डेटा हटा दिया जाएगा और डिवाइस अनलिंक कर दिए जाएँगे।</string>
+    <string name="reset">रीसेट</string>
+    <string name="data_reset">डेटा रीसेट हो गया</string>
+
+    <!-- About Dialog -->
+    <string name="about_tagline">अपने सभी डिवाइस पर अपनी डिजिटल भलाई को ट्रैक करें</string>
+
+    <!-- Usage Card -->
+    <string name="total_screen_time_today">आज का कुल स्क्रीन समय</string>
+    <string name="quick_stats">त्वरित आँकड़े</string>
+    <string name="most_used_category">सबसे अधिक उपयोग की गई श्रेणी</string>
+
+    <!-- Layout XML: dialog_link_device.xml -->
+    <string name="enter_6_digit_code">6 अंकों का कोड दर्ज करें</string>
+
+    <!-- Layout XML: dialog_generate_code.xml -->
+    <string name="fetching_code">कोड प्राप्त हो रहा है\u2026</string>
+
+    <!-- Layout XML: activity_link_device.xml -->
+    <string name="enter_linking_code">लिंकिंग कोड दर्ज करें</string>
+
+    <!-- Layout XML: activity_trends.xml -->
+    <string name="cd_no_data">कोई डेटा नहीं</string>
+    <string name="cd_total">कुल</string>
+    <string name="cd_average">औसत</string>
+    <string name="cd_peak">शीर्ष</string>
+    <string name="default_time">0 घंटा</string>
+
+    <!-- Layout XML: activity_main.xml -->
+    <string name="settings">सेटिंग्स</string>
+    <string name="refresh_data">डेटा रीफ़्रेश करें</string>
+
+    <!-- Layout XML: item_tracker_row.xml -->
+    <string name="url_placeholder">URL</string>
+    <string name="interval_placeholder">60 मिनट</string>
+    <string name="cd_delete">हटाएँ</string>
+
+    <!-- Notifications -->
+    <string name="new_notification_title">नई सूचना: %1$s</string>
+</resources>

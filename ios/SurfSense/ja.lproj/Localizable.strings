@@ -1,0 +1,177 @@
+/* Localizable.strings - Japanese
+   SurfSense */
+
+/* MARK: - Tab Bar (MainContentView) */
+"This Device" = "このデバイス";
+"Linked Devices" = "接続済みデバイス";
+"Trends" = "トレンド";
+"Settings" = "設定";
+
+/* MARK: - AddDeviceView */
+"Add Device" = "デバイスを追加";
+"Enter the 6-digit code from the device you want to link" = "接続したいデバイスの6桁のコードを入力してください";
+"Device Code" = "デバイスコード";
+"Linking Device..." = "デバイスを接続中...";
+"Link Device" = "デバイスを接続";
+"Device Linked!" = "デバイスが接続されました！";
+"OK" = "OK";
+"Unknown Device" = "不明なデバイス";
+
+/* MARK: - CategoryBreakdownView / TotalUsageCard */
+"Category Breakdown" = "カテゴリ別内訳";
+"Total Screen Time" = "合計スクリーンタイム";
+
+/* MARK: - CodeDisplayView */
+"Your sharing code:" = "共有コード：";
+"Code expires in %@ minutes" = "コードは%@分で期限切れになります";
+"Copy Code" = "コードをコピー";
+"New Code" = "新しいコード";
+"Code Copied!" = "コードがコピーされました！";
+"The sharing code has been copied to your clipboard." = "共有コードがクリップボードにコピーされました。";
+
+/* MARK: - DailyUsageSummaryCard / UnifiedUsageCard */
+"Total screen time today" = "今日の合計スクリーンタイム";
+
+/* MARK: - DeviceRow */
+"Last sync: %@" = "最終同期: %@";
+"Unlink" = "解除";
+
+/* MARK: - ErrorViewComponent */
+"Try Again" = "再試行";
+
+/* MARK: - InfoCardComponent */
+"How to get a code" = "コードの取得方法";
+"Open the app on the device you want to link" = "接続したいデバイスでアプリを開く";
+"Go to Linked Devices tab" = "接続済みデバイスタブに移動";
+"Tap 'Share This Device'" = "「このデバイスを共有」をタップ";
+"Generate and share the 6-digit code" = "6桁のコードを生成して共有";
+
+/* MARK: - LinkedDeviceCard */
+"Last seen %@" = "最終確認 %@";
+"View details" = "詳細を表示";
+
+/* MARK: - LinkedDevicesView */
+"Quick Actions" = "クイックアクション";
+"Share This Device" = "このデバイスを共有";
+"Loading linked devices..." = "接続済みデバイスを読み込み中...";
+"Remove Device" = "デバイスを削除";
+"Cancel" = "キャンセル";
+"Remove" = "削除";
+"Are you sure you want to remove %@? This device will no longer be able to track your usage." = "%@を削除してよろしいですか？このデバイスはあなたの使用状況を追跡できなくなります。";
+"Linked Devices (%@)" = "接続済みデバイス (%@)";
+
+/* MARK: - PrivacyNoticeCard */
+"Privacy Notice" = "プライバシー通知";
+"Sharing this code will allow others to view your device usage data. Only share with trusted individuals." = "このコードを共有すると、他の人があなたのデバイス使用データを閲覧できるようになります。信頼できる人にのみ共有してください。";
+
+/* MARK: - QuickStatsView */
+"Quick Stats" = "クイック統計";
+"Most used category" = "最も使用されたカテゴリ";
+
+/* MARK: - SettingsView */
+"Screen Time Auth" = "スクリーンタイム認証";
+"API Key" = "APIキー";
+"Stored" = "保存済み";
+"Missing" = "未設定";
+"Last Data Update" = "最終データ更新";
+"Never" = "なし";
+"Cached Categories" = "キャッシュ済みカテゴリ";
+"Diagnostics" = "診断";
+"Screen Time tracking requires a physical device with Screen Time enabled in iOS Settings." = "スクリーンタイムの追跡には、iOS設定でスクリーンタイムが有効になっている物理デバイスが必要です。";
+"Auto Sync" = "自動同期";
+"Sync Interval" = "同期間隔";
+"%@ minutes" = "%@分";
+"Data Sync" = "データ同期";
+"When enabled, usage data syncs automatically across your linked devices." = "有効にすると、使用データが接続済みデバイス間で自動的に同期されます。";
+"Usage Alerts" = "使用アラート";
+"Weekly Reports" = "週間レポート";
+"Notifications" = "通知";
+"Receive insights about your device usage patterns." = "デバイスの使用パターンに関する分析を受け取ります。";
+"Device ID" = "デバイスID";
+"Copy Full ID" = "完全なIDをコピー";
+"Device Name" = "デバイス名";
+"Device" = "デバイス";
+"About" = "アプリについて";
+"Version" = "バージョン";
+"Privacy Policy" = "プライバシーポリシー";
+"Terms of Service" = "利用規約";
+"Reset All Data" = "すべてのデータをリセット";
+"This will remove all local data and unlink all devices." = "すべてのローカルデータが削除され、すべてのデバイスの接続が解除されます。";
+"Reset All Data?" = "すべてのデータをリセットしますか？";
+"Reset" = "リセット";
+"This action cannot be undone. All your local data will be deleted and devices will be unlinked." = "この操作は取り消せません。すべてのローカルデータが削除され、デバイスの接続が解除されます。";
+"Approved" = "承認済み";
+"Denied" = "拒否";
+"Not Requested" = "未リクエスト";
+
+/* MARK: - AboutView */
+"SurfSense" = "SurfSense";
+"Track your digital wellness across all your devices" = "すべてのデバイスでデジタルウェルネスを追跡";
+"Made with ❤️" = "❤️を込めて作りました";
+"© 2025 SurfSense" = "© 2025 SurfSense";
+"Done" = "完了";
+
+/* MARK: - ShareDeviceView */
+"Allow others to track this device" = "他の人がこのデバイスを追跡できるようにする";
+"Generate a code that others can use to link and monitor this device's usage" = "他の人がこのデバイスの使用状況を接続・監視するために使えるコードを生成します";
+"Generating Code..." = "コードを生成中...";
+"Generate Sharing Code" = "共有コードを生成";
+
+/* MARK: - SuccessViewComponent */
+"Successfully linked with" = "正常に接続されました：";
+"Add Another Device" = "別のデバイスを追加";
+
+/* MARK: - SupportingViews */
+"Unable to load devices" = "デバイスを読み込めません";
+"No Linked Devices" = "接続済みデバイスなし";
+"Add your first device to start tracking usage across all your devices" = "最初のデバイスを追加して、すべてのデバイスの使用状況の追跡を開始しましょう";
+
+/* MARK: - ThisDeviceView */
+"Data updated: %@" = "データ更新: %@";
+"No data from Screen Time extension yet. Scroll up to check the report above." = "スクリーンタイム拡張からのデータがまだありません。上にスクロールしてレポートを確認してください。";
+"Syncing %@ categories..." = "%@カテゴリを同期中...";
+"Synced successfully" = "同期に成功しました";
+"No usage data to sync — use your device and come back" = "同期する使用データがありません — デバイスを使用してから戻ってきてください";
+"Sync to Server" = "サーバーに同期";
+"Syncing..." = "同期中...";
+"Enable Screen Time Tracking" = "スクリーンタイム追跡を有効にする";
+"SurfSense needs permission to access your screen time data. This uses Apple's Screen Time framework and requires Face ID or passcode verification." = "SurfSenseはスクリーンタイムデータへのアクセス許可が必要です。これはAppleのスクリーンタイムフレームワークを使用し、Face IDまたはパスコードの確認が必要です。";
+"Grant Access" = "アクセスを許可";
+"Screen Time Access Denied" = "スクリーンタイムアクセスが拒否されました";
+"Please ensure Screen Time is enabled in iOS Settings, then try granting access again." = "iOS設定でスクリーンタイムが有効になっていることを確認してから、もう一度アクセスを許可してください。";
+"Open Settings" = "設定を開く";
+
+/* MARK: - TrendsView */
+"7 Days" = "7日間";
+"14 Days" = "14日間";
+"30 Days" = "30日間";
+"Time Period" = "期間";
+"Usage Trends" = "使用トレンド";
+"No Usage Data Yet" = "使用データがまだありません";
+"Start tracking your usage to see trends over time." = "使用状況の追跡を開始して、時間の経過に伴うトレンドを確認しましょう。";
+"Summary" = "サマリー";
+"Total" = "合計";
+"Daily Avg" = "日平均";
+"Peak Day" = "ピーク日";
+"Daily Usage" = "日別使用量";
+"Minutes" = "分";
+"Daily Details" = "日別詳細";
+"No data" = "データなし";
+
+/* MARK: - TotalUsageCard (QuickStatsCard) */
+"Most used: %@" = "最も使用: %@";
+
+/* MARK: - UnifiedUsageCard */
+"All Devices" = "すべてのデバイス";
+
+/* MARK: - ReportView (UsageReportExtension) */
+"No usage data yet" = "使用データがまだありません";
+"Screen Time Today" = "今日のスクリーンタイム";
+
+/* MARK: - ViewModels */
+"Unknown" = "不明";
+"None" = "なし";
+"iPhone" = "iPhone";
+"Android Phone" = "Androidスマートフォン";
+"Computer" = "コンピュータ";
+"Browser" = "ブラウザ";

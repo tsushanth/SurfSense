@@ -1,0 +1,121 @@
+<resources>
+    <string name="app_name">SurfSense</string>
+
+    <!-- Navigation Tabs -->
+    <string name="tab_this_device">このデバイス</string>
+    <string name="tab_linked_devices">リンク済みデバイス</string>
+    <string name="tab_trends">トレンド</string>
+    <string name="tab_settings">設定</string>
+
+    <!-- Content Descriptions -->
+    <string name="cd_refresh">更新</string>
+
+    <!-- This Device Screen -->
+    <string name="loading_usage_data">使用データを読み込み中\u2026</string>
+    <string name="today_usage_title">今日の使用状況</string>
+    <string name="no_usage_data_yet">使用データがありません</string>
+    <string name="no_usage_data_description">「今すぐ同期」をタップして、デバイスの使用データを収集・アップロードします。使用状況へのアクセス許可が必要です。</string>
+    <string name="sync_now">今すぐ同期</string>
+
+    <!-- Linked Devices Screen -->
+    <string name="linked_devices_usage_title">リンク済みデバイスの使用状況</string>
+    <string name="no_linked_devices">リンク済みデバイスなし</string>
+    <string name="no_linked_devices_description">最初のデバイスを追加して、すべてのデバイスの使用状況の追跡を開始しましょう</string>
+    <string name="add_device">デバイスを追加</string>
+    <string name="share_this_device">このデバイスを共有</string>
+
+    <!-- Remove Device Dialog -->
+    <string name="remove_device_title">デバイスを削除</string>
+    <string name="remove_device_message">%1$sを削除してもよろしいですか？このデバイスは使用状況を追跡できなくなります。</string>
+    <string name="remove">削除</string>
+    <string name="cancel">キャンセル</string>
+
+    <!-- Add Device Dialog -->
+    <string name="enter_code_prompt">リンクしたいデバイスの%1$d桁のコードを入力してください</string>
+    <string name="device_code_label">デバイスコード</string>
+    <string name="device_linked_success">デバイスが正常にリンクされました！</string>
+    <string name="link_device">デバイスをリンク</string>
+    <string name="done">完了</string>
+
+    <!-- Share Device Dialog -->
+    <string name="share_device_description">このデバイスの使用状況をリンクして監視するために他の人が使用できるコードを生成します</string>
+    <string name="your_sharing_code">共有コード：</string>
+    <string name="code_expires_in">コードは%1$d分で期限切れになります</string>
+    <string name="copy">コピー</string>
+    <string name="new_code">新しいコード</string>
+    <string name="generating">生成中\u2026</string>
+    <string name="generate_sharing_code">共有コードを生成</string>
+    <string name="code_copied">コードがコピーされました</string>
+
+    <!-- Trends Screen -->
+    <string name="period_7_days">7日間</string>
+    <string name="period_14_days">14日間</string>
+    <string name="period_30_days">30日間</string>
+    <string name="no_usage_data_trends">使用データがありません</string>
+    <string name="no_usage_data_trends_description">使用状況の追跡を開始して、時間の経過に伴うトレンドを確認しましょう。</string>
+    <string name="summary">概要</string>
+    <string name="stat_total">合計</string>
+    <string name="stat_daily_avg">日平均</string>
+    <string name="stat_peak_day">ピーク日</string>
+    <string name="daily_usage">日別使用状況</string>
+    <string name="category_breakdown">カテゴリ内訳</string>
+    <string name="daily_details">日別詳細</string>
+    <string name="no_data">データなし</string>
+    <string name="usage_trends_title">使用トレンド</string>
+
+    <!-- Settings Screen -->
+    <string name="section_data_sync">データ同期</string>
+    <string name="auto_sync">自動同期</string>
+    <string name="sync_interval">同期間隔</string>
+    <string name="sync_interval_value">%1$d分</string>
+    <string name="section_device">デバイス</string>
+    <string name="device_id">デバイスID</string>
+    <string name="device_name">デバイス名</string>
+    <string name="section_about">アプリについて</string>
+    <string name="about">アプリについて</string>
+    <string name="version">バージョン</string>
+    <string name="privacy_policy">プライバシーポリシー</string>
+    <string name="terms_of_service">利用規約</string>
+    <string name="section_data">データ</string>
+    <string name="reset_all_data">すべてのデータをリセット</string>
+    <string name="reset_all_data_title">すべてのデータをリセットしますか？</string>
+    <string name="reset_all_data_message">この操作は元に戻せません。すべてのローカルデータが削除され、デバイスのリンクが解除されます。</string>
+    <string name="reset">リセット</string>
+    <string name="data_reset">データがリセットされました</string>
+
+    <!-- About Dialog -->
+    <string name="about_tagline">すべてのデバイスでデジタルウェルネスを追跡</string>
+
+    <!-- Usage Card -->
+    <string name="total_screen_time_today">今日の合計画面時間</string>
+    <string name="quick_stats">クイック統計</string>
+    <string name="most_used_category">最も使用されたカテゴリ</string>
+
+    <!-- Layout XML: dialog_link_device.xml -->
+    <string name="enter_6_digit_code">6桁のコードを入力</string>
+
+    <!-- Layout XML: dialog_generate_code.xml -->
+    <string name="fetching_code">コードを取得中\u2026</string>
+
+    <!-- Layout XML: activity_link_device.xml -->
+    <string name="enter_linking_code">リンクコードを入力</string>
+
+    <!-- Layout XML: activity_trends.xml -->
+    <string name="cd_no_data">データなし</string>
+    <string name="cd_total">合計</string>
+    <string name="cd_average">平均</string>
+    <string name="cd_peak">ピーク</string>
+    <string name="default_time">0時間</string>
+
+    <!-- Layout XML: activity_main.xml -->
+    <string name="settings">設定</string>
+    <string name="refresh_data">データを更新</string>
+
+    <!-- Layout XML: item_tracker_row.xml -->
+    <string name="url_placeholder">URL</string>
+    <string name="interval_placeholder">60分</string>
+    <string name="cd_delete">削除</string>
+
+    <!-- Notifications -->
+    <string name="new_notification_title">新しい通知：%1$s</string>
+</resources>

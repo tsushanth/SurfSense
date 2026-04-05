@@ -11,7 +11,7 @@
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter 6-digit Code"
+        android:hint="@string/enter_6_digit_code"
         app:counterMaxLength="6"
         app:counterEnabled="true">
 
@@ -28,6 +28,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Link Device"/>
+        android:text="@string/link_device"/>
 
 </LinearLayout>

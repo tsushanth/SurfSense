@@ -1,0 +1,121 @@
+<resources>
+    <string name="app_name">SurfSense</string>
+
+    <!-- Navigation Tabs -->
+    <string name="tab_this_device">Este Dispositivo</string>
+    <string name="tab_linked_devices">Dispositivos Vinculados</string>
+    <string name="tab_trends">Tendencias</string>
+    <string name="tab_settings">Ajustes</string>
+
+    <!-- Content Descriptions -->
+    <string name="cd_refresh">Actualizar</string>
+
+    <!-- This Device Screen -->
+    <string name="loading_usage_data">Cargando datos de uso\u2026</string>
+    <string name="today_usage_title">Uso de Hoy</string>
+    <string name="no_usage_data_yet">Aún No Hay Datos de Uso</string>
+    <string name="no_usage_data_description">Toca "Sincronizar Ahora" para recopilar y subir los datos de uso de tu dispositivo. Esto requiere el permiso de Acceso de Uso.</string>
+    <string name="sync_now">Sincronizar Ahora</string>
+
+    <!-- Linked Devices Screen -->
+    <string name="linked_devices_usage_title">Uso de Dispositivos Vinculados</string>
+    <string name="no_linked_devices">Sin Dispositivos Vinculados</string>
+    <string name="no_linked_devices_description">Añade tu primer dispositivo para comenzar a rastrear el uso en todos tus dispositivos</string>
+    <string name="add_device">Añadir Dispositivo</string>
+    <string name="share_this_device">Compartir Este Dispositivo</string>
+
+    <!-- Remove Device Dialog -->
+    <string name="remove_device_title">Eliminar Dispositivo</string>
+    <string name="remove_device_message">¿Estás seguro de que deseas eliminar %1$s? Este dispositivo ya no podrá rastrear tu uso.</string>
+    <string name="remove">Eliminar</string>
+    <string name="cancel">Cancelar</string>
+
+    <!-- Add Device Dialog -->
+    <string name="enter_code_prompt">Ingresa el código de %1$d dígitos del dispositivo que deseas vincular</string>
+    <string name="device_code_label">Código del Dispositivo</string>
+    <string name="device_linked_success">¡Dispositivo vinculado exitosamente!</string>
+    <string name="link_device">Vincular Dispositivo</string>
+    <string name="done">Listo</string>
+
+    <!-- Share Device Dialog -->
+    <string name="share_device_description">Genera un código que otros pueden usar para vincular y monitorear el uso de este dispositivo</string>
+    <string name="your_sharing_code">Tu código para compartir:</string>
+    <string name="code_expires_in">El código expira en %1$d minutos</string>
+    <string name="copy">Copiar</string>
+    <string name="new_code">Nuevo Código</string>
+    <string name="generating">Generando\u2026</string>
+    <string name="generate_sharing_code">Generar Código para Compartir</string>
+    <string name="code_copied">Código copiado</string>
+
+    <!-- Trends Screen -->
+    <string name="period_7_days">7 Días</string>
+    <string name="period_14_days">14 Días</string>
+    <string name="period_30_days">30 Días</string>
+    <string name="no_usage_data_trends">Aún No Hay Datos de Uso</string>
+    <string name="no_usage_data_trends_description">Comienza a rastrear tu uso para ver tendencias a lo largo del tiempo.</string>
+    <string name="summary">Resumen</string>
+    <string name="stat_total">Total</string>
+    <string name="stat_daily_avg">Promedio Diario</string>
+    <string name="stat_peak_day">Día Pico</string>
+    <string name="daily_usage">Uso Diario</string>
+    <string name="category_breakdown">Desglose por Categoría</string>
+    <string name="daily_details">Detalles Diarios</string>
+    <string name="no_data">Sin datos</string>
+    <string name="usage_trends_title">Tendencias de Uso</string>
+
+    <!-- Settings Screen -->
+    <string name="section_data_sync">Sincronización de Datos</string>
+    <string name="auto_sync">Sincronización Automática</string>
+    <string name="sync_interval">Intervalo de Sincronización</string>
+    <string name="sync_interval_value">%1$d minutos</string>
+    <string name="section_device">Dispositivo</string>
+    <string name="device_id">ID del Dispositivo</string>
+    <string name="device_name">Nombre del Dispositivo</string>
+    <string name="section_about">Acerca de</string>
+    <string name="about">Acerca de</string>
+    <string name="version">Versión</string>
+    <string name="privacy_policy">Política de Privacidad</string>
+    <string name="terms_of_service">Términos de Servicio</string>
+    <string name="section_data">Datos</string>
+    <string name="reset_all_data">Restablecer Todos los Datos</string>
+    <string name="reset_all_data_title">¿Restablecer Todos los Datos?</string>
+    <string name="reset_all_data_message">Esta acción no se puede deshacer. Todos tus datos locales serán eliminados y los dispositivos serán desvinculados.</string>
+    <string name="reset">Restablecer</string>
+    <string name="data_reset">Datos restablecidos</string>
+
+    <!-- About Dialog -->
+    <string name="about_tagline">Rastrea tu bienestar digital en todos tus dispositivos</string>
+
+    <!-- Usage Card -->
+    <string name="total_screen_time_today">Tiempo total de pantalla hoy</string>
+    <string name="quick_stats">Estadísticas Rápidas</string>
+    <string name="most_used_category">Categoría más usada</string>
+
+    <!-- Layout XML: dialog_link_device.xml -->
+    <string name="enter_6_digit_code">Ingresa el Código de 6 Dígitos</string>
+
+    <!-- Layout XML: dialog_generate_code.xml -->
+    <string name="fetching_code">Obteniendo código\u2026</string>
+
+    <!-- Layout XML: activity_link_device.xml -->
+    <string name="enter_linking_code">Ingresa el código de vinculación</string>
+
+    <!-- Layout XML: activity_trends.xml -->
+    <string name="cd_no_data">Sin datos</string>
+    <string name="cd_total">Total</string>
+    <string name="cd_average">Promedio</string>
+    <string name="cd_peak">Pico</string>
+    <string name="default_time">0h</string>
+
+    <!-- Layout XML: activity_main.xml -->
+    <string name="settings">Ajustes</string>
+    <string name="refresh_data">Actualizar Datos</string>
+
+    <!-- Layout XML: item_tracker_row.xml -->
+    <string name="url_placeholder">URL</string>
+    <string name="interval_placeholder">60 min</string>
+    <string name="cd_delete">Eliminar</string>
+
+    <!-- Notifications -->
+    <string name="new_notification_title">Nueva Notificación: %1$s</string>
+</resources>

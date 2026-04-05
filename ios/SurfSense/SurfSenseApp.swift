@@ -20,6 +20,7 @@ struct SurfSenseApp: App {
             ContentView()
                 .environmentObject(screenTimeService)
                 .task {
+                    guard !ProcessInfo.processInfo.arguments.contains("FASTLANE_SNAPSHOT") else { return }
                     // Register device and obtain API key before any authenticated calls
                     await RegistrationService.shared.registerIfNeeded()
                     PeriodicSubmission.scheduleBackgroundSync()

@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
+import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -29,6 +30,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -37,17 +39,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kreativekoala.surfsense.Config
 import com.kreativekoala.surfsense.LocalStorage
+import com.kreativekoala.surfsense.R
 import com.kreativekoala.surfsense.viewmodel.*
 import java.text.SimpleDateFormat
 import java.util.Locale
 
 // region Navigation
 
-enum class Tab(val label: String, val icon: ImageVector, val outlinedIcon: ImageVector) {
-    ThisDevice("This Device", Icons.Filled.PhoneAndroid, Icons.Outlined.PhoneAndroid),
-    LinkedDevices("Linked Devices", Icons.Filled.Devices, Icons.Outlined.Devices),
-    Trends("Trends", Icons.AutoMirrored.Filled.TrendingUp, Icons.AutoMirrored.Outlined.TrendingUp),
-    Settings("Settings", Icons.Filled.Settings, Icons.Outlined.Settings)
+enum class Tab(@StringRes val labelRes: Int, val icon: ImageVector, val outlinedIcon: ImageVector) {
+    ThisDevice(R.string.tab_this_device, Icons.Filled.PhoneAndroid, Icons.Outlined.PhoneAndroid),
+    LinkedDevices(R.string.tab_linked_devices, Icons.Filled.Devices, Icons.Outlined.Devices),
+    Trends(R.string.tab_trends, Icons.AutoMirrored.Filled.TrendingUp, Icons.AutoMirrored.Outlined.TrendingUp),
+    Settings(R.string.tab_settings, Icons.Filled.Settings, Icons.Outlined.Settings)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -59,11 +62,11 @@ fun SurfSenseApp(viewModel: MainViewModel) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text(selectedTab.label) },
+                title = { Text(stringResource(selectedTab.labelRes)) },
                 actions = {
                     if (selectedTab != Tab.Settings) {
                         IconButton(onClick = { viewModel.refreshData() }) {
-                            Icon(Icons.Default.Refresh, contentDescription = "Refresh")
+                            Icon(Icons.Default.Refresh, contentDescription = stringResource(R.string.cd_refresh))
                         }
                     }
                 }
@@ -72,16 +75,17 @@ fun SurfSenseApp(viewModel: MainViewModel) {
         bottomBar = {
             NavigationBar {
                 Tab.entries.forEach { tab ->
+                    val label = stringResource(tab.labelRes)
                     NavigationBarItem(
                         selected = selectedTab == tab,
                         onClick = { selectedTab = tab },
                         icon = {
                             Icon(
                                 if (selectedTab == tab) tab.icon else tab.outlinedIcon,
-                                contentDescription = tab.label
+                                contentDescription = label
                             )
                         },
-                        label = { Text(tab.label, maxLines = 1, fontSize = 11.sp) }
+                        label = { Text(label, maxLines = 1, fontSize = 11.sp) }
                     )
                 }
             }
@@ -122,11 +126,11 @@ fun ThisDeviceScreen(uiState: MainUiState, viewModel: MainViewModel) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     CircularProgressIndicator()
                     Spacer(Modifier.height(16.dp))
-                    Text("Loading usage data...", color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text(stringResource(R.string.loading_usage_data), color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
             }
         } else if (uiState.thisDeviceUsage != null) {
-            UsageCard(title = "Today's Usage", usage = uiState.thisDeviceUsage)
+            UsageCard(title = stringResource(R.string.today_usage_title), usage = uiState.thisDeviceUsage)
         } else {
             // Empty state
             Column(
@@ -141,13 +145,13 @@ fun ThisDeviceScreen(uiState: MainUiState, viewModel: MainViewModel) {
                 )
                 Spacer(Modifier.height(16.dp))
                 Text(
-                    "No Usage Data Yet",
+                    stringResource(R.string.no_usage_data_yet),
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Spacer(Modifier.height(8.dp))
                 Text(
-                    "Tap \"Sync Now\" to collect and upload your device's usage data. This requires Usage Access permission.",
+                    stringResource(R.string.no_usage_data_description),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     textAlign = TextAlign.Center,
@@ -165,7 +169,7 @@ fun ThisDeviceScreen(uiState: MainUiState, viewModel: MainViewModel) {
             ) {
                 Icon(Icons.Default.Sync, null, Modifier.size(20.dp))
                 Spacer(Modifier.width(8.dp))
-                Text("Sync Now", fontWeight = FontWeight.SemiBold)
+                Text(stringResource(R.string.sync_now), fontWeight = FontWeight.SemiBold)
             }
         }
 
@@ -196,7 +200,7 @@ fun LinkedDevicesScreen(uiState: MainUiState, viewModel: MainViewModel) {
     ) {
         // Unified Usage Card (linked devices only)
         uiState.unifiedUsage?.let { unified ->
-            UsageCard(title = "Linked Devices Usage", usage = unified)
+            UsageCard(title = stringResource(R.string.linked_devices_usage_title), usage = unified)
         }
 
         // Loading / Error / Device List
@@ -216,9 +220,9 @@ fun LinkedDevicesScreen(uiState: MainUiState, viewModel: MainViewModel) {
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     Icon(Icons.Default.Link, null, Modifier.size(48.dp), tint = Color.Gray)
-                    Text("No Linked Devices", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+                    Text(stringResource(R.string.no_linked_devices), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
                     Text(
-                        "Add your first device to start tracking usage across all your devices",
+                        stringResource(R.string.no_linked_devices_description),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         textAlign = TextAlign.Center
@@ -239,7 +243,7 @@ fun LinkedDevicesScreen(uiState: MainUiState, viewModel: MainViewModel) {
         ) {
             Icon(Icons.Default.Add, null, Modifier.size(20.dp))
             Spacer(Modifier.width(8.dp))
-            Text("Add Device", fontWeight = FontWeight.SemiBold)
+            Text(stringResource(R.string.add_device), fontWeight = FontWeight.SemiBold)
         }
 
         OutlinedButton(
@@ -249,7 +253,7 @@ fun LinkedDevicesScreen(uiState: MainUiState, viewModel: MainViewModel) {
         ) {
             Icon(Icons.Default.Share, null, Modifier.size(20.dp))
             Spacer(Modifier.width(8.dp))
-            Text("Share This Device", fontWeight = FontWeight.SemiBold)
+            Text(stringResource(R.string.share_this_device), fontWeight = FontWeight.SemiBold)
         }
     }
 
@@ -284,8 +288,8 @@ fun LinkedDevicesScreen(uiState: MainUiState, viewModel: MainViewModel) {
     deviceToUnlink?.let { device ->
         AlertDialog(
             onDismissRequest = { deviceToUnlink = null },
-            title = { Text("Remove Device") },
-            text = { Text("Are you sure you want to remove ${device.name}? This device will no longer be able to track your usage.") },
+            title = { Text(stringResource(R.string.remove_device_title)) },
+            text = { Text(stringResource(R.string.remove_device_message, device.name)) },
             confirmButton = {
                 TextButton(
                     onClick = {
@@ -293,10 +297,10 @@ fun LinkedDevicesScreen(uiState: MainUiState, viewModel: MainViewModel) {
                         deviceToUnlink = null
                     },
                     colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)
-                ) { Text("Remove") }
+                ) { Text(stringResource(R.string.remove)) }
             },
             dismissButton = {
-                TextButton(onClick = { deviceToUnlink = null }) { Text("Cancel") }
+                TextButton(onClick = { deviceToUnlink = null }) { Text(stringResource(R.string.cancel)) }
             }
         )
     }
@@ -309,9 +313,14 @@ fun LinkedDevicesScreen(uiState: MainUiState, viewModel: MainViewModel) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TrendsScreen(viewModel: MainViewModel) {
-    val periods = listOf("7 Days" to 7, "14 Days" to 14, "30 Days" to 30)
+    val periodLabels = listOf(
+        stringResource(R.string.period_7_days),
+        stringResource(R.string.period_14_days),
+        stringResource(R.string.period_30_days)
+    )
+    val periodDays = listOf(7, 14, 30)
     var selectedIndex by remember { mutableIntStateOf(0) }
-    val days = periods[selectedIndex].second
+    val days = periodDays[selectedIndex]
     val history = remember(selectedIndex) { viewModel.getUsageHistory(days) }
 
     val scrollState = rememberScrollState()
@@ -324,11 +333,11 @@ fun TrendsScreen(viewModel: MainViewModel) {
     ) {
         // Period Selector
         SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
-            periods.forEachIndexed { index, (label, _) ->
+            periodLabels.forEachIndexed { index, label ->
                 SegmentedButton(
                     selected = selectedIndex == index,
                     onClick = { selectedIndex = index },
-                    shape = SegmentedButtonDefaults.itemShape(index, periods.size)
+                    shape = SegmentedButtonDefaults.itemShape(index, periodLabels.size)
                 ) { Text(label) }
             }
         }
@@ -341,9 +350,9 @@ fun TrendsScreen(viewModel: MainViewModel) {
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 Icon(Icons.AutoMirrored.Filled.TrendingUp, null, Modifier.size(60.dp), tint = Color.Gray)
-                Text("No Usage Data Yet", style = MaterialTheme.typography.titleMedium)
+                Text(stringResource(R.string.no_usage_data_trends), style = MaterialTheme.typography.titleMedium)
                 Text(
-                    "Start tracking your usage to see trends over time.",
+                    stringResource(R.string.no_usage_data_trends_description),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     textAlign = TextAlign.Center
@@ -351,7 +360,7 @@ fun TrendsScreen(viewModel: MainViewModel) {
             }
         } else {
             // Summary Card
-            SummaryCard(history, periods[selectedIndex].first)
+            SummaryCard(history, periodLabels[selectedIndex])
 
             // Daily Usage Bar Chart
             DailyUsageChart(history)
@@ -374,14 +383,14 @@ private fun SummaryCard(history: List<LocalStorage.DailyUsage>, periodLabel: Str
     Card(shape = RoundedCornerShape(12.dp), modifier = Modifier.fillMaxWidth()) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("Summary", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+                Text(stringResource(R.string.summary), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
                 Spacer(Modifier.weight(1f))
                 Text(periodLabel, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                StatBox("Total", MainViewModel.formatMinutes(totalMinutes), Icons.Default.Schedule, Color(0xFF3B82F6), Modifier.weight(1f))
-                StatBox("Daily Avg", MainViewModel.formatMinutes(avgMinutes), Icons.Default.BarChart, Color(0xFF10B981), Modifier.weight(1f))
-                StatBox("Peak Day", MainViewModel.formatMinutes(peakMinutes), Icons.Default.ArrowUpward, Color(0xFFF97316), Modifier.weight(1f))
+                StatBox(stringResource(R.string.stat_total), MainViewModel.formatMinutes(totalMinutes), Icons.Default.Schedule, Color(0xFF3B82F6), Modifier.weight(1f))
+                StatBox(stringResource(R.string.stat_daily_avg), MainViewModel.formatMinutes(avgMinutes), Icons.Default.BarChart, Color(0xFF10B981), Modifier.weight(1f))
+                StatBox(stringResource(R.string.stat_peak_day), MainViewModel.formatMinutes(peakMinutes), Icons.Default.ArrowUpward, Color(0xFFF97316), Modifier.weight(1f))
             }
         }
     }
@@ -413,7 +422,7 @@ private fun DailyUsageChart(history: List<LocalStorage.DailyUsage>) {
 
     Card(shape = RoundedCornerShape(12.dp), modifier = Modifier.fillMaxWidth()) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            Text("Daily Usage", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+            Text(stringResource(R.string.daily_usage), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
             Row(
                 modifier = Modifier.fillMaxWidth().height(160.dp),
                 horizontalArrangement = Arrangement.spacedBy(2.dp),
@@ -464,7 +473,7 @@ private fun CategoryBreakdownCard(history: List<LocalStorage.DailyUsage>) {
 
     Card(shape = RoundedCornerShape(12.dp), modifier = Modifier.fillMaxWidth()) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text("Category Breakdown", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+            Text(stringResource(R.string.category_breakdown), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
             sorted.forEach { (category, minutes) ->
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Box(Modifier.size(12.dp).clip(CircleShape).background(colorForCategory(category)))
@@ -492,9 +501,10 @@ private fun CategoryBreakdownCard(history: List<LocalStorage.DailyUsage>) {
 
 @Composable
 private fun DailyDetailsCard(history: List<LocalStorage.DailyUsage>) {
+    val noDataText = stringResource(R.string.no_data)
     Card(shape = RoundedCornerShape(12.dp), modifier = Modifier.fillMaxWidth()) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            Text("Daily Details", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+            Text(stringResource(R.string.daily_details), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
             Spacer(Modifier.height(4.dp))
             history.take(7).forEachIndexed { index, day ->
                 Row(
@@ -505,7 +515,7 @@ private fun DailyDetailsCard(history: List<LocalStorage.DailyUsage>) {
                         Text(formatDateFull(day.date), style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Medium)
                         val top = day.byCategory.maxByOrNull { it.value }
                         Text(
-                            top?.let { "${it.key}: ${MainViewModel.formatMinutes(it.value)}" } ?: "No data",
+                            top?.let { "${it.key}: ${MainViewModel.formatMinutes(it.value)}" } ?: noDataText,
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -551,30 +561,30 @@ fun SettingsScreen(uiState: MainUiState, viewModel: MainViewModel) {
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         // Data Sync Section
-        SectionCard("Data Sync") {
+        SectionCard(stringResource(R.string.section_data_sync)) {
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                 Icon(Icons.Default.Sync, null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(20.dp))
                 Spacer(Modifier.width(12.dp))
-                Text("Auto Sync", style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
+                Text(stringResource(R.string.auto_sync), style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
                 Switch(checked = true, onCheckedChange = {})
             }
             HorizontalDivider(Modifier.padding(vertical = 4.dp))
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                 Icon(Icons.Default.Schedule, null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(20.dp))
                 Spacer(Modifier.width(12.dp))
-                Text("Sync Interval", style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
-                Text("${Config.USAGE_SYNC_INTERVAL_MINUTES} minutes", color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Text(stringResource(R.string.sync_interval), style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
+                Text(stringResource(R.string.sync_interval_value, Config.USAGE_SYNC_INTERVAL_MINUTES.toInt()), color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
         }
 
         // Device Info Section
-        SectionCard("Device") {
+        SectionCard(stringResource(R.string.section_device)) {
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                 Icon(Icons.Default.PhoneAndroid, null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(20.dp))
                 Spacer(Modifier.width(12.dp))
-                Text("Device ID", style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
+                Text(stringResource(R.string.device_id), style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
                 Text(
-                    uiState.deviceId.take(8) + "...",
+                    uiState.deviceId.take(8) + "\u2026",
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     style = MaterialTheme.typography.bodySmall
                 )
@@ -583,57 +593,58 @@ fun SettingsScreen(uiState: MainUiState, viewModel: MainViewModel) {
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                 Icon(Icons.Default.TextFormat, null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(20.dp))
                 Spacer(Modifier.width(12.dp))
-                Text("Device Name", style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
+                Text(stringResource(R.string.device_name), style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
                 Text(uiState.deviceName, color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodySmall)
             }
         }
 
         // About Section
-        SectionCard("About") {
-            SettingsRow(Icons.Default.Info, "About") { showAboutDialog = true }
+        SectionCard(stringResource(R.string.section_about)) {
+            SettingsRow(Icons.Default.Info, stringResource(R.string.about)) { showAboutDialog = true }
             HorizontalDivider(Modifier.padding(vertical = 4.dp))
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                 Icon(Icons.Default.Numbers, null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(20.dp))
                 Spacer(Modifier.width(12.dp))
-                Text("Version", style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
+                Text(stringResource(R.string.version), style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
                 Text(versionName, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
             HorizontalDivider(Modifier.padding(vertical = 4.dp))
-            SettingsLinkRow(Icons.Default.PrivacyTip, "Privacy Policy", Config.privacyPolicyURL)
+            SettingsLinkRow(Icons.Default.PrivacyTip, stringResource(R.string.privacy_policy), Config.privacyPolicyURL)
             HorizontalDivider(Modifier.padding(vertical = 4.dp))
-            SettingsLinkRow(Icons.Default.Description, "Terms of Service", Config.termsOfServiceURL)
+            SettingsLinkRow(Icons.Default.Description, stringResource(R.string.terms_of_service), Config.termsOfServiceURL)
         }
 
         // Danger Zone
-        SectionCard("Data") {
+        SectionCard(stringResource(R.string.section_data)) {
             TextButton(
                 onClick = { showResetDialog = true },
                 colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)
             ) {
                 Icon(Icons.Default.Delete, null, Modifier.size(20.dp))
                 Spacer(Modifier.width(8.dp))
-                Text("Reset All Data")
+                Text(stringResource(R.string.reset_all_data))
             }
         }
     }
 
     if (showResetDialog) {
+        val dataResetText = stringResource(R.string.data_reset)
         AlertDialog(
             onDismissRequest = { showResetDialog = false },
-            title = { Text("Reset All Data?") },
-            text = { Text("This action cannot be undone. All your local data will be deleted and devices will be unlinked.") },
+            title = { Text(stringResource(R.string.reset_all_data_title)) },
+            text = { Text(stringResource(R.string.reset_all_data_message)) },
             confirmButton = {
                 TextButton(
                     onClick = {
                         viewModel.resetAllData()
                         showResetDialog = false
-                        Toast.makeText(context, "Data reset", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, dataResetText, Toast.LENGTH_SHORT).show()
                     },
                     colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)
-                ) { Text("Reset") }
+                ) { Text(stringResource(R.string.reset)) }
             },
             dismissButton = {
-                TextButton(onClick = { showResetDialog = false }) { Text("Cancel") }
+                TextButton(onClick = { showResetDialog = false }) { Text(stringResource(R.string.cancel)) }
             }
         )
     }
@@ -642,7 +653,7 @@ fun SettingsScreen(uiState: MainUiState, viewModel: MainViewModel) {
         AlertDialog(
             onDismissRequest = { showAboutDialog = false },
             confirmButton = {
-                TextButton(onClick = { showAboutDialog = false }) { Text("Done") }
+                TextButton(onClick = { showAboutDialog = false }) { Text(stringResource(R.string.done)) }
             },
             text = {
                 Column(
@@ -651,9 +662,9 @@ fun SettingsScreen(uiState: MainUiState, viewModel: MainViewModel) {
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     Icon(Icons.Default.BarChart, null, Modifier.size(60.dp), tint = Color(0xFF3B82F6))
-                    Text("SurfSense", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
+                    Text(stringResource(R.string.app_name), style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
                     Text(
-                        "Track your digital wellness across all your devices",
+                        stringResource(R.string.about_tagline),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         textAlign = TextAlign.Center
@@ -729,12 +740,12 @@ fun UsageCard(title: String, usage: DeviceUsageUi) {
                     fontWeight = FontWeight.Bold,
                     color = Color(0xFF3B82F6)
                 )
-                Text("Total screen time today", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Text(stringResource(R.string.total_screen_time_today), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
 
             // Category Breakdown
             if (usage.categories.isNotEmpty()) {
-                Text("Category Breakdown", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
+                Text(stringResource(R.string.category_breakdown), style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
                 usage.categories.forEach { cat ->
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Box(Modifier.size(12.dp).clip(CircleShape).background(colorForName(cat.color)))
@@ -747,9 +758,9 @@ fun UsageCard(title: String, usage: DeviceUsageUi) {
 
             // Quick Stats
             Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                Text("Quick Stats", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
+                Text(stringResource(R.string.quick_stats), style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
                 Row {
-                    Text("Most used category", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.weight(1f))
+                    Text(stringResource(R.string.most_used_category), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.weight(1f))
                     Column(horizontalAlignment = Alignment.End) {
                         Text(usage.mostUsedCategory, style = MaterialTheme.typography.bodySmall, fontWeight = FontWeight.SemiBold)
                         Text(usage.mostUsedTime, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -811,18 +822,18 @@ fun AddDeviceDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Add Device") },
+        title = { Text(stringResource(R.string.add_device)) },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 if (linkingSuccess) {
                     Icon(Icons.Default.CheckCircle, null, Modifier.size(48.dp).align(Alignment.CenterHorizontally), tint = Color(0xFF10B981))
-                    Text("Device linked successfully!", textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth())
+                    Text(stringResource(R.string.device_linked_success), textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth())
                 } else {
-                    Text("Enter the ${Config.LINKING_CODE_LENGTH}-digit code from the device you want to link")
+                    Text(stringResource(R.string.enter_code_prompt, Config.LINKING_CODE_LENGTH))
                     OutlinedTextField(
                         value = code,
                         onValueChange = { if (it.length <= Config.LINKING_CODE_LENGTH && it.all { c -> c.isDigit() }) code = it },
-                        label = { Text("Device Code") },
+                        label = { Text(stringResource(R.string.device_code_label)) },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         singleLine = true,
                         modifier = Modifier.fillMaxWidth(),
@@ -841,7 +852,7 @@ fun AddDeviceDialog(
         },
         confirmButton = {
             if (linkingSuccess) {
-                TextButton(onClick = onDismiss) { Text("Done") }
+                TextButton(onClick = onDismiss) { Text(stringResource(R.string.done)) }
             } else {
                 TextButton(
                     onClick = { onLink(code) },
@@ -851,13 +862,13 @@ fun AddDeviceDialog(
                         CircularProgressIndicator(Modifier.size(16.dp), strokeWidth = 2.dp)
                         Spacer(Modifier.width(8.dp))
                     }
-                    Text("Link Device")
+                    Text(stringResource(R.string.link_device))
                 }
             }
         },
         dismissButton = {
             if (!linkingSuccess) {
-                TextButton(onClick = onDismiss) { Text("Cancel") }
+                TextButton(onClick = onDismiss) { Text(stringResource(R.string.cancel)) }
             }
         }
     )
@@ -871,20 +882,21 @@ fun ShareDeviceDialog(
     onDismiss: () -> Unit
 ) {
     val context = LocalContext.current
+    val codeCopiedText = stringResource(R.string.code_copied)
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Share This Device") },
+        title = { Text(stringResource(R.string.share_this_device)) },
         text = {
             Column(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text("Generate a code that others can use to link and monitor this device's usage", style = MaterialTheme.typography.bodySmall)
+                Text(stringResource(R.string.share_device_description), style = MaterialTheme.typography.bodySmall)
 
                 if (code != null) {
-                    Text("Your sharing code:", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text(stringResource(R.string.your_sharing_code), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     Text(
                         code,
                         style = MaterialTheme.typography.displaySmall,
@@ -894,7 +906,7 @@ fun ShareDeviceDialog(
                         letterSpacing = 4.sp
                     )
                     Text(
-                        "Code expires in ${Config.LINKING_CODE_EXPIRY_MINUTES} minutes",
+                        stringResource(R.string.code_expires_in, Config.LINKING_CODE_EXPIRY_MINUTES),
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -903,9 +915,9 @@ fun ShareDeviceDialog(
                         OutlinedButton(onClick = {
                             val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                             clipboard.setPrimaryClip(ClipData.newPlainText("SurfSense Code", code))
-                            Toast.makeText(context, "Code copied", Toast.LENGTH_SHORT).show()
-                        }) { Text("Copy") }
-                        Button(onClick = onGenerate, enabled = !isGenerating) { Text("New Code") }
+                            Toast.makeText(context, codeCopiedText, Toast.LENGTH_SHORT).show()
+                        }) { Text(stringResource(R.string.copy)) }
+                        Button(onClick = onGenerate, enabled = !isGenerating) { Text(stringResource(R.string.new_code)) }
                     }
                 } else {
                     Button(
@@ -917,13 +929,13 @@ fun ShareDeviceDialog(
                             CircularProgressIndicator(Modifier.size(16.dp), strokeWidth = 2.dp, color = MaterialTheme.colorScheme.onPrimary)
                             Spacer(Modifier.width(8.dp))
                         }
-                        Text(if (isGenerating) "Generating..." else "Generate Sharing Code")
+                        Text(if (isGenerating) stringResource(R.string.generating) else stringResource(R.string.generate_sharing_code))
                     }
                 }
             }
         },
         confirmButton = {
-            TextButton(onClick = onDismiss) { Text("Done") }
+            TextButton(onClick = onDismiss) { Text(stringResource(R.string.done)) }
         }
     )
 }

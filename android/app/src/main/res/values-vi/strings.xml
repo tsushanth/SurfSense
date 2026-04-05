@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">SurfSense</string>
+
+    <!-- Navigation Tabs -->
+    <string name="tab_this_device">Thiết Bị Này</string>
+    <string name="tab_linked_devices">Thiết Bị Liên Kết</string>
+    <string name="tab_trends">Xu Hướng</string>
+    <string name="tab_settings">Cài Đặt</string>
+
+    <!-- Content Descriptions -->
+    <string name="cd_refresh">Làm mới</string>
+
+    <!-- This Device Screen -->
+    <string name="loading_usage_data">Đang tải dữ liệu sử dụng\u2026</string>
+    <string name="today_usage_title">Sử Dụng Hôm Nay</string>
+    <string name="no_usage_data_yet">Chưa Có Dữ Liệu Sử Dụng</string>
+    <string name="no_usage_data_description">Chạm "Đồng Bộ Ngay" để thu thập và tải lên dữ liệu sử dụng thiết bị của bạn. Cần quyền Truy Cập Sử Dụng.</string>
+    <string name="sync_now">Đồng Bộ Ngay</string>
+
+    <!-- Linked Devices Screen -->
+    <string name="linked_devices_usage_title">Sử Dụng Thiết Bị Liên Kết</string>
+    <string name="no_linked_devices">Không Có Thiết Bị Liên Kết</string>
+    <string name="no_linked_devices_description">Thêm thiết bị đầu tiên để bắt đầu theo dõi sử dụng trên tất cả thiết bị của bạn</string>
+    <string name="add_device">Thêm Thiết Bị</string>
+    <string name="share_this_device">Chia Sẻ Thiết Bị Này</string>
+
+    <!-- Remove Device Dialog -->
+    <string name="remove_device_title">Xóa Thiết Bị</string>
+    <string name="remove_device_message">Bạn có chắc muốn xóa %1$s? Thiết bị này sẽ không thể theo dõi sử dụng của bạn nữa.</string>
+    <string name="remove">Xóa</string>
+    <string name="cancel">Hủy</string>
+
+    <!-- Add Device Dialog -->
+    <string name="enter_code_prompt">Nhập mã %1$d chữ số từ thiết bị bạn muốn liên kết</string>
+    <string name="device_code_label">Mã Thiết Bị</string>
+    <string name="device_linked_success">Liên kết thiết bị thành công!</string>
+    <string name="link_device">Liên Kết Thiết Bị</string>
+    <string name="done">Xong</string>
+
+    <!-- Share Device Dialog -->
+    <string name="share_device_description">Tạo mã mà người khác có thể sử dụng để liên kết và giám sát sử dụng thiết bị này</string>
+    <string name="your_sharing_code">Mã chia sẻ của bạn:</string>
+    <string name="code_expires_in">Mã hết hạn sau %1$d phút</string>
+    <string name="copy">Sao Chép</string>
+    <string name="new_code">Mã Mới</string>
+    <string name="generating">Đang tạo\u2026</string>
+    <string name="generate_sharing_code">Tạo Mã Chia Sẻ</string>
+    <string name="code_copied">Đã sao chép mã</string>
+
+    <!-- Trends Screen -->
+    <string name="period_7_days">7 Ngày</string>
+    <string name="period_14_days">14 Ngày</string>
+    <string name="period_30_days">30 Ngày</string>
+    <string name="no_usage_data_trends">Chưa Có Dữ Liệu Sử Dụng</string>
+    <string name="no_usage_data_trends_description">Bắt đầu theo dõi sử dụng để xem xu hướng theo thời gian.</string>
+    <string name="summary">Tóm Tắt</string>
+    <string name="stat_total">Tổng</string>
+    <string name="stat_daily_avg">TB Hàng Ngày</string>
+    <string name="stat_peak_day">Ngày Cao Nhất</string>
+    <string name="daily_usage">Sử Dụng Hàng Ngày</string>
+    <string name="category_breakdown">Phân Loại Danh Mục</string>
+    <string name="daily_details">Chi Tiết Hàng Ngày</string>
+    <string name="no_data">Không có dữ liệu</string>
+    <string name="usage_trends_title">Xu Hướng Sử Dụng</string>
+
+    <!-- Settings Screen -->
+    <string name="section_data_sync">Đồng Bộ Dữ Liệu</string>
+    <string name="auto_sync">Đồng Bộ Tự Động</string>
+    <string name="sync_interval">Khoảng Thời Gian Đồng Bộ</string>
+    <string name="sync_interval_value">%1$d phút</string>
+    <string name="section_device">Thiết Bị</string>
+    <string name="device_id">ID Thiết Bị</string>
+    <string name="device_name">Tên Thiết Bị</string>
+    <string name="section_about">Giới Thiệu</string>
+    <string name="about">Giới Thiệu</string>
+    <string name="version">Phiên Bản</string>
+    <string name="privacy_policy">Chính Sách Bảo Mật</string>
+    <string name="terms_of_service">Điều Khoản Dịch Vụ</string>
+    <string name="section_data">Dữ Liệu</string>
+    <string name="reset_all_data">Đặt Lại Tất Cả Dữ Liệu</string>
+    <string name="reset_all_data_title">Đặt Lại Tất Cả Dữ Liệu?</string>
+    <string name="reset_all_data_message">Thao tác này không thể hoàn tác. Tất cả dữ liệu cục bộ sẽ bị xóa và các thiết bị sẽ bị hủy liên kết.</string>
+    <string name="reset">Đặt Lại</string>
+    <string name="data_reset">Đã đặt lại dữ liệu</string>
+
+    <!-- About Dialog -->
+    <string name="about_tagline">Theo dõi sức khỏe số của bạn trên tất cả thiết bị</string>
+
+    <!-- Usage Card -->
+    <string name="total_screen_time_today">Tổng thời gian màn hình hôm nay</string>
+    <string name="quick_stats">Thống Kê Nhanh</string>
+    <string name="most_used_category">Danh mục được sử dụng nhiều nhất</string>
+
+    <!-- Layout XML -->
+    <string name="enter_6_digit_code">Nhập Mã 6 Chữ Số</string>
+    <string name="fetching_code">Đang lấy mã\u2026</string>
+    <string name="enter_linking_code">Nhập mã liên kết</string>
+    <string name="cd_no_data">Không có dữ liệu</string>
+    <string name="cd_total">Tổng</string>
+    <string name="cd_average">Trung bình</string>
+    <string name="cd_peak">Cao nhất</string>
+    <string name="default_time">0 giờ</string>
+    <string name="settings">Cài Đặt</string>
+    <string name="refresh_data">Làm Mới Dữ Liệu</string>
+    <string name="url_placeholder">URL</string>
+    <string name="interval_placeholder">60 phút</string>
+    <string name="cd_delete">Xóa</string>
+
+    <!-- Notifications -->
+    <string name="new_notification_title">Thông Báo Mới: %1$s</string>
+</resources>

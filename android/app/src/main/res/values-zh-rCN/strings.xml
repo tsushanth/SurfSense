@@ -1,0 +1,121 @@
+<resources>
+    <string name="app_name">SurfSense</string>
+
+    <!-- Navigation Tabs -->
+    <string name="tab_this_device">本设备</string>
+    <string name="tab_linked_devices">已关联设备</string>
+    <string name="tab_trends">趋势</string>
+    <string name="tab_settings">设置</string>
+
+    <!-- Content Descriptions -->
+    <string name="cd_refresh">刷新</string>
+
+    <!-- This Device Screen -->
+    <string name="loading_usage_data">正在加载使用数据\u2026</string>
+    <string name="today_usage_title">今日使用情况</string>
+    <string name="no_usage_data_yet">暂无使用数据</string>
+    <string name="no_usage_data_description">点击"立即同步"以收集和上传您设备的使用数据。这需要使用情况访问权限。</string>
+    <string name="sync_now">立即同步</string>
+
+    <!-- Linked Devices Screen -->
+    <string name="linked_devices_usage_title">已关联设备的使用情况</string>
+    <string name="no_linked_devices">没有已关联的设备</string>
+    <string name="no_linked_devices_description">添加您的第一个设备，开始跟踪所有设备的使用情况</string>
+    <string name="add_device">添加设备</string>
+    <string name="share_this_device">共享此设备</string>
+
+    <!-- Remove Device Dialog -->
+    <string name="remove_device_title">移除设备</string>
+    <string name="remove_device_message">您确定要移除%1$s吗？此设备将无法再跟踪您的使用情况。</string>
+    <string name="remove">移除</string>
+    <string name="cancel">取消</string>
+
+    <!-- Add Device Dialog -->
+    <string name="enter_code_prompt">输入您要关联的设备的%1$d位数字代码</string>
+    <string name="device_code_label">设备代码</string>
+    <string name="device_linked_success">设备关联成功！</string>
+    <string name="link_device">关联设备</string>
+    <string name="done">完成</string>
+
+    <!-- Share Device Dialog -->
+    <string name="share_device_description">生成一个代码，其他人可以用它来关联和监控此设备的使用情况</string>
+    <string name="your_sharing_code">您的共享代码：</string>
+    <string name="code_expires_in">代码将在%1$d分钟后过期</string>
+    <string name="copy">复制</string>
+    <string name="new_code">新代码</string>
+    <string name="generating">正在生成\u2026</string>
+    <string name="generate_sharing_code">生成共享代码</string>
+    <string name="code_copied">代码已复制</string>
+
+    <!-- Trends Screen -->
+    <string name="period_7_days">7天</string>
+    <string name="period_14_days">14天</string>
+    <string name="period_30_days">30天</string>
+    <string name="no_usage_data_trends">暂无使用数据</string>
+    <string name="no_usage_data_trends_description">开始跟踪您的使用情况，以查看随时间变化的趋势。</string>
+    <string name="summary">概要</string>
+    <string name="stat_total">总计</string>
+    <string name="stat_daily_avg">日均</string>
+    <string name="stat_peak_day">峰值日</string>
+    <string name="daily_usage">每日使用量</string>
+    <string name="category_breakdown">类别细分</string>
+    <string name="daily_details">每日详情</string>
+    <string name="no_data">无数据</string>
+    <string name="usage_trends_title">使用趋势</string>
+
+    <!-- Settings Screen -->
+    <string name="section_data_sync">数据同步</string>
+    <string name="auto_sync">自动同步</string>
+    <string name="sync_interval">同步间隔</string>
+    <string name="sync_interval_value">%1$d分钟</string>
+    <string name="section_device">设备</string>
+    <string name="device_id">设备ID</string>
+    <string name="device_name">设备名称</string>
+    <string name="section_about">关于</string>
+    <string name="about">关于</string>
+    <string name="version">版本</string>
+    <string name="privacy_policy">隐私政策</string>
+    <string name="terms_of_service">服务条款</string>
+    <string name="section_data">数据</string>
+    <string name="reset_all_data">重置所有数据</string>
+    <string name="reset_all_data_title">重置所有数据？</string>
+    <string name="reset_all_data_message">此操作无法撤销。所有本地数据将被删除，设备将被取消关联。</string>
+    <string name="reset">重置</string>
+    <string name="data_reset">数据已重置</string>
+
+    <!-- About Dialog -->
+    <string name="about_tagline">在所有设备上追踪您的数字健康</string>
+
+    <!-- Usage Card -->
+    <string name="total_screen_time_today">今日总屏幕时间</string>
+    <string name="quick_stats">快速统计</string>
+    <string name="most_used_category">最常使用的类别</string>
+
+    <!-- Layout XML: dialog_link_device.xml -->
+    <string name="enter_6_digit_code">输入6位数字代码</string>
+
+    <!-- Layout XML: dialog_generate_code.xml -->
+    <string name="fetching_code">正在获取代码\u2026</string>
+
+    <!-- Layout XML: activity_link_device.xml -->
+    <string name="enter_linking_code">输入关联代码</string>
+
+    <!-- Layout XML: activity_trends.xml -->
+    <string name="cd_no_data">无数据</string>
+    <string name="cd_total">总计</string>
+    <string name="cd_average">平均</string>
+    <string name="cd_peak">峰值</string>
+    <string name="default_time">0小时</string>
+
+    <!-- Layout XML: activity_main.xml -->
+    <string name="settings">设置</string>
+    <string name="refresh_data">刷新数据</string>
+
+    <!-- Layout XML: item_tracker_row.xml -->
+    <string name="url_placeholder">URL</string>
+    <string name="interval_placeholder">60分钟</string>
+    <string name="cd_delete">删除</string>
+
+    <!-- Notifications -->
+    <string name="new_notification_title">新通知：%1$s</string>
+</resources>

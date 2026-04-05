@@ -9,7 +9,7 @@
         android:id="@+id/generatedCodeTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Fetching code..."
+        android:text="@string/fetching_code"
         android:textSize="18sp"
         android:gravity="center"
         android:textColor="@color/black"

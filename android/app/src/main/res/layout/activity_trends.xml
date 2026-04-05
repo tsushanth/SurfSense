@@ -38,13 +38,13 @@
                 android:layout_height="80dp"
                 android:src="@drawable/ic_chart"
                 android:tint="#9CA3AF"
-                android:contentDescription="No data" />
+                android:contentDescription="@string/cd_no_data" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="No Usage Data Yet"
+                android:text="@string/no_usage_data_yet"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -52,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Start tracking your usage to see trends over time."
+                android:text="@string/no_usage_data_trends_description"
                 android:textSize="14sp"
                 android:textColor="#6B7280"
                 android:gravity="center" />
@@ -77,7 +77,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Summary"
+                    android:text="@string/summary"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:layout_marginBottom="12dp" />
@@ -102,21 +102,21 @@
                             android:layout_height="24dp"
                             android:src="@drawable/ic_time"
                             android:tint="#3B82F6"
-                            android:contentDescription="Total" />
+                            android:contentDescription="@string/cd_total" />
 
                         <TextView
                             android:id="@+id/tvTotalTime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="0h"
+                            android:text="@string/default_time"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Total"
+                            android:text="@string/stat_total"
                             android:textSize="12sp"
                             android:textColor="#6B7280" />
                     </LinearLayout>
@@ -140,21 +140,21 @@
                             android:layout_height="24dp"
                             android:src="@drawable/ic_chart"
                             android:tint="#10B981"
-                            android:contentDescription="Average" />
+                            android:contentDescription="@string/cd_average" />
 
                         <TextView
                             android:id="@+id/tvAvgTime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="0h"
+                            android:text="@string/default_time"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Daily Avg"
+                            android:text="@string/stat_daily_avg"
                             android:textSize="12sp"
                             android:textColor="#6B7280" />
                     </LinearLayout>
@@ -178,21 +178,21 @@
                             android:layout_height="24dp"
                             android:src="@drawable/ic_trending_up"
                             android:tint="#F97316"
-                            android:contentDescription="Peak" />
+                            android:contentDescription="@string/cd_peak" />
 
                         <TextView
                             android:id="@+id/tvPeakTime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="0h"
+                            android:text="@string/default_time"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Peak Day"
+                            android:text="@string/stat_peak_day"
                             android:textSize="12sp"
                             android:textColor="#6B7280" />
                     </LinearLayout>
@@ -218,7 +218,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Daily Usage"
+                    android:text="@string/daily_usage"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:layout_marginBottom="8dp" />
@@ -248,7 +248,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Category Breakdown"
+                    android:text="@string/category_breakdown"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:layout_marginBottom="8dp" />

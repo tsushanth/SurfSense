@@ -1,0 +1,177 @@
+/* Localizable.strings - English (Base)
+   SurfSense */
+
+/* MARK: - Tab Bar (MainContentView) */
+"This Device" = "This Device";
+"Linked Devices" = "Linked Devices";
+"Trends" = "Trends";
+"Settings" = "Settings";
+
+/* MARK: - AddDeviceView */
+"Add Device" = "Add Device";
+"Enter the 6-digit code from the device you want to link" = "Enter the 6-digit code from the device you want to link";
+"Device Code" = "Device Code";
+"Linking Device..." = "Linking Device...";
+"Link Device" = "Link Device";
+"Device Linked!" = "Device Linked!";
+"OK" = "OK";
+"Unknown Device" = "Unknown Device";
+
+/* MARK: - CategoryBreakdownView / TotalUsageCard */
+"Category Breakdown" = "Category Breakdown";
+"Total Screen Time" = "Total Screen Time";
+
+/* MARK: - CodeDisplayView */
+"Your sharing code:" = "Your sharing code:";
+"Code expires in %@ minutes" = "Code expires in %@ minutes";
+"Copy Code" = "Copy Code";
+"New Code" = "New Code";
+"Code Copied!" = "Code Copied!";
+"The sharing code has been copied to your clipboard." = "The sharing code has been copied to your clipboard.";
+
+/* MARK: - DailyUsageSummaryCard / UnifiedUsageCard */
+"Total screen time today" = "Total screen time today";
+
+/* MARK: - DeviceRow */
+"Last sync: %@" = "Last sync: %@";
+"Unlink" = "Unlink";
+
+/* MARK: - ErrorViewComponent */
+"Try Again" = "Try Again";
+
+/* MARK: - InfoCardComponent */
+"How to get a code" = "How to get a code";
+"Open the app on the device you want to link" = "Open the app on the device you want to link";
+"Go to Linked Devices tab" = "Go to Linked Devices tab";
+"Tap 'Share This Device'" = "Tap 'Share This Device'";
+"Generate and share the 6-digit code" = "Generate and share the 6-digit code";
+
+/* MARK: - LinkedDeviceCard */
+"Last seen %@" = "Last seen %@";
+"View details" = "View details";
+
+/* MARK: - LinkedDevicesView */
+"Quick Actions" = "Quick Actions";
+"Share This Device" = "Share This Device";
+"Loading linked devices..." = "Loading linked devices...";
+"Remove Device" = "Remove Device";
+"Cancel" = "Cancel";
+"Remove" = "Remove";
+"Are you sure you want to remove %@? This device will no longer be able to track your usage." = "Are you sure you want to remove %@? This device will no longer be able to track your usage.";
+"Linked Devices (%@)" = "Linked Devices (%@)";
+
+/* MARK: - PrivacyNoticeCard */
+"Privacy Notice" = "Privacy Notice";
+"Sharing this code will allow others to view your device usage data. Only share with trusted individuals." = "Sharing this code will allow others to view your device usage data. Only share with trusted individuals.";
+
+/* MARK: - QuickStatsView */
+"Quick Stats" = "Quick Stats";
+"Most used category" = "Most used category";
+
+/* MARK: - SettingsView */
+"Screen Time Auth" = "Screen Time Auth";
+"API Key" = "API Key";
+"Stored" = "Stored";
+"Missing" = "Missing";
+"Last Data Update" = "Last Data Update";
+"Never" = "Never";
+"Cached Categories" = "Cached Categories";
+"Diagnostics" = "Diagnostics";
+"Screen Time tracking requires a physical device with Screen Time enabled in iOS Settings." = "Screen Time tracking requires a physical device with Screen Time enabled in iOS Settings.";
+"Auto Sync" = "Auto Sync";
+"Sync Interval" = "Sync Interval";
+"%@ minutes" = "%@ minutes";
+"Data Sync" = "Data Sync";
+"When enabled, usage data syncs automatically across your linked devices." = "When enabled, usage data syncs automatically across your linked devices.";
+"Usage Alerts" = "Usage Alerts";
+"Weekly Reports" = "Weekly Reports";
+"Notifications" = "Notifications";
+"Receive insights about your device usage patterns." = "Receive insights about your device usage patterns.";
+"Device ID" = "Device ID";
+"Copy Full ID" = "Copy Full ID";
+"Device Name" = "Device Name";
+"Device" = "Device";
+"About" = "About";
+"Version" = "Version";
+"Privacy Policy" = "Privacy Policy";
+"Terms of Service" = "Terms of Service";
+"Reset All Data" = "Reset All Data";
+"This will remove all local data and unlink all devices." = "This will remove all local data and unlink all devices.";
+"Reset All Data?" = "Reset All Data?";
+"Reset" = "Reset";
+"This action cannot be undone. All your local data will be deleted and devices will be unlinked." = "This action cannot be undone. All your local data will be deleted and devices will be unlinked.";
+"Approved" = "Approved";
+"Denied" = "Denied";
+"Not Requested" = "Not Requested";
+
+/* MARK: - AboutView */
+"SurfSense" = "SurfSense";
+"Track your digital wellness across all your devices" = "Track your digital wellness across all your devices";
+"Made with ❤️" = "Made with ❤️";
+"© 2025 SurfSense" = "© 2025 SurfSense";
+"Done" = "Done";
+
+/* MARK: - ShareDeviceView */
+"Allow others to track this device" = "Allow others to track this device";
+"Generate a code that others can use to link and monitor this device's usage" = "Generate a code that others can use to link and monitor this device's usage";
+"Generating Code..." = "Generating Code...";
+"Generate Sharing Code" = "Generate Sharing Code";
+
+/* MARK: - SuccessViewComponent */
+"Successfully linked with" = "Successfully linked with";
+"Add Another Device" = "Add Another Device";
+
+/* MARK: - SupportingViews */
+"Unable to load devices" = "Unable to load devices";
+"No Linked Devices" = "No Linked Devices";
+"Add your first device to start tracking usage across all your devices" = "Add your first device to start tracking usage across all your devices";
+
+/* MARK: - ThisDeviceView */
+"Data updated: %@" = "Data updated: %@";
+"No data from Screen Time extension yet. Scroll up to check the report above." = "No data from Screen Time extension yet. Scroll up to check the report above.";
+"Syncing %@ categories..." = "Syncing %@ categories...";
+"Synced successfully" = "Synced successfully";
+"No usage data to sync — use your device and come back" = "No usage data to sync — use your device and come back";
+"Sync to Server" = "Sync to Server";
+"Syncing..." = "Syncing...";
+"Enable Screen Time Tracking" = "Enable Screen Time Tracking";
+"SurfSense needs permission to access your screen time data. This uses Apple's Screen Time framework and requires Face ID or passcode verification." = "SurfSense needs permission to access your screen time data. This uses Apple's Screen Time framework and requires Face ID or passcode verification.";
+"Grant Access" = "Grant Access";
+"Screen Time Access Denied" = "Screen Time Access Denied";
+"Please ensure Screen Time is enabled in iOS Settings, then try granting access again." = "Please ensure Screen Time is enabled in iOS Settings, then try granting access again.";
+"Open Settings" = "Open Settings";
+
+/* MARK: - TrendsView */
+"7 Days" = "7 Days";
+"14 Days" = "14 Days";
+"30 Days" = "30 Days";
+"Time Period" = "Time Period";
+"Usage Trends" = "Usage Trends";
+"No Usage Data Yet" = "No Usage Data Yet";
+"Start tracking your usage to see trends over time." = "Start tracking your usage to see trends over time.";
+"Summary" = "Summary";
+"Total" = "Total";
+"Daily Avg" = "Daily Avg";
+"Peak Day" = "Peak Day";
+"Daily Usage" = "Daily Usage";
+"Minutes" = "Minutes";
+"Daily Details" = "Daily Details";
+"No data" = "No data";
+
+/* MARK: - TotalUsageCard (QuickStatsCard) */
+"Most used: %@" = "Most used: %@";
+
+/* MARK: - UnifiedUsageCard */
+"All Devices" = "All Devices";
+
+/* MARK: - ReportView (UsageReportExtension) */
+"No usage data yet" = "No usage data yet";
+"Screen Time Today" = "Screen Time Today";
+
+/* MARK: - ViewModels */
+"Unknown" = "Unknown";
+"None" = "None";
+"iPhone" = "iPhone";
+"Android Phone" = "Android Phone";
+"Computer" = "Computer";
+"Browser" = "Browser";

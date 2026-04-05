@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">SurfSense</string>
+
+    <!-- Navigation Tabs -->
+    <string name="tab_this_device">อุปกรณ์นี้</string>
+    <string name="tab_linked_devices">อุปกรณ์ที่เชื่อมต่อ</string>
+    <string name="tab_trends">แนวโน้ม</string>
+    <string name="tab_settings">การตั้งค่า</string>
+
+    <!-- Content Descriptions -->
+    <string name="cd_refresh">รีเฟรช</string>
+
+    <!-- This Device Screen -->
+    <string name="loading_usage_data">กำลังโหลดข้อมูลการใช้งาน\u2026</string>
+    <string name="today_usage_title">การใช้งานวันนี้</string>
+    <string name="no_usage_data_yet">ยังไม่มีข้อมูลการใช้งาน</string>
+    <string name="no_usage_data_description">แตะ "ซิงค์ตอนนี้" เพื่อรวบรวมและอัปโหลดข้อมูลการใช้งานอุปกรณ์ของคุณ ต้องการสิทธิ์การเข้าถึงการใช้งาน</string>
+    <string name="sync_now">ซิงค์ตอนนี้</string>
+
+    <!-- Linked Devices Screen -->
+    <string name="linked_devices_usage_title">การใช้งานอุปกรณ์ที่เชื่อมต่อ</string>
+    <string name="no_linked_devices">ไม่มีอุปกรณ์ที่เชื่อมต่อ</string>
+    <string name="no_linked_devices_description">เพิ่มอุปกรณ์เครื่องแรกเพื่อเริ่มติดตามการใช้งานบนอุปกรณ์ทั้งหมดของคุณ</string>
+    <string name="add_device">เพิ่มอุปกรณ์</string>
+    <string name="share_this_device">แชร์อุปกรณ์นี้</string>
+
+    <!-- Remove Device Dialog -->
+    <string name="remove_device_title">ลบอุปกรณ์</string>
+    <string name="remove_device_message">คุณแน่ใจหรือไม่ว่าต้องการลบ %1$s? อุปกรณ์นี้จะไม่สามารถติดตามการใช้งานของคุณได้อีกต่อไป</string>
+    <string name="remove">ลบ</string>
+    <string name="cancel">ยกเลิก</string>
+
+    <!-- Add Device Dialog -->
+    <string name="enter_code_prompt">ป้อนรหัส %1$d หลักจากอุปกรณ์ที่คุณต้องการเชื่อมต่อ</string>
+    <string name="device_code_label">รหัสอุปกรณ์</string>
+    <string name="device_linked_success">เชื่อมต่ออุปกรณ์สำเร็จ!</string>
+    <string name="link_device">เชื่อมต่ออุปกรณ์</string>
+    <string name="done">เสร็จสิ้น</string>
+
+    <!-- Share Device Dialog -->
+    <string name="share_device_description">สร้างรหัสที่ผู้อื่นสามารถใช้เชื่อมต่อและตรวจสอบการใช้งานอุปกรณ์นี้</string>
+    <string name="your_sharing_code">รหัสแชร์ของคุณ:</string>
+    <string name="code_expires_in">รหัสหมดอายุใน %1$d นาที</string>
+    <string name="copy">คัดลอก</string>
+    <string name="new_code">รหัสใหม่</string>
+    <string name="generating">กำลังสร้าง\u2026</string>
+    <string name="generate_sharing_code">สร้างรหัสแชร์</string>
+    <string name="code_copied">คัดลอกรหัสแล้ว</string>
+
+    <!-- Trends Screen -->
+    <string name="period_7_days">7 วัน</string>
+    <string name="period_14_days">14 วัน</string>
+    <string name="period_30_days">30 วัน</string>
+    <string name="no_usage_data_trends">ยังไม่มีข้อมูลการใช้งาน</string>
+    <string name="no_usage_data_trends_description">เริ่มติดตามการใช้งานเพื่อดูแนวโน้มตลอดเวลา</string>
+    <string name="summary">สรุป</string>
+    <string name="stat_total">รวม</string>
+    <string name="stat_daily_avg">เฉลี่ยต่อวัน</string>
+    <string name="stat_peak_day">วันสูงสุด</string>
+    <string name="daily_usage">การใช้งานรายวัน</string>
+    <string name="category_breakdown">แยกตามหมวดหมู่</string>
+    <string name="daily_details">รายละเอียดรายวัน</string>
+    <string name="no_data">ไม่มีข้อมูล</string>
+    <string name="usage_trends_title">แนวโน้มการใช้งาน</string>
+
+    <!-- Settings Screen -->
+    <string name="section_data_sync">การซิงค์ข้อมูล</string>
+    <string name="auto_sync">ซิงค์อัตโนมัติ</string>
+    <string name="sync_interval">ช่วงเวลาซิงค์</string>
+    <string name="sync_interval_value">%1$d นาที</string>
+    <string name="section_device">อุปกรณ์</string>
+    <string name="device_id">รหัสอุปกรณ์</string>
+    <string name="device_name">ชื่ออุปกรณ์</string>
+    <string name="section_about">เกี่ยวกับ</string>
+    <string name="about">เกี่ยวกับ</string>
+    <string name="version">เวอร์ชัน</string>
+    <string name="privacy_policy">นโยบายความเป็นส่วนตัว</string>
+    <string name="terms_of_service">ข้อกำหนดการบริการ</string>
+    <string name="section_data">ข้อมูล</string>
+    <string name="reset_all_data">รีเซ็ตข้อมูลทั้งหมด</string>
+    <string name="reset_all_data_title">รีเซ็ตข้อมูลทั้งหมด?</string>
+    <string name="reset_all_data_message">การดำเนินการนี้ไม่สามารถยกเลิกได้ ข้อมูลในเครื่องทั้งหมดจะถูกลบและอุปกรณ์จะถูกยกเลิกการเชื่อมต่อ</string>
+    <string name="reset">รีเซ็ต</string>
+    <string name="data_reset">รีเซ็ตข้อมูลแล้ว</string>
+
+    <!-- About Dialog -->
+    <string name="about_tagline">ติดตามสุขภาพดิจิทัลของคุณบนอุปกรณ์ทั้งหมด</string>
+
+    <!-- Usage Card -->
+    <string name="total_screen_time_today">เวลาหน้าจอรวมวันนี้</string>
+    <string name="quick_stats">สถิติด่วน</string>
+    <string name="most_used_category">หมวดหมู่ที่ใช้มากที่สุด</string>
+
+    <!-- Layout XML -->
+    <string name="enter_6_digit_code">ป้อนรหัส 6 หลัก</string>
+    <string name="fetching_code">กำลังดึงรหัส\u2026</string>
+    <string name="enter_linking_code">ป้อนรหัสเชื่อมต่อ</string>
+    <string name="cd_no_data">ไม่มีข้อมูล</string>
+    <string name="cd_total">รวม</string>
+    <string name="cd_average">เฉลี่ย</string>
+    <string name="cd_peak">สูงสุด</string>
+    <string name="default_time">0 ชม.</string>
+    <string name="settings">การตั้งค่า</string>
+    <string name="refresh_data">รีเฟรชข้อมูล</string>
+    <string name="url_placeholder">URL</string>
+    <string name="interval_placeholder">60 นาที</string>
+    <string name="cd_delete">ลบ</string>
+
+    <!-- Notifications -->
+    <string name="new_notification_title">การแจ้งเตือนใหม่: %1$s</string>
+</resources>

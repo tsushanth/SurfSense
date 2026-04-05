@@ -1,0 +1,177 @@
+/* Localizable.strings - Korean
+   SurfSense */
+
+/* MARK: - Tab Bar (MainContentView) */
+"This Device" = "이 기기";
+"Linked Devices" = "연결된 기기";
+"Trends" = "트렌드";
+"Settings" = "설정";
+
+/* MARK: - AddDeviceView */
+"Add Device" = "기기 추가";
+"Enter the 6-digit code from the device you want to link" = "연결하려는 기기의 6자리 코드를 입력하세요";
+"Device Code" = "기기 코드";
+"Linking Device..." = "기기 연결 중...";
+"Link Device" = "기기 연결";
+"Device Linked!" = "기기가 연결되었습니다!";
+"OK" = "확인";
+"Unknown Device" = "알 수 없는 기기";
+
+/* MARK: - CategoryBreakdownView / TotalUsageCard */
+"Category Breakdown" = "카테고리별 분석";
+"Total Screen Time" = "총 스크린 타임";
+
+/* MARK: - CodeDisplayView */
+"Your sharing code:" = "공유 코드:";
+"Code expires in %@ minutes" = "코드가 %@분 후에 만료됩니다";
+"Copy Code" = "코드 복사";
+"New Code" = "새 코드";
+"Code Copied!" = "코드가 복사되었습니다!";
+"The sharing code has been copied to your clipboard." = "공유 코드가 클립보드에 복사되었습니다.";
+
+/* MARK: - DailyUsageSummaryCard / UnifiedUsageCard */
+"Total screen time today" = "오늘 총 스크린 타임";
+
+/* MARK: - DeviceRow */
+"Last sync: %@" = "마지막 동기화: %@";
+"Unlink" = "연결 해제";
+
+/* MARK: - ErrorViewComponent */
+"Try Again" = "다시 시도";
+
+/* MARK: - InfoCardComponent */
+"How to get a code" = "코드 받는 방법";
+"Open the app on the device you want to link" = "연결하려는 기기에서 앱을 열기";
+"Go to Linked Devices tab" = "연결된 기기 탭으로 이동";
+"Tap 'Share This Device'" = "'이 기기 공유'를 탭하기";
+"Generate and share the 6-digit code" = "6자리 코드를 생성하고 공유하기";
+
+/* MARK: - LinkedDeviceCard */
+"Last seen %@" = "마지막 확인 %@";
+"View details" = "상세 보기";
+
+/* MARK: - LinkedDevicesView */
+"Quick Actions" = "빠른 작업";
+"Share This Device" = "이 기기 공유";
+"Loading linked devices..." = "연결된 기기 로딩 중...";
+"Remove Device" = "기기 제거";
+"Cancel" = "취소";
+"Remove" = "제거";
+"Are you sure you want to remove %@? This device will no longer be able to track your usage." = "%@을(를) 제거하시겠습니까? 이 기기는 더 이상 사용량을 추적할 수 없게 됩니다.";
+"Linked Devices (%@)" = "연결된 기기 (%@)";
+
+/* MARK: - PrivacyNoticeCard */
+"Privacy Notice" = "개인정보 보호 안내";
+"Sharing this code will allow others to view your device usage data. Only share with trusted individuals." = "이 코드를 공유하면 다른 사람이 기기 사용 데이터를 볼 수 있게 됩니다. 신뢰할 수 있는 사람에게만 공유하세요.";
+
+/* MARK: - QuickStatsView */
+"Quick Stats" = "빠른 통계";
+"Most used category" = "가장 많이 사용한 카테고리";
+
+/* MARK: - SettingsView */
+"Screen Time Auth" = "스크린 타임 인증";
+"API Key" = "API 키";
+"Stored" = "저장됨";
+"Missing" = "없음";
+"Last Data Update" = "마지막 데이터 업데이트";
+"Never" = "없음";
+"Cached Categories" = "캐시된 카테고리";
+"Diagnostics" = "진단";
+"Screen Time tracking requires a physical device with Screen Time enabled in iOS Settings." = "스크린 타임 추적은 iOS 설정에서 스크린 타임이 활성화된 실제 기기가 필요합니다.";
+"Auto Sync" = "자동 동기화";
+"Sync Interval" = "동기화 간격";
+"%@ minutes" = "%@분";
+"Data Sync" = "데이터 동기화";
+"When enabled, usage data syncs automatically across your linked devices." = "활성화하면 사용 데이터가 연결된 기기 간에 자동으로 동기화됩니다.";
+"Usage Alerts" = "사용 알림";
+"Weekly Reports" = "주간 리포트";
+"Notifications" = "알림";
+"Receive insights about your device usage patterns." = "기기 사용 패턴에 대한 인사이트를 받아보세요.";
+"Device ID" = "기기 ID";
+"Copy Full ID" = "전체 ID 복사";
+"Device Name" = "기기 이름";
+"Device" = "기기";
+"About" = "앱 정보";
+"Version" = "버전";
+"Privacy Policy" = "개인정보 처리방침";
+"Terms of Service" = "서비스 이용약관";
+"Reset All Data" = "모든 데이터 초기화";
+"This will remove all local data and unlink all devices." = "모든 로컬 데이터가 제거되고 모든 기기의 연결이 해제됩니다.";
+"Reset All Data?" = "모든 데이터를 초기화하시겠습니까?";
+"Reset" = "초기화";
+"This action cannot be undone. All your local data will be deleted and devices will be unlinked." = "이 작업은 취소할 수 없습니다. 모든 로컬 데이터가 삭제되고 기기 연결이 해제됩니다.";
+"Approved" = "승인됨";
+"Denied" = "거부됨";
+"Not Requested" = "요청되지 않음";
+
+/* MARK: - AboutView */
+"SurfSense" = "SurfSense";
+"Track your digital wellness across all your devices" = "모든 기기에서 디지털 웰니스를 추적하세요";
+"Made with ❤️" = "❤️으로 만듦";
+"© 2025 SurfSense" = "© 2025 SurfSense";
+"Done" = "완료";
+
+/* MARK: - ShareDeviceView */
+"Allow others to track this device" = "다른 사람이 이 기기를 추적하도록 허용";
+"Generate a code that others can use to link and monitor this device's usage" = "다른 사람이 이 기기의 사용량을 연결하고 모니터링하는 데 사용할 수 있는 코드를 생성하세요";
+"Generating Code..." = "코드 생성 중...";
+"Generate Sharing Code" = "공유 코드 생성";
+
+/* MARK: - SuccessViewComponent */
+"Successfully linked with" = "성공적으로 연결됨:";
+"Add Another Device" = "다른 기기 추가";
+
+/* MARK: - SupportingViews */
+"Unable to load devices" = "기기를 불러올 수 없음";
+"No Linked Devices" = "연결된 기기 없음";
+"Add your first device to start tracking usage across all your devices" = "첫 번째 기기를 추가하여 모든 기기에서 사용량 추적을 시작하세요";
+
+/* MARK: - ThisDeviceView */
+"Data updated: %@" = "데이터 업데이트: %@";
+"No data from Screen Time extension yet. Scroll up to check the report above." = "스크린 타임 확장에서 아직 데이터가 없습니다. 위로 스크롤하여 리포트를 확인하세요.";
+"Syncing %@ categories..." = "%@개 카테고리 동기화 중...";
+"Synced successfully" = "동기화 성공";
+"No usage data to sync — use your device and come back" = "동기화할 사용 데이터가 없습니다 — 기기를 사용한 후 다시 오세요";
+"Sync to Server" = "서버에 동기화";
+"Syncing..." = "동기화 중...";
+"Enable Screen Time Tracking" = "스크린 타임 추적 활성화";
+"SurfSense needs permission to access your screen time data. This uses Apple's Screen Time framework and requires Face ID or passcode verification." = "SurfSense가 스크린 타임 데이터에 접근하려면 권한이 필요합니다. Apple의 스크린 타임 프레임워크를 사용하며 Face ID 또는 암호 인증이 필요합니다.";
+"Grant Access" = "접근 허용";
+"Screen Time Access Denied" = "스크린 타임 접근이 거부됨";
+"Please ensure Screen Time is enabled in iOS Settings, then try granting access again." = "iOS 설정에서 스크린 타임이 활성화되어 있는지 확인한 후 다시 접근을 허용해 주세요.";
+"Open Settings" = "설정 열기";
+
+/* MARK: - TrendsView */
+"7 Days" = "7일";
+"14 Days" = "14일";
+"30 Days" = "30일";
+"Time Period" = "기간";
+"Usage Trends" = "사용 트렌드";
+"No Usage Data Yet" = "사용 데이터 없음";
+"Start tracking your usage to see trends over time." = "사용량 추적을 시작하여 시간에 따른 트렌드를 확인하세요.";
+"Summary" = "요약";
+"Total" = "합계";
+"Daily Avg" = "일 평균";
+"Peak Day" = "최고 사용일";
+"Daily Usage" = "일별 사용량";
+"Minutes" = "분";
+"Daily Details" = "일별 상세";
+"No data" = "데이터 없음";
+
+/* MARK: - TotalUsageCard (QuickStatsCard) */
+"Most used: %@" = "가장 많이 사용: %@";
+
+/* MARK: - UnifiedUsageCard */
+"All Devices" = "모든 기기";
+
+/* MARK: - ReportView (UsageReportExtension) */
+"No usage data yet" = "사용 데이터 없음";
+"Screen Time Today" = "오늘의 스크린 타임";
+
+/* MARK: - ViewModels */
+"Unknown" = "알 수 없음";
+"None" = "없음";
+"iPhone" = "iPhone";
+"Android Phone" = "Android 폰";
+"Computer" = "컴퓨터";
+"Browser" = "브라우저";

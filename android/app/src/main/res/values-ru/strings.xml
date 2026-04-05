@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">SurfSense</string>
+
+    <!-- Navigation Tabs -->
+    <string name="tab_this_device">Это устройство</string>
+    <string name="tab_linked_devices">Связанные устройства</string>
+    <string name="tab_trends">Тренды</string>
+    <string name="tab_settings">Настройки</string>
+
+    <!-- Content Descriptions -->
+    <string name="cd_refresh">Обновить</string>
+
+    <!-- This Device Screen -->
+    <string name="loading_usage_data">Загрузка данных использования\u2026</string>
+    <string name="today_usage_title">Использование за сегодня</string>
+    <string name="no_usage_data_yet">Данных использования пока нет</string>
+    <string name="no_usage_data_description">Нажмите «Синхронизировать», чтобы собрать и загрузить данные использования устройства. Требуется разрешение на доступ к использованию.</string>
+    <string name="sync_now">Синхронизировать</string>
+
+    <!-- Linked Devices Screen -->
+    <string name="linked_devices_usage_title">Использование связанных устройств</string>
+    <string name="no_linked_devices">Нет связанных устройств</string>
+    <string name="no_linked_devices_description">Добавьте первое устройство, чтобы начать отслеживание использования на всех ваших устройствах</string>
+    <string name="add_device">Добавить устройство</string>
+    <string name="share_this_device">Поделиться этим устройством</string>
+
+    <!-- Remove Device Dialog -->
+    <string name="remove_device_title">Удалить устройство</string>
+    <string name="remove_device_message">Вы уверены, что хотите удалить %1$s? Это устройство больше не сможет отслеживать ваше использование.</string>
+    <string name="remove">Удалить</string>
+    <string name="cancel">Отмена</string>
+
+    <!-- Add Device Dialog -->
+    <string name="enter_code_prompt">Введите %1$d-значный код с устройства, которое хотите привязать</string>
+    <string name="device_code_label">Код устройства</string>
+    <string name="device_linked_success">Устройство успешно привязано!</string>
+    <string name="link_device">Привязать устройство</string>
+    <string name="done">Готово</string>
+
+    <!-- Share Device Dialog -->
+    <string name="share_device_description">Сгенерируйте код, который другие смогут использовать для привязки и мониторинга использования этого устройства</string>
+    <string name="your_sharing_code">Ваш код для обмена:</string>
+    <string name="code_expires_in">Код истекает через %1$d мин.</string>
+    <string name="copy">Копировать</string>
+    <string name="new_code">Новый код</string>
+    <string name="generating">Генерация\u2026</string>
+    <string name="generate_sharing_code">Сгенерировать код</string>
+    <string name="code_copied">Код скопирован</string>
+
+    <!-- Trends Screen -->
+    <string name="period_7_days">7 дней</string>
+    <string name="period_14_days">14 дней</string>
+    <string name="period_30_days">30 дней</string>
+    <string name="no_usage_data_trends">Данных использования пока нет</string>
+    <string name="no_usage_data_trends_description">Начните отслеживание использования, чтобы увидеть тренды.</string>
+    <string name="summary">Сводка</string>
+    <string name="stat_total">Всего</string>
+    <string name="stat_daily_avg">Среднее за день</string>
+    <string name="stat_peak_day">Пиковый день</string>
+    <string name="daily_usage">Ежедневное использование</string>
+    <string name="category_breakdown">Разбивка по категориям</string>
+    <string name="daily_details">Дневные детали</string>
+    <string name="no_data">Нет данных</string>
+    <string name="usage_trends_title">Тренды использования</string>
+
+    <!-- Settings Screen -->
+    <string name="section_data_sync">Синхронизация данных</string>
+    <string name="auto_sync">Автосинхронизация</string>
+    <string name="sync_interval">Интервал синхронизации</string>
+    <string name="sync_interval_value">%1$d мин.</string>
+    <string name="section_device">Устройство</string>
+    <string name="device_id">ID устройства</string>
+    <string name="device_name">Имя устройства</string>
+    <string name="section_about">О приложении</string>
+    <string name="about">О приложении</string>
+    <string name="version">Версия</string>
+    <string name="privacy_policy">Политика конфиденциальности</string>
+    <string name="terms_of_service">Условия использования</string>
+    <string name="section_data">Данные</string>
+    <string name="reset_all_data">Сбросить все данные</string>
+    <string name="reset_all_data_title">Сбросить все данные?</string>
+    <string name="reset_all_data_message">Это действие нельзя отменить. Все локальные данные будут удалены, а устройства отвязаны.</string>
+    <string name="reset">Сбросить</string>
+    <string name="data_reset">Данные сброшены</string>
+
+    <!-- About Dialog -->
+    <string name="about_tagline">Отслеживайте цифровое благополучие на всех устройствах</string>
+
+    <!-- Usage Card -->
+    <string name="total_screen_time_today">Общее время экрана сегодня</string>
+    <string name="quick_stats">Краткая статистика</string>
+    <string name="most_used_category">Самая используемая категория</string>
+
+    <!-- Layout XML -->
+    <string name="enter_6_digit_code">Введите 6-значный код</string>
+    <string name="fetching_code">Получение кода\u2026</string>
+    <string name="enter_linking_code">Введите код привязки</string>
+    <string name="cd_no_data">Нет данных</string>
+    <string name="cd_total">Всего</string>
+    <string name="cd_average">Среднее</string>
+    <string name="cd_peak">Пик</string>
+    <string name="default_time">0 ч</string>
+    <string name="settings">Настройки</string>
+    <string name="refresh_data">Обновить данные</string>
+    <string name="url_placeholder">URL</string>
+    <string name="interval_placeholder">60 мин</string>
+    <string name="cd_delete">Удалить</string>
+
+    <!-- Notifications -->
+    <string name="new_notification_title">Новое уведомление: %1$s</string>
+</resources>

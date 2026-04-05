@@ -1,0 +1,177 @@
+/* Localizable.strings - Brazilian Portuguese
+   SurfSense */
+
+/* MARK: - Tab Bar (MainContentView) */
+"This Device" = "Este dispositivo";
+"Linked Devices" = "Dispositivos vinculados";
+"Trends" = "Tendências";
+"Settings" = "Configurações";
+
+/* MARK: - AddDeviceView */
+"Add Device" = "Adicionar dispositivo";
+"Enter the 6-digit code from the device you want to link" = "Digite o código de 6 dígitos do dispositivo que deseja vincular";
+"Device Code" = "Código do dispositivo";
+"Linking Device..." = "Vinculando dispositivo...";
+"Link Device" = "Vincular dispositivo";
+"Device Linked!" = "Dispositivo vinculado!";
+"OK" = "OK";
+"Unknown Device" = "Dispositivo desconhecido";
+
+/* MARK: - CategoryBreakdownView / TotalUsageCard */
+"Category Breakdown" = "Detalhamento por categoria";
+"Total Screen Time" = "Tempo de tela total";
+
+/* MARK: - CodeDisplayView */
+"Your sharing code:" = "Seu código de compartilhamento:";
+"Code expires in %@ minutes" = "O código expira em %@ minutos";
+"Copy Code" = "Copiar código";
+"New Code" = "Novo código";
+"Code Copied!" = "Código copiado!";
+"The sharing code has been copied to your clipboard." = "O código de compartilhamento foi copiado para a área de transferência.";
+
+/* MARK: - DailyUsageSummaryCard / UnifiedUsageCard */
+"Total screen time today" = "Tempo de tela total hoje";
+
+/* MARK: - DeviceRow */
+"Last sync: %@" = "Última sincronização: %@";
+"Unlink" = "Desvincular";
+
+/* MARK: - ErrorViewComponent */
+"Try Again" = "Tentar novamente";
+
+/* MARK: - InfoCardComponent */
+"How to get a code" = "Como obter um código";
+"Open the app on the device you want to link" = "Abra o app no dispositivo que deseja vincular";
+"Go to Linked Devices tab" = "Vá para a aba Dispositivos vinculados";
+"Tap 'Share This Device'" = "Toque em 'Compartilhar este dispositivo'";
+"Generate and share the 6-digit code" = "Gere e compartilhe o código de 6 dígitos";
+
+/* MARK: - LinkedDeviceCard */
+"Last seen %@" = "Visto por último %@";
+"View details" = "Ver detalhes";
+
+/* MARK: - LinkedDevicesView */
+"Quick Actions" = "Ações rápidas";
+"Share This Device" = "Compartilhar este dispositivo";
+"Loading linked devices..." = "Carregando dispositivos vinculados...";
+"Remove Device" = "Remover dispositivo";
+"Cancel" = "Cancelar";
+"Remove" = "Remover";
+"Are you sure you want to remove %@? This device will no longer be able to track your usage." = "Tem certeza de que deseja remover %@? Este dispositivo não poderá mais rastrear seu uso.";
+"Linked Devices (%@)" = "Dispositivos vinculados (%@)";
+
+/* MARK: - PrivacyNoticeCard */
+"Privacy Notice" = "Aviso de privacidade";
+"Sharing this code will allow others to view your device usage data. Only share with trusted individuals." = "Compartilhar este código permitirá que outros vejam os dados de uso do seu dispositivo. Compartilhe apenas com pessoas de confiança.";
+
+/* MARK: - QuickStatsView */
+"Quick Stats" = "Estatísticas rápidas";
+"Most used category" = "Categoria mais usada";
+
+/* MARK: - SettingsView */
+"Screen Time Auth" = "Aut. Tempo de Tela";
+"API Key" = "Chave API";
+"Stored" = "Armazenada";
+"Missing" = "Ausente";
+"Last Data Update" = "Última atualização de dados";
+"Never" = "Nunca";
+"Cached Categories" = "Categorias em cache";
+"Diagnostics" = "Diagnósticos";
+"Screen Time tracking requires a physical device with Screen Time enabled in iOS Settings." = "O rastreamento de Tempo de Tela requer um dispositivo físico com Tempo de Tela ativado nas Configurações do iOS.";
+"Auto Sync" = "Sincronização automática";
+"Sync Interval" = "Intervalo de sincronização";
+"%@ minutes" = "%@ minutos";
+"Data Sync" = "Sincronização de dados";
+"When enabled, usage data syncs automatically across your linked devices." = "Quando ativado, os dados de uso são sincronizados automaticamente entre seus dispositivos vinculados.";
+"Usage Alerts" = "Alertas de uso";
+"Weekly Reports" = "Relatórios semanais";
+"Notifications" = "Notificações";
+"Receive insights about your device usage patterns." = "Receba insights sobre seus padrões de uso do dispositivo.";
+"Device ID" = "ID do dispositivo";
+"Copy Full ID" = "Copiar ID completo";
+"Device Name" = "Nome do dispositivo";
+"Device" = "Dispositivo";
+"About" = "Sobre";
+"Version" = "Versão";
+"Privacy Policy" = "Política de privacidade";
+"Terms of Service" = "Termos de serviço";
+"Reset All Data" = "Redefinir todos os dados";
+"This will remove all local data and unlink all devices." = "Isso removerá todos os dados locais e desvinculará todos os dispositivos.";
+"Reset All Data?" = "Redefinir todos os dados?";
+"Reset" = "Redefinir";
+"This action cannot be undone. All your local data will be deleted and devices will be unlinked." = "Esta ação não pode ser desfeita. Todos os seus dados locais serão excluídos e os dispositivos serão desvinculados.";
+"Approved" = "Aprovado";
+"Denied" = "Negado";
+"Not Requested" = "Não solicitado";
+
+/* MARK: - AboutView */
+"SurfSense" = "SurfSense";
+"Track your digital wellness across all your devices" = "Acompanhe seu bem-estar digital em todos os seus dispositivos";
+"Made with ❤️" = "Feito com ❤️";
+"© 2025 SurfSense" = "© 2025 SurfSense";
+"Done" = "Pronto";
+
+/* MARK: - ShareDeviceView */
+"Allow others to track this device" = "Permitir que outros rastreiem este dispositivo";
+"Generate a code that others can use to link and monitor this device's usage" = "Gere um código que outros podem usar para vincular e monitorar o uso deste dispositivo";
+"Generating Code..." = "Gerando código...";
+"Generate Sharing Code" = "Gerar código de compartilhamento";
+
+/* MARK: - SuccessViewComponent */
+"Successfully linked with" = "Vinculado com sucesso a";
+"Add Another Device" = "Adicionar outro dispositivo";
+
+/* MARK: - SupportingViews */
+"Unable to load devices" = "Não foi possível carregar os dispositivos";
+"No Linked Devices" = "Nenhum dispositivo vinculado";
+"Add your first device to start tracking usage across all your devices" = "Adicione seu primeiro dispositivo para começar a rastrear o uso em todos os seus dispositivos";
+
+/* MARK: - ThisDeviceView */
+"Data updated: %@" = "Dados atualizados: %@";
+"No data from Screen Time extension yet. Scroll up to check the report above." = "Ainda sem dados da extensão Tempo de Tela. Role para cima para verificar o relatório acima.";
+"Syncing %@ categories..." = "Sincronizando %@ categorias...";
+"Synced successfully" = "Sincronizado com sucesso";
+"No usage data to sync — use your device and come back" = "Sem dados de uso para sincronizar — use seu dispositivo e volte";
+"Sync to Server" = "Sincronizar com o servidor";
+"Syncing..." = "Sincronizando...";
+"Enable Screen Time Tracking" = "Ativar rastreamento de Tempo de Tela";
+"SurfSense needs permission to access your screen time data. This uses Apple's Screen Time framework and requires Face ID or passcode verification." = "SurfSense precisa de permissão para acessar seus dados de Tempo de Tela. Isso usa o framework de Tempo de Tela da Apple e requer verificação por Face ID ou código de acesso.";
+"Grant Access" = "Conceder acesso";
+"Screen Time Access Denied" = "Acesso ao Tempo de Tela negado";
+"Please ensure Screen Time is enabled in iOS Settings, then try granting access again." = "Verifique se o Tempo de Tela está ativado nas Configurações do iOS e tente conceder acesso novamente.";
+"Open Settings" = "Abrir Configurações";
+
+/* MARK: - TrendsView */
+"7 Days" = "7 dias";
+"14 Days" = "14 dias";
+"30 Days" = "30 dias";
+"Time Period" = "Período";
+"Usage Trends" = "Tendências de uso";
+"No Usage Data Yet" = "Ainda sem dados de uso";
+"Start tracking your usage to see trends over time." = "Comece a rastrear seu uso para ver tendências ao longo do tempo.";
+"Summary" = "Resumo";
+"Total" = "Total";
+"Daily Avg" = "Média diária";
+"Peak Day" = "Dia de pico";
+"Daily Usage" = "Uso diário";
+"Minutes" = "Minutos";
+"Daily Details" = "Detalhes diários";
+"No data" = "Sem dados";
+
+/* MARK: - TotalUsageCard (QuickStatsCard) */
+"Most used: %@" = "Mais usado: %@";
+
+/* MARK: - UnifiedUsageCard */
+"All Devices" = "Todos os dispositivos";
+
+/* MARK: - ReportView (UsageReportExtension) */
+"No usage data yet" = "Ainda sem dados de uso";
+"Screen Time Today" = "Tempo de Tela hoje";
+
+/* MARK: - ViewModels */
+"Unknown" = "Desconhecido";
+"None" = "Nenhum";
+"iPhone" = "iPhone";
+"Android Phone" = "Telefone Android";
+"Computer" = "Computador";
+"Browser" = "Navegador";

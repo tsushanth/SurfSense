@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">SurfSense</string>
+
+    <!-- Navigation Tabs -->
+    <string name="tab_this_device">Bu Cihaz</string>
+    <string name="tab_linked_devices">Bağlı Cihazlar</string>
+    <string name="tab_trends">Trendler</string>
+    <string name="tab_settings">Ayarlar</string>
+
+    <!-- Content Descriptions -->
+    <string name="cd_refresh">Yenile</string>
+
+    <!-- This Device Screen -->
+    <string name="loading_usage_data">Kullanım verileri yükleniyor\u2026</string>
+    <string name="today_usage_title">Bugünkü Kullanım</string>
+    <string name="no_usage_data_yet">Henüz Kullanım Verisi Yok</string>
+    <string name="no_usage_data_description">Cihazınızın kullanım verilerini toplamak ve yüklemek için "Şimdi Senkronize Et"e dokunun. Bu, Kullanım Erişimi izni gerektirir.</string>
+    <string name="sync_now">Şimdi Senkronize Et</string>
+
+    <!-- Linked Devices Screen -->
+    <string name="linked_devices_usage_title">Bağlı Cihazların Kullanımı</string>
+    <string name="no_linked_devices">Bağlı Cihaz Yok</string>
+    <string name="no_linked_devices_description">Tüm cihazlarınızda kullanımı izlemeye başlamak için ilk cihazınızı ekleyin</string>
+    <string name="add_device">Cihaz Ekle</string>
+    <string name="share_this_device">Bu Cihazı Paylaş</string>
+
+    <!-- Remove Device Dialog -->
+    <string name="remove_device_title">Cihazı Kaldır</string>
+    <string name="remove_device_message">%1$s cihazını kaldırmak istediğinizden emin misiniz? Bu cihaz artık kullanımınızı izleyemeyecek.</string>
+    <string name="remove">Kaldır</string>
+    <string name="cancel">İptal</string>
+
+    <!-- Add Device Dialog -->
+    <string name="enter_code_prompt">Bağlamak istediğiniz cihazdaki %1$d haneli kodu girin</string>
+    <string name="device_code_label">Cihaz Kodu</string>
+    <string name="device_linked_success">Cihaz başarıyla bağlandı!</string>
+    <string name="link_device">Cihazı Bağla</string>
+    <string name="done">Tamam</string>
+
+    <!-- Share Device Dialog -->
+    <string name="share_device_description">Başkalarının bu cihazın kullanımını bağlamak ve izlemek için kullanabileceği bir kod oluşturun</string>
+    <string name="your_sharing_code">Paylaşım kodunuz:</string>
+    <string name="code_expires_in">Kod %1$d dakika içinde sona eriyor</string>
+    <string name="copy">Kopyala</string>
+    <string name="new_code">Yeni Kod</string>
+    <string name="generating">Oluşturuluyor\u2026</string>
+    <string name="generate_sharing_code">Paylaşım Kodu Oluştur</string>
+    <string name="code_copied">Kod kopyalandı</string>
+
+    <!-- Trends Screen -->
+    <string name="period_7_days">7 Gün</string>
+    <string name="period_14_days">14 Gün</string>
+    <string name="period_30_days">30 Gün</string>
+    <string name="no_usage_data_trends">Henüz Kullanım Verisi Yok</string>
+    <string name="no_usage_data_trends_description">Zaman içindeki trendleri görmek için kullanımınızı izlemeye başlayın.</string>
+    <string name="summary">Özet</string>
+    <string name="stat_total">Toplam</string>
+    <string name="stat_daily_avg">Günlük Ort.</string>
+    <string name="stat_peak_day">En Yoğun Gün</string>
+    <string name="daily_usage">Günlük Kullanım</string>
+    <string name="category_breakdown">Kategori Dağılımı</string>
+    <string name="daily_details">Günlük Detaylar</string>
+    <string name="no_data">Veri yok</string>
+    <string name="usage_trends_title">Kullanım Trendleri</string>
+
+    <!-- Settings Screen -->
+    <string name="section_data_sync">Veri Senkronizasyonu</string>
+    <string name="auto_sync">Otomatik Senkronizasyon</string>
+    <string name="sync_interval">Senkronizasyon Aralığı</string>
+    <string name="sync_interval_value">%1$d dakika</string>
+    <string name="section_device">Cihaz</string>
+    <string name="device_id">Cihaz Kimliği</string>
+    <string name="device_name">Cihaz Adı</string>
+    <string name="section_about">Hakkında</string>
+    <string name="about">Hakkında</string>
+    <string name="version">Sürüm</string>
+    <string name="privacy_policy">Gizlilik Politikası</string>
+    <string name="terms_of_service">Kullanım Koşulları</string>
+    <string name="section_data">Veri</string>
+    <string name="reset_all_data">Tüm Verileri Sıfırla</string>
+    <string name="reset_all_data_title">Tüm Veriler Sıfırlansın mı?</string>
+    <string name="reset_all_data_message">Bu işlem geri alınamaz. Tüm yerel verileriniz silinecek ve cihazların bağlantısı kesilecek.</string>
+    <string name="reset">Sıfırla</string>
+    <string name="data_reset">Veriler sıfırlandı</string>
+
+    <!-- About Dialog -->
+    <string name="about_tagline">Tüm cihazlarınızda dijital sağlığınızı takip edin</string>
+
+    <!-- Usage Card -->
+    <string name="total_screen_time_today">Bugünkü toplam ekran süresi</string>
+    <string name="quick_stats">Hızlı İstatistikler</string>
+    <string name="most_used_category">En çok kullanılan kategori</string>
+
+    <!-- Layout XML -->
+    <string name="enter_6_digit_code">6 Haneli Kodu Girin</string>
+    <string name="fetching_code">Kod alınıyor\u2026</string>
+    <string name="enter_linking_code">Bağlantı kodunu girin</string>
+    <string name="cd_no_data">Veri yok</string>
+    <string name="cd_total">Toplam</string>
+    <string name="cd_average">Ortalama</string>
+    <string name="cd_peak">Zirve</string>
+    <string name="default_time">0s</string>
+    <string name="settings">Ayarlar</string>
+    <string name="refresh_data">Verileri Yenile</string>
+    <string name="url_placeholder">URL</string>
+    <string name="interval_placeholder">60 dk</string>
+    <string name="cd_delete">Sil</string>
+
+    <!-- Notifications -->
+    <string name="new_notification_title">Yeni Bildirim: %1$s</string>
+</resources>

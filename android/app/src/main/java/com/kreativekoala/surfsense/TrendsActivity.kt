@@ -41,7 +41,7 @@ class TrendsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_trends)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = "Usage Trends"
+        supportActionBar?.title = getString(R.string.usage_trends_title)
 
         localStorage = LocalStorage.getInstance(this)
         initViews()
@@ -62,7 +62,7 @@ class TrendsActivity : AppCompatActivity() {
     }
 
     private fun setupPeriodSpinner() {
-        val periods = arrayOf("7 Days", "14 Days", "30 Days")
+        val periods = arrayOf(getString(R.string.period_7_days), getString(R.string.period_14_days), getString(R.string.period_30_days))
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, periods)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         periodSpinner.adapter = adapter
@@ -213,7 +213,7 @@ class TrendsActivity : AppCompatActivity() {
 
         // Title
         val titleView = TextView(this).apply {
-            text = "Daily Details"
+            text = getString(R.string.daily_details)
             textSize = 18f
             setTextColor(Color.BLACK)
             setPadding(0, 32, 0, 16)
@@ -240,7 +240,7 @@ class TrendsActivity : AppCompatActivity() {
 
             val topCategory = day.byCategory.maxByOrNull { it.value }
             val categoryText = TextView(this).apply {
-                text = topCategory?.let { "${it.key}: ${formatMinutes(it.value)}" } ?: "No data"
+                text = topCategory?.let { "${it.key}: ${formatMinutes(it.value)}" } ?: getString(R.string.no_data)
                 textSize = 12f
                 setTextColor(Color.GRAY)
             }

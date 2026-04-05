@@ -1,0 +1,121 @@
+<resources>
+    <string name="app_name">SurfSense</string>
+
+    <!-- Navigation Tabs -->
+    <string name="tab_this_device">Peranti Ini</string>
+    <string name="tab_linked_devices">Peranti Dipautkan</string>
+    <string name="tab_trends">Trend</string>
+    <string name="tab_settings">Tetapan</string>
+
+    <!-- Content Descriptions -->
+    <string name="cd_refresh">Muat semula</string>
+
+    <!-- This Device Screen -->
+    <string name="loading_usage_data">Memuatkan data penggunaan\u2026</string>
+    <string name="today_usage_title">Penggunaan Hari Ini</string>
+    <string name="no_usage_data_yet">Tiada Data Penggunaan Lagi</string>
+    <string name="no_usage_data_description">Ketik "Segerak Sekarang" untuk mengumpul dan memuat naik data penggunaan peranti anda. Ini memerlukan kebenaran Akses Penggunaan.</string>
+    <string name="sync_now">Segerak Sekarang</string>
+
+    <!-- Linked Devices Screen -->
+    <string name="linked_devices_usage_title">Penggunaan Peranti Dipautkan</string>
+    <string name="no_linked_devices">Tiada Peranti Dipautkan</string>
+    <string name="no_linked_devices_description">Tambah peranti pertama anda untuk mula menjejaki penggunaan merentas semua peranti anda</string>
+    <string name="add_device">Tambah Peranti</string>
+    <string name="share_this_device">Kongsi Peranti Ini</string>
+
+    <!-- Remove Device Dialog -->
+    <string name="remove_device_title">Buang Peranti</string>
+    <string name="remove_device_message">Adakah anda pasti mahu membuang %1$s? Peranti ini tidak lagi dapat menjejaki penggunaan anda.</string>
+    <string name="remove">Buang</string>
+    <string name="cancel">Batal</string>
+
+    <!-- Add Device Dialog -->
+    <string name="enter_code_prompt">Masukkan kod %1$d digit dari peranti yang ingin anda pautkan</string>
+    <string name="device_code_label">Kod Peranti</string>
+    <string name="device_linked_success">Peranti berjaya dipautkan!</string>
+    <string name="link_device">Pautkan Peranti</string>
+    <string name="done">Selesai</string>
+
+    <!-- Share Device Dialog -->
+    <string name="share_device_description">Jana kod yang boleh digunakan oleh orang lain untuk memaut dan memantau penggunaan peranti ini</string>
+    <string name="your_sharing_code">Kod perkongsian anda:</string>
+    <string name="code_expires_in">Kod tamat tempoh dalam %1$d minit</string>
+    <string name="copy">Salin</string>
+    <string name="new_code">Kod Baharu</string>
+    <string name="generating">Menjana\u2026</string>
+    <string name="generate_sharing_code">Jana Kod Perkongsian</string>
+    <string name="code_copied">Kod disalin</string>
+
+    <!-- Trends Screen -->
+    <string name="period_7_days">7 Hari</string>
+    <string name="period_14_days">14 Hari</string>
+    <string name="period_30_days">30 Hari</string>
+    <string name="no_usage_data_trends">Tiada Data Penggunaan Lagi</string>
+    <string name="no_usage_data_trends_description">Mula jejaki penggunaan anda untuk melihat trend dari semasa ke semasa.</string>
+    <string name="summary">Ringkasan</string>
+    <string name="stat_total">Jumlah</string>
+    <string name="stat_daily_avg">Purata Harian</string>
+    <string name="stat_peak_day">Hari Puncak</string>
+    <string name="daily_usage">Penggunaan Harian</string>
+    <string name="category_breakdown">Pecahan Kategori</string>
+    <string name="daily_details">Butiran Harian</string>
+    <string name="no_data">Tiada data</string>
+    <string name="usage_trends_title">Trend Penggunaan</string>
+
+    <!-- Settings Screen -->
+    <string name="section_data_sync">Penyegerakan Data</string>
+    <string name="auto_sync">Segerak Automatik</string>
+    <string name="sync_interval">Selang Penyegerakan</string>
+    <string name="sync_interval_value">%1$d minit</string>
+    <string name="section_device">Peranti</string>
+    <string name="device_id">ID Peranti</string>
+    <string name="device_name">Nama Peranti</string>
+    <string name="section_about">Perihal</string>
+    <string name="about">Perihal</string>
+    <string name="version">Versi</string>
+    <string name="privacy_policy">Dasar Privasi</string>
+    <string name="terms_of_service">Terma Perkhidmatan</string>
+    <string name="section_data">Data</string>
+    <string name="reset_all_data">Tetapkan Semula Semua Data</string>
+    <string name="reset_all_data_title">Tetapkan Semula Semua Data?</string>
+    <string name="reset_all_data_message">Tindakan ini tidak boleh dibatalkan. Semua data setempat anda akan dipadam dan peranti akan dinyahpaut.</string>
+    <string name="reset">Tetapkan Semula</string>
+    <string name="data_reset">Data ditetapkan semula</string>
+
+    <!-- About Dialog -->
+    <string name="about_tagline">Jejaki kesejahteraan digital anda merentas semua peranti anda</string>
+
+    <!-- Usage Card -->
+    <string name="total_screen_time_today">Jumlah masa skrin hari ini</string>
+    <string name="quick_stats">Statistik Pantas</string>
+    <string name="most_used_category">Kategori paling kerap digunakan</string>
+
+    <!-- Layout XML: dialog_link_device.xml -->
+    <string name="enter_6_digit_code">Masukkan Kod 6 Digit</string>
+
+    <!-- Layout XML: dialog_generate_code.xml -->
+    <string name="fetching_code">Mendapatkan kod\u2026</string>
+
+    <!-- Layout XML: activity_link_device.xml -->
+    <string name="enter_linking_code">Masukkan kod pautan</string>
+
+    <!-- Layout XML: activity_trends.xml -->
+    <string name="cd_no_data">Tiada data</string>
+    <string name="cd_total">Jumlah</string>
+    <string name="cd_average">Purata</string>
+    <string name="cd_peak">Puncak</string>
+    <string name="default_time">0j</string>
+
+    <!-- Layout XML: activity_main.xml -->
+    <string name="settings">Tetapan</string>
+    <string name="refresh_data">Muat Semula Data</string>
+
+    <!-- Layout XML: item_tracker_row.xml -->
+    <string name="url_placeholder">URL</string>
+    <string name="interval_placeholder">60 min</string>
+    <string name="cd_delete">Padam</string>
+
+    <!-- Notifications -->
+    <string name="new_notification_title">Pemberitahuan Baharu: %1$s</string>
+</resources>

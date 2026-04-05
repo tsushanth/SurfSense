@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
-import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.compose.setContent
 import androidx.lifecycle.ViewModelProvider
 import androidx.work.Constraints
@@ -17,7 +17,7 @@ import com.kreativekoala.surfsense.ui.theme.SurfSenseTheme
 import com.kreativekoala.surfsense.viewmodel.MainViewModel
 import java.util.concurrent.TimeUnit
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
