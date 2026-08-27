@@ -24,8 +24,10 @@ material = "1.11.0"
 identityJvm = "202411.1"
 workRuntimeKtx = "2.10.1"
 securityCrypto = "1.0.0"
+purchases = "10.19.0"
 
 [libraries]
+purchases-android = { group = "com.revenuecat.purchases", name = "purchases", version.ref = "purchases" }
 security-crypto = { group = "androidx.security", name = "security-crypto", version.ref = "securityCrypto" }
 lifecycle-runtime = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
 lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }

@@ -23,6 +23,9 @@ object Config {
     // Logging (disable in production)
     const val ENABLE_NETWORK_LOGGING = false
 
+    // RevenueCat (public SDK key from the RevenueCat dashboard)
+    const val REVENUE_CAT_API_KEY = "goog_YOUR_REVENUECAT_API_KEY"
+
     // SharedPreferences Keys
     object Prefs {
         const val PREFS_NAME = "SurfSensePrefs"

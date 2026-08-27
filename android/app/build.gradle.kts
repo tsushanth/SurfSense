@@ -90,6 +90,9 @@ dependencies {
     // Security
     implementation(libs.security.crypto)
 
+    // RevenueCat
+    implementation(libs.purchases.android)
+
     // Logging
     implementation(libs.timber)
 
