@@ -24,6 +24,7 @@ material = "1.11.0"
 identityJvm = "202411.1"
 workRuntimeKtx = "2.10.1"
 securityCrypto = "1.0.0"
+facebookSdk = "18.2.3"
 
 [libraries]
 security-crypto = { group = "androidx.security", name = "security-crypto", version.ref = "securityCrypto" }
@@ -62,6 +63,7 @@ androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-cor
 androidx-activity = { module = "androidx.activity:activity-ktx", version.ref = "androidx-activity" }
 identity-jvm = { group = "com.android.identity", name = "identity-jvm", version.ref = "identityJvm" }
 androidx-work-runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "workRuntimeKtx" }
+facebook-android-sdk = { group = "com.facebook.android", name = "facebook-android-sdk", version.ref = "facebookSdk" }
 
 [bundles]
 android-base = ["core-ktx", "appcompat"]

@@ -90,6 +90,9 @@ dependencies {
     // Security
     implementation(libs.security.crypto)
 
+    // Facebook SDK (Meta Ads attribution & Conversions API)
+    implementation(libs.facebook.android.sdk)
+
     // Logging
     implementation(libs.timber)
 

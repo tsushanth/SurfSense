@@ -8,6 +8,10 @@
     <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
 
+    <queries>
+        <package android:name="com.facebook.katana" />
+    </queries>
+
     <application
         android:name=".SurfSenseApp"
         android:allowBackup="true"
@@ -20,6 +24,14 @@
         android:localeConfig="@xml/locales_config"
         android:theme="@style/Theme.SurfSense"
         tools:targetApi="34">
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="com.facebook.sdk.ClientToken"
+            android:value="@string/facebook_client_token" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
