@@ -30,25 +30,68 @@ class WeekCompareTest {
         assertNull(r.deltaPercent)
     }
 
+    /** [secs] on each of the 14 days ending [today], with overrides. */
+    private fun days(secs: Int, vararg overrides: Pair<String, Int>): Map<String, Int> {
+        val m = LinkedHashMap<String, Int>()
+        for (i in 0 until 14) m[com.kreativekoala.surfsense.history.dayMinus(today, i)] = secs
+        m.putAll(overrides)
+        return m
+    }
+
+    @Test fun flatUsageWithPartialTodayIsZeroPercent() {
+        // 3 h every day, only 30 min so far today: not "12% less".
+        val r = WeekCompare.compare(days(10800, "2026-10-13" to 1800), today)
+        assertEquals(0, r.deltaPercent)
+        assertEquals(6 * 10800 + 1800, r.thisWeekSeconds)
+        assertEquals(7 * 10800, r.lastWeekSeconds)
+    }
+
+    @Test fun todayAndItsPartnerAreExcluded() {
+        val r = WeekCompare.compare(days(100, "2026-10-13" to 99999, "2026-10-06" to 1), today)
+        assertEquals(0, r.deltaPercent)
+        assertEquals(6 * 100 + 99999, r.thisWeekSeconds)
+        assertEquals(6 * 100 + 1, r.lastWeekSeconds)
+    }
+
     @Test fun positiveDelta() {
-        val r = WeekCompare.compare(mapOf("2026-10-13" to 3600, "2026-10-06" to 2400), today)
-        assertEquals(2400, r.lastWeekSeconds)
+        // This week's completed days 150 each, last week's 100 each.
+        val m = HashMap<String, Int>()
+        for (i in 1..6) m[com.kreativekoala.surfsense.history.dayMinus(today, i)] = 150
+        for (i in 8..13) m[com.kreativekoala.surfsense.history.dayMinus(today, i)] = 100
+        val r = WeekCompare.compare(m, today)
         assertEquals(50, r.deltaPercent)
+        assertEquals(600, r.lastWeekSeconds)
     }
 
     @Test fun negativeDelta() {
-        val r = WeekCompare.compare(mapOf("2026-10-13" to 1000, "2026-10-01" to 2000), today)
+        val m = mapOf("2026-10-08" to 1000, "2026-09-30" to 1000, "2026-10-01" to 500, "2026-10-02" to 500)
+        val r = WeekCompare.compare(m, today)
         assertEquals(-50, r.deltaPercent)
     }
 
     @Test fun deltaRounds() {
         // (100-300)*100/300 = -66.67 -> -67
-        val r = WeekCompare.compare(mapOf("2026-10-13" to 100, "2026-10-05" to 300), today)
+        val m = mapOf("2026-10-12" to 100, "2026-10-01" to 100, "2026-10-02" to 100, "2026-10-03" to 100)
+        val r = WeekCompare.compare(m, today)
         assertEquals(-67, r.deltaPercent)
     }
 
+    @Test fun onlyTwoDataDaysLastWeekGivesNullDelta() {
+        val r = WeekCompare.compare(mapOf("2026-10-12" to 3600, "2026-10-01" to 600, "2026-10-02" to 600), today)
+        assertEquals(1200, r.lastWeekSeconds)
+        assertNull(r.deltaPercent)
+    }
+
+    @Test fun lastWeekDataOnlyOnTodayPartnerGivesNullDelta() {
+        // 10-06 is the same weekday as today; it is not a comparable completed day.
+        val r = WeekCompare.compare(mapOf("2026-10-12" to 100, "2026-10-06" to 300), today)
+        assertEquals(300, r.lastWeekSeconds)
+        assertNull(r.deltaPercent)
+    }
+
     @Test fun lastWeekPresentButZeroSecondsGivesNullDelta() {
-        val r = WeekCompare.compare(mapOf("2026-10-13" to 100, "2026-10-05" to 0), today)
+        val m = mapOf("2026-10-12" to 100, "2026-10-01" to 0, "2026-10-02" to 0, "2026-10-03" to 0)
+        val r = WeekCompare.compare(m, today)
         assertEquals(0, r.lastWeekSeconds)
         assertNull(r.deltaPercent)
     }
