@@ -118,4 +118,8 @@
 
     <!-- Notifications -->
     <string name="new_notification_title">新しい通知：%1$s</string>
+    <string name="usage_access_title">使用状況へのアクセスを許可</string>
+    <string name="usage_access_message">SurfSenseは、今日各アプリが開かれていた時間を読み取り、バックグラウンドで定期的にこれを繰り返します。アプリ名はSurfSenseのサーバーに送信され、ソーシャルメディアやニュースなどのカテゴリに分類されます。合計時間はランダムなIDで保存され、お名前やメールアドレスとは紐付けられません。\n\n次に、Androidの設定画面が開きます。そこでSurfSenseの使用状況へのアクセスをオンにしてください。</string>
+    <string name="usage_access_continue">続ける</string>
+    <string name="usage_access_not_now">今はしない</string>
 </resources>

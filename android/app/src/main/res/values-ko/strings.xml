@@ -118,4 +118,8 @@
 
     <!-- Notifications -->
     <string name="new_notification_title">새 알림: %1$s</string>
+    <string name="usage_access_title">사용 기록 접근 허용</string>
+    <string name="usage_access_message">SurfSense는 오늘 각 앱이 열려 있던 시간을 읽고, 백그라운드에서 이를 정기적으로 반복합니다. 앱 이름은 SurfSense 서버로 전송되어 소셜 미디어나 뉴스 같은 카테고리로 분류됩니다. 합계는 이름이나 이메일이 아닌 임의의 ID로 저장됩니다.\n\n다음으로 Android 설정 화면이 열리며, 여기서 SurfSense의 사용 기록 접근을 켤 수 있습니다.</string>
+    <string name="usage_access_continue">계속</string>
+    <string name="usage_access_not_now">나중에</string>
 </resources>

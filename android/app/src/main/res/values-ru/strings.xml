@@ -108,4 +108,8 @@
 
     <!-- Notifications -->
     <string name="new_notification_title">Новое уведомление: %1$s</string>
+    <string name="usage_access_title">Разрешить доступ к данным об использовании</string>
+    <string name="usage_access_message">SurfSense считывает, как долго сегодня был открыт каждое приложение, и регулярно повторяет это в фоновом режиме. Названия приложений отправляются на сервер SurfSense, чтобы распределить их по категориям, например «Социальные сети» или «Новости». Итоговые значения хранятся под случайным идентификатором, а не под вашим именем или адресом электронной почты.\n\nДалее Android откроет экран настроек, где вы сможете включить доступ к данным об использовании для SurfSense.</string>
+    <string name="usage_access_continue">Продолжить</string>
+    <string name="usage_access_not_now">Не сейчас</string>
 </resources>

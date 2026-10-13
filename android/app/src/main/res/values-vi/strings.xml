@@ -108,4 +108,8 @@
 
     <!-- Notifications -->
     <string name="new_notification_title">Thông Báo Mới: %1$s</string>
+    <string name="usage_access_title">Cho phép truy cập mức sử dụng</string>
+    <string name="usage_access_message">SurfSense đọc thời gian mỗi ứng dụng được mở trong hôm nay và lặp lại việc này thường xuyên ở chế độ nền. Tên ứng dụng được gửi đến máy chủ SurfSense để phân loại vào các danh mục như Mạng xã hội hoặc Tin tức. Tổng thời gian được lưu dưới một ID ngẫu nhiên, không phải tên hay email của bạn.\n\nTiếp theo, Android sẽ mở màn hình cài đặt để bạn bật Quyền truy cập mức sử dụng cho SurfSense.</string>
+    <string name="usage_access_continue">Tiếp tục</string>
+    <string name="usage_access_not_now">Để sau</string>
 </resources>

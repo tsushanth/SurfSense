@@ -108,4 +108,8 @@
 
     <!-- Notifications -->
     <string name="new_notification_title">Notifikasi Baru: %1$s</string>
+    <string name="usage_access_title">Izinkan akses penggunaan</string>
+    <string name="usage_access_message">SurfSense membaca berapa lama setiap aplikasi dibuka hari ini dan mengulanginya secara berkala di latar belakang. Nama aplikasi dikirim ke server SurfSense agar dapat dikelompokkan ke dalam kategori seperti Media Sosial atau Berita. Total disimpan dengan ID acak, bukan dengan nama atau email Anda.\n\nSelanjutnya, Android akan membuka layar pengaturan tempat Anda dapat mengaktifkan Akses Penggunaan untuk SurfSense.</string>
+    <string name="usage_access_continue">Lanjutkan</string>
+    <string name="usage_access_not_now">Nanti saja</string>
 </resources>

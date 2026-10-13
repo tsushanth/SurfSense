@@ -118,4 +118,8 @@
 
     <!-- Notifications -->
     <string name="new_notification_title">नई सूचना: %1$s</string>
+    <string name="usage_access_title">उपयोग एक्सेस की अनुमति दें</string>
+    <string name="usage_access_message">SurfSense पढ़ता है कि आज हर ऐप कितनी देर खुला रहा और इसे बैकग्राउंड में नियमित रूप से दोहराता है। ऐप के नाम SurfSense सर्वर को भेजे जाते हैं ताकि उन्हें सोशल मीडिया या समाचार जैसी श्रेणियों में बाँटा जा सके। कुल समय एक रैंडम आईडी के तहत सहेजा जाता है, आपके नाम या ईमेल के तहत नहीं।\n\nइसके बाद, Android एक सेटिंग स्क्रीन खोलेगा जहाँ आप SurfSense के लिए उपयोग एक्सेस चालू कर सकते हैं।</string>
+    <string name="usage_access_continue">जारी रखें</string>
+    <string name="usage_access_not_now">अभी नहीं</string>
 </resources>

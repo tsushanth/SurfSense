@@ -108,4 +108,8 @@
 
     <!-- Notifications -->
     <string name="new_notification_title">Nieuwe melding: %1$s</string>
+    <string name="usage_access_title">Gebruikstoegang toestaan</string>
+    <string name="usage_access_message">SurfSense leest hoe lang elke app vandaag open is geweest en herhaalt dit regelmatig op de achtergrond. App-namen worden naar de SurfSense-server gestuurd zodat ze kunnen worden ingedeeld in categorieën zoals Sociale media of Nieuws. Totalen worden opgeslagen onder een willekeurig ID, niet onder je naam of e-mailadres.\n\nDaarna opent Android een instellingenscherm waar je Gebruikstoegang voor SurfSense kunt inschakelen.</string>
+    <string name="usage_access_continue">Doorgaan</string>
+    <string name="usage_access_not_now">Niet nu</string>
 </resources>

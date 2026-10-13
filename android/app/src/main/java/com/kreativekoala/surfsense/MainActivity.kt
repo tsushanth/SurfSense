@@ -20,12 +20,16 @@ import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
 
+    private var usageAccessDialog: androidx.appcompat.app.AlertDialog? = null
+    private var awaitingUsageAccess = false
+    private lateinit var viewModel: MainViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
-        requestUsageAccessPermission()
+        if (savedInstanceState == null) requestUsageAccessPermission()
         schedulePeriodicWork()
 
         viewModel.initialize()
@@ -39,14 +43,29 @@ class MainActivity : AppCompatActivity() {
 
     private fun requestUsageAccessPermission() {
         if (hasUsageStatsPermission()) return
-        androidx.appcompat.app.AlertDialog.Builder(this)
+        usageAccessDialog = androidx.appcompat.app.AlertDialog.Builder(this)
             .setTitle(R.string.usage_access_title)
             .setMessage(R.string.usage_access_message)
             .setPositiveButton(R.string.usage_access_continue) { _, _ ->
+                awaitingUsageAccess = true
                 startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
             }
             .setNegativeButton(R.string.usage_access_not_now, null)
             .show()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (awaitingUsageAccess && hasUsageStatsPermission()) {
+            awaitingUsageAccess = false
+            viewModel.syncNow()
+        }
+    }
+
+    override fun onDestroy() {
+        usageAccessDialog?.dismiss()
+        usageAccessDialog = null
+        super.onDestroy()
     }
 
     private fun hasUsageStatsPermission(): Boolean = UsageAccess.isGranted(this)

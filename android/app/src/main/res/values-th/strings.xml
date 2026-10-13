@@ -108,4 +108,8 @@
 
     <!-- Notifications -->
     <string name="new_notification_title">การแจ้งเตือนใหม่: %1$s</string>
+    <string name="usage_access_title">อนุญาตการเข้าถึงข้อมูลการใช้งาน</string>
+    <string name="usage_access_message">SurfSense อ่านว่าแต่ละแอปเปิดอยู่นานเท่าใดในวันนี้ และทำซ้ำเป็นประจำในเบื้องหลัง ชื่อแอปจะถูกส่งไปยังเซิร์ฟเวอร์ของ SurfSense เพื่อจัดเป็นหมวดหมู่ เช่น โซเชียลมีเดียหรือข่าว ยอดรวมจะถูกเก็บไว้ภายใต้รหัสสุ่ม ไม่ใช่ชื่อหรืออีเมลของคุณ\n\nจากนั้น Android จะเปิดหน้าจอการตั้งค่าที่คุณสามารถเปิดการเข้าถึงข้อมูลการใช้งานสำหรับ SurfSense ได้</string>
+    <string name="usage_access_continue">ดำเนินการต่อ</string>
+    <string name="usage_access_not_now">ไม่ใช่ตอนนี้</string>
 </resources>
