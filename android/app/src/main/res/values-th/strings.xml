@@ -3,7 +3,7 @@
 
     <!-- Navigation Tabs -->
     <string name="tab_this_device">อุปกรณ์นี้</string>
-    <string name="tab_linked_devices">อุปกรณ์ที่เชื่อมต่อ</string>
+    <string name="tab_linked_devices">อุปกรณ์</string>
     <string name="tab_trends">แนวโน้ม</string>
     <string name="tab_settings">การตั้งค่า</string>
 
@@ -112,4 +112,35 @@
     <string name="usage_access_message">SurfSense อ่านว่าแต่ละแอปเปิดอยู่นานเท่าใดในวันนี้ และทำซ้ำเป็นประจำในเบื้องหลัง ชื่อแอปจะถูกส่งไปยังเซิร์ฟเวอร์ของ SurfSense เพื่อจัดเป็นหมวดหมู่ เช่น โซเชียลมีเดียหรือข่าว ยอดรวมจะถูกเก็บไว้ภายใต้รหัสสุ่มพร้อมกับชื่ออุปกรณ์ของคุณ (เพื่อให้คุณจำอุปกรณ์นั้นได้บนอุปกรณ์เครื่องอื่นของคุณ) ไม่ใช่ชื่อบัญชีหรืออีเมลของคุณ\n\nจากนั้น Android จะเปิดหน้าจอการตั้งค่าที่คุณสามารถเปิดการเข้าถึงข้อมูลการใช้งานสำหรับ SurfSense ได้</string>
     <string name="usage_access_continue">ดำเนินการต่อ</string>
     <string name="usage_access_not_now">ไม่ใช่ตอนนี้</string>
+
+    <!-- Today and Week (10.1.0) -->
+    <string name="tab_today">วันนี้</string>
+    <string name="tab_week">สัปดาห์</string>
+    <string name="today_total_phone">วันนี้ %1$s บนโทรศัพท์ของคุณ</string>
+    <string name="today_total_device">วันนี้ %1$s บน %2$s</string>
+    <string name="scope_all_devices">อุปกรณ์ทั้งหมด</string>
+    <string name="today_empty">วันนี้ยังไม่มีการบันทึก อนุญาตการเข้าถึงข้อมูลการใช้งานแล้วซิงค์ หรือเชื่อมโยงอุปกรณ์อื่น</string>
+    <string name="today_device_empty">วันนี้ยังไม่มีข้อมูลจาก %1$s</string>
+    <string name="apps_on_this_phone">แอปในโทรศัพท์เครื่องนี้</string>
+    <string name="apps_hint">แตะแอปเพื่อเปลี่ยนหมวดหมู่</string>
+    <string name="change_category">เปลี่ยนหมวดหมู่</string>
+    <string name="use_automatic_category">ใช้หมวดหมู่อัตโนมัติ</string>
+    <string name="category_unknown">ไม่ทราบหมวดหมู่</string>
+    <string name="category_set_by_you">%1$s (คุณเลือกเอง)</string>
+    <string name="week_total">สัปดาห์นี้ %1$s</string>
+    <string name="week_more">มากกว่าสัปดาห์ที่แล้ว %1$d%%</string>
+    <string name="week_less">น้อยกว่าสัปดาห์ที่แล้ว %1$d%%</string>
+    <string name="week_same">เท่ากับสัปดาห์ที่แล้ว</string>
+    <string name="week_ghost_legend">เส้นขอบแสดงวันเดียวกันของสัปดาห์ที่แล้ว</string>
+    <string name="week_empty">ไม่มีการบันทึกใน 7 วันที่ผ่านมา</string>
+    <string name="try_again">ลองอีกครั้ง</string>
+    <string name="week_day_cd">%1$s: %2$s</string>
+    <string name="week_day_cd_last">%1$s: %2$s สัปดาห์ที่แล้ว: %3$s</string>
+    <string name="loading">กำลังโหลด</string>
+    <plurals name="today_total_devices">
+        <item quantity="other">วันนี้ %1$s บนอุปกรณ์ %2$d เครื่องของคุณ</item>
+    </plurals>
+    <plurals name="week_failed">
+        <item quantity="other">โหลดข้อมูล %1$d วันไม่ได้ ตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง</item>
+    </plurals>
 </resources>

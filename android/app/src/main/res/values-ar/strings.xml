@@ -3,7 +3,7 @@
 
     <!-- Navigation Tabs -->
     <string name="tab_this_device">هذا الجهاز</string>
-    <string name="tab_linked_devices">الأجهزة المرتبطة</string>
+    <string name="tab_linked_devices">الأجهزة</string>
     <string name="tab_trends">الاتجاهات</string>
     <string name="tab_settings">الإعدادات</string>
 
@@ -112,4 +112,45 @@
     <string name="usage_access_message">يقرأ SurfSense المدة التي يظل فيها كل تطبيق مفتوحًا اليوم ويكرر ذلك بانتظام في الخلفية. يتم إرسال أسماء التطبيقات إلى خادم SurfSense ليتم تصنيفها في فئات مثل وسائل التواصل الاجتماعي أو الأخبار. يتم تخزين الإجماليات تحت معرّف عشوائي مع اسم جهازك (حتى تتمكن من التعرف عليه على أجهزتك الأخرى)، وليس باسم حسابك أو بريدك الإلكتروني.\n\nبعد ذلك، سيفتح Android شاشة إعدادات يمكنك فيها تشغيل الوصول إلى الاستخدام لتطبيق SurfSense.</string>
     <string name="usage_access_continue">متابعة</string>
     <string name="usage_access_not_now">ليس الآن</string>
+
+    <!-- Today and Week (10.1.0) -->
+    <string name="tab_today">اليوم</string>
+    <string name="tab_week">الأسبوع</string>
+    <string name="today_total_phone">%1$s على هاتفك اليوم</string>
+    <string name="today_total_device">%1$s على %2$s اليوم</string>
+    <string name="scope_all_devices">كل الأجهزة</string>
+    <string name="today_empty">لم يُسجَّل شيء اليوم بعد. اسمح بالوصول إلى بيانات الاستخدام وزامِن، أو اربط جهازًا آخر.</string>
+    <string name="today_device_empty">لا شيء من %1$s اليوم بعد.</string>
+    <string name="apps_on_this_phone">التطبيقات على هذا الهاتف</string>
+    <string name="apps_hint">انقر على تطبيق لتغيير فئته.</string>
+    <string name="change_category">تغيير الفئة</string>
+    <string name="use_automatic_category">استخدام الفئة التلقائية</string>
+    <string name="category_unknown">الفئة غير معروفة</string>
+    <string name="category_set_by_you">%1$s (من اختيارك)</string>
+    <string name="week_total">%1$s هذا الأسبوع</string>
+    <string name="week_more">أكثر بنسبة %1$d%% من الأسبوع الماضي</string>
+    <string name="week_less">أقل بنسبة %1$d%% من الأسبوع الماضي</string>
+    <string name="week_same">مثل الأسبوع الماضي</string>
+    <string name="week_ghost_legend">تُظهر الحدود اليوم نفسه من الأسبوع الماضي.</string>
+    <string name="week_empty">لم يُسجَّل شيء في آخر 7 أيام.</string>
+    <string name="try_again">إعادة المحاولة</string>
+    <string name="week_day_cd">%1$s: %2$s</string>
+    <string name="week_day_cd_last">%1$s: %2$s. الأسبوع الماضي: %3$s</string>
+    <string name="loading">جارٍ التحميل</string>
+    <plurals name="today_total_devices">
+        <item quantity="zero">%1$s على %2$d جهاز اليوم</item>
+        <item quantity="one">%1$s على %2$d جهاز اليوم</item>
+        <item quantity="two">%1$s على جهازيك (%2$d) اليوم</item>
+        <item quantity="few">%1$s على %2$d أجهزة اليوم</item>
+        <item quantity="many">%1$s على %2$d جهازًا اليوم</item>
+        <item quantity="other">%1$s على %2$d جهاز اليوم</item>
+    </plurals>
+    <plurals name="week_failed">
+        <item quantity="zero">تعذّر تحميل %1$d يوم. تحقق من اتصالك وأعد المحاولة.</item>
+        <item quantity="one">تعذّر تحميل %1$d يوم. تحقق من اتصالك وأعد المحاولة.</item>
+        <item quantity="two">تعذّر تحميل يومين (%1$d). تحقق من اتصالك وأعد المحاولة.</item>
+        <item quantity="few">تعذّر تحميل %1$d أيام. تحقق من اتصالك وأعد المحاولة.</item>
+        <item quantity="many">تعذّر تحميل %1$d يومًا. تحقق من اتصالك وأعد المحاولة.</item>
+        <item quantity="other">تعذّر تحميل %1$d يوم. تحقق من اتصالك وأعد المحاولة.</item>
+    </plurals>
 </resources>

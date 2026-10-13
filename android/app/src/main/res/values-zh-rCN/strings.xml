@@ -3,7 +3,7 @@
 
     <!-- Navigation Tabs -->
     <string name="tab_this_device">本设备</string>
-    <string name="tab_linked_devices">已关联设备</string>
+    <string name="tab_linked_devices">设备</string>
     <string name="tab_trends">趋势</string>
     <string name="tab_settings">设置</string>
 
@@ -122,4 +122,35 @@
     <string name="usage_access_message">SurfSense 会读取今天每个应用的打开时长，并在后台定期重复此操作。应用名称会发送到 SurfSense 服务器，以便归入社交媒体或新闻等类别。总计数据与您的设备名称（以便您在其他设备上识别它）一起以随机 ID 存储，而不是您的账户名称或电子邮件。\n\n接下来，Android 将打开设置界面，您可以在其中为 SurfSense 开启“使用情况访问权限”。</string>
     <string name="usage_access_continue">继续</string>
     <string name="usage_access_not_now">暂不</string>
+
+    <!-- Today and Week (10.1.0) -->
+    <string name="tab_today">今天</string>
+    <string name="tab_week">本周</string>
+    <string name="today_total_phone">今天在手机上 %1$s</string>
+    <string name="today_total_device">今天在 %2$s 上 %1$s</string>
+    <string name="scope_all_devices">所有设备</string>
+    <string name="today_empty">今天还没有记录。请允许使用情况访问权限并同步，或关联其他设备。</string>
+    <string name="today_device_empty">今天还没有来自 %1$s 的记录。</string>
+    <string name="apps_on_this_phone">此手机上的应用</string>
+    <string name="apps_hint">点按应用可更改其类别。</string>
+    <string name="change_category">更改类别</string>
+    <string name="use_automatic_category">使用自动类别</string>
+    <string name="category_unknown">类别未知</string>
+    <string name="category_set_by_you">%1$s（由你设置）</string>
+    <string name="week_total">本周 %1$s</string>
+    <string name="week_more">比上周多 %1$d%%</string>
+    <string name="week_less">比上周少 %1$d%%</string>
+    <string name="week_same">与上周相同</string>
+    <string name="week_ghost_legend">轮廓表示上周同一天。</string>
+    <string name="week_empty">过去 7 天没有记录。</string>
+    <string name="try_again">重试</string>
+    <string name="week_day_cd">%1$s：%2$s</string>
+    <string name="week_day_cd_last">%1$s：%2$s。上周：%3$s</string>
+    <string name="loading">正在加载</string>
+    <plurals name="today_total_devices">
+        <item quantity="other">今天在你的 %2$d 台设备上 %1$s</item>
+    </plurals>
+    <plurals name="week_failed">
+        <item quantity="other">有 %1$d 天的数据无法加载。请检查网络连接后重试。</item>
+    </plurals>
 </resources>

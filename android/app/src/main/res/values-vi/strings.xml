@@ -3,7 +3,7 @@
 
     <!-- Navigation Tabs -->
     <string name="tab_this_device">Thiết Bị Này</string>
-    <string name="tab_linked_devices">Thiết Bị Liên Kết</string>
+    <string name="tab_linked_devices">Thiết bị</string>
     <string name="tab_trends">Xu Hướng</string>
     <string name="tab_settings">Cài Đặt</string>
 
@@ -15,7 +15,7 @@
     <string name="today_usage_title">Sử Dụng Hôm Nay</string>
     <string name="no_usage_data_yet">Chưa Có Dữ Liệu Sử Dụng</string>
     <string name="no_usage_data_description">Chạm "Đồng Bộ Ngay" để thu thập và tải lên dữ liệu sử dụng thiết bị của bạn. Cần quyền Truy Cập Sử Dụng.</string>
-    <string name="sync_now">Đồng Bộ Ngay</string>
+    <string name="sync_now">Đồng bộ ngay</string>
 
     <!-- Linked Devices Screen -->
     <string name="linked_devices_usage_title">Sử Dụng Thiết Bị Liên Kết</string>
@@ -112,4 +112,35 @@
     <string name="usage_access_message">SurfSense đọc thời gian mỗi ứng dụng được mở trong hôm nay và lặp lại việc này thường xuyên ở chế độ nền. Tên ứng dụng được gửi đến máy chủ SurfSense để phân loại vào các danh mục như Mạng xã hội hoặc Tin tức. Tổng thời gian được lưu dưới một ID ngẫu nhiên cùng với tên thiết bị của bạn (để bạn nhận ra nó trên các thiết bị khác), không phải tên tài khoản hay email của bạn.\n\nTiếp theo, Android sẽ mở màn hình cài đặt để bạn bật Quyền truy cập mức sử dụng cho SurfSense.</string>
     <string name="usage_access_continue">Tiếp tục</string>
     <string name="usage_access_not_now">Để sau</string>
+
+    <!-- Today and Week (10.1.0) -->
+    <string name="tab_today">Hôm nay</string>
+    <string name="tab_week">Tuần</string>
+    <string name="today_total_phone">%1$s trên điện thoại của bạn hôm nay</string>
+    <string name="today_total_device">%1$s trên %2$s hôm nay</string>
+    <string name="scope_all_devices">Tất cả thiết bị</string>
+    <string name="today_empty">Hôm nay chưa ghi nhận gì. Hãy cho phép quyền truy cập dữ liệu sử dụng và đồng bộ, hoặc liên kết thiết bị khác.</string>
+    <string name="today_device_empty">Hôm nay chưa có dữ liệu từ %1$s.</string>
+    <string name="apps_on_this_phone">Ứng dụng trên điện thoại này</string>
+    <string name="apps_hint">Nhấn vào một ứng dụng để đổi danh mục.</string>
+    <string name="change_category">Đổi danh mục</string>
+    <string name="use_automatic_category">Dùng danh mục tự động</string>
+    <string name="category_unknown">Không rõ danh mục</string>
+    <string name="category_set_by_you">%1$s (do bạn chọn)</string>
+    <string name="week_total">%1$s tuần này</string>
+    <string name="week_more">Nhiều hơn tuần trước %1$d%%</string>
+    <string name="week_less">Ít hơn tuần trước %1$d%%</string>
+    <string name="week_same">Bằng tuần trước</string>
+    <string name="week_ghost_legend">Đường viền thể hiện cùng ngày của tuần trước.</string>
+    <string name="week_empty">Không ghi nhận gì trong 7 ngày qua.</string>
+    <string name="try_again">Thử lại</string>
+    <string name="week_day_cd">%1$s: %2$s</string>
+    <string name="week_day_cd_last">%1$s: %2$s. Tuần trước: %3$s</string>
+    <string name="loading">Đang tải</string>
+    <plurals name="today_total_devices">
+        <item quantity="other">%1$s trên %2$d thiết bị của bạn hôm nay</item>
+    </plurals>
+    <plurals name="week_failed">
+        <item quantity="other">Không tải được %1$d ngày. Hãy kiểm tra kết nối và thử lại.</item>
+    </plurals>
 </resources>

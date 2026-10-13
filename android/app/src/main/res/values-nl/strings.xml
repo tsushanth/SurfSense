@@ -3,7 +3,7 @@
 
     <!-- Navigation Tabs -->
     <string name="tab_this_device">Dit apparaat</string>
-    <string name="tab_linked_devices">Gekoppelde apparaten</string>
+    <string name="tab_linked_devices">Apparaten</string>
     <string name="tab_trends">Trends</string>
     <string name="tab_settings">Instellingen</string>
 
@@ -112,4 +112,37 @@
     <string name="usage_access_message">SurfSense leest hoe lang elke app vandaag open is geweest en herhaalt dit regelmatig op de achtergrond. App-namen worden naar de SurfSense-server gestuurd zodat ze kunnen worden ingedeeld in categorieën zoals Sociale media of Nieuws. Totalen worden opgeslagen onder een willekeurig ID samen met de naam van je apparaat (zodat je het op je andere apparaten herkent), niet onder je accountnaam of e-mailadres.\n\nDaarna opent Android een instellingenscherm waar je Gebruikstoegang voor SurfSense kunt inschakelen.</string>
     <string name="usage_access_continue">Doorgaan</string>
     <string name="usage_access_not_now">Niet nu</string>
+
+    <!-- Today and Week (10.1.0) -->
+    <string name="tab_today">Vandaag</string>
+    <string name="tab_week">Week</string>
+    <string name="today_total_phone">%1$s op je telefoon vandaag</string>
+    <string name="today_total_device">%1$s op %2$s vandaag</string>
+    <string name="scope_all_devices">Alle apparaten</string>
+    <string name="today_empty">Vandaag nog niets vastgelegd. Sta gebruikstoegang toe en synchroniseer, of koppel een ander apparaat.</string>
+    <string name="today_device_empty">Vandaag nog niets van %1$s.</string>
+    <string name="apps_on_this_phone">Apps op deze telefoon</string>
+    <string name="apps_hint">Tik op een app om de categorie te wijzigen.</string>
+    <string name="change_category">Categorie wijzigen</string>
+    <string name="use_automatic_category">Automatische categorie gebruiken</string>
+    <string name="category_unknown">Categorie onbekend</string>
+    <string name="category_set_by_you">%1$s (door jou gekozen)</string>
+    <string name="week_total">%1$s deze week</string>
+    <string name="week_more">%1$d%% meer dan vorige week</string>
+    <string name="week_less">%1$d%% minder dan vorige week</string>
+    <string name="week_same">Hetzelfde als vorige week</string>
+    <string name="week_ghost_legend">Omlijningen tonen dezelfde dag vorige week.</string>
+    <string name="week_empty">Niets vastgelegd in de afgelopen 7 dagen.</string>
+    <string name="try_again">Opnieuw proberen</string>
+    <string name="week_day_cd">%1$s: %2$s</string>
+    <string name="week_day_cd_last">%1$s: %2$s. Vorige week: %3$s</string>
+    <string name="loading">Laden</string>
+    <plurals name="today_total_devices">
+        <item quantity="one">%1$s op %2$d apparaat vandaag</item>
+        <item quantity="other">%1$s op je %2$d apparaten vandaag</item>
+    </plurals>
+    <plurals name="week_failed">
+        <item quantity="one">Kan %1$d dag niet laden. Controleer je verbinding en probeer het opnieuw.</item>
+        <item quantity="other">Kan %1$d dagen niet laden. Controleer je verbinding en probeer het opnieuw.</item>
+    </plurals>
 </resources>

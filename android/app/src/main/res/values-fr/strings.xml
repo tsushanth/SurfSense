@@ -3,7 +3,7 @@
 
     <!-- Navigation Tabs -->
     <string name="tab_this_device">Cet Appareil</string>
-    <string name="tab_linked_devices">Appareils Liés</string>
+    <string name="tab_linked_devices">Appareils</string>
     <string name="tab_trends">Tendances</string>
     <string name="tab_settings">Paramètres</string>
 
@@ -15,7 +15,7 @@
     <string name="today_usage_title">Utilisation d\'Aujourd\'hui</string>
     <string name="no_usage_data_yet">Pas Encore de Données d\'Utilisation</string>
     <string name="no_usage_data_description">Appuyez sur « Synchroniser Maintenant » pour collecter et téléverser les données d\'utilisation de votre appareil. Cela nécessite l\'autorisation d\'accès aux données d\'utilisation.</string>
-    <string name="sync_now">Synchroniser Maintenant</string>
+    <string name="sync_now">Synchroniser maintenant</string>
 
     <!-- Linked Devices Screen -->
     <string name="linked_devices_usage_title">Utilisation des Appareils Liés</string>
@@ -122,4 +122,39 @@
     <string name="usage_access_message">SurfSense lit la durée d\'ouverture de chaque application aujourd\'hui et répète cette opération régulièrement en arrière-plan. Les noms des applications sont envoyés au serveur SurfSense afin d\'être classés dans des catégories telles que Réseaux sociaux ou Actualités. Les totaux sont enregistrés sous un identifiant aléatoire, accompagné du nom de votre appareil (pour que vous puissiez le reconnaître sur vos autres appareils), et non sous le nom de votre compte ou votre adresse e-mail.\n\nAndroid va ensuite ouvrir un écran de paramètres où vous pourrez activer l\'accès à l\'utilisation pour SurfSense.</string>
     <string name="usage_access_continue">Continuer</string>
     <string name="usage_access_not_now">Pas maintenant</string>
+
+    <!-- Today and Week (10.1.0) -->
+    <string name="tab_today">Aujourd\'hui</string>
+    <string name="tab_week">Semaine</string>
+    <string name="today_total_phone">%1$s sur votre téléphone aujourd\'hui</string>
+    <string name="today_total_device">%1$s sur %2$s aujourd\'hui</string>
+    <string name="scope_all_devices">Tous les appareils</string>
+    <string name="today_empty">Rien d\'enregistré aujourd\'hui. Autorisez l\'accès aux données d\'utilisation et synchronisez, ou associez un autre appareil.</string>
+    <string name="today_device_empty">Rien de %1$s pour l\'instant aujourd\'hui.</string>
+    <string name="apps_on_this_phone">Applis sur ce téléphone</string>
+    <string name="apps_hint">Touchez une appli pour changer sa catégorie.</string>
+    <string name="change_category">Changer de catégorie</string>
+    <string name="use_automatic_category">Utiliser la catégorie automatique</string>
+    <string name="category_unknown">Catégorie inconnue</string>
+    <string name="category_set_by_you">%1$s (choisie par vous)</string>
+    <string name="week_total">%1$s cette semaine</string>
+    <string name="week_more">%1$d %% de plus que la semaine dernière</string>
+    <string name="week_less">%1$d %% de moins que la semaine dernière</string>
+    <string name="week_same">Comme la semaine dernière</string>
+    <string name="week_ghost_legend">Les contours montrent le même jour la semaine dernière.</string>
+    <string name="week_empty">Rien d\'enregistré ces 7 derniers jours.</string>
+    <string name="try_again">Réessayer</string>
+    <string name="week_day_cd">%1$s : %2$s</string>
+    <string name="week_day_cd_last">%1$s : %2$s. Semaine dernière : %3$s</string>
+    <string name="loading">Chargement</string>
+    <plurals name="today_total_devices">
+        <item quantity="one">%1$s sur %2$d appareil aujourd\'hui</item>
+        <item quantity="many">%1$s sur vos %2$d appareils aujourd\'hui</item>
+        <item quantity="other">%1$s sur vos %2$d appareils aujourd\'hui</item>
+    </plurals>
+    <plurals name="week_failed">
+        <item quantity="one">Impossible de charger %1$d jour. Vérifiez votre connexion et réessayez.</item>
+        <item quantity="many">Impossible de charger %1$d jours. Vérifiez votre connexion et réessayez.</item>
+        <item quantity="other">Impossible de charger %1$d jours. Vérifiez votre connexion et réessayez.</item>
+    </plurals>
 </resources>

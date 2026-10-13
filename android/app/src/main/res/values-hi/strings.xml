@@ -3,7 +3,7 @@
 
     <!-- Navigation Tabs -->
     <string name="tab_this_device">यह डिवाइस</string>
-    <string name="tab_linked_devices">लिंक किए गए डिवाइस</string>
+    <string name="tab_linked_devices">डिवाइस</string>
     <string name="tab_trends">रुझान</string>
     <string name="tab_settings">सेटिंग्स</string>
 
@@ -122,4 +122,37 @@
     <string name="usage_access_message">SurfSense पढ़ता है कि आज हर ऐप कितनी देर खुला रहा और इसे बैकग्राउंड में नियमित रूप से दोहराता है। ऐप के नाम SurfSense सर्वर को भेजे जाते हैं ताकि उन्हें सोशल मीडिया या समाचार जैसी श्रेणियों में बाँटा जा सके। कुल समय एक रैंडम आईडी और आपके डिवाइस के नाम के साथ सहेजा जाता है (ताकि आप इसे अपने अन्य डिवाइस पर पहचान सकें), आपके खाते के नाम या ईमेल के तहत नहीं।\n\nइसके बाद, Android एक सेटिंग स्क्रीन खोलेगा जहाँ आप SurfSense के लिए उपयोग एक्सेस चालू कर सकते हैं।</string>
     <string name="usage_access_continue">जारी रखें</string>
     <string name="usage_access_not_now">अभी नहीं</string>
+
+    <!-- Today and Week (10.1.0) -->
+    <string name="tab_today">आज</string>
+    <string name="tab_week">सप्ताह</string>
+    <string name="today_total_phone">आज आपके फ़ोन पर %1$s</string>
+    <string name="today_total_device">आज %2$s पर %1$s</string>
+    <string name="scope_all_devices">सभी डिवाइस</string>
+    <string name="today_empty">आज अभी तक कुछ दर्ज नहीं हुआ। उपयोग ऐक्सेस की अनुमति दें और सिंक करें, या कोई दूसरा डिवाइस लिंक करें।</string>
+    <string name="today_device_empty">आज अभी तक %1$s से कुछ नहीं।</string>
+    <string name="apps_on_this_phone">इस फ़ोन पर ऐप</string>
+    <string name="apps_hint">किसी ऐप की श्रेणी बदलने के लिए उस पर टैप करें।</string>
+    <string name="change_category">श्रेणी बदलें</string>
+    <string name="use_automatic_category">स्वचालित श्रेणी इस्तेमाल करें</string>
+    <string name="category_unknown">श्रेणी अज्ञात</string>
+    <string name="category_set_by_you">%1$s (आपकी चुनी हुई)</string>
+    <string name="week_total">इस सप्ताह %1$s</string>
+    <string name="week_more">पिछले सप्ताह से %1$d%% ज़्यादा</string>
+    <string name="week_less">पिछले सप्ताह से %1$d%% कम</string>
+    <string name="week_same">पिछले सप्ताह जितना</string>
+    <string name="week_ghost_legend">रूपरेखाएँ पिछले सप्ताह का वही दिन दिखाती हैं।</string>
+    <string name="week_empty">पिछले 7 दिनों में कुछ दर्ज नहीं हुआ।</string>
+    <string name="try_again">फिर से कोशिश करें</string>
+    <string name="week_day_cd">%1$s: %2$s</string>
+    <string name="week_day_cd_last">%1$s: %2$s. पिछला सप्ताह: %3$s</string>
+    <string name="loading">लोड हो रहा है</string>
+    <plurals name="today_total_devices">
+        <item quantity="one">आज आपके %2$d डिवाइस पर %1$s</item>
+        <item quantity="other">आज आपके %2$d डिवाइसों पर %1$s</item>
+    </plurals>
+    <plurals name="week_failed">
+        <item quantity="one">%1$d दिन लोड नहीं हो सका। अपना कनेक्शन जाँचें और फिर से कोशिश करें।</item>
+        <item quantity="other">%1$d दिन लोड नहीं हो सके। अपना कनेक्शन जाँचें और फिर से कोशिश करें।</item>
+    </plurals>
 </resources>

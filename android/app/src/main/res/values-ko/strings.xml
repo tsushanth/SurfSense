@@ -3,7 +3,7 @@
 
     <!-- Navigation Tabs -->
     <string name="tab_this_device">이 기기</string>
-    <string name="tab_linked_devices">연결된 기기</string>
+    <string name="tab_linked_devices">기기</string>
     <string name="tab_trends">트렌드</string>
     <string name="tab_settings">설정</string>
 
@@ -122,4 +122,35 @@
     <string name="usage_access_message">SurfSense는 오늘 각 앱이 열려 있던 시간을 읽고, 백그라운드에서 이를 정기적으로 반복합니다. 앱 이름은 SurfSense 서버로 전송되어 소셜 미디어나 뉴스 같은 카테고리로 분류됩니다. 합계는 계정 이름이나 이메일이 아닌 임의의 ID와 기기 이름(다른 기기에서 알아볼 수 있도록)과 함께 저장됩니다.\n\n다음으로 Android 설정 화면이 열리며, 여기서 SurfSense의 사용 기록 접근을 켤 수 있습니다.</string>
     <string name="usage_access_continue">계속</string>
     <string name="usage_access_not_now">나중에</string>
+
+    <!-- Today and Week (10.1.0) -->
+    <string name="tab_today">오늘</string>
+    <string name="tab_week">주간</string>
+    <string name="today_total_phone">오늘 휴대전화에서 %1$s</string>
+    <string name="today_total_device">오늘 %2$s에서 %1$s</string>
+    <string name="scope_all_devices">모든 기기</string>
+    <string name="today_empty">오늘은 아직 기록이 없습니다. 사용 정보 접근을 허용하고 동기화하거나 다른 기기를 연결하세요.</string>
+    <string name="today_device_empty">오늘은 아직 %1$s의 기록이 없습니다.</string>
+    <string name="apps_on_this_phone">이 휴대전화의 앱</string>
+    <string name="apps_hint">앱을 탭하여 카테고리를 변경하세요.</string>
+    <string name="change_category">카테고리 변경</string>
+    <string name="use_automatic_category">자동 카테고리 사용</string>
+    <string name="category_unknown">카테고리 알 수 없음</string>
+    <string name="category_set_by_you">%1$s(직접 지정)</string>
+    <string name="week_total">이번 주 %1$s</string>
+    <string name="week_more">지난주보다 %1$d%% 많음</string>
+    <string name="week_less">지난주보다 %1$d%% 적음</string>
+    <string name="week_same">지난주와 같음</string>
+    <string name="week_ghost_legend">윤곽선은 지난주 같은 요일을 나타냅니다.</string>
+    <string name="week_empty">최근 7일 동안 기록이 없습니다.</string>
+    <string name="try_again">다시 시도</string>
+    <string name="week_day_cd">%1$s: %2$s</string>
+    <string name="week_day_cd_last">%1$s: %2$s. 지난주: %3$s</string>
+    <string name="loading">로드 중</string>
+    <plurals name="today_total_devices">
+        <item quantity="other">오늘 기기 %2$d대에서 %1$s</item>
+    </plurals>
+    <plurals name="week_failed">
+        <item quantity="other">%1$d일을 불러오지 못했습니다. 연결을 확인하고 다시 시도하세요.</item>
+    </plurals>
 </resources>

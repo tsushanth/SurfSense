@@ -3,7 +3,7 @@
 
     <!-- Navigation Tabs -->
     <string name="tab_this_device">Peranti Ini</string>
-    <string name="tab_linked_devices">Peranti Dipautkan</string>
+    <string name="tab_linked_devices">Peranti</string>
     <string name="tab_trends">Trend</string>
     <string name="tab_settings">Tetapan</string>
 
@@ -15,7 +15,7 @@
     <string name="today_usage_title">Penggunaan Hari Ini</string>
     <string name="no_usage_data_yet">Tiada Data Penggunaan Lagi</string>
     <string name="no_usage_data_description">Ketik "Segerak Sekarang" untuk mengumpul dan memuat naik data penggunaan peranti anda. Ini memerlukan kebenaran Akses Penggunaan.</string>
-    <string name="sync_now">Segerak Sekarang</string>
+    <string name="sync_now">Segerak sekarang</string>
 
     <!-- Linked Devices Screen -->
     <string name="linked_devices_usage_title">Penggunaan Peranti Dipautkan</string>
@@ -122,4 +122,35 @@
     <string name="usage_access_message">SurfSense membaca berapa lama setiap aplikasi dibuka hari ini dan mengulanginya secara berkala di latar belakang. Nama aplikasi dihantar ke pelayan SurfSense supaya boleh dikelaskan kepada kategori seperti Media Sosial atau Berita. Jumlah disimpan di bawah ID rawak bersama nama peranti anda (supaya anda dapat mengenalinya pada peranti anda yang lain), bukan nama akaun atau e-mel anda.\n\nSeterusnya, Android akan membuka skrin tetapan di mana anda boleh menghidupkan Akses Penggunaan untuk SurfSense.</string>
     <string name="usage_access_continue">Teruskan</string>
     <string name="usage_access_not_now">Bukan sekarang</string>
+
+    <!-- Today and Week (10.1.0) -->
+    <string name="tab_today">Hari ini</string>
+    <string name="tab_week">Minggu</string>
+    <string name="today_total_phone">%1$s pada telefon anda hari ini</string>
+    <string name="today_total_device">%1$s pada %2$s hari ini</string>
+    <string name="scope_all_devices">Semua peranti</string>
+    <string name="today_empty">Belum ada yang direkodkan hari ini. Benarkan Akses Penggunaan dan segerakkan, atau pautkan peranti lain.</string>
+    <string name="today_device_empty">Belum ada data daripada %1$s hari ini.</string>
+    <string name="apps_on_this_phone">Apl pada telefon ini</string>
+    <string name="apps_hint">Ketik apl untuk menukar kategorinya.</string>
+    <string name="change_category">Tukar kategori</string>
+    <string name="use_automatic_category">Gunakan kategori automatik</string>
+    <string name="category_unknown">Kategori tidak diketahui</string>
+    <string name="category_set_by_you">%1$s (pilihan anda)</string>
+    <string name="week_total">%1$s minggu ini</string>
+    <string name="week_more">%1$d%% lebih banyak daripada minggu lepas</string>
+    <string name="week_less">%1$d%% lebih sedikit daripada minggu lepas</string>
+    <string name="week_same">Sama seperti minggu lepas</string>
+    <string name="week_ghost_legend">Garis luar menunjukkan hari yang sama minggu lepas.</string>
+    <string name="week_empty">Tiada yang direkodkan dalam 7 hari lepas.</string>
+    <string name="try_again">Cuba lagi</string>
+    <string name="week_day_cd">%1$s: %2$s</string>
+    <string name="week_day_cd_last">%1$s: %2$s. Minggu lepas: %3$s</string>
+    <string name="loading">Memuatkan</string>
+    <plurals name="today_total_devices">
+        <item quantity="other">%1$s pada %2$d peranti anda hari ini</item>
+    </plurals>
+    <plurals name="week_failed">
+        <item quantity="other">Tidak dapat memuatkan %1$d hari. Semak sambungan anda dan cuba lagi.</item>
+    </plurals>
 </resources>

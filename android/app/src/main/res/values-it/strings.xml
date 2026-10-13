@@ -3,7 +3,7 @@
 
     <!-- Navigation Tabs -->
     <string name="tab_this_device">Questo Dispositivo</string>
-    <string name="tab_linked_devices">Dispositivi Collegati</string>
+    <string name="tab_linked_devices">Dispositivi</string>
     <string name="tab_trends">Tendenze</string>
     <string name="tab_settings">Impostazioni</string>
 
@@ -15,7 +15,7 @@
     <string name="today_usage_title">Utilizzo di Oggi</string>
     <string name="no_usage_data_yet">Nessun Dato di Utilizzo</string>
     <string name="no_usage_data_description">Tocca "Sincronizza Ora" per raccogliere e caricare i dati di utilizzo del tuo dispositivo. Questo richiede il permesso di Accesso all\'Utilizzo.</string>
-    <string name="sync_now">Sincronizza Ora</string>
+    <string name="sync_now">Sincronizza ora</string>
 
     <!-- Linked Devices Screen -->
     <string name="linked_devices_usage_title">Utilizzo dei Dispositivi Collegati</string>
@@ -122,4 +122,39 @@
     <string name="usage_access_message">SurfSense legge per quanto tempo ogni app è aperta oggi e lo ripete regolarmente in background. I nomi delle app vengono inviati al server di SurfSense per essere classificati in categorie come Social media o Notizie. I totali sono salvati con un ID casuale insieme al nome del tuo dispositivo (così puoi riconoscerlo sui tuoi altri dispositivi), non con il nome del tuo account o la tua email.\n\nPoi Android aprirà una schermata delle impostazioni in cui potrai attivare l\'accesso all\'utilizzo per SurfSense.</string>
     <string name="usage_access_continue">Continua</string>
     <string name="usage_access_not_now">Non ora</string>
+
+    <!-- Today and Week (10.1.0) -->
+    <string name="tab_today">Oggi</string>
+    <string name="tab_week">Settimana</string>
+    <string name="today_total_phone">%1$s sul tuo telefono oggi</string>
+    <string name="today_total_device">%1$s su %2$s oggi</string>
+    <string name="scope_all_devices">Tutti i dispositivi</string>
+    <string name="today_empty">Ancora niente registrato oggi. Consenti l\'accesso ai dati di utilizzo e sincronizza, oppure collega un altro dispositivo.</string>
+    <string name="today_device_empty">Ancora niente da %1$s oggi.</string>
+    <string name="apps_on_this_phone">App su questo telefono</string>
+    <string name="apps_hint">Tocca un\'app per cambiarne la categoria.</string>
+    <string name="change_category">Cambia categoria</string>
+    <string name="use_automatic_category">Usa categoria automatica</string>
+    <string name="category_unknown">Categoria sconosciuta</string>
+    <string name="category_set_by_you">%1$s (scelta da te)</string>
+    <string name="week_total">%1$s questa settimana</string>
+    <string name="week_more">%1$d%% in più rispetto alla settimana scorsa</string>
+    <string name="week_less">%1$d%% in meno rispetto alla settimana scorsa</string>
+    <string name="week_same">Come la settimana scorsa</string>
+    <string name="week_ghost_legend">I contorni mostrano lo stesso giorno della settimana scorsa.</string>
+    <string name="week_empty">Niente registrato negli ultimi 7 giorni.</string>
+    <string name="try_again">Riprova</string>
+    <string name="week_day_cd">%1$s: %2$s</string>
+    <string name="week_day_cd_last">%1$s: %2$s. Settimana scorsa: %3$s</string>
+    <string name="loading">Caricamento</string>
+    <plurals name="today_total_devices">
+        <item quantity="one">%1$s su %2$d dispositivo oggi</item>
+        <item quantity="many">%1$s sui tuoi %2$d dispositivi oggi</item>
+        <item quantity="other">%1$s sui tuoi %2$d dispositivi oggi</item>
+    </plurals>
+    <plurals name="week_failed">
+        <item quantity="one">Impossibile caricare %1$d giorno. Controlla la connessione e riprova.</item>
+        <item quantity="many">Impossibile caricare %1$d giorni. Controlla la connessione e riprova.</item>
+        <item quantity="other">Impossibile caricare %1$d giorni. Controlla la connessione e riprova.</item>
+    </plurals>
 </resources>

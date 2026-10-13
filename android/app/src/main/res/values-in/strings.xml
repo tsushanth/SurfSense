@@ -3,7 +3,7 @@
 
     <!-- Navigation Tabs -->
     <string name="tab_this_device">Perangkat Ini</string>
-    <string name="tab_linked_devices">Perangkat Tertaut</string>
+    <string name="tab_linked_devices">Perangkat</string>
     <string name="tab_trends">Tren</string>
     <string name="tab_settings">Pengaturan</string>
 
@@ -15,7 +15,7 @@
     <string name="today_usage_title">Penggunaan Hari Ini</string>
     <string name="no_usage_data_yet">Belum Ada Data Penggunaan</string>
     <string name="no_usage_data_description">Ketuk "Sinkronkan Sekarang" untuk mengumpulkan dan mengunggah data penggunaan perangkat Anda. Ini memerlukan izin Akses Penggunaan.</string>
-    <string name="sync_now">Sinkronkan Sekarang</string>
+    <string name="sync_now">Sinkronkan sekarang</string>
 
     <!-- Linked Devices Screen -->
     <string name="linked_devices_usage_title">Penggunaan Perangkat Tertaut</string>
@@ -112,4 +112,35 @@
     <string name="usage_access_message">SurfSense membaca berapa lama setiap aplikasi dibuka hari ini dan mengulanginya secara berkala di latar belakang. Nama aplikasi dikirim ke server SurfSense agar dapat dikelompokkan ke dalam kategori seperti Media Sosial atau Berita. Total disimpan dengan ID acak beserta nama perangkat Anda (agar Anda dapat mengenalinya di perangkat Anda yang lain), bukan dengan nama akun atau email Anda.\n\nSelanjutnya, Android akan membuka layar pengaturan tempat Anda dapat mengaktifkan Akses Penggunaan untuk SurfSense.</string>
     <string name="usage_access_continue">Lanjutkan</string>
     <string name="usage_access_not_now">Nanti saja</string>
+
+    <!-- Today and Week (10.1.0) -->
+    <string name="tab_today">Hari ini</string>
+    <string name="tab_week">Minggu</string>
+    <string name="today_total_phone">%1$s di ponsel Anda hari ini</string>
+    <string name="today_total_device">%1$s di %2$s hari ini</string>
+    <string name="scope_all_devices">Semua perangkat</string>
+    <string name="today_empty">Belum ada yang tercatat hari ini. Izinkan Akses Penggunaan dan sinkronkan, atau tautkan perangkat lain.</string>
+    <string name="today_device_empty">Belum ada data dari %1$s hari ini.</string>
+    <string name="apps_on_this_phone">Aplikasi di ponsel ini</string>
+    <string name="apps_hint">Ketuk aplikasi untuk mengubah kategorinya.</string>
+    <string name="change_category">Ubah kategori</string>
+    <string name="use_automatic_category">Gunakan kategori otomatis</string>
+    <string name="category_unknown">Kategori tidak diketahui</string>
+    <string name="category_set_by_you">%1$s (pilihan Anda)</string>
+    <string name="week_total">%1$s minggu ini</string>
+    <string name="week_more">%1$d%% lebih banyak dari minggu lalu</string>
+    <string name="week_less">%1$d%% lebih sedikit dari minggu lalu</string>
+    <string name="week_same">Sama seperti minggu lalu</string>
+    <string name="week_ghost_legend">Garis tepi menunjukkan hari yang sama minggu lalu.</string>
+    <string name="week_empty">Tidak ada yang tercatat dalam 7 hari terakhir.</string>
+    <string name="try_again">Coba lagi</string>
+    <string name="week_day_cd">%1$s: %2$s</string>
+    <string name="week_day_cd_last">%1$s: %2$s. Minggu lalu: %3$s</string>
+    <string name="loading">Memuat</string>
+    <plurals name="today_total_devices">
+        <item quantity="other">%1$s di %2$d perangkat Anda hari ini</item>
+    </plurals>
+    <plurals name="week_failed">
+        <item quantity="other">Tidak dapat memuat %1$d hari. Periksa koneksi Anda dan coba lagi.</item>
+    </plurals>
 </resources>

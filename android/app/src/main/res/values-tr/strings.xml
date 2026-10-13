@@ -3,7 +3,7 @@
 
     <!-- Navigation Tabs -->
     <string name="tab_this_device">Bu Cihaz</string>
-    <string name="tab_linked_devices">Bağlı Cihazlar</string>
+    <string name="tab_linked_devices">Cihazlar</string>
     <string name="tab_trends">Trendler</string>
     <string name="tab_settings">Ayarlar</string>
 
@@ -15,7 +15,7 @@
     <string name="today_usage_title">Bugünkü Kullanım</string>
     <string name="no_usage_data_yet">Henüz Kullanım Verisi Yok</string>
     <string name="no_usage_data_description">Cihazınızın kullanım verilerini toplamak ve yüklemek için "Şimdi Senkronize Et"e dokunun. Bu, Kullanım Erişimi izni gerektirir.</string>
-    <string name="sync_now">Şimdi Senkronize Et</string>
+    <string name="sync_now">Şimdi senkronize et</string>
 
     <!-- Linked Devices Screen -->
     <string name="linked_devices_usage_title">Bağlı Cihazların Kullanımı</string>
@@ -112,4 +112,37 @@
     <string name="usage_access_message">SurfSense bugün her uygulamanın ne kadar süre açık kaldığını okur ve bunu arka planda düzenli olarak tekrarlar. Uygulama adları, Sosyal Medya veya Haberler gibi kategorilere ayrılabilmesi için SurfSense sunucusuna gönderilir. Toplamlar hesap adınız veya e-postanız altında değil, cihazınızın adıyla (diğer cihazlarınızda tanıyabilmeniz için) birlikte rastgele bir kimlik altında saklanır.\n\nArdından Android, SurfSense için Kullanım Erişimini açabileceğiniz bir ayar ekranı açacak.</string>
     <string name="usage_access_continue">Devam</string>
     <string name="usage_access_not_now">Şimdi değil</string>
+
+    <!-- Today and Week (10.1.0) -->
+    <string name="tab_today">Bugün</string>
+    <string name="tab_week">Hafta</string>
+    <string name="today_total_phone">Bugün telefonunuzda %1$s</string>
+    <string name="today_total_device">Bugün %2$s üzerinde %1$s</string>
+    <string name="scope_all_devices">Tüm cihazlar</string>
+    <string name="today_empty">Bugün henüz bir şey kaydedilmedi. Kullanım erişimine izin verip senkronize edin veya başka bir cihaz bağlayın.</string>
+    <string name="today_device_empty">Bugün %1$s cihazından henüz veri yok.</string>
+    <string name="apps_on_this_phone">Bu telefondaki uygulamalar</string>
+    <string name="apps_hint">Kategorisini değiştirmek için bir uygulamaya dokunun.</string>
+    <string name="change_category">Kategoriyi değiştir</string>
+    <string name="use_automatic_category">Otomatik kategoriyi kullan</string>
+    <string name="category_unknown">Kategori bilinmiyor</string>
+    <string name="category_set_by_you">%1$s (sizin seçiminiz)</string>
+    <string name="week_total">Bu hafta %1$s</string>
+    <string name="week_more">Geçen haftadan %%%1$d fazla</string>
+    <string name="week_less">Geçen haftadan %%%1$d az</string>
+    <string name="week_same">Geçen haftayla aynı</string>
+    <string name="week_ghost_legend">Çerçeveler geçen haftanın aynı gününü gösterir.</string>
+    <string name="week_empty">Son 7 günde bir şey kaydedilmedi.</string>
+    <string name="try_again">Tekrar dene</string>
+    <string name="week_day_cd">%1$s: %2$s</string>
+    <string name="week_day_cd_last">%1$s: %2$s. Geçen hafta: %3$s</string>
+    <string name="loading">Yükleniyor</string>
+    <plurals name="today_total_devices">
+        <item quantity="one">Bugün %2$d cihazınızda %1$s</item>
+        <item quantity="other">Bugün %2$d cihazınızda %1$s</item>
+    </plurals>
+    <plurals name="week_failed">
+        <item quantity="one">%1$d gün yüklenemedi. Bağlantınızı kontrol edip tekrar deneyin.</item>
+        <item quantity="other">%1$d gün yüklenemedi. Bağlantınızı kontrol edip tekrar deneyin.</item>
+    </plurals>
 </resources>

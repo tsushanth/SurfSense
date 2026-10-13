@@ -3,7 +3,7 @@
 
     <!-- Navigation Tabs -->
     <string name="tab_this_device">To urządzenie</string>
-    <string name="tab_linked_devices">Połączone urządzenia</string>
+    <string name="tab_linked_devices">Urządzenia</string>
     <string name="tab_trends">Trendy</string>
     <string name="tab_settings">Ustawienia</string>
 
@@ -122,4 +122,41 @@
     <string name="usage_access_message">SurfSense odczytuje, jak długo każda aplikacja była dziś otwarta, i powtarza to regularnie w tle. Nazwy aplikacji są wysyłane na serwer SurfSense, aby przypisać je do kategorii, takich jak media społecznościowe lub wiadomości. Sumy są zapisywane pod losowym identyfikatorem wraz z nazwą Twojego urządzenia (aby można je było rozpoznać na Twoich innych urządzeniach), a nie pod nazwą Twojego konta ani adresem e-mail.\n\nNastępnie Android otworzy ekran ustawień, na którym możesz włączyć dostęp do danych o użyciu dla SurfSense.</string>
     <string name="usage_access_continue">Dalej</string>
     <string name="usage_access_not_now">Nie teraz</string>
+
+    <!-- Today and Week (10.1.0) -->
+    <string name="tab_today">Dziś</string>
+    <string name="tab_week">Tydzień</string>
+    <string name="today_total_phone">Dziś %1$s na telefonie</string>
+    <string name="today_total_device">Dziś %1$s na urządzeniu %2$s</string>
+    <string name="scope_all_devices">Wszystkie urządzenia</string>
+    <string name="today_empty">Dziś jeszcze nic nie zapisano. Zezwól na dostęp do danych o użyciu i zsynchronizuj albo połącz inne urządzenie.</string>
+    <string name="today_device_empty">Dziś jeszcze nic z urządzenia %1$s.</string>
+    <string name="apps_on_this_phone">Aplikacje na tym telefonie</string>
+    <string name="apps_hint">Kliknij aplikację, aby zmienić jej kategorię.</string>
+    <string name="change_category">Zmień kategorię</string>
+    <string name="use_automatic_category">Użyj kategorii automatycznej</string>
+    <string name="category_unknown">Nieznana kategoria</string>
+    <string name="category_set_by_you">%1$s (Twój wybór)</string>
+    <string name="week_total">%1$s w tym tygodniu</string>
+    <string name="week_more">O %1$d%% więcej niż w zeszłym tygodniu</string>
+    <string name="week_less">O %1$d%% mniej niż w zeszłym tygodniu</string>
+    <string name="week_same">Tyle samo co w zeszłym tygodniu</string>
+    <string name="week_ghost_legend">Kontury pokazują ten sam dzień w zeszłym tygodniu.</string>
+    <string name="week_empty">Nic nie zapisano w ostatnich 7 dniach.</string>
+    <string name="try_again">Spróbuj ponownie</string>
+    <string name="week_day_cd">%1$s: %2$s</string>
+    <string name="week_day_cd_last">%1$s: %2$s. Zeszły tydzień: %3$s</string>
+    <string name="loading">Wczytywanie</string>
+    <plurals name="today_total_devices">
+        <item quantity="one">Dziś %1$s na %2$d urządzeniu</item>
+        <item quantity="few">Dziś %1$s na %2$d urządzeniach</item>
+        <item quantity="many">Dziś %1$s na %2$d urządzeniach</item>
+        <item quantity="other">Dziś %1$s na %2$d urządzenia</item>
+    </plurals>
+    <plurals name="week_failed">
+        <item quantity="one">Nie udało się wczytać %1$d dnia. Sprawdź połączenie i spróbuj ponownie.</item>
+        <item quantity="few">Nie udało się wczytać %1$d dni. Sprawdź połączenie i spróbuj ponownie.</item>
+        <item quantity="many">Nie udało się wczytać %1$d dni. Sprawdź połączenie i spróbuj ponownie.</item>
+        <item quantity="other">Nie udało się wczytać %1$d dnia. Sprawdź połączenie i spróbuj ponownie.</item>
+    </plurals>
 </resources>

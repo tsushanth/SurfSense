@@ -3,7 +3,7 @@
 
     <!-- Navigation Tabs -->
     <string name="tab_this_device">Ang Device na Ito</string>
-    <string name="tab_linked_devices">Mga Naka-link na Device</string>
+    <string name="tab_linked_devices">Mga device</string>
     <string name="tab_trends">Mga Trend</string>
     <string name="tab_settings">Mga Setting</string>
 
@@ -15,7 +15,7 @@
     <string name="today_usage_title">Paggamit Ngayong Araw</string>
     <string name="no_usage_data_yet">Wala Pang Data ng Paggamit</string>
     <string name="no_usage_data_description">I-tap ang "I-sync Ngayon" upang mangolekta at mag-upload ng data ng paggamit ng iyong device. Nangangailangan ito ng pahintulot sa Pag-access ng Paggamit.</string>
-    <string name="sync_now">I-sync Ngayon</string>
+    <string name="sync_now">I-sync ngayon</string>
 
     <!-- Linked Devices Screen -->
     <string name="linked_devices_usage_title">Paggamit ng Mga Naka-link na Device</string>
@@ -122,4 +122,37 @@
     <string name="usage_access_message">Binabasa ng SurfSense kung gaano katagal nakabukas ang bawat app ngayong araw at inuulit ito nang regular sa background. Ipinapadala ang mga pangalan ng app sa server ng SurfSense para maiuri sa mga kategorya tulad ng Social Media o Balita. Ang mga kabuuan ay iniimbak sa ilalim ng random na ID kasama ang pangalan ng iyong device (para makilala mo ito sa iyong iba pang mga device), hindi sa pangalan ng iyong account o email.\n\nSusunod, magbubukas ang Android ng screen ng mga setting kung saan maaari mong i-on ang Usage Access para sa SurfSense.</string>
     <string name="usage_access_continue">Magpatuloy</string>
     <string name="usage_access_not_now">Huwag muna</string>
+
+    <!-- Today and Week (10.1.0) -->
+    <string name="tab_today">Ngayon</string>
+    <string name="tab_week">Linggo</string>
+    <string name="today_total_phone">%1$s sa iyong phone ngayon</string>
+    <string name="today_total_device">%1$s sa %2$s ngayon</string>
+    <string name="scope_all_devices">Lahat ng device</string>
+    <string name="today_empty">Wala pang naitala ngayon. Payagan ang Usage Access at mag-sync, o mag-link ng ibang device.</string>
+    <string name="today_device_empty">Wala pang galing sa %1$s ngayon.</string>
+    <string name="apps_on_this_phone">Mga app sa phone na ito</string>
+    <string name="apps_hint">I-tap ang isang app para palitan ang kategorya nito.</string>
+    <string name="change_category">Palitan ang kategorya</string>
+    <string name="use_automatic_category">Gamitin ang awtomatikong kategorya</string>
+    <string name="category_unknown">Hindi alam ang kategorya</string>
+    <string name="category_set_by_you">%1$s (pinili mo)</string>
+    <string name="week_total">%1$s ngayong linggo</string>
+    <string name="week_more">%1$d%% mas marami kaysa noong nakaraang linggo</string>
+    <string name="week_less">%1$d%% mas kaunti kaysa noong nakaraang linggo</string>
+    <string name="week_same">Kapareho ng nakaraang linggo</string>
+    <string name="week_ghost_legend">Ipinapakita ng mga outline ang parehong araw noong nakaraang linggo.</string>
+    <string name="week_empty">Walang naitala sa nakalipas na 7 araw.</string>
+    <string name="try_again">Subukan ulit</string>
+    <string name="week_day_cd">%1$s: %2$s</string>
+    <string name="week_day_cd_last">%1$s: %2$s. Nakaraang linggo: %3$s</string>
+    <string name="loading">Naglo-load</string>
+    <plurals name="today_total_devices">
+        <item quantity="one">%1$s sa %2$d device mo ngayon</item>
+        <item quantity="other">%1$s sa %2$d mong device ngayon</item>
+    </plurals>
+    <plurals name="week_failed">
+        <item quantity="one">Hindi ma-load ang %1$d araw. Tingnan ang iyong koneksyon at subukan ulit.</item>
+        <item quantity="other">Hindi ma-load ang %1$d araw. Tingnan ang iyong koneksyon at subukan ulit.</item>
+    </plurals>
 </resources>
