@@ -1,54 +1,54 @@
 package com.kreativekoala.surfsense.ui
 
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
-import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.OpenInNew
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material.icons.outlined.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material.icons.filled.BarChart
+import androidx.compose.material.icons.filled.Devices
+import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Today
+import androidx.compose.material.icons.outlined.BarChart
+import androidx.compose.material.icons.outlined.Devices
+import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material.icons.outlined.Today
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.kreativekoala.surfsense.Config
+import androidx.compose.ui.text.style.TextOverflow
 import com.kreativekoala.surfsense.R
+import com.kreativekoala.surfsense.ui.screens.DevicesScreen
+import com.kreativekoala.surfsense.ui.screens.SettingsScreen
 import com.kreativekoala.surfsense.ui.screens.TodayScreen
 import com.kreativekoala.surfsense.ui.screens.WeekScreen
-import com.kreativekoala.surfsense.viewmodel.*
-
-// region Navigation
+import com.kreativekoala.surfsense.viewmodel.MainViewModel
 
 enum class Tab(@StringRes val labelRes: Int, val icon: ImageVector, val outlinedIcon: ImageVector) {
     Today(R.string.tab_today, Icons.Filled.Today, Icons.Outlined.Today),
     Week(R.string.tab_week, Icons.Filled.BarChart, Icons.Outlined.BarChart),
-    LinkedDevices(R.string.tab_linked_devices, Icons.Filled.Devices, Icons.Outlined.Devices),
-    Settings(R.string.tab_settings, Icons.Filled.Settings, Icons.Outlined.Settings)
+    Devices(R.string.tab_linked_devices, Icons.Filled.Devices, Icons.Outlined.Devices),
+    Settings(R.string.tab_settings, Icons.Filled.Settings, Icons.Outlined.Settings),
 }
 
+/** Navigation shell only: top bar titled with the tab, a refresh action on Today, Week and Devices, four tabs. */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SurfSenseApp(viewModel: MainViewModel) {
@@ -58,7 +58,7 @@ fun SurfSenseApp(viewModel: MainViewModel) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(selectedTab.labelRes)) },
+                title = { Text(stringResource(selectedTab.labelRes), maxLines = 1, overflow = TextOverflow.Ellipsis) },
                 actions = {
                     if (selectedTab != Tab.Settings) {
                         IconButton(onClick = {
@@ -74,33 +74,28 @@ fun SurfSenseApp(viewModel: MainViewModel) {
                             Icon(Icons.Default.Refresh, contentDescription = stringResource(R.string.cd_refresh))
                         }
                     }
-                }
+                },
             )
         },
         bottomBar = {
             NavigationBar {
                 Tab.entries.forEach { tab ->
-                    val label = stringResource(tab.labelRes)
                     NavigationBarItem(
                         selected = selectedTab == tab,
                         onClick = { selectedTab = tab },
-                        icon = {
-                            Icon(
-                                if (selectedTab == tab) tab.icon else tab.outlinedIcon,
-                                contentDescription = label
-                            )
-                        },
-                        label = { Text(label, maxLines = 1, fontSize = 11.sp) }
+                        // The label below names the tab; the icon is decorative.
+                        icon = { Icon(if (selectedTab == tab) tab.icon else tab.outlinedIcon, contentDescription = null) },
+                        label = { Text(stringResource(tab.labelRes), maxLines = 1, overflow = TextOverflow.Ellipsis) },
                     )
                 }
             }
-        }
+        },
     ) { padding ->
         Box(
-            modifier = Modifier
+            Modifier
                 .fillMaxSize()
                 .padding(padding)
-                .background(MaterialTheme.colorScheme.surfaceContainerLow)
+                .background(MaterialTheme.colorScheme.background)
         ) {
             when (selectedTab) {
                 Tab.Today -> TodayScreen(
@@ -111,565 +106,24 @@ fun SurfSenseApp(viewModel: MainViewModel) {
                     onSetCategory = viewModel::setCategoryOverride,
                 )
                 Tab.Week -> WeekScreen(uiState.week, onLoad = viewModel::loadWeek)
-                Tab.LinkedDevices -> LinkedDevicesScreen(uiState, viewModel)
-                Tab.Settings -> SettingsScreen(uiState, viewModel)
-            }
-        }
-    }
-}
-
-// endregion
-
-// region Linked Devices Screen
-
-@Composable
-fun LinkedDevicesScreen(uiState: MainUiState, viewModel: MainViewModel) {
-    var showAddDialog by remember { mutableStateOf(false) }
-    var showShareDialog by remember { mutableStateOf(false) }
-    var deviceToUnlink by remember { mutableStateOf<LinkedDeviceUi?>(null) }
-
-    val scrollState = rememberScrollState()
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(scrollState)
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        // Unified Usage Card (linked devices only)
-        uiState.unifiedUsage?.let { unified ->
-            UsageCard(title = stringResource(R.string.linked_devices_usage_title), usage = unified)
-        }
-
-        // Loading / Error / Device List
-        if (uiState.isLoading) {
-            Box(Modifier.fillMaxWidth().padding(vertical = 32.dp), contentAlignment = Alignment.Center) {
-                CircularProgressIndicator()
-            }
-        } else if (uiState.linkedDevices.isEmpty()) {
-            // Empty state
-            Card(
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(12.dp)
-            ) {
-                Column(
-                    modifier = Modifier.padding(24.dp).fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    Icon(Icons.Default.Link, null, Modifier.size(48.dp), tint = Color.Gray)
-                    Text(stringResource(R.string.no_linked_devices), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
-                    Text(
-                        stringResource(R.string.no_linked_devices_description),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        textAlign = TextAlign.Center
-                    )
-                }
-            }
-        } else {
-            uiState.linkedDevices.forEach { device ->
-                DeviceCard(device = device, onRemove = { deviceToUnlink = device })
-            }
-        }
-
-        // Action Buttons
-        Button(
-            onClick = { showAddDialog = true },
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(12.dp)
-        ) {
-            Icon(Icons.Default.Add, null, Modifier.size(20.dp))
-            Spacer(Modifier.width(8.dp))
-            Text(stringResource(R.string.add_device), fontWeight = FontWeight.SemiBold)
-        }
-
-        OutlinedButton(
-            onClick = { showShareDialog = true },
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(12.dp)
-        ) {
-            Icon(Icons.Default.Share, null, Modifier.size(20.dp))
-            Spacer(Modifier.width(8.dp))
-            Text(stringResource(R.string.share_this_device), fontWeight = FontWeight.SemiBold)
-        }
-    }
-
-    // Add Device Dialog
-    if (showAddDialog) {
-        AddDeviceDialog(
-            isLinking = uiState.isLinking,
-            linkingSuccess = uiState.linkingSuccess,
-            linkingError = uiState.linkingError,
-            onLink = { code -> viewModel.linkDevice(code) },
-            onDismiss = {
-                showAddDialog = false
-                viewModel.clearLinkingState()
-            }
-        )
-    }
-
-    // Share Device Dialog
-    if (showShareDialog) {
-        ShareDeviceDialog(
-            code = uiState.generatedCode,
-            isGenerating = uiState.isGeneratingCode,
-            onGenerate = { viewModel.generateLinkCode() },
-            onDismiss = {
-                showShareDialog = false
-                viewModel.clearLinkingState()
-            }
-        )
-    }
-
-    // Unlink Confirmation
-    deviceToUnlink?.let { device ->
-        AlertDialog(
-            onDismissRequest = { deviceToUnlink = null },
-            title = { Text(stringResource(R.string.remove_device_title)) },
-            text = { Text(stringResource(R.string.remove_device_message, device.name)) },
-            confirmButton = {
-                TextButton(
-                    onClick = {
-                        viewModel.unlinkDevice(device.id) { }
-                        deviceToUnlink = null
-                    },
-                    colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)
-                ) { Text(stringResource(R.string.remove)) }
-            },
-            dismissButton = {
-                TextButton(onClick = { deviceToUnlink = null }) { Text(stringResource(R.string.cancel)) }
-            }
-        )
-    }
-}
-
-// endregion
-
-// region Settings Screen
-
-@Composable
-fun SettingsScreen(uiState: MainUiState, viewModel: MainViewModel) {
-    val context = LocalContext.current
-    var showResetDialog by remember { mutableStateOf(false) }
-    var showAboutDialog by remember { mutableStateOf(false) }
-
-    val packageInfo = remember {
-        try {
-            context.packageManager.getPackageInfo(context.packageName, 0)
-        } catch (e: Exception) { null }
-    }
-    val versionName = packageInfo?.versionName ?: "1.0"
-
-    val scrollState = rememberScrollState()
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(scrollState)
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        // Data Sync Section
-        SectionCard(stringResource(R.string.section_data_sync)) {
-            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                Icon(Icons.Default.Sync, null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(20.dp))
-                Spacer(Modifier.width(12.dp))
-                Text(stringResource(R.string.auto_sync), style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
-                Switch(checked = true, onCheckedChange = {})
-            }
-            HorizontalDivider(Modifier.padding(vertical = 4.dp))
-            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                Icon(Icons.Default.Schedule, null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(20.dp))
-                Spacer(Modifier.width(12.dp))
-                Text(stringResource(R.string.sync_interval), style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
-                Text(stringResource(R.string.sync_interval_value, Config.USAGE_SYNC_INTERVAL_MINUTES.toInt()), color = MaterialTheme.colorScheme.onSurfaceVariant)
-            }
-        }
-
-        // Device Info Section
-        SectionCard(stringResource(R.string.section_device)) {
-            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                Icon(Icons.Default.PhoneAndroid, null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(20.dp))
-                Spacer(Modifier.width(12.dp))
-                Text(stringResource(R.string.device_id), style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
-                Text(
-                    uiState.deviceId.take(8) + "\u2026",
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    style = MaterialTheme.typography.bodySmall
+                Tab.Devices -> DevicesScreen(
+                    state = uiState,
+                    onLink = viewModel::linkDevice,
+                    onGenerateCode = viewModel::generateLinkCode,
+                    onUnlink = viewModel::unlinkDevice,
+                    onClearLinking = viewModel::clearLinkingState,
+                )
+                Tab.Settings -> SettingsScreen(
+                    state = uiState,
+                    onLoadOverrides = viewModel::loadOverrides,
+                    onRemoveOverride = { pkg -> viewModel.setCategoryOverride(pkg, null) },
+                    onExport = viewModel::prepareExport,
+                    onExportPickerShown = viewModel::exportPickerShown,
+                    onExportWrite = viewModel::writeExport,
+                    onExportOutcomeShown = viewModel::clearExportOutcome,
+                    onReset = viewModel::resetAllData,
                 )
             }
-            HorizontalDivider(Modifier.padding(vertical = 4.dp))
-            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                Icon(Icons.Default.TextFormat, null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(20.dp))
-                Spacer(Modifier.width(12.dp))
-                Text(stringResource(R.string.device_name), style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
-                Text(uiState.deviceName, color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodySmall)
-            }
-        }
-
-        // About Section
-        SectionCard(stringResource(R.string.section_about)) {
-            SettingsRow(Icons.Default.Info, stringResource(R.string.about)) { showAboutDialog = true }
-            HorizontalDivider(Modifier.padding(vertical = 4.dp))
-            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                Icon(Icons.Default.Numbers, null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(20.dp))
-                Spacer(Modifier.width(12.dp))
-                Text(stringResource(R.string.version), style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
-                Text(versionName, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            }
-            HorizontalDivider(Modifier.padding(vertical = 4.dp))
-            SettingsLinkRow(Icons.Default.PrivacyTip, stringResource(R.string.privacy_policy), Config.privacyPolicyURL)
-            HorizontalDivider(Modifier.padding(vertical = 4.dp))
-            SettingsLinkRow(Icons.Default.Description, stringResource(R.string.terms_of_service), Config.termsOfServiceURL)
-        }
-
-        // Danger Zone
-        SectionCard(stringResource(R.string.section_data)) {
-            TextButton(
-                onClick = { showResetDialog = true },
-                colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)
-            ) {
-                Icon(Icons.Default.Delete, null, Modifier.size(20.dp))
-                Spacer(Modifier.width(8.dp))
-                Text(stringResource(R.string.reset_all_data))
-            }
-        }
-    }
-
-    if (showResetDialog) {
-        val dataResetText = stringResource(R.string.data_reset)
-        AlertDialog(
-            onDismissRequest = { showResetDialog = false },
-            title = { Text(stringResource(R.string.reset_all_data_title)) },
-            text = { Text(stringResource(R.string.reset_all_data_message)) },
-            confirmButton = {
-                TextButton(
-                    onClick = {
-                        viewModel.resetAllData()
-                        showResetDialog = false
-                        Toast.makeText(context, dataResetText, Toast.LENGTH_SHORT).show()
-                    },
-                    colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)
-                ) { Text(stringResource(R.string.reset)) }
-            },
-            dismissButton = {
-                TextButton(onClick = { showResetDialog = false }) { Text(stringResource(R.string.cancel)) }
-            }
-        )
-    }
-
-    if (showAboutDialog) {
-        AlertDialog(
-            onDismissRequest = { showAboutDialog = false },
-            confirmButton = {
-                TextButton(onClick = { showAboutDialog = false }) { Text(stringResource(R.string.done)) }
-            },
-            text = {
-                Column(
-                    Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    Icon(Icons.Default.BarChart, null, Modifier.size(60.dp), tint = Color(0xFF3B82F6))
-                    Text(stringResource(R.string.app_name), style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
-                    Text(
-                        stringResource(R.string.about_tagline),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        textAlign = TextAlign.Center
-                    )
-                }
-            }
-        )
-    }
-}
-
-@Composable
-private fun SectionCard(title: String, content: @Composable ColumnScope.() -> Unit) {
-    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        Text(
-            title.uppercase(),
-            style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(start = 4.dp)
-        )
-        Card(shape = RoundedCornerShape(12.dp), modifier = Modifier.fillMaxWidth()) {
-            Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                content()
-            }
         }
     }
 }
-
-@Composable
-private fun SettingsRow(icon: ImageVector, label: String, onClick: () -> Unit) {
-    Surface(onClick = onClick, color = Color.Transparent) {
-        Row(Modifier.fillMaxWidth().padding(vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-            Icon(icon, null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(20.dp))
-            Spacer(Modifier.width(12.dp))
-            Text(label, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
-            Icon(Icons.Default.ChevronRight, null, tint = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.size(16.dp))
-        }
-    }
-}
-
-@Composable
-private fun SettingsLinkRow(icon: ImageVector, label: String, url: String) {
-    val context = LocalContext.current
-    Surface(
-        onClick = {
-            try { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url))) } catch (_: Exception) {}
-        },
-        color = Color.Transparent
-    ) {
-        Row(Modifier.fillMaxWidth().padding(vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-            Icon(icon, null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(20.dp))
-            Spacer(Modifier.width(12.dp))
-            Text(label, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
-            Icon(Icons.AutoMirrored.Filled.OpenInNew, null, tint = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.size(14.dp))
-        }
-    }
-}
-
-// endregion
-
-// region Shared Components
-
-@Composable
-fun UsageCard(title: String, usage: DeviceUsageUi) {
-    Card(shape = RoundedCornerShape(12.dp), modifier = Modifier.fillMaxWidth()) {
-        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-            Text(title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
-
-            // Total time
-            Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(
-                    usage.totalTime,
-                    style = MaterialTheme.typography.displaySmall,
-                    fontWeight = FontWeight.Bold,
-                    color = Color(0xFF3B82F6)
-                )
-                Text(stringResource(R.string.total_screen_time_today), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            }
-
-            // Category Breakdown
-            if (usage.categories.isNotEmpty()) {
-                Text(stringResource(R.string.category_breakdown), style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
-                usage.categories.forEach { cat ->
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Box(Modifier.size(12.dp).clip(CircleShape).background(colorForName(cat.color)))
-                        Spacer(Modifier.width(8.dp))
-                        Text(cat.category, style = MaterialTheme.typography.bodySmall, fontWeight = FontWeight.Medium, modifier = Modifier.weight(1f))
-                        Text(MainViewModel.formatSeconds(cat.seconds), style = MaterialTheme.typography.bodySmall, fontWeight = FontWeight.SemiBold)
-                    }
-                }
-            }
-
-            // Quick Stats
-            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                Text(stringResource(R.string.quick_stats), style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
-                Row {
-                    Text(stringResource(R.string.most_used_category), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.weight(1f))
-                    Column(horizontalAlignment = Alignment.End) {
-                        Text(usage.mostUsedCategory, style = MaterialTheme.typography.bodySmall, fontWeight = FontWeight.SemiBold)
-                        Text(usage.mostUsedTime, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    }
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun DeviceCard(device: LinkedDeviceUi, onRemove: () -> Unit) {
-    Card(shape = RoundedCornerShape(12.dp), modifier = Modifier.fillMaxWidth()) {
-        Row(
-            Modifier.padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            Icon(
-                when {
-                    device.type.contains("CHROME", true) -> Icons.Default.Language
-                    device.type.contains("IOS", true) || device.type.contains("IPHONE", true) -> Icons.Default.PhoneIphone
-                    device.type.contains("ANDROID", true) -> Icons.Default.PhoneAndroid
-                    else -> Icons.Default.Devices
-                },
-                null,
-                tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.size(24.dp)
-            )
-            Column(Modifier.weight(1f)) {
-                Text(device.name, style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
-                Text(device.type, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            }
-            Text(
-                device.usage.totalTime,
-                style = MaterialTheme.typography.titleSmall,
-                fontWeight = FontWeight.SemiBold
-            )
-            IconButton(onClick = onRemove, modifier = Modifier.size(32.dp)) {
-                Icon(Icons.Default.Delete, null, tint = MaterialTheme.colorScheme.error, modifier = Modifier.size(20.dp))
-            }
-        }
-    }
-}
-
-// endregion
-
-// region Dialogs
-
-@Composable
-fun AddDeviceDialog(
-    isLinking: Boolean,
-    linkingSuccess: Boolean,
-    linkingError: String?,
-    onLink: (String) -> Unit,
-    onDismiss: () -> Unit
-) {
-    var code by remember { mutableStateOf("") }
-
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        title = { Text(stringResource(R.string.add_device)) },
-        text = {
-            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                if (linkingSuccess) {
-                    Icon(Icons.Default.CheckCircle, null, Modifier.size(48.dp).align(Alignment.CenterHorizontally), tint = Color(0xFF10B981))
-                    Text(stringResource(R.string.device_linked_success), textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth())
-                } else {
-                    Text(stringResource(R.string.enter_code_prompt, Config.LINKING_CODE_LENGTH))
-                    OutlinedTextField(
-                        value = code,
-                        onValueChange = { if (it.length <= Config.LINKING_CODE_LENGTH && it.all { c -> c.isDigit() }) code = it },
-                        label = { Text(stringResource(R.string.device_code_label)) },
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                        singleLine = true,
-                        modifier = Modifier.fillMaxWidth(),
-                        textStyle = LocalTextStyle.current.copy(
-                            textAlign = TextAlign.Center,
-                            fontSize = 24.sp,
-                            fontFamily = FontFamily.Monospace,
-                            letterSpacing = 4.sp
-                        )
-                    )
-                    linkingError?.let {
-                        Text(it, color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall)
-                    }
-                }
-            }
-        },
-        confirmButton = {
-            if (linkingSuccess) {
-                TextButton(onClick = onDismiss) { Text(stringResource(R.string.done)) }
-            } else {
-                TextButton(
-                    onClick = { onLink(code) },
-                    enabled = code.length == Config.LINKING_CODE_LENGTH && !isLinking
-                ) {
-                    if (isLinking) {
-                        CircularProgressIndicator(Modifier.size(16.dp), strokeWidth = 2.dp)
-                        Spacer(Modifier.width(8.dp))
-                    }
-                    Text(stringResource(R.string.link_device))
-                }
-            }
-        },
-        dismissButton = {
-            if (!linkingSuccess) {
-                TextButton(onClick = onDismiss) { Text(stringResource(R.string.cancel)) }
-            }
-        }
-    )
-}
-
-@Composable
-fun ShareDeviceDialog(
-    code: String?,
-    isGenerating: Boolean,
-    onGenerate: () -> Unit,
-    onDismiss: () -> Unit
-) {
-    val context = LocalContext.current
-    val codeCopiedText = stringResource(R.string.code_copied)
-
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        title = { Text(stringResource(R.string.share_this_device)) },
-        text = {
-            Column(
-                verticalArrangement = Arrangement.spacedBy(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text(stringResource(R.string.share_device_description), style = MaterialTheme.typography.bodySmall)
-
-                if (code != null) {
-                    Text(stringResource(R.string.your_sharing_code), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    Text(
-                        code,
-                        style = MaterialTheme.typography.displaySmall,
-                        fontFamily = FontFamily.Monospace,
-                        fontWeight = FontWeight.Bold,
-                        color = Color(0xFF3B82F6),
-                        letterSpacing = 4.sp
-                    )
-                    Text(
-                        stringResource(R.string.code_expires_in, Config.LINKING_CODE_EXPIRY_MINUTES),
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-
-                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        OutlinedButton(onClick = {
-                            val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                            clipboard.setPrimaryClip(ClipData.newPlainText("SurfSense Code", code))
-                            Toast.makeText(context, codeCopiedText, Toast.LENGTH_SHORT).show()
-                        }) { Text(stringResource(R.string.copy)) }
-                        Button(onClick = onGenerate, enabled = !isGenerating) { Text(stringResource(R.string.new_code)) }
-                    }
-                } else {
-                    Button(
-                        onClick = onGenerate,
-                        enabled = !isGenerating,
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        if (isGenerating) {
-                            CircularProgressIndicator(Modifier.size(16.dp), strokeWidth = 2.dp, color = MaterialTheme.colorScheme.onPrimary)
-                            Spacer(Modifier.width(8.dp))
-                        }
-                        Text(if (isGenerating) stringResource(R.string.generating) else stringResource(R.string.generate_sharing_code))
-                    }
-                }
-            }
-        },
-        confirmButton = {
-            TextButton(onClick = onDismiss) { Text(stringResource(R.string.done)) }
-        }
-    )
-}
-
-// endregion
-
-// region Utilities
-
-fun colorForName(name: String): Color {
-    return when (name.lowercase()) {
-        "blue" -> Color(0xFF3B82F6)
-        "green" -> Color(0xFF10B981)
-        "purple" -> Color(0xFF8B5CF6)
-        "orange" -> Color(0xFFF97316)
-        "cyan" -> Color(0xFF06B6D4)
-        "pink" -> Color(0xFFEC4899)
-        "yellow" -> Color(0xFFEAB308)
-        "indigo" -> Color(0xFF6366F1)
-        "red" -> Color(0xFFEF4444)
-        else -> Color(0xFF6B7280)
-    }
-}
-
-fun colorForCategory(category: String): Color {
-    return colorForName(MainViewModel.categoryColor(category))
-}
-
-// endregion

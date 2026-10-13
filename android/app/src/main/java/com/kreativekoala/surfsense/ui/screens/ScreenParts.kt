@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
@@ -14,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
@@ -56,6 +58,19 @@ internal fun headlineStyle() = MaterialTheme.typography.titleLarge.copy(
     lineHeight = MaterialTheme.typography.headlineLarge.lineHeight,
     color = MaterialTheme.colorScheme.onSurfaceVariant,
 )
+
+/** Section title for Devices and Settings: titleMedium, announced as a heading. */
+@Composable
+internal fun SectionTitle(text: String, modifier: Modifier = Modifier) {
+    Text(
+        text,
+        style = MaterialTheme.typography.titleMedium,
+        color = MaterialTheme.colorScheme.onSurface,
+        modifier = modifier
+            .padding(bottom = 4.dp)
+            .semantics { heading() },
+    )
+}
 
 @Composable
 internal fun Hairline(modifier: Modifier = Modifier) {
