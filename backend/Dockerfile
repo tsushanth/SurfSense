@@ -1,17 +1,17 @@
-FROM node:18-alpine
+FROM node:24-slim
 
+ENV NODE_ENV=production
 WORKDIR /app
 
-# Copy package files first
-COPY package*.json ./
-RUN npm install --omit=dev
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends tini \
+    && rm -rf /var/lib/apt/lists/*
 
-# Copy source files
+COPY package*.json ./
+RUN npm ci --omit=dev
+
 COPY --chown=node:node . .
 
-# Security hardening
-RUN apk add --no-cache tini
-
 USER node
-ENTRYPOINT ["/sbin/tini", "--"]
+ENTRYPOINT ["/usr/bin/tini", "--"]
 CMD ["node", "server.js"]

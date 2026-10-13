@@ -114,8 +114,15 @@ const categorize = createCategorizer({
 // PUBLIC ROUTES (no auth required)
 // ==========================================
 
-app.get('/health', (req, res) => {
-    res.json({ status: 'ok' });
+app.get('/health', async (req, res) => {
+    try {
+        const { error } = await supabase.from('domain_categories').select('domain').limit(1);
+        if (error) throw error;
+        res.json({ status: 'ok', db: 'ok' });
+    } catch (err) {
+        logger.error({ err: err.message }, 'Health check: database unreachable');
+        res.status(503).json({ status: 'degraded', db: 'error' });
+    }
 });
 
 /**
