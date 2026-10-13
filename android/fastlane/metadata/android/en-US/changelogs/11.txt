@@ -1,0 +1,1 @@
+Fixed the Privacy Policy and Terms of Service links in Settings.

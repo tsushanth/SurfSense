@@ -35,8 +35,8 @@ object Config {
     const val CLIENT_TYPE = "ANDROID"
 
     // External URLs
-    const val privacyPolicyURL = "https://surfsense.app/privacy"
-    const val termsOfServiceURL = "https://surfsense.app/terms"
+    const val privacyPolicyURL = "https://kreativekoala.llc/privacy"
+    const val termsOfServiceURL = "https://kreativekoala.llc/terms"
 
     // Categories
     val CATEGORIES = listOf(
