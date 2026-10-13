@@ -9,8 +9,6 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -18,12 +16,11 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.OpenInNew
-import androidx.compose.material.icons.automirrored.filled.TrendingUp
-import androidx.compose.material.icons.automirrored.outlined.TrendingUp
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -38,18 +35,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kreativekoala.surfsense.Config
-import com.kreativekoala.surfsense.LocalStorage
 import com.kreativekoala.surfsense.R
+import com.kreativekoala.surfsense.ui.screens.TodayScreen
+import com.kreativekoala.surfsense.ui.screens.WeekScreen
 import com.kreativekoala.surfsense.viewmodel.*
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 // region Navigation
 
 enum class Tab(@StringRes val labelRes: Int, val icon: ImageVector, val outlinedIcon: ImageVector) {
-    ThisDevice(R.string.tab_this_device, Icons.Filled.PhoneAndroid, Icons.Outlined.PhoneAndroid),
+    Today(R.string.tab_today, Icons.Filled.Today, Icons.Outlined.Today),
+    Week(R.string.tab_week, Icons.Filled.BarChart, Icons.Outlined.BarChart),
     LinkedDevices(R.string.tab_linked_devices, Icons.Filled.Devices, Icons.Outlined.Devices),
-    Trends(R.string.tab_trends, Icons.AutoMirrored.Filled.TrendingUp, Icons.AutoMirrored.Outlined.TrendingUp),
     Settings(R.string.tab_settings, Icons.Filled.Settings, Icons.Outlined.Settings)
 }
 
@@ -57,15 +53,24 @@ enum class Tab(@StringRes val labelRes: Int, val icon: ImageVector, val outlined
 @Composable
 fun SurfSenseApp(viewModel: MainViewModel) {
     val uiState by viewModel.uiState.collectAsState()
-    var selectedTab by remember { mutableStateOf(Tab.LinkedDevices) }
+    var selectedTab by rememberSaveable { mutableStateOf(Tab.Today) }
 
     Scaffold(
         topBar = {
-            CenterAlignedTopAppBar(
+            TopAppBar(
                 title = { Text(stringResource(selectedTab.labelRes)) },
                 actions = {
                     if (selectedTab != Tab.Settings) {
-                        IconButton(onClick = { viewModel.refreshData() }) {
+                        IconButton(onClick = {
+                            when (selectedTab) {
+                                Tab.Week -> viewModel.loadWeek()
+                                Tab.Today -> {
+                                    viewModel.refreshData()
+                                    viewModel.loadApps()
+                                }
+                                else -> viewModel.refreshData()
+                            }
+                        }) {
                             Icon(Icons.Default.Refresh, contentDescription = stringResource(R.string.cd_refresh))
                         }
                     }
@@ -98,84 +103,17 @@ fun SurfSenseApp(viewModel: MainViewModel) {
                 .background(MaterialTheme.colorScheme.surfaceContainerLow)
         ) {
             when (selectedTab) {
-                Tab.ThisDevice -> ThisDeviceScreen(uiState, viewModel)
+                Tab.Today -> TodayScreen(
+                    state = uiState,
+                    onSelectScope = viewModel::selectScope,
+                    onSyncNow = viewModel::syncNow,
+                    onLoadApps = viewModel::loadApps,
+                    onSetCategory = viewModel::setCategoryOverride,
+                )
+                Tab.Week -> WeekScreen(uiState.week, onLoad = viewModel::loadWeek)
                 Tab.LinkedDevices -> LinkedDevicesScreen(uiState, viewModel)
-                Tab.Trends -> TrendsScreen(viewModel)
                 Tab.Settings -> SettingsScreen(uiState, viewModel)
             }
-        }
-    }
-}
-
-// endregion
-
-// region This Device Screen
-
-@Composable
-fun ThisDeviceScreen(uiState: MainUiState, viewModel: MainViewModel) {
-    val scrollState = rememberScrollState()
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(scrollState)
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        if (uiState.isLoading) {
-            Box(Modifier.fillMaxWidth().padding(top = 40.dp), contentAlignment = Alignment.Center) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    CircularProgressIndicator()
-                    Spacer(Modifier.height(16.dp))
-                    Text(stringResource(R.string.loading_usage_data), color = MaterialTheme.colorScheme.onSurfaceVariant)
-                }
-            }
-        } else if (uiState.thisDeviceUsage != null) {
-            UsageCard(title = stringResource(R.string.today_usage_title), usage = uiState.thisDeviceUsage)
-        } else {
-            // Empty state
-            Column(
-                modifier = Modifier.fillMaxWidth().padding(top = 40.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Icon(
-                    Icons.Default.PhoneAndroid,
-                    contentDescription = null,
-                    modifier = Modifier.size(48.dp),
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                Spacer(Modifier.height(16.dp))
-                Text(
-                    stringResource(R.string.no_usage_data_yet),
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                Spacer(Modifier.height(8.dp))
-                Text(
-                    stringResource(R.string.no_usage_data_description),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.padding(horizontal = 24.dp)
-                )
-            }
-        }
-
-        // Sync Now button
-        if (!uiState.isLoading) {
-            Button(
-                onClick = { viewModel.syncNow() },
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(12.dp)
-            ) {
-                Icon(Icons.Default.Sync, null, Modifier.size(20.dp))
-                Spacer(Modifier.width(8.dp))
-                Text(stringResource(R.string.sync_now), fontWeight = FontWeight.SemiBold)
-            }
-        }
-
-        uiState.error?.let { error ->
-            Spacer(Modifier.height(8.dp))
-            Text(error, color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall)
         }
     }
 }
@@ -303,235 +241,6 @@ fun LinkedDevicesScreen(uiState: MainUiState, viewModel: MainViewModel) {
                 TextButton(onClick = { deviceToUnlink = null }) { Text(stringResource(R.string.cancel)) }
             }
         )
-    }
-}
-
-// endregion
-
-// region Trends Screen
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun TrendsScreen(viewModel: MainViewModel) {
-    val periodLabels = listOf(
-        stringResource(R.string.period_7_days),
-        stringResource(R.string.period_14_days),
-        stringResource(R.string.period_30_days)
-    )
-    val periodDays = listOf(7, 14, 30)
-    var selectedIndex by remember { mutableIntStateOf(0) }
-    val days = periodDays[selectedIndex]
-    val history = remember(selectedIndex) { viewModel.getUsageHistory(days) }
-
-    val scrollState = rememberScrollState()
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(scrollState)
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        // Period Selector
-        SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
-            periodLabels.forEachIndexed { index, label ->
-                SegmentedButton(
-                    selected = selectedIndex == index,
-                    onClick = { selectedIndex = index },
-                    shape = SegmentedButtonDefaults.itemShape(index, periodLabels.size)
-                ) { Text(label) }
-            }
-        }
-
-        if (history.isEmpty()) {
-            // Empty state
-            Column(
-                modifier = Modifier.fillMaxWidth().padding(top = 60.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                Icon(Icons.AutoMirrored.Filled.TrendingUp, null, Modifier.size(60.dp), tint = Color.Gray)
-                Text(stringResource(R.string.no_usage_data_trends), style = MaterialTheme.typography.titleMedium)
-                Text(
-                    stringResource(R.string.no_usage_data_trends_description),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    textAlign = TextAlign.Center
-                )
-            }
-        } else {
-            // Summary Card
-            SummaryCard(history, periodLabels[selectedIndex])
-
-            // Daily Usage Bar Chart
-            DailyUsageChart(history)
-
-            // Category Breakdown
-            CategoryBreakdownCard(history)
-
-            // Daily Details
-            DailyDetailsCard(history)
-        }
-    }
-}
-
-@Composable
-private fun SummaryCard(history: List<LocalStorage.DailyUsage>, periodLabel: String) {
-    val totalMinutes = history.sumOf { it.totalMinutes }
-    val avgMinutes = if (history.isNotEmpty()) totalMinutes / history.size else 0
-    val peakMinutes = history.maxOfOrNull { it.totalMinutes } ?: 0
-
-    Card(shape = RoundedCornerShape(12.dp), modifier = Modifier.fillMaxWidth()) {
-        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(stringResource(R.string.summary), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
-                Spacer(Modifier.weight(1f))
-                Text(periodLabel, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            }
-            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                StatBox(stringResource(R.string.stat_total), MainViewModel.formatMinutes(totalMinutes), Icons.Default.Schedule, Color(0xFF3B82F6), Modifier.weight(1f))
-                StatBox(stringResource(R.string.stat_daily_avg), MainViewModel.formatMinutes(avgMinutes), Icons.Default.BarChart, Color(0xFF10B981), Modifier.weight(1f))
-                StatBox(stringResource(R.string.stat_peak_day), MainViewModel.formatMinutes(peakMinutes), Icons.Default.ArrowUpward, Color(0xFFF97316), Modifier.weight(1f))
-            }
-        }
-    }
-}
-
-@Composable
-private fun StatBox(title: String, value: String, icon: ImageVector, color: Color, modifier: Modifier = Modifier) {
-    Surface(
-        modifier = modifier,
-        shape = RoundedCornerShape(8.dp),
-        color = MaterialTheme.colorScheme.surfaceContainerHighest
-    ) {
-        Column(
-            modifier = Modifier.padding(vertical = 12.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(4.dp)
-        ) {
-            Icon(icon, null, tint = color, modifier = Modifier.size(24.dp))
-            Text(value, style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
-            Text(title, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-        }
-    }
-}
-
-@Composable
-private fun DailyUsageChart(history: List<LocalStorage.DailyUsage>) {
-    val reversed = history.reversed()
-    val maxMinutes = reversed.maxOfOrNull { it.totalMinutes } ?: 1
-
-    Card(shape = RoundedCornerShape(12.dp), modifier = Modifier.fillMaxWidth()) {
-        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            Text(stringResource(R.string.daily_usage), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
-            Row(
-                modifier = Modifier.fillMaxWidth().height(160.dp),
-                horizontalArrangement = Arrangement.spacedBy(2.dp),
-                verticalAlignment = Alignment.Bottom
-            ) {
-                reversed.forEach { day ->
-                    val fraction = day.totalMinutes.toFloat() / maxMinutes
-                    Column(
-                        modifier = Modifier.weight(1f),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth(0.7f)
-                                .fillMaxHeight(fraction.coerceAtLeast(0.02f))
-                                .clip(RoundedCornerShape(topStart = 4.dp, topEnd = 4.dp))
-                                .background(Color(0xFF3B82F6))
-                        )
-                    }
-                }
-            }
-            // Date labels
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(2.dp)
-            ) {
-                reversed.forEach { day ->
-                    Text(
-                        formatDateShort(day.date),
-                        modifier = Modifier.weight(1f),
-                        textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        maxLines = 1
-                    )
-                }
-            }
-        }
-    }
-}
-
-@Composable
-private fun CategoryBreakdownCard(history: List<LocalStorage.DailyUsage>) {
-    val totals = mutableMapOf<String, Int>()
-    history.forEach { day -> day.byCategory.forEach { (cat, min) -> totals[cat] = (totals[cat] ?: 0) + min } }
-    val sorted = totals.entries.sortedByDescending { it.value }
-    val maxVal = sorted.firstOrNull()?.value ?: 1
-
-    Card(shape = RoundedCornerShape(12.dp), modifier = Modifier.fillMaxWidth()) {
-        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text(stringResource(R.string.category_breakdown), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
-            sorted.forEach { (category, minutes) ->
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Box(Modifier.size(12.dp).clip(CircleShape).background(colorForCategory(category)))
-                    Spacer(Modifier.width(8.dp))
-                    Text(category, style = MaterialTheme.typography.bodySmall, modifier = Modifier.weight(1f))
-                    Text(MainViewModel.formatMinutes(minutes), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                }
-                // Progress bar
-                Box(
-                    Modifier.fillMaxWidth().height(6.dp).clip(RoundedCornerShape(3.dp))
-                        .background(MaterialTheme.colorScheme.surfaceContainerHighest)
-                ) {
-                    Box(
-                        Modifier
-                            .fillMaxWidth(minutes.toFloat() / maxVal)
-                            .fillMaxHeight()
-                            .clip(RoundedCornerShape(3.dp))
-                            .background(colorForCategory(category))
-                    )
-                }
-            }
-        }
-    }
-}
-
-@Composable
-private fun DailyDetailsCard(history: List<LocalStorage.DailyUsage>) {
-    val noDataText = stringResource(R.string.no_data)
-    Card(shape = RoundedCornerShape(12.dp), modifier = Modifier.fillMaxWidth()) {
-        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            Text(stringResource(R.string.daily_details), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
-            Spacer(Modifier.height(4.dp))
-            history.take(7).forEachIndexed { index, day ->
-                Row(
-                    Modifier.fillMaxWidth().padding(vertical = 8.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Column(Modifier.weight(1f)) {
-                        Text(formatDateFull(day.date), style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Medium)
-                        val top = day.byCategory.maxByOrNull { it.value }
-                        Text(
-                            top?.let { "${it.key}: ${MainViewModel.formatMinutes(it.value)}" } ?: noDataText,
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
-                    Text(
-                        MainViewModel.formatMinutes(day.totalMinutes),
-                        style = MaterialTheme.typography.titleMedium,
-                        color = Color(0xFF3B82F6),
-                        fontWeight = FontWeight.SemiBold
-                    )
-                }
-                if (index < minOf(6, history.size - 1)) {
-                    HorizontalDivider()
-                }
-            }
-        }
     }
 }
 
@@ -961,22 +670,6 @@ fun colorForName(name: String): Color {
 
 fun colorForCategory(category: String): Color {
     return colorForName(MainViewModel.categoryColor(category))
-}
-
-private fun formatDateShort(dateString: String): String {
-    return try {
-        val input = SimpleDateFormat("yyyy-MM-dd", Locale.US)
-        val output = SimpleDateFormat("MM/dd", Locale.US)
-        input.parse(dateString)?.let { output.format(it) } ?: dateString
-    } catch (e: Exception) { dateString }
-}
-
-private fun formatDateFull(dateString: String): String {
-    return try {
-        val input = SimpleDateFormat("yyyy-MM-dd", Locale.US)
-        val output = SimpleDateFormat("EEEE, MMM d", Locale.US)
-        input.parse(dateString)?.let { output.format(it) } ?: dateString
-    } catch (e: Exception) { dateString }
 }
 
 // endregion
