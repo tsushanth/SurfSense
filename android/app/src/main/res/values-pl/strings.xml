@@ -194,6 +194,7 @@
     <string name="export_done">Wyeksportowano</string>
     <string name="export_nothing">Na razie nie ma czego eksportować. Najpierw zsynchronizuj lub połącz urządzenie.</string>
     <string name="export_load_failed">Nie udało się wczytać wszystkich danych. Sprawdź połączenie i spróbuj ponownie.</string>
+    <string name="export_busy">Usługa jest teraz zajęta. Spróbuj ponownie za minutę.</string>
     <string name="export_save_failed">Nie udało się zapisać pliku. Spróbuj ponownie i wybierz inne miejsce.</string>
     <string name="settings_section_overrides">Kategorie ustawione przez Ciebie</string>
     <string name="override_remove_cd">Użyj automatycznej kategorii dla %1$s</string>

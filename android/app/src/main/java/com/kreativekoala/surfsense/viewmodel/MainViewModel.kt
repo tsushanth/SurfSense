@@ -65,8 +65,11 @@ data class LinkedDeviceUi(
     val usage: DeviceUsageUi
 )
 
-/** What the last export attempt ended with; the UI turns each into a sentence. */
-enum class ExportOutcome { Saved, NothingToExport, LoadFailed, SaveFailed }
+/**
+ * What the last export attempt ended with; the UI turns each into a sentence. [Busy] is a load failure caused by
+ * the backend rate limit (HTTP 429), where waiting a minute helps.
+ */
+enum class ExportOutcome { Saved, NothingToExport, LoadFailed, Busy, SaveFailed }
 
 /**
  * Settings export. [csv] and [fileName] are set once the data is ready; [pickerRequested] asks the UI to open the
@@ -85,7 +88,7 @@ data class WeekState(
     val loading: Boolean = false,
     val loaded: Boolean = false,
     val view: WeekView? = null,
-    /** Device-days that failed to load, capped at the 14 days in view. */
+    /** Distinct days (any device) that failed to load, capped at the 14 days in view. */
     val failedDays: Int = 0,
 )
 
@@ -365,7 +368,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     /** This week vs last week, all devices combined (this device + linked), 14 days of history. */
     fun loadWeek() {
-        if (weekJob?.isActive == true) return
+        weekJob?.cancel()
         weekJob = viewModelScope.launch {
             _uiState.update { it.copy(week = it.week.copy(loading = true)) }
             val devices = historyDevices()

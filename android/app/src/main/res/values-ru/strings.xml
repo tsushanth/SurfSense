@@ -184,6 +184,7 @@
     <string name="export_done">Экспортировано</string>
     <string name="export_nothing">Пока нечего экспортировать. Сначала синхронизируйте или привяжите устройство.</string>
     <string name="export_load_failed">Не удалось загрузить все данные. Проверьте подключение и повторите попытку.</string>
+    <string name="export_busy">Сервис сейчас перегружен. Повторите попытку через минуту.</string>
     <string name="export_save_failed">Не удалось сохранить файл. Повторите попытку и выберите другое место.</string>
     <string name="settings_section_overrides">Выбранные вами категории</string>
     <string name="override_remove_cd">Использовать автоматическую категорию для %1$s</string>

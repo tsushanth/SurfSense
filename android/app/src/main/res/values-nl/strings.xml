@@ -180,6 +180,7 @@
     <string name="export_done">Geëxporteerd</string>
     <string name="export_nothing">Nog niets om te exporteren. Synchroniseer eerst of koppel een apparaat.</string>
     <string name="export_load_failed">Kan niet al je gegevens laden. Controleer je verbinding en probeer het opnieuw.</string>
+    <string name="export_busy">De service is nu bezet. Probeer het over een minuut opnieuw.</string>
     <string name="export_save_failed">Kan het bestand niet opslaan. Probeer het opnieuw en kies een andere locatie.</string>
     <string name="settings_section_overrides">Door jou gekozen categorieën</string>
     <string name="override_remove_cd">Automatische categorie gebruiken voor %1$s</string>

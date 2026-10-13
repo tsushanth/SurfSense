@@ -190,6 +190,7 @@
     <string name="export_done">Exportiert</string>
     <string name="export_nothing">Noch nichts zu exportieren. Synchronisiere zuerst oder verknüpfe ein Gerät.</string>
     <string name="export_load_failed">Nicht alle Daten konnten geladen werden. Prüfe deine Verbindung und versuche es erneut.</string>
+    <string name="export_busy">Der Dienst ist gerade ausgelastet. Versuche es in einer Minute erneut.</string>
     <string name="export_save_failed">Die Datei konnte nicht gespeichert werden. Versuche es erneut und wähle einen anderen Speicherort.</string>
     <string name="settings_section_overrides">Von dir festgelegte Kategorien</string>
     <string name="override_remove_cd">Automatische Kategorie für %1$s verwenden</string>

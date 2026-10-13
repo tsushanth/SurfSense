@@ -2,7 +2,9 @@ package com.kreativekoala.surfsense.history
 
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
+import com.kreativekoala.surfsense.net.ApiFailure
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.util.concurrent.atomic.AtomicInteger
@@ -60,11 +62,11 @@ class HistoryRepositoryTest {
     @Test fun thrownExceptionCountsAsFailure() = runBlocking {
         val repo = HistoryRepository({ _, _ -> throw IllegalStateException("boom") }, FakeCache()) { today }
         val (rows, failed) = repo.load(listOf("d1" to "P"), 2)
-        assertEquals(2, failed)
+        assertEquals(2, failed) // two distinct days
         assertTrue(rows.isEmpty())
     }
 
-    @Test fun emptyResultsNotCachedNotFailedNoRow() = runBlocking {
+    @Test fun emptyPastDaysCachedAsKnownEmptyTodayAndYesterdayNot() = runBlocking {
         val cache = FakeCache()
         var n = 0
         val repo = HistoryRepository(
@@ -74,7 +76,70 @@ class HistoryRepositoryTest {
         val (rows, failed) = repo.load(listOf("d1" to "P"), 4)
         assertEquals(0, failed)
         assertTrue(rows.isEmpty())
-        assertTrue(cache.store.isEmpty())
+        assertEquals(setOf("d1|2026-10-10", "d1|2026-10-11"), cache.store.keys)
+        assertTrue(cache.store.values.all { it.isEmpty() })
+    }
+
+    @Test fun knownEmptyDayIsNotRefetched() = runBlocking {
+        val cache = FakeCache()
+        cache.put("d1", "2026-10-10", emptyMap())
+        cache.put("d1", "2026-10-11", mapOf("A" to 4))
+        val fetched = java.util.Collections.synchronizedList(ArrayList<String>())
+        val repo = HistoryRepository({ _, day -> fetched.add(day); Result.success(mapOf("B" to 1)) }, cache) { today }
+        val (rows, failed) = repo.load(listOf("d1" to "P"), 4)
+        assertEquals(0, failed)
+        assertEquals(listOf("2026-10-12", "2026-10-13"), fetched.sorted())
+        assertEquals(listOf("2026-10-11", "2026-10-12", "2026-10-13"), rows.map { it.date })
+    }
+
+    @Test fun rateLimitedFetchRetriedOnceThenSucceeds() = runBlocking {
+        val calls = AtomicInteger(0)
+        val repo = HistoryRepository(
+            { _, _ -> if (calls.incrementAndGet() == 1) Result.failure(ApiFailure(429, null)) else Result.success(mapOf("A" to 1)) },
+            FakeCache(),
+            retryDelayMs = 1,
+        ) { today }
+        val load = repo.loadDetailed(listOf("d1" to "P"), 1)
+        assertEquals(2, calls.get())
+        assertEquals(0, load.failedDays)
+        assertFalse(load.rateLimited)
+        assertEquals(1, load.rows.size)
+    }
+
+    @Test fun rateLimitedTwiceCountsFailedAndFlagsRateLimit() = runBlocking {
+        val calls = AtomicInteger(0)
+        val repo = HistoryRepository(
+            { _, _ -> calls.incrementAndGet(); Result.failure(ApiFailure(429, null)) },
+            FakeCache(),
+            retryDelayMs = 1,
+        ) { today }
+        val load = repo.loadDetailed(listOf("d1" to "P"), 1)
+        assertEquals(2, calls.get()) // one retry only
+        assertEquals(1, load.failedDays)
+        assertTrue(load.rateLimited)
+    }
+
+    @Test fun otherFailuresAreNotRetried() = runBlocking {
+        val calls = AtomicInteger(0)
+        val repo = HistoryRepository(
+            { _, _ -> calls.incrementAndGet(); Result.failure(ApiFailure(500, null)) },
+            FakeCache(),
+            retryDelayMs = 1,
+        ) { today }
+        val load = repo.loadDetailed(listOf("d1" to "P"), 1)
+        assertEquals(1, calls.get())
+        assertEquals(1, load.failedDays)
+        assertFalse(load.rateLimited)
+    }
+
+    @Test fun failedDaysCountsDistinctDatesNotDeviceDays() = runBlocking {
+        val repo = HistoryRepository(
+            { _, day -> if (day == "2026-10-12") Result.failure(RuntimeException("x")) else Result.success(mapOf("A" to 1)) },
+            FakeCache(),
+        ) { today }
+        val (rows, failed) = repo.load(listOf("a" to "A", "b" to "B", "c" to "C"), 3)
+        assertEquals(1, failed)
+        assertEquals(6, rows.size)
     }
 
     @Test fun successfulOldDayIsCached() = runBlocking {
@@ -96,7 +161,7 @@ class HistoryRepositoryTest {
         )
     }
 
-    @Test fun inFlightFetchesCappedAtFour() = runBlocking {
+    @Test fun inFlightFetchesCappedAtThree() = runBlocking {
         val cur = AtomicInteger(0)
         val max = AtomicInteger(0)
         val repo = HistoryRepository({ _, _ ->
@@ -109,6 +174,6 @@ class HistoryRepositoryTest {
         val (rows, failed) = repo.load(listOf("a" to "A", "b" to "B", "c" to "C"), 7)
         assertEquals(21, rows.size)
         assertEquals(0, failed)
-        assertEquals(4, max.get())
+        assertEquals(3, max.get())
     }
 }

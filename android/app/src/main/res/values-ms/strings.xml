@@ -188,6 +188,7 @@
     <string name="export_done">Dieksport</string>
     <string name="export_nothing">Belum ada apa-apa untuk dieksport. Segerakkan atau pautkan peranti dahulu.</string>
     <string name="export_load_failed">Tidak dapat memuatkan semua data anda. Semak sambungan anda dan cuba lagi.</string>
+    <string name="export_busy">Perkhidmatan sedang sibuk. Cuba lagi dalam seminit.</string>
     <string name="export_save_failed">Tidak dapat menyimpan fail. Cuba lagi dan pilih lokasi lain.</string>
     <string name="settings_section_overrides">Kategori yang anda tetapkan</string>
     <string name="override_remove_cd">Gunakan kategori automatik untuk %1$s</string>

@@ -178,6 +178,7 @@
     <string name="export_done">Diekspor</string>
     <string name="export_nothing">Belum ada yang bisa diekspor. Sinkronkan atau tautkan perangkat terlebih dahulu.</string>
     <string name="export_load_failed">Tidak dapat memuat semua data Anda. Periksa koneksi Anda dan coba lagi.</string>
+    <string name="export_busy">Layanan sedang sibuk. Coba lagi dalam satu menit.</string>
     <string name="export_save_failed">Tidak dapat menyimpan file. Coba lagi dan pilih lokasi lain.</string>
     <string name="settings_section_overrides">Kategori yang Anda pilih</string>
     <string name="override_remove_cd">Gunakan kategori otomatis untuk %1$s</string>

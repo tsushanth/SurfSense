@@ -180,6 +180,7 @@
     <string name="export_done">Dışa aktarıldı</string>
     <string name="export_nothing">Henüz dışa aktarılacak bir şey yok. Önce senkronize edin veya bir cihaz bağlayın.</string>
     <string name="export_load_failed">Verilerinizin tümü yüklenemedi. Bağlantınızı kontrol edip tekrar deneyin.</string>
+    <string name="export_busy">Hizmet şu anda meşgul. Bir dakika sonra tekrar deneyin.</string>
     <string name="export_save_failed">Dosya kaydedilemedi. Tekrar deneyin ve başka bir konum seçin.</string>
     <string name="settings_section_overrides">Sizin seçtiğiniz kategoriler</string>
     <string name="override_remove_cd">%1$s için otomatik kategoriyi kullan</string>

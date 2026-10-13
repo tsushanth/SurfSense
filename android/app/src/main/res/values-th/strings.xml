@@ -178,6 +178,7 @@
     <string name="export_done">ส่งออกแล้ว</string>
     <string name="export_nothing">ยังไม่มีข้อมูลให้ส่งออก ซิงค์หรือเชื่อมโยงอุปกรณ์ก่อน</string>
     <string name="export_load_failed">โหลดข้อมูลทั้งหมดไม่ได้ ตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง</string>
+    <string name="export_busy">บริการไม่ว่างในขณะนี้ ลองอีกครั้งในอีกหนึ่งนาที</string>
     <string name="export_save_failed">บันทึกไฟล์ไม่ได้ ลองอีกครั้งและเลือกตำแหน่งอื่น</string>
     <string name="settings_section_overrides">หมวดหมู่ที่คุณตั้งเอง</string>
     <string name="override_remove_cd">ใช้หมวดหมู่อัตโนมัติสำหรับ %1$s</string>

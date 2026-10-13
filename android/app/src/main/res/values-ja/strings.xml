@@ -188,6 +188,7 @@
     <string name="export_done">エクスポートしました</string>
     <string name="export_nothing">エクスポートするデータはまだありません。先に同期するか、デバイスをリンクしてください。</string>
     <string name="export_load_failed">データをすべて読み込めませんでした。接続を確認して、もう一度お試しください。</string>
+    <string name="export_busy">現在サービスが混み合っています。1分後にもう一度お試しください。</string>
     <string name="export_save_failed">ファイルを保存できませんでした。別の保存先を選んで、もう一度お試しください。</string>
     <string name="settings_section_overrides">自分で設定したカテゴリ</string>
     <string name="override_remove_cd">%1$sに自動カテゴリを使用</string>

@@ -14,7 +14,10 @@ fun fromUsageRepository(repo: UsageRepository): suspend (String, String) -> Resu
         }
     }
 
-/** SharedPreferences-backed cache, key "deviceId|day", trimmed to the newest 40 distinct days on put. */
+/**
+ * SharedPreferences-backed cache, key "deviceId|day", trimmed to the newest 40 distinct days on put.
+ * A known-empty day is stored as "{}" and read back as an empty map (absent key = null = not cached).
+ */
 class PrefsPastDayCache(context: Context) : HistoryRepository.PastDayCache {
     private val prefs: SharedPreferences =
         context.applicationContext.getSharedPreferences("surfsense_past_days", Context.MODE_PRIVATE)

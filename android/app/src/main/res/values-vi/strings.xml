@@ -178,6 +178,7 @@
     <string name="export_done">Đã xuất</string>
     <string name="export_nothing">Chưa có gì để xuất. Hãy đồng bộ hoặc liên kết thiết bị trước.</string>
     <string name="export_load_failed">Không thể tải toàn bộ dữ liệu. Hãy kiểm tra kết nối và thử lại.</string>
+    <string name="export_busy">Dịch vụ đang bận. Hãy thử lại sau một phút.</string>
     <string name="export_save_failed">Không thể lưu tệp. Hãy thử lại và chọn vị trí khác.</string>
     <string name="settings_section_overrides">Danh mục bạn đã chọn</string>
     <string name="override_remove_cd">Dùng danh mục tự động cho %1$s</string>

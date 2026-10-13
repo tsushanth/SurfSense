@@ -192,6 +192,7 @@
     <string name="export_done">Exporté</string>
     <string name="export_nothing">Rien à exporter pour l\'instant. Synchronisez ou associez d\'abord un appareil.</string>
     <string name="export_load_failed">Impossible de charger toutes vos données. Vérifiez votre connexion et réessayez.</string>
+    <string name="export_busy">Le service est occupé pour le moment. Réessayez dans une minute.</string>
     <string name="export_save_failed">Impossible d\'enregistrer le fichier. Réessayez et choisissez un autre emplacement.</string>
     <string name="settings_section_overrides">Catégories choisies par vous</string>
     <string name="override_remove_cd">Utiliser la catégorie automatique pour %1$s</string>

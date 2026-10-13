@@ -190,6 +190,7 @@
     <string name="export_done">Na-export</string>
     <string name="export_nothing">Wala pang ma-e-export. Mag-sync o mag-link muna ng device.</string>
     <string name="export_load_failed">Hindi ma-load ang lahat ng iyong data. Tingnan ang iyong koneksyon at subukang muli.</string>
+    <string name="export_busy">Abala ang serbisyo ngayon. Subukang muli pagkalipas ng isang minuto.</string>
     <string name="export_save_failed">Hindi ma-save ang file. Subukang muli at pumili ng ibang lokasyon.</string>
     <string name="settings_section_overrides">Mga kategoryang itinakda mo</string>
     <string name="override_remove_cd">Gamitin ang awtomatikong kategorya para sa %1$s</string>

@@ -188,6 +188,7 @@
     <string name="export_done">تم التصدير</string>
     <string name="export_nothing">لا يوجد شيء لتصديره بعد. زامِن أو اربط جهازًا أولًا.</string>
     <string name="export_load_failed">تعذّر تحميل كل بياناتك. تحقق من اتصالك وحاول مرة أخرى.</string>
+    <string name="export_busy">الخدمة مشغولة الآن. حاول مرة أخرى بعد دقيقة.</string>
     <string name="export_save_failed">تعذّر حفظ الملف. حاول مرة أخرى واختر مكانًا آخر.</string>
     <string name="settings_section_overrides">الفئات التي اخترتها</string>
     <string name="override_remove_cd">استخدام الفئة التلقائية لـ %1$s</string>

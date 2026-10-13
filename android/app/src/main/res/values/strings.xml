@@ -193,6 +193,7 @@
     <string name="export_done">Exported</string>
     <string name="export_nothing">Nothing to export yet. Sync or link a device first.</string>
     <string name="export_load_failed">Couldn\'t load all your data. Check your connection and try again.</string>
+    <string name="export_busy">The service is busy right now. Try again in a minute.</string>
     <string name="export_save_failed">Couldn\'t save the file. Try again and choose another location.</string>
     <string name="settings_section_overrides">Categories you set</string>
     <string name="override_remove_cd">Use the automatic category for %1$s</string>

@@ -190,6 +190,7 @@
     <string name="export_done">एक्सपोर्ट हो गया</string>
     <string name="export_nothing">अभी एक्सपोर्ट करने के लिए कुछ नहीं है। पहले सिंक करें या कोई डिवाइस लिंक करें।</string>
     <string name="export_load_failed">आपका पूरा डेटा लोड नहीं हो सका। अपना कनेक्शन जांचें और फिर से कोशिश करें।</string>
+    <string name="export_busy">सेवा अभी व्यस्त है। एक मिनट बाद फिर से कोशिश करें।</string>
     <string name="export_save_failed">फ़ाइल सेव नहीं हो सकी। फिर से कोशिश करें और कोई दूसरी जगह चुनें।</string>
     <string name="settings_section_overrides">आपकी चुनी गई श्रेणियां</string>
     <string name="override_remove_cd">%1$s के लिए अपने-आप तय श्रेणी इस्तेमाल करें</string>

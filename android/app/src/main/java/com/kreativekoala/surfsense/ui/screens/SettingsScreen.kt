@@ -308,6 +308,7 @@ private fun ExportRow(export: ExportState, onExport: () -> Unit) {
                 modifier = Modifier.padding(bottom = 8.dp),
             )
             ExportOutcome.LoadFailed -> ErrorLine(stringResource(R.string.export_load_failed), Modifier.padding(bottom = 8.dp))
+            ExportOutcome.Busy -> ErrorLine(stringResource(R.string.export_busy), Modifier.padding(bottom = 8.dp))
             ExportOutcome.SaveFailed -> ErrorLine(stringResource(R.string.export_save_failed), Modifier.padding(bottom = 8.dp))
             ExportOutcome.Saved, null -> Unit
         }
