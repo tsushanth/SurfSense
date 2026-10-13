@@ -18,6 +18,7 @@ import {
     completeLinking,
     unlinkClients,
     getLinkedClients,
+    LinkingError,
 } from './linkingFunctions.js';
 import { canReadSummary, isPartyToLink } from './authz.js';
 
@@ -571,8 +572,8 @@ app.post('/complete-linking', authenticateClient, linkingLimiter, async (req, re
         const { success, linkedWith } = await completeLinking(resolvedClientId, code);
         res.json({ success, linkedWith });
     } catch (error) {
-        if (error.message === 'Cannot link a device to itself') {
-            return res.status(400).json({ success: false, error: 'Cannot link a device to itself' });
+        if (error instanceof LinkingError) {
+            return res.status(error.status).json({ success: false, error: error.message });
         }
         logger.error({ err: error.message }, 'Failed to complete linking');
         res.status(500).json({ success: false, error: 'Failed to complete device linking' });

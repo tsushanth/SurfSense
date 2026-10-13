@@ -53,6 +53,9 @@ check('A gets 6-digit code', init.status === 200 && /^\d{6}$/.test(init.json?.co
 const stolen = await call('POST', '/complete-linking', { key: keys.c, body: { clientId: ids.b, code: init.json?.code } });
 check('C cannot complete linking as B (403)', stolen.status === 403, JSON.stringify(stolen));
 
+const badCode = await call('POST', '/complete-linking', { key: keys.c, body: { clientId: ids.c, code: '000000' } });
+check('wrong linking code -> 400 with message (not 500)', badCode.status === 400 && badCode.json?.error === 'Invalid or expired code', JSON.stringify(badCode));
+
 const done = await call('POST', '/complete-linking', { key: keys.b, body: { clientId: ids.b, code: init.json?.code } });
 check('B completes linking with A', done.status === 200 && done.json?.success === true && done.json?.linkedWith === ids.a, JSON.stringify(done));
 

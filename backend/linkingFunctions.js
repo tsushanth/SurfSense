@@ -2,6 +2,15 @@ import crypto from 'crypto';
 import { supabase } from './supabase.js';
 import { logger } from './logger.js';
 
+/** Expected, user-correctable linking failures. The route maps these to HTTP 400. */
+class LinkingError extends Error {
+    constructor(message, status = 400) {
+        super(message);
+        this.name = 'LinkingError';
+        this.status = status;
+    }
+}
+
 /**
  * Generates a cryptographically secure 6-digit linking code
  * @returns {string} 6-digit code
@@ -49,7 +58,7 @@ async function completeLinking(otherClientId, code) {
         .single();
 
     if (findError || !request) {
-        throw new Error('Invalid or expired code');
+        throw new LinkingError('Invalid or expired code');
     }
 
     // Check if expired
@@ -58,11 +67,11 @@ async function completeLinking(otherClientId, code) {
             .from('linking_requests')
             .delete()
             .eq('client_id', request.client_id);
-        throw new Error('Code expired');
+        throw new LinkingError('Code expired');
     }
 
     if (request.client_id === otherClientId) {
-        throw new Error('Cannot link a device to itself');
+        throw new LinkingError('Cannot link a device to itself');
     }
 
     const initiatorClientId = request.client_id;
@@ -182,6 +191,7 @@ async function deleteInactiveLinks() {
 }
 
 export {
+    LinkingError,
     generateLinkingCode,
     initiateLinking,
     completeLinking,

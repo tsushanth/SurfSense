@@ -25,7 +25,7 @@ vi.mock('../logger.js', () => ({
     logger: { info: vi.fn(), error: vi.fn(), warn: vi.fn() }
 }));
 
-const { generateLinkingCode, getLinkedClients, completeLinking } = await import('../linkingFunctions.js');
+const { generateLinkingCode, getLinkedClients, completeLinking, LinkingError } = await import('../linkingFunctions.js');
 
 describe('generateLinkingCode', () => {
     it('returns a string', () => {
@@ -95,11 +95,30 @@ describe('getLinkedClients', () => {
 });
 
 describe('completeLinking', () => {
-    it('rejects self-linking and does not insert a link', async () => {
+    it('rejects an unknown code with a 400 LinkingError', async () => {
+        h.state.results.linking_requests = { error: { message: 'no rows' } };
+        const err = await completeLinking('b-device', '123456').catch(e => e);
+        expect(err).toBeInstanceOf(LinkingError);
+        expect(err).toMatchObject({ name: 'LinkingError', status: 400, message: 'Invalid or expired code' });
+    });
+
+    it('rejects an expired code with a 400 LinkingError and deletes the request', async () => {
+        h.state.results.linking_requests = {
+            data: { client_id: 'a-device', expires_at: new Date(Date.now() - 1000).toISOString() },
+        };
+        const err = await completeLinking('b-device', '123456').catch(e => e);
+        expect(err).toBeInstanceOf(LinkingError);
+        expect(err).toMatchObject({ status: 400, message: 'Code expired' });
+        expect(h.state.calls.some(c => c.table === 'linking_requests' && c.m === 'delete')).toBe(true);
+    });
+
+    it('rejects self-linking with a 400 LinkingError and does not insert a link', async () => {
         h.state.results.linking_requests = {
             data: { client_id: 'same-device', expires_at: new Date(Date.now() + 60000).toISOString() },
         };
-        await expect(completeLinking('same-device', '123456')).rejects.toThrow('Cannot link a device to itself');
+        const err = await completeLinking('same-device', '123456').catch(e => e);
+        expect(err).toBeInstanceOf(LinkingError);
+        expect(err).toMatchObject({ status: 400, message: 'Cannot link a device to itself' });
         expect(h.state.calls.some(c => c.table === 'client_links')).toBe(false);
         expect(h.state.calls.some(c => c.table === 'linking_requests' && c.m === 'delete')).toBe(false);
     });
