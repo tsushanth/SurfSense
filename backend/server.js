@@ -1,5 +1,4 @@
 import express from 'express';
-import { OpenAI } from 'openai';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
@@ -9,6 +8,8 @@ dotenv.config();
 import { supabase } from './supabase.js';
 import { logger } from './logger.js';
 import { categorizeLocally } from './categorizer.js';
+import { fetchPlayCategory } from './playStore.js';
+import { createCategorizer } from './categorize.js';
 import { authenticateClient, generateApiKey, hashApiKey } from './middleware/auth.js';
 import pLimit from 'p-limit';
 import {
@@ -21,7 +22,7 @@ import {
 const app = express();
 const port = process.env.PORT || 8080;
 
-// Trust proxy — required for Cloud Run (behind load balancer) so express-rate-limit reads X-Forwarded-For
+// Trust proxy — the app runs behind Fly's proxy so express-rate-limit reads X-Forwarded-For
 app.set('trust proxy', 1);
 
 // --- CORS: restrict to allowed origins ---
@@ -57,12 +58,12 @@ const generalLimiter = rateLimit({
     message: { error: 'Too many requests, please try again later' },
 });
 
-const aiLimiter = rateLimit({
+const categorizeLimiter = rateLimit({
     windowMs: 60 * 1000,
-    max: 10,
+    max: 30,
     standardHeaders: true,
     legacyHeaders: false,
-    message: { error: 'Rate limit exceeded for AI categorization' },
+    message: { error: 'Rate limit exceeded for category lookups' },
 });
 
 const linkingLimiter = rateLimit({
@@ -75,16 +76,6 @@ const linkingLimiter = rateLimit({
 
 app.use(generalLimiter);
 
-// --- OpenAI client ---
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-
-// Valid categories
-const VALID_CATEGORIES = [
-    'Social Media', 'Entertainment', 'Work/Productivity',
-    'Shopping', 'Education', 'News', 'Finance', 'Health',
-    'Travel', 'Food', 'Other'
-];
-
 const VALID_CLIENT_TYPES = ['CHROME_EXTENSION', 'IOS', 'ANDROID', 'UNKNOWN'];
 
 // --- Helper: validate UUID-like string ---
@@ -92,76 +83,31 @@ function isValidClientId(id) {
     return typeof id === 'string' && id.length >= 8 && id.length <= 128;
 }
 
-// --- Categorization with retry ---
-async function categorize(input, isPackage = false) {
-    if (!input || input.trim() === '/' || input.trim() === '') {
-        return 'Other';
-    }
+// --- Categorization (no LLM): see categorize.js ---
+const playLimit = pLimit(4); // cap concurrent Play Store fetches across all requests
 
-    // Tier 1: Check Supabase cache
-    const { data: cached } = await supabase
-        .from('domain_categories')
-        .select('category')
-        .eq('domain', input)
-        .single();
-
-    if (cached?.category) {
-        return cached.category;
-    }
-
-    // Tier 2: Local categorization (pattern matching + static DB)
-    const localCategory = categorizeLocally(input, isPackage);
-    if (localCategory) {
-        await supabase
-            .from('domain_categories')
-            .upsert({ domain: input, category: localCategory }, { onConflict: 'domain' });
-        return localCategory;
-    }
-
-    // Tier 3: GPT-3.5-turbo fallback with retry
-    const type = isPackage ? 'Android app package' : 'domain';
-    const prompt = `Categorize this ${type} into exactly one category.\n\n${type}: ${input}\n\nCategories: Social Media, Entertainment, Work/Productivity, Shopping, Education, News, Finance, Health, Travel, Food, Other\n\nReply with ONLY the category name, nothing else.`;
-
-    for (let attempt = 0; attempt < 3; attempt++) {
-        try {
-            const completion = await openai.chat.completions.create({
-                model: 'gpt-3.5-turbo',
-                messages: [
-                    { role: 'system', content: 'You categorize domains and apps. Reply with only the category name.' },
-                    { role: 'user', content: prompt }
-                ],
-                max_tokens: 15,
-                temperature: 0
-            });
-
-            let category = completion.choices[0].message.content.trim();
-
-            // Validate the category
-            if (!VALID_CATEGORIES.includes(category)) {
-                const lowerCategory = category.toLowerCase();
-                const match = VALID_CATEGORIES.find(c => c.toLowerCase() === lowerCategory);
-                category = match || 'Other';
-            }
-
-            // Cache the result
-            await supabase
+const categorize = createCategorizer({
+    cache: {
+        async get(key) {
+            const { data, error } = await supabase
                 .from('domain_categories')
-                .upsert({ domain: input, category }, { onConflict: 'domain' });
-
-            logger.info({ input, category }, 'LLM categorized');
-            return category;
-        } catch (err) {
-            if (attempt < 2 && (err.status === 429 || err.status >= 500)) {
-                await new Promise(r => setTimeout(r, Math.pow(2, attempt) * 1000));
-                continue;
-            }
-            logger.error({ input, err: err.message }, 'LLM categorization failed');
-            return 'Other';
-        }
-    }
-
-    return 'Other';
-}
+                .select('category')
+                .eq('domain', key)
+                .maybeSingle();
+            if (error) throw error;
+            return data?.category ?? null;
+        },
+        async set(key, category) {
+            const { error } = await supabase
+                .from('domain_categories')
+                .upsert({ domain: key, category }, { onConflict: 'domain' });
+            if (error) throw error;
+        },
+    },
+    local: categorizeLocally,
+    play: (pkg) => playLimit(() => fetchPlayCategory(pkg)),
+    logger,
+});
 
 // ==========================================
 // PUBLIC ROUTES (no auth required)
@@ -377,7 +323,7 @@ app.get('/client/:id', async (req, res) => {
 // AUTHENTICATED ROUTES (require API key)
 // ==========================================
 
-app.post('/get-category-mapping', authenticateClient, aiLimiter, async (req, res) => {
+app.post('/get-category-mapping', authenticateClient, categorizeLimiter, async (req, res) => {
     const domains = req.body.domains || [];
     const packages = req.body.packages || [];
 
@@ -396,7 +342,7 @@ app.post('/get-category-mapping', authenticateClient, aiLimiter, async (req, res
 
     const response = {};
 
-    // Process all items with concurrency limit (max 5 concurrent OpenAI calls)
+    // Process all items with concurrency limit (max 5 at once per request)
     const limit = pLimit(5);
     const allItems = [
         ...domains.map(d => ({ input: d, isPackage: false })),

@@ -1,12 +1,12 @@
 # SurfSense Backend
 
-Express.js API server for the SurfSense cross-device usage tracking ecosystem. Handles device registration, linking, usage categorization (via local patterns + OpenAI fallback), and summary storage.
+Express.js API server for the SurfSense cross-device usage tracking ecosystem. Handles device registration, linking, usage categorization (local lists and patterns, plus a Play Store lookup for Android packages), and summary storage.
 
 ## Setup
 
 ```bash
 cp .env.example .env
-# Fill in your Supabase and OpenAI credentials
+# Fill in your Supabase credentials
 npm install
 npm start
 ```
@@ -17,7 +17,6 @@ npm start
 |----------|----------|-------------|
 | `SUPABASE_URL` | Yes | Your Supabase project URL |
 | `SUPABASE_SERVICE_KEY` | Yes | Supabase service role key (not the anon key) |
-| `OPENAI_API_KEY` | Yes | OpenAI API key for domain/app categorization fallback |
 | `PORT` | No | Server port (default: 8080) |
 | `CORS_ORIGINS` | No | Comma-separated allowed origins (empty = allow non-browser) |
 
@@ -51,11 +50,10 @@ npm run test:watch  # Watch mode
 
 ## Deployment
 
-```bash
-gcloud builds submit --tag us-central1-docker.pkg.dev/summarizerproxy/cloud-run-source-deploy/usage-tracker-backend
+Runs on Fly.io as `usage-tracker-backend` (see `fly.toml`). Secrets (`SUPABASE_URL`, `SUPABASE_SERVICE_KEY`) live only on Fly.
 
-gcloud run deploy usage-tracker-backend \
-  --image=us-central1-docker.pkg.dev/summarizerproxy/cloud-run-source-deploy/usage-tracker-backend \
-  --region=us-central1 \
-  --allow-unauthenticated
+```bash
+flyctl secrets list -a usage-tracker-backend
+flyctl deploy
+SMOKE_BASE_URL=https://usage-tracker-backend.fly.dev node scripts/smoke.mjs
 ```
