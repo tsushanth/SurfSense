@@ -1,12 +1,12 @@
 # SurfSense: backend revival, fixes, redesign, release
 
-Date: 2026-10-12. Status: approved decisions applied 2026-10-12; plan pending.
+Date: 2026-10-12. Status: approved with edits 2026-10-12; implementation plan next.
 
 ## Intent
 
 SurfSense shows how a person spends time across their phone and laptop in one view, with no account. Devices pair with a 6-digit code. iOS (Screen Time / DeviceActivity), Android (usage stats) and a Chrome extension each categorize usage and submit daily summaries to a shared backend.
 
-Success: a new user can install on two devices, link them with a code, and see a combined and per-device day and week. The App Store, Play Store and the extension ship a version that works.
+Success: a new user can install on two devices, link them with a code, and see a combined and per-device day and week. The Play Store (Android) and the Chrome Web Store (extension) ship a version that works. iOS does not ship in this release.
 
 ## Current state (verified 2026-10-12)
 
@@ -15,7 +15,7 @@ Success: a new user can install on two devices, link them with a code, and see a
 - The old Supabase project referenced in `usage-tracker-backend/.fly-secrets.sh` (`qhuyipmjmllsouudiwos`) no longer resolves, so it is deleted. No data is recoverable. Decision (user, 2026-10-12): start fresh, users re-register.
 - `~/Documents/GitHub/usage-tracker-backend` is an older Firebase-era variant. Only its `fly.toml` is useful. `SurfSense/backend` is the code to deploy.
 - Versions: iOS `MARKETING_VERSION = 99.0` (placeholder from a rejected INVALID_BINARY), Android `9.1` (code 9), extension `3.0`.
-- Uncommitted work exists in the tree (URL migration, `ReviewManager`, app icon swap, `ExportOptions.plist`). It is kept and committed as part of this work, after review.
+- Uncommitted work exists in the tree. The Android and extension URL changes are committed as part of this work, after review. The iOS changes (URL migration, `ReviewManager`, app icon swap, `ExportOptions.plist`) stay uncommitted and untouched.
 
 ## Scope
 
@@ -25,7 +25,7 @@ Out: iOS release (decision 2026-10-12: ship backend, Android and extension only;
 
 ## Part 1: Backend revival (blocks everything)
 
-1. New Supabase project `surfsense` (free tier). Apply `backend/schema.sql`. Confirm RLS policies and cleanup functions.
+1. No new Supabase project (decision 2026-10-12: reuse an existing one to avoid a new recurring cost). Create a dedicated Postgres schema `surfsense` in the chosen existing project, apply `backend/schema.sql` into it with every table, index, function and policy namespaced to that schema (nothing in `public`), and expose it to the API (exposed-schemas setting) with the backend's Supabase client configured for `db: { schema: 'surfsense' }`. Additive only: no existing table of the host project is touched. Risk to settle in the plan: the backend's service key is project-wide, so a bug or leak there reaches the host project's other data; the host project must be chosen for low data sensitivity, and the plan evaluates a restricted database role limited to the `surfsense` schema as the safer option. Confirm RLS policies and cleanup functions.
 2. New Fly app `usage-tracker-backend` (the name the clients already use), region `iad`, from `backend/` with a `fly.toml` based on the sibling's. Use `auto_stop_machines = "stop"` and `min_machines_running = 0` so it costs near nothing at low traffic; the trade-off is a cold start of a few seconds on the first request after idle.
 3. The Dockerfile is `node:18-alpine` (Node 18 is end-of-life): move to a current Node LTS while verifying `npm test` still passes. Secrets set on Fly: `SUPABASE_URL` and `SUPABASE_SERVICE_KEY` only (no LLM key needed). Never committed; values confirmed with the user before setting, since this is a new app and no existing secret is overwritten.
 4. Run `npm test` in `backend/`. Add a smoke script that exercises register, link, complete-link, submit, history, unlink against the live URL.
@@ -81,4 +81,4 @@ OpenAI is removed from the backend (dependency, env var, README).
 
 ## Testing
 
-Backend unit tests plus the live smoke script. Manual end-to-end linking across two devices. UI verified with screenshots on simulator at phone width, keyboard open, error states visible.
+Backend unit tests plus the live smoke script against the deployed URL. No simulators: real Android phone (the shared Pixel; check with the other Claude sessions before using it) with the release build, real Chrome with the packed extension, and a real end-to-end link between the phone and the browser, including a first request after the Fly machine has scaled to zero. UI verified with screenshots from the real device at phone width, keyboard open, error states visible.
