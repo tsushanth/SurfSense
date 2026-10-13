@@ -32,10 +32,13 @@ const tracker = createTracker({ storage });
 let flushChain = Promise.resolve();
 function flushNow() {
   const run = flushChain.then(async () => {
+    let ok = false;
     try {
-      return await flushDirty({ api, tracker });
+      const result = await flushDirty({ api, tracker });
+      ok = result.failed.length === 0;
+      return result;
     } finally {
-      try { await storage.set({ lastFlushMs: Date.now() }); } catch { /* ignore */ }
+      try { await storage.set({ lastFlushMs: Date.now(), lastFlushOk: ok }); } catch { /* ignore */ }
     }
   });
   flushChain = run.catch(() => {});
@@ -48,24 +51,46 @@ async function onTick() {
   const days = Object.keys(dirty);
   if (days.length === 0) return;
   const now = Date.now();
-  const { lastFlushMs } = await storage.get('lastFlushMs');
+  const { lastFlushMs, lastFlushOk } = await storage.get(['lastFlushMs', 'lastFlushOk']);
   const due = !Number.isFinite(lastFlushMs) || now - lastFlushMs >= FLUSH_INTERVAL_MS;
-  const today = localDate(now);
-  if (due || days.some((d) => d !== today)) await flushNow();
+  // A finished day is sent at once, but only while the previous attempt did not fail:
+  // after a failure everything waits for the regular 5-minute backoff.
+  const pastDay = lastFlushOk !== false && days.some((d) => d !== localDate(now));
+  if (due || pastDay) await flushNow();
 }
 
 // ---------- lifecycle ----------
+// Idempotent and shared: one get-then-create per worker lifetime.
+let alarmReady = null;
+function ensureAlarm() {
+  alarmReady ??= (async () => {
+    const existing = await chrome.alarms.get(ALARM);
+    if (!existing) chrome.alarms.create(ALARM, { periodInMinutes: 1 });
+  })().catch(() => { alarmReady = null; });
+  return alarmReady;
+}
+ensureAlarm();
+
+// Tracking only counts while the tab's window has the focus.
+async function windowFocused(windowId) {
+  try {
+    const w = await chrome.windows.get(windowId);
+    return !!(w && w.focused);
+  } catch { return false; }
+}
+
 async function startUp() {
   await platformReady;
-  const existing = await chrome.alarms.get(ALARM);
-  if (!existing) chrome.alarms.create(ALARM, { periodInMinutes: 1 });
+  await ensureAlarm();
+  try { await chrome.storage.local.remove('timeData'); } catch { /* orphaned 3.0 key, best effort */ }
   const { lastFlushMs } = await storage.get('lastFlushMs');
   if (!Number.isFinite(lastFlushMs)) await storage.set({ lastFlushMs: Date.now() });
-  try { await api.ensureRegistered(); } catch { /* retried on the next API call */ }
   try {
     const [tab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
-    if (tab) await tracker.activate(tab.id, tab.url);
+    if (tab && await windowFocused(tab.windowId)) await tracker.activate(tab.id, tab.url);
   } catch { /* no window yet */ }
+  // After tracking is restored: a slow or offline backend must not delay it.
+  try { await api.ensureRegistered(); } catch { /* retried on the next API call */ }
 }
 
 async function getTab(tabId) {
@@ -83,14 +108,15 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 // ---------- tab / window events ----------
 chrome.tabs.onActivated.addListener(({ tabId }) => (async () => {
   const tab = await getTab(tabId);
-  if (tab) await tracker.activate(tabId, tab.url);
+  if (tab && await windowFocused(tab.windowId)) await tracker.activate(tabId, tab.url);
 })().catch(() => {}));
 
-chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-  if (!tab || !tab.active) return undefined;
-  if (changeInfo.status !== 'complete' && !changeInfo.url) return undefined;
-  return tracker.navigate(tabId, tab.url).catch(() => {});
-});
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => (async () => {
+  if (!tab || !tab.active) return;
+  if (changeInfo.status !== 'complete' && !changeInfo.url) return;
+  if (!(await windowFocused(tab.windowId))) return;
+  await tracker.navigate(tabId, tab.url);
+})().catch(() => {}));
 
 chrome.tabs.onRemoved.addListener((tabId) =>
   // navigate() ignores tabs other than the running one; a null URL closes that session.
@@ -103,9 +129,14 @@ chrome.windows.onFocusChanged.addListener((windowId) => (async () => {
   }
   const [tab] = await chrome.tabs.query({ active: true, windowId });
   if (tab) await tracker.activate(tab.id, tab.url);
+  else await tracker.pause(); // e.g. a devtools or popup window
 })().catch(() => {}));
 
 // ---------- messages from the popup ----------
+const INVALID = Symbol('invalid');
+const isId = (v) => typeof v === 'string' && v.length > 0;
+const need = (ok) => { if (!ok) throw INVALID; };
+
 const handlers = {
   [ACTIONS.MANUAL_UPDATE]: async () => {
     await platformReady;
@@ -114,13 +145,14 @@ const handlers = {
   },
   [ACTIONS.GET_TODAY]: async () => ({ today: await tracker.getToday() }),
   [ACTIONS.GENERATE_LINKING_CODE]: async () => { await platformReady; return { code: await api.initiateLinking() }; },
-  [ACTIONS.COMPLETE_LINKING]: async (m) => { await platformReady; return api.completeLinking(String(m.code ?? '')); },
-  [ACTIONS.UNLINK_DEVICE]: async (m) => { await platformReady; await api.unlinkDevice(String(m.deviceId ?? '')); return {}; },
+  [ACTIONS.COMPLETE_LINKING]: async (m) => { need(typeof m.code === 'string' && /^\d{6}$/.test(m.code)); await platformReady; return api.completeLinking(m.code); },
+  [ACTIONS.UNLINK_DEVICE]: async (m) => { need(isId(m.deviceId)); await platformReady; await api.unlinkDevice(m.deviceId); return {}; },
   [ACTIONS.GET_LINKED_DEVICES]: async () => { await platformReady; return { devices: await api.getLinkedClients() }; },
   [ACTIONS.GET_SUMMARY]: async (m) => {
+    need(isId(m.userId) && typeof m.day === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(m.day));
     await platformReady;
-    const day = String(m.day ?? '');
-    const list = await api.getSummaryHistory(String(m.userId ?? ''), day);
+    const day = m.day;
+    const list = await api.getSummaryHistory(m.userId, day);
     const hit = list.find((s) => s && typeof s.timestamp === 'string' && s.timestamp.startsWith(day));
     return { summary: (hit && hit.summary) || null };
   },
@@ -138,6 +170,6 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   Promise.resolve()
     .then(() => handler(message))
     .then((result) => sendResponse({ success: true, ...(result || {}) }))
-    .catch((e) => sendResponse({ success: false, error: messageFor(e) }));
+    .catch((e) => sendResponse({ success: false, error: e === INVALID ? 'Invalid request.' : messageFor(e) }));
   return true;
 });

@@ -212,7 +212,6 @@ async function handleAddDevice() {
 
   document.getElementById('addDeviceForm').style.display = 'none';
   document.getElementById('otherDeviceCode').value = '';
-  document.getElementById('otherDeviceName').value = '';
 
   await loadLinkedDevices();
   renderAllDeviceCharts();

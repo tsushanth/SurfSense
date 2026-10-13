@@ -19,6 +19,8 @@ function makeBackend() {
     codes: new Map(),   // code -> clientId
     links: [],          // [idA, idB]
     requests: [],
+    failDays: new Set(), // days whose submit is rejected with 400
+    submitAttempts: [], // day of every submit attempt
     offline: false,
     seq: 0,
     wipe() { this.clients.clear(); this.keys.clear(); this.summaries.clear(); this.codes.clear(); this.links = []; },
@@ -54,6 +56,8 @@ function makeBackend() {
       return json(200, out);
     }
     if (path === '/submit-category-summary') {
+      b.submitAttempts.push(body.timestamp);
+      if (b.failDays.has(body.timestamp)) return json(400, { error: 'Rejected day' });
       if (!/^\d{4}-\d{2}-\d{2}$/.test(body.timestamp)) return json(400, { error: 'Bad timestamp' });
       b.summaries.set(`${body.userId}|${body.timestamp}`, body.categorySummary);
       return json(200, { success: true });
@@ -106,7 +110,7 @@ function makeChrome(clock) {
     return out;
   };
   const env = {
-    data, tabs: [], alarms: {}, createdAlarms: [],
+    data, tabs: [], alarms: {}, createdAlarms: [], focusedWindow: 1,
     onAlarm: ev(), onActivated: ev(), onUpdated: ev(), onRemoved: ev(), onFocus: ev(),
     onInstalled: ev(), onStartup: ev(), onMessage: ev(),
   };
@@ -137,7 +141,11 @@ function makeChrome(clock) {
       query: (q, cb) => both(cb, env.tabs.filter((t) => (q.active === undefined || t.active === q.active)
         && (q.windowId === undefined || t.windowId === q.windowId)).map((t) => ({ ...t }))),
     },
-    windows: { WINDOW_ID_NONE: -1, onFocusChanged: env.onFocus },
+    windows: {
+      WINDOW_ID_NONE: -1,
+      onFocusChanged: env.onFocus,
+      get: (id, cb) => both(cb, { id, focused: id === env.focusedWindow }),
+    },
   };
   env.send = (message) => new Promise((resolve) => {
     let answered = false;
@@ -146,16 +154,17 @@ function makeChrome(clock) {
     if (!results.some((r) => r === true) && !answered) resolve(undefined);
   });
   env.tick = async (advanceMs = MIN) => { clock.now += advanceMs; await env.onAlarm.emit({ name: 'tick' }); };
-  env.openTab = (id, url) => {
-    env.tabs.forEach((t) => { t.active = false; });
-    env.tabs.push({ id, url, active: true, windowId: 1 });
-    return env.onActivated.emit({ tabId: id, windowId: 1 });
+  env.openTab = (id, url, windowId = 1) => {
+    env.tabs.filter((t) => t.windowId === windowId).forEach((t) => { t.active = false; });
+    env.tabs.push({ id, url, active: true, windowId });
+    return env.onActivated.emit({ tabId: id, windowId });
   };
+  env.focus = (windowId) => { env.focusedWindow = windowId; return env.onFocus.emit(windowId); };
   return env;
 }
 
 let importCounter = 0;
-async function boot({ start, offline = false } = {}) {
+async function boot({ start, offline = false, setup } = {}) {
   const clock = { now: start ?? new Date(2026, 9, 13, 10, 0, 0).getTime() };
   Date.now = () => clock.now;
   const backend = makeBackend();
@@ -163,6 +172,7 @@ async function boot({ start, offline = false } = {}) {
   globalThis.fetch = backend.fetch;
   const env = makeChrome(clock);
   globalThis.chrome = env.chrome;
+  if (setup) setup(env, backend);
   await import(`../background.js?case=${++importCounter}`);
   return { ...env, clock, backend, flushAll: () => env.send({ action: ACTIONS.MANUAL_UPDATE }) };
 }
@@ -198,7 +208,7 @@ test('youtube for 3 minutes is throttled, then flushed under the local date as E
   await e.openTab(7, YT);
   for (let i = 0; i < 3; i++) await e.tick();
   assert.equal(e.backend.count('/submit-category-summary'), 0, 'less than 5 minutes since start: no flush yet');
-  await e.onFocus.emit(-1); // user leaves the browser at +3 min
+  await e.focus(-1); // user leaves the browser at +3 min
   await e.tick(MIN); await e.tick(MIN); await e.tick(MIN); // now 6 minutes since install
   assert.equal(e.backend.count('/submit-category-summary'), 1);
   const id = e.data.extensionId;
@@ -319,4 +329,129 @@ test('closing the active tab stops counting; a closed tab does not break activat
   await e.onActivated.emit({ tabId: 99, windowId: 1 }); // tab already gone: must not throw
   const today = await e.send({ action: ACTIONS.GET_TODAY });
   near(today.today['youtube.com'], 60);
+});
+
+// ---------- fix round 1 ----------
+const GH = 'https://github.com/x';
+const todayOf = async (e) => (await e.send({ action: ACTIONS.GET_TODAY })).today;
+
+test('focus guard: updates in an unfocused window do not count after the browser loses focus', async () => {
+  const e = await boot();
+  await e.onInstalled.emit({});
+  await e.openTab(7, YT);
+  await e.tick(MIN);
+  await e.focus(-1);
+  await e.onUpdated.emit(7, { status: 'complete' }, { id: 7, active: true, windowId: 1, url: YT });
+  await e.onUpdated.emit(8, { url: GH }, { id: 8, active: true, windowId: 2, url: GH });
+  for (let i = 0; i < 5; i++) await e.tick(MIN);
+  const t = await todayOf(e);
+  near(t['youtube.com'], 60);
+  assert.equal(t['github.com'], undefined);
+});
+
+test('focus guard: onActivated for a tab in an unfocused window starts no session', async () => {
+  const e = await boot();
+  await e.onInstalled.emit({});
+  e.tabs.push({ id: 9, url: GH, active: true, windowId: 2 }); // window 1 is the focused one
+  await e.onActivated.emit({ tabId: 9, windowId: 2 });
+  for (let i = 0; i < 3; i++) await e.tick(MIN);
+  assert.deepEqual(await todayOf(e), {});
+});
+
+test('focus guard: regaining focus resumes counting; focus on a window without an active tab pauses', async () => {
+  const e = await boot();
+  await e.onInstalled.emit({});
+  await e.openTab(7, YT);
+  await e.tick(MIN);
+  await e.focus(-1);
+  await e.tick(MIN);
+  await e.focus(1);
+  await e.tick(MIN); await e.tick(MIN);
+  near((await todayOf(e))['youtube.com'], 180);
+  await e.focus(3); // e.g. a devtools window: no active tab
+  await e.tick(MIN); await e.tick(MIN);
+  near((await todayOf(e))['youtube.com'], 180);
+});
+
+test('a permanently failing past day is retried with the 5-minute backoff, not every minute', async () => {
+  const start = new Date(2026, 9, 13, 23, 58, 0).getTime();
+  const e = await boot({ start });
+  const d1 = localDate(start);
+  e.backend.failDays.add(d1);
+  await e.onInstalled.emit({});
+  await e.openTab(3, YT);
+  for (let i = 0; i < 14; i++) await e.tick(MIN); // 23:59 .. 00:12
+  const attempts = e.backend.submitAttempts.filter((d) => d === d1).length;
+  assert.ok(attempts >= 1 && attempts <= 3, `attempts for the failing day: ${attempts}`);
+  assert.equal(e.data.lastFlushOk, false);
+});
+
+test('the previous day is flushed right after midnight even when the last flush was recent', async () => {
+  const start = new Date(2026, 9, 13, 23, 50, 0).getTime();
+  const e = await boot({ start });
+  const d1 = localDate(start);
+  const d2 = localDate(new Date(2026, 9, 14, 12, 0, 0).getTime());
+  await e.onInstalled.emit({});
+  await e.openTab(3, YT);
+  for (let i = 0; i < 9; i++) await e.tick(MIN); // 23:51 .. 23:59 (flush at 23:55)
+  e.clock.now += 30000; // 23:59:30
+  assert.equal((await e.send({ action: ACTIONS.MANUAL_UPDATE })).success, true);
+  const id = e.data.extensionId;
+  near(secondsOf(e.backend, id, d1).Entertainment, 570);
+  await e.tick(30000); // 00:00:00, last flush only 30 s ago
+  near(secondsOf(e.backend, id, d1).Entertainment, 600);
+  for (let i = 0; i < 3; i++) await e.tick(MIN); // 00:01 .. 00:03
+  assert.equal(secondsOf(e.backend, id, d2), undefined, "today's day waits for the 5-minute rule");
+  assert.equal(e.backend.submitAttempts.filter((d) => d === d2).length, 0);
+});
+
+test('startup restores the session before registration finishes', async () => {
+  const e = await boot({ setup: (env, b) => {
+    env.tabs.push({ id: 5, url: YT, active: true, windowId: 1 });
+    b.fetch = () => new Promise(() => {}); // backend never answers
+    globalThis.fetch = b.fetch;
+  } });
+  e.onInstalled.emit({}); // not awaited: registration hangs
+  await new Promise((r) => setImmediate(r));
+  e.clock.now += MIN;
+  near((await todayOf(e))['youtube.com'], 60);
+});
+
+test('tick alarm is ensured on every worker wake and never duplicated', async () => {
+  const e = await boot();
+  await new Promise((r) => setImmediate(r));
+  assert.deepEqual(Object.keys(e.alarms), ['tick'], 'created at worker start, before any lifecycle event');
+  await e.onInstalled.emit({}); await e.onStartup.emit();
+  assert.deepEqual(Object.keys(e.alarms), ['tick']);
+  assert.equal(e.createdAlarms.length, 1);
+  const pre = await boot({ setup: (env) => { env.alarms.tick = { name: 'tick', periodInMinutes: 1 }; } });
+  await new Promise((r) => setImmediate(r));
+  assert.equal(pre.createdAlarms.length, 0);
+});
+
+test('message arguments are validated before the api is called', async () => {
+  const e = await boot();
+  await e.onInstalled.emit({});
+  const before = e.backend.requests.length;
+  const bad = { success: false, error: 'Invalid request.' };
+  assert.deepEqual(await e.send({ action: ACTIONS.GET_SUMMARY, userId: '', day: '2026-10-13' }), bad);
+  assert.deepEqual(await e.send({ action: ACTIONS.GET_SUMMARY, userId: 'u', day: '2026-10-13&x=1' }), bad);
+  assert.deepEqual(await e.send({ action: ACTIONS.GET_SUMMARY, userId: 5, day: '2026-10-13' }), bad);
+  assert.deepEqual(await e.send({ action: ACTIONS.COMPLETE_LINKING, code: '12345' }), bad);
+  assert.deepEqual(await e.send({ action: ACTIONS.COMPLETE_LINKING, code: 'abcdef' }), bad);
+  assert.deepEqual(await e.send({ action: ACTIONS.COMPLETE_LINKING }), bad);
+  assert.deepEqual(await e.send({ action: ACTIONS.UNLINK_DEVICE, deviceId: '' }), bad);
+  assert.deepEqual(await e.send({ action: ACTIONS.UNLINK_DEVICE }), bad);
+  assert.equal(e.backend.requests.length, before, 'no backend call for invalid requests');
+});
+
+test('install/startup removes the orphaned 3.0 timeData key and nothing else', async () => {
+  const e = await boot({ setup: (env) => {
+    env.data.timeData = { 'a.com': 5 };
+    env.data.keepMe = 1;
+  } });
+  await e.onInstalled.emit({});
+  assert.equal('timeData' in e.data, false);
+  assert.equal(e.data.keepMe, 1);
+  assert.ok(e.data.extensionId && e.data.apiKey);
 });
