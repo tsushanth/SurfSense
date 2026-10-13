@@ -1,1 +1,1 @@
-La synchronisation fonctionne de nouveau : vos appareils se reconnectent et les totaux quotidiens sont plus précis. Des autorisations inutilisées ont été supprimées.
+La synchronisation est corrigée et les totaux quotidiens sont plus précis. Vous devrez lier à nouveau vos appareils depuis l'onglet « Appareils Liés ». Les autorisations que l'application n'utilise plus ont été supprimées.

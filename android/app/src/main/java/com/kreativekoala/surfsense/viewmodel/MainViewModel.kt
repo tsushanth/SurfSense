@@ -190,7 +190,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             _uiState.value = _uiState.value.copy(
                 isLinking = true, linkingError = null, linkingSuccess = false
             )
-            val result = repository.linkDevice(_uiState.value.deviceId, code)
+            val result = repository.linkDevice(Identity.identity().clientId, code)
             if (result.isSuccess) {
                 _uiState.value = _uiState.value.copy(isLinking = false, linkingSuccess = true)
                 refreshData()
@@ -205,7 +205,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun unlinkDevice(targetDeviceId: String, onComplete: (Boolean) -> Unit) {
         viewModelScope.launch {
-            val result = repository.unlinkDevice(_uiState.value.deviceId, targetDeviceId)
+            val result = repository.unlinkDevice(Identity.identity().clientId, targetDeviceId)
             onComplete(result.isSuccess)
             if (result.isSuccess) {
                 _uiState.value = _uiState.value.copy(
@@ -220,7 +220,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             _uiState.value = _uiState.value.copy(isGeneratingCode = true, generatedCode = null)
             try {
                 val response = apiService.initiateLinking(
-                    InitiateLinkingRequest(_uiState.value.deviceId)
+                    InitiateLinkingRequest(Identity.identity().clientId)
                 )
                 if (response.isSuccessful && response.body()?.success == true) {
                     _uiState.value = _uiState.value.copy(

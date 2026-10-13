@@ -1,1 +1,1 @@
-La sincronización vuelve a funcionar: tus dispositivos se conectan de nuevo y los totales diarios son más precisos. Se eliminaron permisos que la app ya no usa.
+La sincronización está arreglada y los totales diarios son más precisos. Tendrás que volver a vincular tus dispositivos desde la pestaña «Dispositivos Vinculados». Se eliminaron los permisos que la app ya no usa.

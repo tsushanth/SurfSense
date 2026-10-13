@@ -119,7 +119,7 @@
     <!-- Notifications -->
     <string name="new_notification_title">Nouvelle Notification : %1$s</string>
     <string name="usage_access_title">Autoriser l\'accès à l\'utilisation</string>
-    <string name="usage_access_message">SurfSense lit la durée d\'ouverture de chaque application aujourd\'hui et répète cette opération régulièrement en arrière-plan. Les noms des applications sont envoyés au serveur SurfSense afin d\'être classés dans des catégories telles que Réseaux sociaux ou Actualités. Les totaux sont enregistrés sous un identifiant aléatoire, et non sous votre nom ou votre adresse e-mail.\n\nAndroid va ensuite ouvrir un écran de paramètres où vous pourrez activer l\'accès à l\'utilisation pour SurfSense.</string>
+    <string name="usage_access_message">SurfSense lit la durée d\'ouverture de chaque application aujourd\'hui et répète cette opération régulièrement en arrière-plan. Les noms des applications sont envoyés au serveur SurfSense afin d\'être classés dans des catégories telles que Réseaux sociaux ou Actualités. Les totaux sont enregistrés sous un identifiant aléatoire, accompagné du nom de votre appareil (pour que vous puissiez le reconnaître sur vos autres appareils), et non sous le nom de votre compte ou votre adresse e-mail.\n\nAndroid va ensuite ouvrir un écran de paramètres où vous pourrez activer l\'accès à l\'utilisation pour SurfSense.</string>
     <string name="usage_access_continue">Continuer</string>
     <string name="usage_access_not_now">Pas maintenant</string>
 </resources>

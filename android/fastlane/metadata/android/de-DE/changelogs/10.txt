@@ -1,1 +1,1 @@
-Die Synchronisierung funktioniert wieder: Deine Geräte verbinden sich erneut und die Tagessummen sind genauer. Nicht mehr benötigte Berechtigungen wurden entfernt.
+Die Synchronisierung ist behoben und die Tagessummen sind genauer. Sie müssen Ihre Geräte im Tab „Verknüpfte Geräte“ erneut verknüpfen. Berechtigungen, die die App nicht mehr verwendet, wurden entfernt.

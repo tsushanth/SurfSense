@@ -21,7 +21,7 @@ class UsageCollector(private val context: Context) {
         val event = UsageEvents.Event()
         while (events.hasNextEvent()) {
             events.getNextEvent(event)
-            list.add(UsageEvent(event.packageName, event.eventType, event.timeStamp, event.className ?: ""))
+            toUsageEvent(event.packageName, event.eventType, event.timeStamp, event.className)?.let(list::add)
         }
 
         val excluded = systemSurfaces()

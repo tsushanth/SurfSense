@@ -119,7 +119,7 @@
     <!-- Notifications -->
     <string name="new_notification_title">Pemberitahuan Baharu: %1$s</string>
     <string name="usage_access_title">Benarkan akses penggunaan</string>
-    <string name="usage_access_message">SurfSense membaca berapa lama setiap aplikasi dibuka hari ini dan mengulanginya secara berkala di latar belakang. Nama aplikasi dihantar ke pelayan SurfSense supaya boleh dikelaskan kepada kategori seperti Media Sosial atau Berita. Jumlah disimpan di bawah ID rawak, bukan nama atau e-mel anda.\n\nSeterusnya, Android akan membuka skrin tetapan di mana anda boleh menghidupkan Akses Penggunaan untuk SurfSense.</string>
+    <string name="usage_access_message">SurfSense membaca berapa lama setiap aplikasi dibuka hari ini dan mengulanginya secara berkala di latar belakang. Nama aplikasi dihantar ke pelayan SurfSense supaya boleh dikelaskan kepada kategori seperti Media Sosial atau Berita. Jumlah disimpan di bawah ID rawak bersama nama peranti anda (supaya anda dapat mengenalinya pada peranti anda yang lain), bukan nama akaun atau e-mel anda.\n\nSeterusnya, Android akan membuka skrin tetapan di mana anda boleh menghidupkan Akses Penggunaan untuk SurfSense.</string>
     <string name="usage_access_continue">Teruskan</string>
     <string name="usage_access_not_now">Bukan sekarang</string>
 </resources>

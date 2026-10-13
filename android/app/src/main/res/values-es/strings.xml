@@ -119,7 +119,7 @@
     <!-- Notifications -->
     <string name="new_notification_title">Nueva Notificación: %1$s</string>
     <string name="usage_access_title">Permitir acceso de uso</string>
-    <string name="usage_access_message">SurfSense lee cuánto tiempo está abierta cada aplicación hoy y lo repite periódicamente en segundo plano. Los nombres de las aplicaciones se envían al servidor de SurfSense para clasificarlas en categorías como redes sociales o noticias. Los totales se guardan con un ID aleatorio, no con tu nombre ni tu correo electrónico.\n\nA continuación, Android abrirá una pantalla de ajustes donde puedes activar el acceso de uso para SurfSense.</string>
+    <string name="usage_access_message">SurfSense lee cuánto tiempo está abierta cada aplicación hoy y lo repite periódicamente en segundo plano. Los nombres de las aplicaciones se envían al servidor de SurfSense para clasificarlas en categorías como redes sociales o noticias. Los totales se guardan con un ID aleatorio junto con el nombre de tu dispositivo (para que puedas reconocerlo en tus otros dispositivos), no con el nombre de tu cuenta ni tu correo electrónico.\n\nA continuación, Android abrirá una pantalla de ajustes donde puedes activar el acceso de uso para SurfSense.</string>
     <string name="usage_access_continue">Continuar</string>
     <string name="usage_access_not_now">Ahora no</string>
 </resources>

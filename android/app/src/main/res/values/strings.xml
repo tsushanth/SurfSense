@@ -120,7 +120,7 @@
     <string name="new_notification_title">New Notification: %1$s</string>
 
     <string name="usage_access_title">Allow usage access</string>
-    <string name="usage_access_message">SurfSense reads how long each app is open today and repeats this regularly in the background. App names are sent to the SurfSense server so they can be sorted into categories such as Social Media or News. Totals are stored under a random ID, not your name or email.\n\nNext, Android will open a settings screen where you can turn on Usage Access for SurfSense.</string>
+    <string name="usage_access_message">SurfSense reads how long each app is open today and repeats this regularly in the background. App names are sent to the SurfSense server so they can be sorted into categories such as Social Media or News. Totals are stored under a random ID together with your device\'s name (so you can recognize it on your other devices), not your account name or email.\n\nNext, Android will open a settings screen where you can turn on Usage Access for SurfSense.</string>
     <string name="usage_access_continue">Continue</string>
     <string name="usage_access_not_now">Not now</string>
 </resources>

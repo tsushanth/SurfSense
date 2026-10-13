@@ -1,1 +1,1 @@
-Syncing is fixed: your devices connect again and daily totals are more accurate. Removed permissions the app no longer uses.
+Syncing is fixed and daily totals are more accurate. You will need to link your devices again from the Linked Devices tab. Removed permissions the app no longer uses.

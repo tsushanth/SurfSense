@@ -4,7 +4,6 @@ import android.content.Context
 import timber.log.Timber
 import com.kreativekoala.surfsense.ApiClient
 import com.kreativekoala.surfsense.ApiService
-import com.kreativekoala.surfsense.AppCategoryRequest
 import com.kreativekoala.surfsense.ClientInfoResponse
 import com.kreativekoala.surfsense.LinkDeviceRequest
 import com.kreativekoala.surfsense.LinkedClientsResponse
@@ -22,22 +21,6 @@ import java.util.Locale
 class UsageRepository(private val context: Context) {
     private val apiService: ApiService = ApiClient.create()
     private val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
-
-    // MARK: - Category Mapping
-
-    suspend fun getCategoryMapping(packages: List<String>): Result<Map<String, String>> = withContext(Dispatchers.IO) {
-        try {
-            val response = apiService.getAppCategoryMapping(AppCategoryRequest(packages = packages))
-            if (response.isSuccessful && response.body() != null) {
-                Result.success(response.body()!!)
-            } else {
-                Result.failure(response.toFailure())
-            }
-        } catch (e: Exception) {
-            Timber.e(e, "Error getting category mapping")
-            Result.failure(e)
-        }
-    }
 
     // MARK: - Summary History
 

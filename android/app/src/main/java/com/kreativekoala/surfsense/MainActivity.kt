@@ -48,7 +48,15 @@ class MainActivity : AppCompatActivity() {
             .setMessage(R.string.usage_access_message)
             .setPositiveButton(R.string.usage_access_continue) { _, _ ->
                 awaitingUsageAccess = true
-                startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
+                try {
+                    startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
+                } catch (_: android.content.ActivityNotFoundException) {
+                    try {
+                        startActivity(Intent(Settings.ACTION_SETTINGS))
+                    } catch (_: android.content.ActivityNotFoundException) {
+                        // No settings screen available; nothing more we can do.
+                    }
+                }
             }
             .setNegativeButton(R.string.usage_access_not_now, null)
             .show()

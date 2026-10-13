@@ -119,7 +119,7 @@
     <!-- Notifications -->
     <string name="new_notification_title">新通知：%1$s</string>
     <string name="usage_access_title">允许使用情况访问</string>
-    <string name="usage_access_message">SurfSense 会读取今天每个应用的打开时长，并在后台定期重复此操作。应用名称会发送到 SurfSense 服务器，以便归入社交媒体或新闻等类别。总计数据以随机 ID 存储，而不是您的姓名或电子邮件。\n\n接下来，Android 将打开设置界面，您可以在其中为 SurfSense 开启“使用情况访问权限”。</string>
+    <string name="usage_access_message">SurfSense 会读取今天每个应用的打开时长，并在后台定期重复此操作。应用名称会发送到 SurfSense 服务器，以便归入社交媒体或新闻等类别。总计数据与您的设备名称（以便您在其他设备上识别它）一起以随机 ID 存储，而不是您的账户名称或电子邮件。\n\n接下来，Android 将打开设置界面，您可以在其中为 SurfSense 开启“使用情况访问权限”。</string>
     <string name="usage_access_continue">继续</string>
     <string name="usage_access_not_now">暂不</string>
 </resources>

@@ -13,7 +13,7 @@ interface SecretStore {
     fun remove(key: String)
 }
 
-/** Encrypted SharedPreferences, rebuilt if the keystore master key is lost, plain prefs as a last resort. */
+/** Encrypted SharedPreferences; plain prefs for the current process if the keystore is temporarily unavailable. */
 class AndroidSecretStore(context: Context) : SecretStore {
     private val prefs: SharedPreferences = open(context.applicationContext)
 
@@ -25,17 +25,14 @@ class AndroidSecretStore(context: Context) : SecretStore {
         const val ENCRYPTED_NAME = "surfsense_identity"
         const val PLAIN_NAME = "surfsense_identity_plain"
 
+        // Never delete anything here: a transient Keystore failure (right after boot or an OS update)
+        // must not wipe the stored id and key. Fall back to plain prefs for this process only; the next
+        // launch tries the encrypted store again.
         fun open(context: Context): SharedPreferences = try {
             encrypted(context)
         } catch (e: Exception) {
-            Timber.e(e, "Encrypted prefs unavailable; recreating")
-            try {
-                context.deleteSharedPreferences(ENCRYPTED_NAME)
-                encrypted(context)
-            } catch (e2: Exception) {
-                Timber.e(e2, "Encrypted prefs still unavailable; using app-private plain prefs")
-                context.getSharedPreferences(PLAIN_NAME, Context.MODE_PRIVATE)
-            }
+            Timber.e(e, "Encrypted prefs unavailable; using plain prefs for this process only")
+            context.getSharedPreferences(PLAIN_NAME, Context.MODE_PRIVATE)
         }
 
         fun encrypted(context: Context): SharedPreferences {

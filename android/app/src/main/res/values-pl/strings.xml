@@ -119,7 +119,7 @@
     <!-- Notifications -->
     <string name="new_notification_title">Nowe powiadomienie: %1$s</string>
     <string name="usage_access_title">Zezwól na dostęp do danych o użyciu</string>
-    <string name="usage_access_message">SurfSense odczytuje, jak długo każda aplikacja była dziś otwarta, i powtarza to regularnie w tle. Nazwy aplikacji są wysyłane na serwer SurfSense, aby przypisać je do kategorii, takich jak media społecznościowe lub wiadomości. Sumy są zapisywane pod losowym identyfikatorem, a nie pod Twoim imieniem i nazwiskiem ani adresem e-mail.\n\nNastępnie Android otworzy ekran ustawień, na którym możesz włączyć dostęp do danych o użyciu dla SurfSense.</string>
+    <string name="usage_access_message">SurfSense odczytuje, jak długo każda aplikacja była dziś otwarta, i powtarza to regularnie w tle. Nazwy aplikacji są wysyłane na serwer SurfSense, aby przypisać je do kategorii, takich jak media społecznościowe lub wiadomości. Sumy są zapisywane pod losowym identyfikatorem wraz z nazwą Twojego urządzenia (aby można je było rozpoznać na Twoich innych urządzeniach), a nie pod nazwą Twojego konta ani adresem e-mail.\n\nNastępnie Android otworzy ekran ustawień, na którym możesz włączyć dostęp do danych o użyciu dla SurfSense.</string>
     <string name="usage_access_continue">Dalej</string>
     <string name="usage_access_not_now">Nie teraz</string>
 </resources>

@@ -13,6 +13,8 @@ object Identity {
         synchronized(this) {
             if (identity != null) return
             val app = context.applicationContext
+            // Remove the dead pre-upgrade prefs file (different name from the identity file).
+            try { app.deleteSharedPreferences("surfsense_secure") } catch (_: Exception) { }
             val id = DeviceIdentity(AndroidSecretStore(app))
             identity = id
             registrar = DeviceRegistrar(id, { deviceName(app) }) { request ->
