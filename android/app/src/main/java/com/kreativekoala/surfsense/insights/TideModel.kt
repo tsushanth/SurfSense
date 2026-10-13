@@ -9,7 +9,8 @@ data class TideRow(val label: String, val totalSeconds: Int, val segments: List<
 
 /** Pure geometry for the tide-line bars: which segments, how wide, on which scale. */
 object TideModel {
-    private val CANONICAL = listOf(
+    /** The 11 palette categories, in display order. These names are what the server and overrides use. */
+    val CANONICAL = listOf(
         "Social Media", "Entertainment", "Work/Productivity", "News", "Education",
         "Finance", "Health", "Shopping", "Travel", "Food", "Other",
     )
