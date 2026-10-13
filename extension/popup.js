@@ -1,67 +1,60 @@
-const BACKEND_BASE = "https://usage-tracker-backend-917362189743.us-central1.run.app";
+import { localDate } from './lib/dates.js';
+import { ACTIONS } from './lib/messages.js';
 
-// --- Auth helper: get stored API key ---
-async function getAuthHeaders() {
-  const { apiKey } = await chrome.storage.local.get("apiKey");
-  const headers = { 'Content-Type': 'application/json' };
-  if (apiKey) {
-    headers['Authorization'] = `Bearer ${apiKey}`;
-  }
-  return headers;
+// The popup never touches the network: everything goes through the background worker.
+function send(action, payload = {}) {
+  return new Promise((resolve) => {
+    const unreachable = { success: false, error: 'Could not reach the extension. Close and reopen this popup.' };
+    try {
+      chrome.runtime.sendMessage({ action, ...payload }, (response) => {
+        if (chrome.runtime.lastError || !response) resolve(unreachable);
+        else resolve(response);
+      });
+    } catch {
+      resolve(unreachable);
+    }
+  });
 }
 
-function getExtensionId() {
-  return new Promise((resolve) => {
-    chrome.storage.local.get("extensionId", (result) => {
-      resolve(result.extensionId);
-    });
-  });
+// Shows a failed response's server/friendly error text; identical messages inside the toast
+// lifetime are shown once so several parallel failures (e.g. offline) don't stack up.
+let lastErrorShown = { text: '', at: 0 };
+function showError(prefix, response) {
+  const text = `${prefix}${response?.error || 'Something went wrong.'}`;
+  if (text === lastErrorShown.text && Date.now() - lastErrorShown.at < 3000) return;
+  lastErrorShown = { text, at: Date.now() };
+  showToast(text, "error");
+}
+
+async function getExtensionId() {
+  const r = await send(ACTIONS.GET_IDENTITY);
+  return r.success ? r.extensionId : null;
 }
 
 // --- Device linking ---
-function loadLinkedDevices() {
-  return new Promise((resolve) => {
-    chrome.runtime.sendMessage({ action: "getLinkedDevices" }, (response) => {
-      if (response?.success) {
-        renderLinkedDevices(response.devices || []);
-        resolve(response.devices || []);
-      } else {
-        resolve([]);
-      }
-    });
-  });
+async function loadLinkedDevices({ report = false } = {}) {
+  const response = await send(ACTIONS.GET_LINKED_DEVICES);
+  if (response.success) {
+    renderLinkedDevices(response.devices || []);
+    return response.devices || [];
+  }
+  if (report) showError("", response);
+  return [];
 }
 
 async function handleUnlinkDevice(event) {
-  try {
-    const { extensionId: currentClientId } = await chrome.storage.local.get("extensionId");
-    const targetClientId = event.target.dataset.deviceId;
-
-    if (!currentClientId || !targetClientId) {
-      throw new Error("Missing client IDs for unlinking");
-    }
-
-    const headers = await getAuthHeaders();
-    const response = await fetch(`${BACKEND_BASE}/unlink-device`, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({
-        clientIdA: currentClientId,
-        clientIdB: targetClientId
-      })
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.error || "Failed to unlink devices");
-    }
-
-    const devices = await loadLinkedDevices();
-    renderLinkedDevices(devices);
-    showToast("Device unlinked successfully", "success");
-  } catch (error) {
-    showToast(`Unlink failed: ${error.message}`, "error");
+  const targetClientId = event.target.dataset.deviceId;
+  if (!targetClientId) {
+    showToast("Unlink failed: Missing device ID", "error");
+    return;
   }
+  const response = await send(ACTIONS.UNLINK_DEVICE, { deviceId: targetClientId });
+  if (!response.success) {
+    showError("Unlink failed: ", response);
+    return;
+  }
+  await loadLinkedDevices();
+  showToast("Device unlinked successfully", "success");
 }
 
 // --- Safe DOM rendering (no innerHTML with untrusted data) ---
@@ -110,10 +103,15 @@ function renderLinkedDevices(devices) {
   });
 }
 
-// --- Top 5 sites ---
-chrome.storage.local.get("timeData", (result) => {
-  const data = result.timeData || {};
-  const sorted = Object.entries(data).sort((a, b) => b[1] - a[1]).slice(0, 5);
+// --- Top sites (live local totals for today, from the background tracker) ---
+async function renderTopSites() {
+  const response = await send(ACTIONS.GET_TODAY);
+  if (!response.success) {
+    showError("", response);
+    return;
+  }
+  const data = response.today || {};
+  const sorted = Object.entries(data).sort((a, b) => b[1] - a[1]).slice(0, 10);
   const list = document.getElementById("siteList");
   list.textContent = "";
 
@@ -134,7 +132,7 @@ chrome.storage.local.get("timeData", (result) => {
       list.appendChild(li);
     });
   }
-});
+}
 
 function formatTime(seconds) {
   const mins = Math.floor(seconds / 60);
@@ -147,38 +145,37 @@ const generateCodeBtn = document.getElementById('generateCodeBtn');
 const linkingCodeContainer = document.getElementById('linkingCodeContainer');
 const linkingCodeEl = document.getElementById('linkingCode');
 
-generateCodeBtn.addEventListener('click', () => {
+generateCodeBtn.addEventListener('click', async () => {
   generateCodeBtn.disabled = true;
   generateCodeBtn.textContent = "Generating...";
-  chrome.runtime.sendMessage({ action: "generateLinkingCode" }, (response) => {
-    generateCodeBtn.disabled = false;
-    generateCodeBtn.textContent = "Generate Linking Code";
-    if (response?.success) {
-      linkingCodeEl.textContent = response.code;
-      linkingCodeContainer.style.display = 'block';
+  const response = await send(ACTIONS.GENERATE_LINKING_CODE);
+  generateCodeBtn.disabled = false;
+  generateCodeBtn.textContent = "Generate Linking Code";
+  if (response.success) {
+    linkingCodeEl.textContent = response.code;
+    linkingCodeContainer.style.display = 'block';
 
-      // Poll for linked devices with timeout (max 5 minutes)
-      let pollCount = 0;
-      const maxPolls = 100;
-      const pollInterval = setInterval(() => {
-        pollCount++;
-        if (pollCount >= maxPolls) {
+    // Poll for linked devices with timeout (max 5 minutes)
+    let pollCount = 0;
+    const maxPolls = 100;
+    const pollInterval = setInterval(() => {
+      pollCount++;
+      if (pollCount >= maxPolls) {
+        clearInterval(pollInterval);
+        linkingCodeContainer.style.display = 'none';
+        showToast("Linking code expired. Generate a new one.", "info");
+        return;
+      }
+      loadLinkedDevices().then(devices => {
+        if (devices && devices.length > 0) {
           clearInterval(pollInterval);
           linkingCodeContainer.style.display = 'none';
-          showToast("Linking code expired. Generate a new one.", "info");
-          return;
         }
-        loadLinkedDevices().then(devices => {
-          if (devices && devices.length > 0) {
-            clearInterval(pollInterval);
-            linkingCodeContainer.style.display = 'none';
-          }
-        });
-      }, 3000);
-    } else {
-      showToast("Failed to generate code", "error");
-    }
-  });
+      });
+    }, 3000);
+  } else {
+    showError("Failed to generate code: ", response);
+  }
 });
 
 // --- Add device form ---
@@ -195,43 +192,30 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function handleAddDevice() {
-  try {
-    const code = document.getElementById('otherDeviceCode').value.trim();
-    const deviceName = document.getElementById('otherDeviceName').value.trim();
-    const { extensionId: clientId } = await chrome.storage.local.get("extensionId");
+  const code = document.getElementById('otherDeviceCode').value.trim();
 
-    // Validate code is exactly 6 numeric digits
-    if (!code || !/^\d{6}$/.test(code)) {
-      showToast("Please enter a valid 6-digit numeric code", "error");
-      return;
-    }
-
-    showToast("Linking device...", "info");
-
-    const headers = await getAuthHeaders();
-    const response = await fetch(`${BACKEND_BASE}/complete-linking`, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({ clientId, code, deviceName })
-    });
-
-    const result = await response.json();
-
-    if (!response.ok || !result.success) {
-      throw new Error(result.error || "Failed to link devices");
-    }
-
-    showToast("Device linked successfully!", "success");
-
-    document.getElementById('addDeviceForm').style.display = 'none';
-    document.getElementById('otherDeviceCode').value = '';
-    document.getElementById('otherDeviceName').value = '';
-
-    const devices = await loadLinkedDevices();
-    renderLinkedDevices(devices);
-  } catch (error) {
-    showToast(`Linking failed: ${error.message}`, "error");
+  // Validate code is exactly 6 numeric digits
+  if (!code || !/^\d{6}$/.test(code)) {
+    showToast("Please enter a valid 6-digit numeric code", "error");
+    return;
   }
+
+  showToast("Linking device...", "info");
+
+  const response = await send(ACTIONS.COMPLETE_LINKING, { code });
+  if (!response.success) {
+    showError("Linking failed: ", response);
+    return;
+  }
+
+  showToast("Device linked successfully!", "success");
+
+  document.getElementById('addDeviceForm').style.display = 'none';
+  document.getElementById('otherDeviceCode').value = '';
+  document.getElementById('otherDeviceName').value = '';
+
+  await loadLinkedDevices();
+  renderAllDeviceCharts();
 }
 
 // --- Toast notifications ---
@@ -245,25 +229,15 @@ function showToast(message, type = "info") {
 
 // --- Category chart ---
 async function fetchCategorySummary() {
-  try {
-    const today = new Date().toISOString().split("T")[0];
-    const userId = await getExtensionId();
-    const headers = await getAuthHeaders();
-    const url = `${BACKEND_BASE}/get-summary-history?day=${today}&userId=${userId}`;
-
-    const res = await fetch(url, { headers });
-    if (!res.ok) return {};
-
-    const data = await res.json();
-
-    if (Array.isArray(data)) {
-      const todaySummary = data.find((s) => s.timestamp.startsWith(today));
-      return todaySummary?.summary || {};
-    }
-    return {};
-  } catch (err) {
+  const today = localDate(Date.now());
+  const userId = await getExtensionId();
+  if (!userId) return {};
+  const response = await send(ACTIONS.GET_SUMMARY, { userId, day: today });
+  if (!response.success) {
+    showError("", response);
     return {};
   }
+  return response.summary || {};
 }
 
 async function renderCategoryChart() {
@@ -303,27 +277,17 @@ async function renderAllDeviceCharts() {
   try {
     await renderCategoryChart();
 
-    const devices = await loadLinkedDevices();
+    const devices = await loadLinkedDevices({ report: true });
     if (!Array.isArray(devices) || devices.length === 0) return;
 
-    const today = new Date().toISOString().split('T')[0];
-    const headers = await getAuthHeaders();
+    const today = localDate(Date.now());
 
     // Fetch all device data in parallel
     const fetchPromises = devices
       .filter(d => d.clientId)
       .map(async (device) => {
-        try {
-          const url = `${BACKEND_BASE}/get-summary-history?userId=${device.clientId}&day=${today}`;
-          const response = await fetch(url, { headers });
-          if (!response.ok) return null;
-
-          const summaries = await response.json();
-          const todaySummary = summaries.find(s => s.timestamp?.startsWith(today));
-          return todaySummary ? { device, summary: todaySummary.summary } : null;
-        } catch {
-          return null;
-        }
+        const response = await send(ACTIONS.GET_SUMMARY, { userId: device.clientId, day: today });
+        return response.success && response.summary ? { device, summary: response.summary } : null;
       });
 
     const results = await Promise.all(fetchPromises);
@@ -444,17 +408,21 @@ style.textContent = `
 document.head.appendChild(style);
 
 // --- Initialize ---
-loadLinkedDevices();
+renderTopSites();
 renderAllDeviceCharts();
 
 // --- Refresh button ---
-document.getElementById("refreshButton").addEventListener("click", () => {
-  chrome.runtime.sendMessage({ action: "manualUpdateUsage" }, (response) => {
-    if (chrome.runtime.lastError) {
-      showToast("Failed to update usage.", "error");
-    } else {
-      showToast("Usage data synced.", "success");
-      renderCategoryChart();
-    }
-  });
+document.getElementById("refreshButton").addEventListener("click", async () => {
+  const response = await send(ACTIONS.MANUAL_UPDATE);
+  if (!response.success) {
+    showError("Failed to update usage: ", response);
+    return;
+  }
+  if (response.failed > 0) {
+    showToast("Some usage could not be synced yet. It will retry automatically.", "error");
+  } else {
+    showToast("Usage data synced.", "success");
+  }
+  renderTopSites();
+  renderAllDeviceCharts();
 });
