@@ -14,6 +14,7 @@ class UsageSyncerTest {
         val mapping: (List<String>) -> Response<Map<String, String>> =
             { Response.success(mapOf("com.a" to "News", "com.b" to "News")) },
         val submitReply: () -> Response<Unit> = { Response.success(Unit) },
+        applyOverrides: (Map<String, String>, Collection<String>) -> Map<String, String> = { m, _ -> m },
     ) {
         var submitted: Pair<String, Map<String, Int>>? = null
         var collected = 0
@@ -25,6 +26,7 @@ class UsageSyncerTest {
             submit = { day, summary -> submitCalls++; submitted = day to summary; submitReply() },
             ensureRegistered = { registered },
             dayOf = { "2026-10-12" },
+            applyOverrides = applyOverrides,
         )
     }
 
@@ -89,5 +91,15 @@ class UsageSyncerTest {
     @Test fun mapping429Retries() = runBlocking {
         val f = Fixture(mapping = { Response.error(429, "".toResponseBody(null)) })
         assertEquals(UsageSyncer.Outcome.RETRY, f.syncer.run())
+    }
+
+    @Test fun overrideWinsOverServerMapping() = runBlocking {
+        val f = Fixture(
+            usage = mapOf("com.x" to 40, "com.b" to 10),
+            mapping = { Response.success(mapOf("com.x" to "Social Media", "com.b" to "Food")) },
+            applyOverrides = { m, _ -> m + ("com.x" to "News") },
+        )
+        assertEquals(UsageSyncer.Outcome.SUCCESS, f.syncer.run())
+        assertEquals("2026-10-12" to mapOf("News" to 40, "Food" to 10), f.submitted)
     }
 }

@@ -10,6 +10,7 @@ class UsageSyncer(
     private val submit: suspend (day: String, summary: Map<String, Int>) -> Response<Unit>,
     private val ensureRegistered: suspend () -> Boolean,
     private val dayOf: (nowMs: Long) -> String,
+    private val applyOverrides: (Map<String, String>, Collection<String>) -> Map<String, String> = { m, _ -> m },
 ) {
     enum class Outcome { SUCCESS, RETRY, FAIL }
 
@@ -26,9 +27,10 @@ class UsageSyncer(
             is CategoryMapper.Outcome.Failed -> return if (m.retryable) Outcome.RETRY else Outcome.FAIL
         }
 
+        val effective = applyOverrides(mapping, usage.keys)
         val summary = HashMap<String, Int>()
         for ((pkg, seconds) in usage) {
-            val category = mapping[pkg] ?: "Other"
+            val category = effective[pkg] ?: "Other"
             summary[category] = (summary[category] ?: 0) + seconds
         }
 
