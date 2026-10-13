@@ -38,9 +38,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun requestUsageAccessPermission() {
-        if (!hasUsageStatsPermission()) {
-            startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
-        }
+        if (hasUsageStatsPermission()) return
+        androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle(R.string.usage_access_title)
+            .setMessage(R.string.usage_access_message)
+            .setPositiveButton(R.string.usage_access_continue) { _, _ ->
+                startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
+            }
+            .setNegativeButton(R.string.usage_access_not_now, null)
+            .show()
     }
 
     private fun hasUsageStatsPermission(): Boolean = UsageAccess.isGranted(this)
