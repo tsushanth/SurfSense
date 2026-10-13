@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.work.Constraints
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import com.kreativekoala.surfsense.ApiClient
 import com.kreativekoala.surfsense.Config
@@ -13,11 +14,14 @@ import com.kreativekoala.surfsense.InitiateLinkingRequest
 import com.kreativekoala.surfsense.LocalStorage
 import com.kreativekoala.surfsense.UsageSummaryWorker
 import com.kreativekoala.surfsense.identity.Identity
+import com.kreativekoala.surfsense.net.ErrorMessages
 import com.kreativekoala.surfsense.repository.UsageRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeoutOrNull
 import timber.log.Timber
 
 data class CategoryUsageUi(
@@ -86,7 +90,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun refreshData() {
+    fun refreshData(extraError: String? = null) {
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true, error = null)
             try {
@@ -162,8 +166,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     )
                 }
 
+                val firstError = selfResult.exceptionOrNull() ?: linkedResult.exceptionOrNull()
+
                 _uiState.value = _uiState.value.copy(
                     isLoading = false,
+                    error = firstError?.let { ErrorMessages.from(it) } ?: extraError,
                     thisDeviceUsage = thisDeviceUsage,
                     linkedDevices = devices,
                     unifiedUsage = unifiedUsage
@@ -190,7 +197,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             } else {
                 _uiState.value = _uiState.value.copy(
                     isLinking = false,
-                    linkingError = result.exceptionOrNull()?.message ?: "Failed to link device"
+                    linkingError = result.exceptionOrNull()?.let { ErrorMessages.from(it) } ?: "Failed to link device"
                 )
             }
         }
@@ -243,21 +250,22 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         val context = getApplication<Application>()
         val syncRequest = OneTimeWorkRequestBuilder<UsageSummaryWorker>()
             .setConstraints(
-                Constraints.Builder()
-                    .setRequiredNetworkType(NetworkType.CONNECTED)
-                    .build()
+                Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
             )
             .build()
 
         val workManager = WorkManager.getInstance(context)
         workManager.enqueue(syncRequest)
 
-        // Observe the work and refresh when it completes
         viewModelScope.launch {
-            _uiState.value = _uiState.value.copy(isLoading = true)
-            // Give the worker time to collect, categorize, and submit
-            kotlinx.coroutines.delay(5000)
-            refreshData()
+            _uiState.value = _uiState.value.copy(isLoading = true, error = null)
+            val finished = withTimeoutOrNull(SYNC_TIMEOUT_MS) {
+                workManager.getWorkInfoByIdFlow(syncRequest.id).first { it != null && it.state.isFinished }
+            }
+            val syncError = if (finished?.state == WorkInfo.State.FAILED) {
+                "Couldn't sync. Check that Usage Access is allowed and you are online."
+            } else null
+            refreshData(extraError = syncError)
         }
     }
 
@@ -294,6 +302,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     companion object {
+        private const val SYNC_TIMEOUT_MS = 60_000L
+
         fun formatSeconds(totalSeconds: Int): String {
             val hours = totalSeconds / 3600
             val minutes = (totalSeconds % 3600) / 60

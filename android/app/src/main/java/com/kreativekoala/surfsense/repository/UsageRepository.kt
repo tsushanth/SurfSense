@@ -10,6 +10,7 @@ import com.kreativekoala.surfsense.LinkDeviceRequest
 import com.kreativekoala.surfsense.LinkedClientsResponse
 import com.kreativekoala.surfsense.SummaryEntry
 import com.kreativekoala.surfsense.UnlinkDeviceRequest
+import com.kreativekoala.surfsense.net.toFailure
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
@@ -30,7 +31,7 @@ class UsageRepository(private val context: Context) {
             if (response.isSuccessful && response.body() != null) {
                 Result.success(response.body()!!)
             } else {
-                Result.failure(Exception("Failed to get category mapping: ${response.code()}"))
+                Result.failure(response.toFailure())
             }
         } catch (e: Exception) {
             Timber.e(e, "Error getting category mapping")
@@ -46,7 +47,7 @@ class UsageRepository(private val context: Context) {
             if (response.isSuccessful) {
                 Result.success(response.body() ?: emptyList())
             } else {
-                Result.failure(Exception("Failed to get summary history: ${response.code()}"))
+                Result.failure(response.toFailure())
             }
         } catch (e: Exception) {
             Timber.e(e, "Error getting summary history")
@@ -62,7 +63,7 @@ class UsageRepository(private val context: Context) {
             if (response.isSuccessful && response.body() != null) {
                 Result.success(response.body()!!)
             } else {
-                Result.failure(Exception("Failed to get client info: ${response.code()}"))
+                Result.failure(response.toFailure())
             }
         } catch (e: Exception) {
             Timber.e(e, "Error getting client info")
@@ -76,7 +77,7 @@ class UsageRepository(private val context: Context) {
             if (response.isSuccessful && response.body() != null) {
                 Result.success(response.body()!!)
             } else {
-                Result.failure(Exception("Failed to get linked clients: ${response.code()}"))
+                Result.failure(response.toFailure())
             }
         } catch (e: Exception) {
             Timber.e(e, "Error getting linked clients")
@@ -97,7 +98,7 @@ class UsageRepository(private val context: Context) {
                     Result.failure(Exception("Failed to link device"))
                 }
             } else {
-                Result.failure(Exception("Failed to link device: ${response.code()}"))
+                Result.failure(response.toFailure())
             }
         } catch (e: Exception) {
             Timber.e(e, "Error linking device")
@@ -111,7 +112,7 @@ class UsageRepository(private val context: Context) {
             if (response.isSuccessful) {
                 Result.success(true)
             } else {
-                Result.failure(Exception("Failed to unlink device: ${response.code()}"))
+                Result.failure(response.toFailure())
             }
         } catch (e: Exception) {
             Timber.e(e, "Error unlinking device")
