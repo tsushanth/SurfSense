@@ -164,7 +164,7 @@ export function createApi({
       for (const batch of chunk(domains, CATEGORY_BATCH)) {
         const map = await request(() => '/get-category-mapping', { body: () => ({ domains: batch }) });
         for (const d of batch) {
-          const c = map && typeof map === 'object' ? map[d] : undefined;
+          const c = map && typeof map === 'object' && Object.hasOwn(map, d) ? map[d] : undefined;
           result[d] = typeof c === 'string' && c ? c : 'Other';
         }
       }

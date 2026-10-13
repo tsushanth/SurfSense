@@ -277,6 +277,14 @@ test('categorize fills domains missing from the answer with Other, never Uncateg
   assert.deepEqual(await api.categorize(['a.com', 'b.com']), { 'a.com': 'Shopping', 'b.com': 'Other' });
 });
 
+test('categorize ignores inherited properties: a domain named constructor missing from the answer is Other', async () => {
+  const { api } = setup({
+    storage: fakeStorage({ extensionId: 'me', apiKey: 'K' }),
+    handler: () => json(200, { 'a.com': 'Shopping' }),
+  });
+  assert.deepEqual(await api.categorize(['constructor', 'toString']), { constructor: 'Other', toString: 'Other' });
+});
+
 test('categorize of an empty list sends nothing', async () => {
   const { api, calls } = setup({ handler: () => json(200, {}) });
   assert.deepEqual(await api.categorize([]), {});

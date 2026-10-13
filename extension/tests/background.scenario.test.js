@@ -145,6 +145,7 @@ function makeChrome(clock) {
     windows: {
       WINDOW_ID_NONE: -1,
       onFocusChanged: env.onFocus,
+      getLastFocused: (cb) => both(cb, { id: env.focusedWindow, focused: env.focusedWindow !== -1 }),
       get: (id, cb) => {
         const w = { id, focused: id === env.focusedWindow }; // decided at call time
         return env.windowGetGate ? env.windowGetGate.then(() => w) : both(cb, w);
@@ -536,4 +537,42 @@ test('upgrade from 3.0: stale key is recovered once with the same id; timeData i
   near(secondsOf(e.backend, 'legacy-id-3-0', day).Entertainment, 180);
   assert.equal('timeData' in e.data, false);
   assert.equal(e.data.keepMe, 'kept');
+});
+
+// ---------- round 2: self-heal on tick ----------
+test('tick self-heal: closing the active tab without a neighbor activation resumes on the next tick', async () => {
+  const e = await boot();
+  await e.onInstalled.emit({});
+  await e.openTab(7, YT);
+  await e.tick(MIN);
+  e.tabs.length = 0; // tab A closed
+  await e.onRemoved.emit(7, {});
+  e.tabs.push({ id: 8, url: GH, active: true, windowId: 1 }); // Chrome's neighbor, no onActivated seen
+  await e.tick(MIN); // starts B's session
+  await e.tick(MIN); await e.tick(MIN);
+  const t = await todayOf(e);
+  near(t['github.com'], 120);
+  near(t['youtube.com'], 60);
+});
+
+test('tick self-heal: an unfocused browser is not given a session by the tick', async () => {
+  const e = await boot();
+  await e.onInstalled.emit({});
+  e.tabs.push({ id: 8, url: GH, active: true, windowId: 1 });
+  await e.focus(-1);
+  for (let i = 0; i < 3; i++) await e.tick(MIN);
+  assert.deepEqual(await todayOf(e), {});
+});
+
+test('tick never steals a running session on another tab', async () => {
+  const e = await boot();
+  await e.onInstalled.emit({});
+  await e.openTab(7, YT);
+  await e.tick(MIN);
+  e.tabs.find((t) => t.id === 7).active = false;
+  e.tabs.push({ id: 8, url: GH, active: true, windowId: 1 }); // fake claims B is active, no event
+  await e.tick(MIN); await e.tick(MIN);
+  const t = await todayOf(e);
+  near(t['youtube.com'], 180);
+  assert.equal(t['github.com'], undefined);
 });

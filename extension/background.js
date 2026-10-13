@@ -45,8 +45,22 @@ function flushNow() {
   return run;
 }
 
+// Re-establishes tracking if a missed event left the focused window's active tab unwatched.
+// tracker.navigate() acts only when no session runs or the session is for that same tab, so this
+// never replaces a running session on another tab.
+async function selfHeal() {
+  const epoch = focusEpoch;
+  try {
+    const w = await chrome.windows.getLastFocused();
+    if (!w || !w.focused) return;
+    const [tab] = await chrome.tabs.query({ active: true, windowId: w.id });
+    if (tab && epoch === focusEpoch) await tracker.navigate(tab.id, tab.url);
+  } catch { /* no window / tab closed: skip */ }
+}
+
 async function onTick() {
   await tracker.tick();
+  await selfHeal();
   const { dirty } = await tracker.snapshot();
   const days = Object.keys(dirty);
   if (days.length === 0) return;
@@ -71,7 +85,7 @@ function ensureAlarm() {
 }
 ensureAlarm();
 
-// Bumped by every focus change / tab removal. A tab handler captures it before its first await and
+// Bumped by every focus change. A tab handler captures it before its first await and
 // drops its tracker call if it changed meanwhile (a stale activate would otherwise start a session
 // after the browser lost focus).
 let focusEpoch = 0;
@@ -127,7 +141,6 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => (async () => {
 })().catch(() => {}));
 
 chrome.tabs.onRemoved.addListener((tabId) => {
-  focusEpoch++;
   // navigate() ignores tabs other than the running one; a null URL closes that session.
   return tracker.navigate(tabId, null).catch(() => {});
 });
