@@ -128,6 +128,26 @@ async function unlinkClients(clientId1, clientId2) {
  * Get all clients linked to the given one.
  * Uses batch query to avoid N+1 problem.
  */
+/**
+ * Best-effort refresh of last_activity_at on every link involving clientId, so
+ * cleanup_inactive_links() (30 days idle) only deletes pairings that are really unused.
+ * Uses two .eq updates (no .or() filter string built from the id). Never throws.
+ */
+async function touchLinks(clientId) {
+    try {
+        const now = new Date().toISOString();
+        const results = await Promise.all([
+            supabase.from('client_links').update({ last_activity_at: now }).eq('client_a', clientId),
+            supabase.from('client_links').update({ last_activity_at: now }).eq('client_b', clientId)
+        ]);
+        for (const r of results) {
+            if (r && r.error) logger.warn({ err: r.error.message }, 'Failed to refresh link activity');
+        }
+    } catch (err) {
+        logger.warn({ err: err.message }, 'Failed to refresh link activity');
+    }
+}
+
 async function getLinkedClients(clientId) {
     // Query both directions of the link
     const [resultA, resultB] = await Promise.all([
@@ -145,6 +165,8 @@ async function getLinkedClients(clientId) {
     ];
 
     if (linkedClientIds.length === 0) return [];
+
+    await touchLinks(clientId);
 
     // Single batch query instead of N individual queries
     const { data: clientsData, error: clientsError } = await supabase

@@ -8,12 +8,14 @@ const h = vi.hoisted(() => {
         const b = {};
         const result = () => {
             const q = state.results[table];
-            return Array.isArray(q) ? (q.length ? q.shift() : {}) : (q ?? {});
+            const r = Array.isArray(q) ? (q.length ? q.shift() : {}) : (q ?? {});
+            if (typeof r === 'function') return r(); // scripted function may throw
+            return r;
         };
-        for (const m of ['select', 'eq', 'in', 'lte', 'lt', 'upsert', 'insert', 'delete', 'single']) {
+        for (const m of ['select', 'eq', 'in', 'lte', 'lt', 'upsert', 'insert', 'delete', 'single', 'update']) {
             b[m] = (...args) => { state.calls.push({ table, m, args }); return b; };
         }
-        b.then = (res, rej) => Promise.resolve(result()).then(res, rej);
+        b.then = (res, rej) => new Promise((ok) => ok(result())).then(res, rej);
         return b;
     };
     return { state, supabase: { from: (t) => { state.calls.push({ table: t, m: 'from' }); return builder(t); } } };
@@ -91,6 +93,59 @@ describe('getLinkedClients', () => {
         h.state.results.client_links = [{ data: [] }, { data: [] }];
         await expect(getLinkedClients('a')).resolves.toEqual([]);
         expect(h.state.calls.some(c => c.table === 'extension_clients')).toBe(false);
+    });
+});
+
+describe('getLinkedClients link activity refresh', () => {
+    const happyClients = { data: [{ client_id: 'b', client_name: 'Phone', client_type: 'IOS' }] };
+    const expected = [{ clientId: 'b', clientName: 'Phone', clientType: 'IOS' }];
+
+    it('refreshes last_activity_at for both link directions with eq filters', async () => {
+        h.state.results.client_links = [{ data: [{ client_b: 'b' }] }, { data: [] }, {}, {}];
+        h.state.results.extension_clients = happyClients;
+        await getLinkedClients('me');
+        const calls = h.state.calls.filter(c => c.table === 'client_links');
+        const updates = calls.filter(c => c.m === 'update');
+        expect(updates).toHaveLength(2);
+        for (const u of updates) {
+            expect(typeof u.args[0].last_activity_at).toBe('string');
+            expect(new Date(u.args[0].last_activity_at).toISOString()).toBe(u.args[0].last_activity_at);
+        }
+        const afterUpdate = updates.map(u => calls[calls.indexOf(u) + 1]);
+        expect(afterUpdate.map(c => c.m)).toEqual(['eq', 'eq']);
+        expect(afterUpdate.map(c => c.args).sort((x, y) => x[0].localeCompare(y[0])))
+            .toEqual([['client_a', 'me'], ['client_b', 'me']]);
+    });
+
+    it('makes no update when there are no links', async () => {
+        h.state.results.client_links = [{ data: [] }, { data: [] }];
+        await getLinkedClients('me');
+        expect(h.state.calls.some(c => c.table === 'client_links' && c.m === 'update')).toBe(false);
+    });
+
+    it('still succeeds and warns when an update returns an error', async () => {
+        const { logger } = await import('../logger.js');
+        logger.warn.mockClear();
+        h.state.results.client_links = [{ data: [{ client_b: 'b' }] }, { data: [] }, { error: { message: 'x' } }, {}];
+        h.state.results.extension_clients = happyClients;
+        await expect(getLinkedClients('me')).resolves.toEqual(expected);
+        expect(logger.warn).toHaveBeenCalled();
+        expect(JSON.stringify(logger.warn.mock.calls)).not.toContain('me"');
+    });
+
+    it('still succeeds and warns when an update throws', async () => {
+        const { logger } = await import('../logger.js');
+        logger.warn.mockClear();
+        h.state.results.client_links = [{ data: [{ client_b: 'b' }] }, { data: [] }, () => { throw new Error('boom'); }, {}];
+        h.state.results.extension_clients = happyClients;
+        await expect(getLinkedClients('me')).resolves.toEqual(expected);
+        expect(logger.warn).toHaveBeenCalled();
+    });
+
+    it('returns identical clients in the happy path', async () => {
+        h.state.results.client_links = [{ data: [{ client_b: 'b' }] }, { data: [] }, {}, {}];
+        h.state.results.extension_clients = happyClients;
+        await expect(getLinkedClients('me')).resolves.toEqual(expected);
     });
 });
 
