@@ -1,0 +1,114 @@
+package com.kreativekoala.surfsense.history
+
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Test
+import java.util.concurrent.atomic.AtomicInteger
+
+class HistoryRepositoryTest {
+    private class FakeCache : HistoryRepository.PastDayCache {
+        val store = HashMap<String, Map<String, Int>>()
+        override fun get(deviceId: String, day: String) = store["$deviceId|$day"]
+        override fun put(deviceId: String, day: String, byCategory: Map<String, Int>) {
+            store["$deviceId|$day"] = byCategory
+        }
+    }
+
+    private val today = "2026-10-13"
+
+    @Test fun dayMinusBoundaries() {
+        assertEquals("2026-10-12", dayMinus("2026-10-13", 1))
+        assertEquals("2026-09-30", dayMinus("2026-10-01", 1))
+        assertEquals("2025-12-31", dayMinus("2026-01-01", 1))
+        assertEquals("2028-02-29", dayMinus("2028-03-01", 1))
+        assertEquals("2027-02-28", dayMinus("2027-03-01", 1))
+        assertEquals("2026-10-13", dayMinus("2026-10-13", 0))
+        assertEquals("2025-12-25", dayMinus("2026-01-01", 7))
+    }
+
+    @Test fun cachedOldDaysAvoidFetchButTodayAndYesterdayAlwaysFetched() = runBlocking {
+        val cache = FakeCache()
+        cache.put("d1", "2026-10-13", mapOf("Stale" to 1))
+        cache.put("d1", "2026-10-12", mapOf("Stale" to 1))
+        cache.put("d1", "2026-10-11", mapOf("News" to 60))
+        val fetched = java.util.Collections.synchronizedList(ArrayList<String>())
+        val repo = HistoryRepository({ _, day -> fetched.add(day); Result.success(mapOf("Fresh" to 5)) }, cache) { today }
+        val (rows, failed) = repo.load(listOf("d1" to "Phone"), 3)
+        assertEquals(0, failed)
+        assertEquals(listOf("2026-10-12", "2026-10-13"), fetched.sorted())
+        assertEquals(listOf("2026-10-11", "2026-10-12", "2026-10-13"), rows.map { it.date })
+        assertEquals(mapOf("News" to 60), rows[0].byCategory)
+        assertEquals(mapOf("Fresh" to 5), rows[1].byCategory)
+        assertEquals("Phone", rows[0].deviceName)
+    }
+
+    @Test fun failureCountedOthersReturnAndFailedNotCached() = runBlocking {
+        val cache = FakeCache()
+        val repo = HistoryRepository(
+            { _, day -> if (day == "2026-10-10") Result.failure(RuntimeException("x")) else Result.success(mapOf("A" to 1)) },
+            cache,
+        ) { today }
+        val (rows, failed) = repo.load(listOf("d1" to "P"), 5)
+        assertEquals(1, failed)
+        assertEquals(4, rows.size)
+        assertTrue(rows.none { it.date == "2026-10-10" })
+        assertTrue(cache.get("d1", "2026-10-10") == null)
+    }
+
+    @Test fun thrownExceptionCountsAsFailure() = runBlocking {
+        val repo = HistoryRepository({ _, _ -> throw IllegalStateException("boom") }, FakeCache()) { today }
+        val (rows, failed) = repo.load(listOf("d1" to "P"), 2)
+        assertEquals(2, failed)
+        assertTrue(rows.isEmpty())
+    }
+
+    @Test fun emptyResultsNotCachedNotFailedNoRow() = runBlocking {
+        val cache = FakeCache()
+        var n = 0
+        val repo = HistoryRepository(
+            { _, _ -> n++; if (n % 2 == 0) Result.success(null) else Result.success(emptyMap()) },
+            cache,
+        ) { today }
+        val (rows, failed) = repo.load(listOf("d1" to "P"), 4)
+        assertEquals(0, failed)
+        assertTrue(rows.isEmpty())
+        assertTrue(cache.store.isEmpty())
+    }
+
+    @Test fun successfulOldDayIsCached() = runBlocking {
+        val cache = FakeCache()
+        val repo = HistoryRepository({ _, _ -> Result.success(mapOf("A" to 3)) }, cache) { today }
+        repo.load(listOf("d1" to "P"), 4)
+        assertEquals(mapOf("A" to 3), cache.get("d1", "2026-10-10"))
+        assertEquals(mapOf("A" to 3), cache.get("d1", "2026-10-11"))
+        assertTrue(cache.get("d1", "2026-10-12") == null)
+        assertTrue(cache.get("d1", "2026-10-13") == null)
+    }
+
+    @Test fun rowsOrderedByDeviceThenDate() = runBlocking {
+        val repo = HistoryRepository({ _, _ -> Result.success(mapOf("A" to 1)) }, FakeCache()) { today }
+        val (rows, _) = repo.load(listOf("z" to "Zed", "a" to "Aye"), 2)
+        assertEquals(
+            listOf("z|2026-10-12", "z|2026-10-13", "a|2026-10-12", "a|2026-10-13"),
+            rows.map { "${it.deviceId}|${it.date}" },
+        )
+    }
+
+    @Test fun inFlightFetchesCappedAtFour() = runBlocking {
+        val cur = AtomicInteger(0)
+        val max = AtomicInteger(0)
+        val repo = HistoryRepository({ _, _ ->
+            val c = cur.incrementAndGet()
+            max.updateAndGet { maxOf(it, c) }
+            delay(20)
+            cur.decrementAndGet()
+            Result.success(mapOf("A" to 1))
+        }, FakeCache()) { today }
+        val (rows, failed) = repo.load(listOf("a" to "A", "b" to "B", "c" to "C"), 7)
+        assertEquals(21, rows.size)
+        assertEquals(0, failed)
+        assertEquals(4, max.get())
+    }
+}
