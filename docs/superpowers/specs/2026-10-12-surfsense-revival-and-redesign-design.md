@@ -27,7 +27,7 @@ Out: iOS release (decision 2026-10-12: ship backend, Android and extension only;
 
 1. New Supabase project `surfsense` (free tier). Apply `backend/schema.sql`. Confirm RLS policies and cleanup functions.
 2. New Fly app `usage-tracker-backend` (the name the clients already use), region `iad`, from `backend/` with a `fly.toml` based on the sibling's. Use `auto_stop_machines = "stop"` and `min_machines_running = 0` so it costs near nothing at low traffic; the trade-off is a cold start of a few seconds on the first request after idle.
-3. Secrets set on Fly: `SUPABASE_URL`, `SUPABASE_SERVICE_KEY`, plus the categorizer key (see open question 1). Never committed.
+3. The Dockerfile is `node:18-alpine` (Node 18 is end-of-life): move to a current Node LTS while verifying `npm test` still passes. Secrets set on Fly: `SUPABASE_URL` and `SUPABASE_SERVICE_KEY` only (no LLM key needed). Never committed; values confirmed with the user before setting, since this is a new app and no existing secret is overwritten.
 4. Run `npm test` in `backend/`. Add a smoke script that exercises register, link, complete-link, submit, history, unlink against the live URL.
 5. Verify `/health` from outside.
 
@@ -61,14 +61,16 @@ Subject: a calm, descriptive instrument for people who want to see their day, no
 
 - Versions: Android 10.0.0 (code 10), extension 4.0.0. Confirm against Play and the Chrome Web Store before bumping.
 - Pre-push secrets scan; push after each merge.
-- Android: AAB via Gradle, upload to Play (staged rollout). Minify stays off.
+- Android: signing credentials come from `~/.gradle/gradle.properties` via `providers.gradleProperty(...)` (see the shared CLAUDE.md); never write keystore passwords or files into the repo, and verify `android/app/build.gradle.kts` follows that before building. AAB via Gradle, upload to Play (staged rollout). Minify stays off.
 - Extension: zip and submit to the Chrome Web Store.
 
 ## Categorizer (decision 2026-10-12: approach A, B as measured follow-up)
 
 No LLM and no API key. Tiers: Supabase cache, then patterns and static map, then a pre-labeled list of the top ~20k domains (labels produced once in chat and spot-checked, shipped as static JSON; check the source ranking list's license first), then for Android packages the category on the public Play Store page (fetch only `play.google.com` with the package name regex-validated, so no SSRF surface), else "Other". Users can override any category in one tap. Log how many lookups end as "Other" and what users override.
 
-Tier B (small local zero-shot embedding model for the long tail) is being tested as a throwaway feasibility spike outside the repo. Bars: >=80% accuracy on non-Other predictions, >=50% of previously unknown domains labeled, <=250MB RSS growth, <=8s cold start. Added only if it passes and the logged Other rate justifies it. Option C (fetching page titles) is rejected: SSRF attack surface.
+Tier B (small local zero-shot embedding model) spike result, 2026-10-12: CONDITIONAL, leaning NO-GO, so it is not in this release. Model `Xenova/gte-small` q8 via `@huggingface/transformers`: 83% accuracy on its non-Other predictions overall, but on inputs the regexes miss it labeled only 41% of domains and 36% of packages (bar was 50%), at 84% and 76% accuracy. Operationally fine (about 141MB RSS growth in a 512MB container, under 1s cold start, 5-10ms per prediction) but heavy: about 480MB of node_modules, and `onnxruntime-node` fails on Alpine (needs glibc, Node 20+; Fly x64 not verified). Its labels were the spike author's own judgment. It becomes worth revisiting only with a real signal added (page title, Play Store metadata) and only if the logged Other rate justifies it. The Play Store category lookup for packages covers the same gap with better signal. Option C (fetching arbitrary page titles) stays rejected: SSRF attack surface.
+
+Lookup order in code: cache, then the pre-labeled list (`backend/data/domain-categories.json`, 12.5k domains, checked BEFORE the regexes because patterns like `news|daily|post|times` mislabel many domains), then regexes and static map, then Play Store category for packages, else "Other". Lookup strips a leading `www.` and also tries the parent registrable domain.
 
 OpenAI is removed from the backend (dependency, env var, README).
 
