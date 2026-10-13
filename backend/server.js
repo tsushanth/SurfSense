@@ -7,7 +7,7 @@ dotenv.config();
 
 import { supabase } from './supabase.js';
 import { logger } from './logger.js';
-import { categorizeLocally } from './categorizer.js';
+import { categorizeLocally, lookupStatic, matchByPattern } from './categorizer.js';
 import { fetchPlayCategory } from './playStore.js';
 import { createCategorizer } from './categorize.js';
 import { authenticateClient, generateApiKey, hashApiKey } from './middleware/auth.js';
@@ -91,7 +91,7 @@ const CATEGORY_BUDGET_MS = 12000; // per-item budget; slow lookups yield 'Other'
 const playLimit = pLimit(6); // cap concurrent Play Store fetches across all requests
 const playEnabled = process.env.PLAY_LOOKUP_ENABLED !== 'false';
 if (!playEnabled) {
-    logger.warn('Play Store lookup disabled (PLAY_LOOKUP_ENABLED=false); packages will categorize as Other');
+    logger.warn('Play Store lookup disabled (PLAY_LOOKUP_ENABLED=false); packages fall back to regex or Other');
 }
 
 const categorize = createCategorizer({
@@ -113,6 +113,8 @@ const categorize = createCategorizer({
         },
     },
     local: categorizeLocally,
+    curatedPackage: (pkg) => lookupStatic(pkg, true),
+    patternPackage: (pkg) => matchByPattern(pkg, true),
     play: playEnabled
         ? (pkg) => playLimit(() => fetchPlayCategory(pkg))
         : async () => ({ status: 'error' }),

@@ -82,10 +82,11 @@ check('C (unlinked) cannot read B\'s summary (403)', stranger.status === 403, JS
 const strangerUnlink = await call('POST', '/unlink-device', { key: keys.c, body: { clientIdA: ids.a, clientIdB: ids.b } });
 check('C cannot unlink A and B (403)', strangerUnlink.status === 403, JSON.stringify(strangerUnlink));
 
-const cats = await call('POST', '/get-category-mapping', { key: keys.a, body: { domains: ['facebook.com', 'WWW.BBC.COM', 'localhost', 'https://x.example/path'], packages: ['com.instagram.android', 'org.thoughtcrime.securesms', 'com.x/../y'] } });
+const cats = await call('POST', '/get-category-mapping', { key: keys.a, body: { domains: ['facebook.com', 'WWW.BBC.COM', 'localhost', 'https://x.example/path'], packages: ['com.instagram.android', 'org.thoughtcrime.securesms', 'com.x/../y', 'com.kreativekoala.surfsense', 'com.google.android.networkstack.tethering'] } });
 check('categories: known domains', cats.json?.['facebook.com'] === 'Social Media' && cats.json?.['WWW.BBC.COM'] === 'News', JSON.stringify(cats));
 check('categories: odd domains -> Other', cats.json?.['localhost'] === 'Other' && cats.json?.['https://x.example/path'] === 'Other', JSON.stringify(cats));
 check('categories: Play package + hostile package', cats.json?.['com.instagram.android'] === 'Social Media' && cats.json?.['com.x/../y'] === 'Other', JSON.stringify(cats));
+check('categories: no regex false positives (own app, system package)', cats.json?.['com.kreativekoala.surfsense'] !== 'Food' && cats.json?.['com.google.android.networkstack.tethering'] === 'Other', JSON.stringify(cats));
 check('categories: Play-resolved package', cats.json?.['org.thoughtcrime.securesms'] === 'Social Media', JSON.stringify(cats));
 
 const unlink = await call('POST', '/unlink-device', { key: keys.a, body: { clientIdA: ids.a, clientIdB: ids.b } });

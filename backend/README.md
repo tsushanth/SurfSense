@@ -1,6 +1,6 @@
 # SurfSense Backend
 
-Express.js API server for the SurfSense cross-device usage tracking ecosystem. Handles device registration, linking, usage categorization (local lists and patterns, plus a Play Store lookup for Android packages), and summary storage.
+Express.js API server for the SurfSense cross-device usage tracking ecosystem. Handles device registration, linking, usage categorization (domains: local lists and patterns; Android packages: curated map, cache, then the Play Store category, with regexes only as a fallback when Play is unavailable), and summary storage.
 
 ## Setup
 
@@ -18,7 +18,7 @@ npm start
 | `SUPABASE_URL` | Yes | Your Supabase project URL |
 | `SUPABASE_SERVICE_KEY` | Yes | Supabase service role key (not the anon key) |
 | `PORT` | No | Server port (default: 8080) |
-| `PLAY_LOOKUP_ENABLED` | No | Default on; set `false` to disable the Play Store lookup (packages categorize as Other, uncached) |
+| `PLAY_LOOKUP_ENABLED` | No | Default on; set `false` to disable the Play Store lookup (packages fall back to regex patterns or Other, uncached) |
 | `CORS_ORIGINS` | No | Comma-separated allowed origins (empty = allow non-browser) |
 
 ## Database
