@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun requestUsageAccessPermission() {
         if (hasUsageStatsPermission()) return
-        usageAccessDialog = androidx.appcompat.app.AlertDialog.Builder(this)
+        usageAccessDialog = com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
             .setTitle(R.string.usage_access_title)
             .setMessage(R.string.usage_access_message)
             .setPositiveButton(R.string.usage_access_continue) { _, _ ->
