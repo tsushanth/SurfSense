@@ -2,9 +2,11 @@ package com.kreativekoala.surfsense.viewmodel
 
 import android.app.Application
 import android.net.Uri
+import android.os.SystemClock
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.work.Constraints
+import androidx.work.ExistingWorkPolicy
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkInfo
@@ -33,6 +35,7 @@ import com.kreativekoala.surfsense.usage.CategoryOverrides
 import com.kreativekoala.surfsense.usage.UsageAccess
 import com.kreativekoala.surfsense.usage.UsageCollector
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -133,6 +136,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private var weekJob: Job? = null
     private var appsJob: Job? = null
     private var exportJob: Job? = null
+    /** The newest refresh; starting another cancels it so an older snapshot never lands last. */
+    private var refreshJob: Job? = null
+    /** When the last refresh started (elapsedRealtime, 0 = never) and which local day it was for. */
+    private var lastRefreshAt = 0L
+    private var lastRefreshDay: String? = null
 
     private val _uiState = MutableStateFlow(MainUiState())
     val uiState: StateFlow<MainUiState> = _uiState.asStateFlow()
@@ -161,7 +169,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun refreshData(extraError: String? = null) {
-        viewModelScope.launch {
+        refreshJob?.cancel()
+        lastRefreshAt = SystemClock.elapsedRealtime()
+        lastRefreshDay = repository.getTodayDate()
+        val job = viewModelScope.launch(start = CoroutineStart.LAZY) {
             _uiState.value = _uiState.value.copy(isLoading = true, error = null)
             try {
                 val deviceId = Identity.identity().clientId
@@ -259,6 +270,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     todayLoaded = true,
                     scope = TodayModel.resolveScope(todayByDevice, _uiState.value.scope),
                 )
+            } catch (e: CancellationException) {
+                // A newer refresh replaced this one; it owns isLoading. If nothing replaced it (scope cleared),
+                // do not leave the spinner on.
+                if (refreshJob === coroutineContext[Job]) _uiState.update { it.copy(isLoading = false) }
+                throw e
             } catch (e: Exception) {
                 Timber.e(e, "Error refreshing data")
                 _uiState.value = _uiState.value.copy(
@@ -268,6 +284,22 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 )
             }
         }
+        refreshJob = job
+        job.start()
+    }
+
+    /**
+     * The app came back to the foreground. Refreshes Today (and Week, if it has been loaded) when the last refresh
+     * is over a minute old or the local date changed, so the morning after does not show yesterday as "today".
+     * Does nothing before the first refresh (initialize() starts that one).
+     */
+    fun onAppResumed() {
+        if (lastRefreshAt == 0L) return
+        val stale = SystemClock.elapsedRealtime() - lastRefreshAt > RESUME_REFRESH_AFTER_MS
+        val dayChanged = repository.getTodayDate() != lastRefreshDay
+        if (!stale && !dayChanged) return
+        refreshData()
+        if (_uiState.value.week.loaded) loadWeek()
     }
 
     fun linkDevice(code: String) {
@@ -293,6 +325,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             val result = repository.unlinkDevice(Identity.identity().clientId, targetDeviceId)
             onComplete(result.isSuccess)
             if (result.isSuccess) {
+                // An in-flight refresh read the linked list before the unlink and would bring the device back.
+                if (refreshJob?.isActive == true) refreshData()
                 _uiState.update { s ->
                     val today = s.todayByDevice.filter { it.id != targetDeviceId }
                     s.copy(
@@ -345,7 +379,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             .build()
 
         val workManager = WorkManager.getInstance(context)
-        workManager.enqueue(syncRequest)
+        // Unique work: two quick override picks queue one sync after the other instead of running two workers
+        // that can submit out of order (the older override set landing last).
+        workManager.enqueueUniqueWork(SYNC_NOW_WORK, ExistingWorkPolicy.APPEND_OR_REPLACE, syncRequest)
 
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true, error = null)
@@ -407,10 +443,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             _uiState.update { it.copy(export = ExportState(preparing = true)) }
             val next = try {
                 val devices = historyDevices()
-                val (rows, failed) = withContext(Dispatchers.IO) { history.load(devices, EXPORT_DAYS) }
-                val exportRows = ExportRows.from(rows)
+                val load = withContext(Dispatchers.IO) { history.loadDetailed(devices, EXPORT_DAYS) }
+                val exportRows = ExportRows.from(load.rows)
                 when {
-                    failed > 0 -> ExportState(outcome = ExportOutcome.LoadFailed)
+                    load.failedDays > 0 && load.rateLimited -> ExportState(outcome = ExportOutcome.Busy)
+                    load.failedDays > 0 -> ExportState(outcome = ExportOutcome.LoadFailed)
                     exportRows.isEmpty() -> ExportState(outcome = ExportOutcome.NothingToExport)
                     else -> ExportState(
                         csv = CsvExport.build(exportRows),
@@ -473,7 +510,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     /** Top apps on this phone today, with their category from overrides, then the server. */
     fun loadApps() {
-        if (appsJob?.isActive == true) return
+        appsJob?.cancel()
         appsJob = viewModelScope.launch {
             val app = getApplication<Application>()
             val granted = UsageAccess.isGranted(app)
@@ -558,6 +595,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         private const val WEEK_HISTORY_DAYS = 14
         private const val APPS_SHOWN = 15
         private const val EXPORT_DAYS = 30
+        private const val RESUME_REFRESH_AFTER_MS = 60_000L
+        private const val SYNC_NOW_WORK = "surfsense-sync-now"
 
         fun formatSeconds(totalSeconds: Int): String {
             val hours = totalSeconds / 3600

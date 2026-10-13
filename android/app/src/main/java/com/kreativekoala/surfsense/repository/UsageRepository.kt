@@ -12,15 +12,13 @@ import com.kreativekoala.surfsense.UnlinkDeviceRequest
 import com.kreativekoala.surfsense.net.toFailure
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+import com.kreativekoala.surfsense.usage.Day
+import java.util.TimeZone
 /**
  * Repository for handling all usage data and API operations
  */
 class UsageRepository(private val context: Context) {
     private val apiService: ApiService = ApiClient.create()
-    private val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
 
     // MARK: - Summary History
 
@@ -105,7 +103,11 @@ class UsageRepository(private val context: Context) {
 
     // MARK: - Helpers
 
-    fun getTodayDate(): String = dateFormat.format(Date())
+    /**
+     * Today's local date as yyyy-MM-dd. Built per call with the current default zone (thread-safe, follows a
+     * time-zone change), the same way UsageSummaryWorker names the day it submits.
+     */
+    fun getTodayDate(): String = Day.dayString(System.currentTimeMillis(), TimeZone.getDefault())
 
     companion object {
         @Volatile
