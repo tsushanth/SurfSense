@@ -4,6 +4,7 @@ import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import com.kreativekoala.surfsense.identity.Identity
 import com.kreativekoala.surfsense.net.ReauthAuthenticator
+import com.kreativekoala.surfsense.net.RetryInterceptor
 import okhttp3.Dispatcher
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -32,9 +33,11 @@ object ApiClient {
     private fun buildRegistrationService(): ApiService {
         val clientBuilder = OkHttpClient.Builder()
             .dispatcher(Dispatcher())
+            .retryOnConnectionFailure(false)
             .connectTimeout(Config.CONNECT_TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(Config.READ_TIMEOUT, TimeUnit.SECONDS)
             .writeTimeout(Config.WRITE_TIMEOUT, TimeUnit.SECONDS)
+        clientBuilder.addInterceptor(RetryInterceptor())
         if (Config.ENABLE_NETWORK_LOGGING) {
             clientBuilder.addInterceptor(loggingInterceptor())
         }
@@ -68,6 +71,7 @@ object ApiClient {
 
     private fun buildApiService(): ApiService {
         val clientBuilder = OkHttpClient.Builder()
+            .retryOnConnectionFailure(false)
             .connectTimeout(Config.CONNECT_TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(Config.READ_TIMEOUT, TimeUnit.SECONDS)
             .writeTimeout(Config.WRITE_TIMEOUT, TimeUnit.SECONDS)
@@ -87,19 +91,8 @@ object ApiClient {
             clientBuilder.addInterceptor(loggingInterceptor())
         }
 
-        // Retry interceptor
-        clientBuilder.addInterceptor { chain ->
-            var response = chain.proceed(chain.request())
-            var tryCount = 0
-
-            while (!response.isSuccessful && tryCount < 3) {
-                tryCount++
-                response.close()
-                response = chain.proceed(chain.request())
-            }
-
-            response
-        }
+        // Retry connection failures and idempotent 5xx only (see RetryPolicy)
+        clientBuilder.addInterceptor(RetryInterceptor())
 
         return retrofit(clientBuilder.build())
     }
