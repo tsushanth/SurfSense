@@ -1,0 +1,1 @@
+La sincronizzazione funziona di nuovo: i tuoi dispositivi si ricollegano e i totali giornalieri sono più precisi. Rimossi i permessi non più usati.

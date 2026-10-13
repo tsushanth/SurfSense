@@ -1,0 +1,1 @@
+La synchronisation fonctionne de nouveau : vos appareils se reconnectent et les totaux quotidiens sont plus précis. Des autorisations inutilisées ont été supprimées.

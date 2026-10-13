@@ -12,14 +12,37 @@ android {
         applicationId = "com.kreativekoala.surfsense"
         minSdk = 24
         targetSdk = 36
-        versionCode = 9
-        versionName = "9.1"
+        versionCode = 10
+        versionName = "10.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        val storeFile = providers.gradleProperty("ANDROID_UPLOAD_STORE_FILE")
+        val storePassword = providers.gradleProperty("ANDROID_UPLOAD_STORE_PASSWORD")
+        val keyAlias = providers.gradleProperty("ANDROID_UPLOAD_KEY_ALIAS")
+        val keyPassword = providers.gradleProperty("ANDROID_UPLOAD_KEY_PASSWORD")
+        val signingProps = listOf(storeFile, storePassword, keyAlias, keyPassword)
+        if (signingProps.any { it.isPresent } && !signingProps.all { it.isPresent }) {
+            logger.warn("Release signing disabled: set all of ANDROID_UPLOAD_STORE_FILE, ANDROID_UPLOAD_STORE_PASSWORD, ANDROID_UPLOAD_KEY_ALIAS, ANDROID_UPLOAD_KEY_PASSWORD")
+        }
+        if (signingProps.all { it.isPresent }) {
+            create("release") {
+                this.storeFile = file(storeFile.get())
+                this.storePassword = storePassword.get()
+                this.keyAlias = keyAlias.get()
+                this.keyPassword = keyPassword.get()
+            }
+        }
+    }
+
     buildTypes {
+        debug {
+            providers.gradleProperty("APP_ID_SUFFIX").orNull?.let { applicationIdSuffix = it }
+        }
         release {
+            signingConfigs.findByName("release")?.let { signingConfig = it }
             isMinifyEnabled = false
             isShrinkResources = false
             proguardFiles(

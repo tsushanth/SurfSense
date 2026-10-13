@@ -59,7 +59,7 @@ Subject: a calm, descriptive instrument for people who want to see their day, no
 
 ## Part 5: Release
 
-- Versions: Android 10.0.0 (code 10), extension 4.0.0. Confirm against Play and the Chrome Web Store before bumping.
+- Versions: Android 10.0.0 (versionCode 10) is the reliability release (this plan); the redesign and new features ship as 10.1.0 from a separate plan. Extension 4.0.0 (confirm both against Google Play and the Chrome Web Store before publishing).
 - Pre-push secrets scan; push after each merge.
 - Android: signing credentials come from `~/.gradle/gradle.properties` via `providers.gradleProperty(...)` (see the shared CLAUDE.md); never write keystore passwords or files into the repo, and verify `android/app/build.gradle.kts` follows that before building. AAB via Gradle, upload to Play (staged rollout). Minify stays off.
 - Extension: zip and submit to the Chrome Web Store.

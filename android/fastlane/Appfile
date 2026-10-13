@@ -1,0 +1,2 @@
+# The Play service-account key path comes from the SUPPLY_JSON_KEY environment variable (never commit it).
+package_name("com.kreativekoala.surfsense")

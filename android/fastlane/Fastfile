@@ -1,0 +1,54 @@
+default_platform(:android)
+
+platform :android do
+  before_all do
+    key = ENV["SUPPLY_JSON_KEY"]
+    UI.user_error!("Set SUPPLY_JSON_KEY to the path of the Play service-account JSON before running this lane.") if key.nil? || key.empty?
+    UI.user_error!("SUPPLY_JSON_KEY does not point to an existing file.") unless File.exist?(File.expand_path(key))
+  end
+
+  desc "Upload to the internal track for smoke testing"
+  lane :deploy_internal do
+    upload_to_play_store(
+      track: "internal",
+      aab: "app/build/outputs/bundle/release/app-release.aab",
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+      skip_upload_changelogs: false,
+      release_status: "completed"
+    )
+  end
+
+  desc "Validate the production upload with Google without publishing anything"
+  lane :validate do
+    upload_to_play_store(
+      track: "production",
+      aab: "app/build/outputs/bundle/release/app-release.aab",
+      validate_only: true,
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+      skip_upload_changelogs: false,
+      release_status: "inProgress",
+      rollout: "0.2"
+    )
+  end
+
+  desc "Staged production rollout. ROLLOUT env sets the fraction (default 0.2). Store listing text is NOT touched."
+  lane :deploy_staged do
+    rollout = (ENV["ROLLOUT"] || "0.2")
+    fraction = rollout.to_f
+    UI.user_error!("ROLLOUT must be a number greater than 0 and less than 1 (for example 0.2)") unless fraction > 0 && fraction < 1
+    upload_to_play_store(
+      track: "production",
+      aab: "app/build/outputs/bundle/release/app-release.aab",
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+      skip_upload_changelogs: false,
+      release_status: "inProgress",
+      rollout: rollout
+    )
+  end
+end

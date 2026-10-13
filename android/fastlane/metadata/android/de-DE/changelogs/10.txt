@@ -1,0 +1,1 @@
+Die Synchronisierung funktioniert wieder: Deine Geräte verbinden sich erneut und die Tagessummen sind genauer. Nicht mehr benötigte Berechtigungen wurden entfernt.
