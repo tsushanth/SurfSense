@@ -72,6 +72,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
         viewModelScope.launch {
             registerDevice()
+            // Registration may have replaced a burned id; use the current one.
+            _uiState.value = _uiState.value.copy(deviceId = Identity.identity().clientId)
             refreshData()
         }
     }
@@ -88,7 +90,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true, error = null)
             try {
-                val deviceId = _uiState.value.deviceId
+                val deviceId = Identity.identity().clientId
                 val today = repository.getTodayDate()
                 val allUsage = mutableMapOf<String, Map<String, Int>>()
                 val devices = mutableListOf<LinkedDeviceUi>()

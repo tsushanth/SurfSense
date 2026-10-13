@@ -3,8 +3,8 @@ package com.kreativekoala.surfsense
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import com.kreativekoala.surfsense.identity.Identity
-import kotlinx.coroutines.runBlocking
-import okhttp3.Authenticator
+import com.kreativekoala.surfsense.net.ReauthAuthenticator
+import okhttp3.Dispatcher
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -16,7 +16,49 @@ object ApiClient {
     @Volatile
     private var instance: ApiService? = null
 
-    private const val RETRIED_AUTH_HEADER = "X-SurfSense-Auth-Retried"
+    @Volatile
+    private var registrationInstance: ApiService? = null
+
+    /**
+     * Dedicated client for /register-client: own dispatcher (so a blocked 401 handler on the main client
+     * can never starve registration), no authenticator and no Authorization header.
+     */
+    fun createForRegistration(): ApiService {
+        return registrationInstance ?: synchronized(this) {
+            registrationInstance ?: buildRegistrationService().also { registrationInstance = it }
+        }
+    }
+
+    private fun buildRegistrationService(): ApiService {
+        val clientBuilder = OkHttpClient.Builder()
+            .dispatcher(Dispatcher())
+            .connectTimeout(Config.CONNECT_TIMEOUT, TimeUnit.SECONDS)
+            .readTimeout(Config.READ_TIMEOUT, TimeUnit.SECONDS)
+            .writeTimeout(Config.WRITE_TIMEOUT, TimeUnit.SECONDS)
+        if (Config.ENABLE_NETWORK_LOGGING) {
+            clientBuilder.addInterceptor(loggingInterceptor())
+        }
+        return retrofit(clientBuilder.build())
+    }
+
+    private fun loggingInterceptor() = HttpLoggingInterceptor { message ->
+        Timber.tag("API").d(message)
+    }.apply {
+        redactHeader("Authorization")
+        setLevel(HttpLoggingInterceptor.Level.BODY)
+    }
+
+    private fun retrofit(client: OkHttpClient): ApiService {
+        val gson = GsonBuilder()
+            .setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
+            .create()
+        return Retrofit.Builder()
+            .baseUrl(Config.API_BASE_URL)
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+            .create(ApiService::class.java)
+    }
 
     fun create(): ApiService {
         return instance ?: synchronized(this) {
@@ -38,26 +80,11 @@ object ApiClient {
         }
 
         // 401 = the server does not recognise our key (e.g. its database was reset): register again once.
-        clientBuilder.authenticator(Authenticator { _, response ->
-            val request = response.request
-            if (request.url.encodedPath.endsWith("/register-client") || request.header(RETRIED_AUTH_HEADER) != null) {
-                return@Authenticator null
-            }
-            val recovered = runBlocking { Identity.registrar().onUnauthorized() }
-            if (!recovered) return@Authenticator null
-            request.newBuilder()
-                .header("Authorization", "Bearer ${Identity.identity().apiKey}")
-                .header(RETRIED_AUTH_HEADER, "1")
-                .build()
-        })
+        clientBuilder.authenticator(ReauthAuthenticator(Identity.identity(), Identity.registrar()))
 
         // Only enable logging in debug builds
         if (Config.ENABLE_NETWORK_LOGGING) {
-            val logging = HttpLoggingInterceptor { message ->
-                Timber.tag("API").d(message)
-            }
-            logging.setLevel(HttpLoggingInterceptor.Level.BODY)
-            clientBuilder.addInterceptor(logging)
+            clientBuilder.addInterceptor(loggingInterceptor())
         }
 
         // Retry interceptor
@@ -74,17 +101,6 @@ object ApiClient {
             response
         }
 
-        val client = clientBuilder.build()
-
-        val gson = GsonBuilder()
-            .setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
-            .create()
-
-        return Retrofit.Builder()
-            .baseUrl(Config.API_BASE_URL)
-            .client(client)
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .build()
-            .create(ApiService::class.java)
+        return retrofit(clientBuilder.build())
     }
 }

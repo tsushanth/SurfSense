@@ -16,7 +16,7 @@ object Identity {
             val id = DeviceIdentity(AndroidSecretStore(app))
             identity = id
             registrar = DeviceRegistrar(id, { deviceName(app) }) { request ->
-                com.kreativekoala.surfsense.ApiClient.create().registerClient(request)
+                com.kreativekoala.surfsense.ApiClient.createForRegistration().registerClient(request)
             }
         }
     }

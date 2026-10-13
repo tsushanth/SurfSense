@@ -81,8 +81,40 @@ class DeviceRegistrarTest {
         val f = Fixture(ok("key-new"))
         f.identity.apiKey = "stale"
         val id = f.identity.clientId
-        assertTrue(f.registrar.onUnauthorized())
+        assertTrue(f.registrar.onUnauthorized("stale"))
         assertEquals(id, f.requests.single().clientId)
         assertEquals("key-new", f.identity.apiKey)
+    }
+
+    @Test fun staleUsedKeyWhileNewerKeyStoredMakesNoRegisterCall() = runBlocking {
+        val f = Fixture()
+        f.identity.apiKey = "newer"
+        assertTrue(f.registrar.onUnauthorized("old"))
+        assertEquals(0, f.requests.size)
+        assertEquals("newer", f.identity.apiKey)
+    }
+
+    @Test fun nullUsedKeyWhileKeyStoredMakesNoRegisterCall() = runBlocking {
+        val f = Fixture()
+        f.identity.apiKey = "have"
+        assertTrue(f.registrar.onUnauthorized(null))
+        assertEquals(0, f.requests.size)
+        assertEquals("have", f.identity.apiKey)
+    }
+
+    @Test fun successWithNullBodyReturnsFalseWithoutResettingTheId() = runBlocking {
+        val f = Fixture({ Response.success<RegisterClientResponse>(null) })
+        val id = f.identity.clientId
+        assertFalse(f.registrar.ensureRegistered())
+        assertEquals(1, f.requests.size)
+        assertEquals(id, f.identity.clientId)
+    }
+
+    @Test fun malformedJsonReturnsFalseAndKeepsTheId() = runBlocking {
+        val f = Fixture({ throw com.google.gson.JsonSyntaxException("bad json") })
+        val id = f.identity.clientId
+        assertFalse(f.registrar.ensureRegistered())
+        assertEquals(id, f.identity.clientId)
+        assertNull(f.identity.apiKey)
     }
 }
