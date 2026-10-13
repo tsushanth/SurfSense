@@ -155,4 +155,48 @@
         <item quantity="one">%1$d दिन लोड नहीं हो सका। अपना कनेक्शन जाँचें और फिर से कोशिश करें।</item>
         <item quantity="other">%1$d दिन लोड नहीं हो सके। अपना कनेक्शन जाँचें और फिर से कोशिश करें।</item>
     </plurals>
+
+    <!-- Devices and Settings (10.1.0) -->
+    <string name="devices_add">डिवाइस जोड़ें</string>
+    <string name="devices_share">यह डिवाइस शेयर करें</string>
+    <string name="devices_section_linked">लिंक किए गए डिवाइस</string>
+    <string name="devices_empty">दूसरा डिवाइस जोड़ने के लिए, उस पर “यह डिवाइस शेयर करें” पर टैप करें, फिर यहां “डिवाइस जोड़ें” से उसका कोड डालें।</string>
+    <string name="device_type_browser">ब्राउज़र</string>
+    <string name="device_type_other">अन्य डिवाइस</string>
+    <string name="device_remove_cd">%1$s हटाएं</string>
+    <string name="device_remove_title">%1$s हटाएं?</string>
+    <string name="device_remove_message">यह अब यहां नहीं दिखेगा। इसे फिर से जोड़ने के लिए नए कोड का उपयोग करें।</string>
+    <string name="device_removed">डिवाइस हटाया गया</string>
+    <string name="device_remove_failed">%1$s को हटाया नहीं जा सका। अपना कनेक्शन जांचें और फिर से कोशिश करें।</string>
+    <string name="add_device_prompt">दूसरे डिवाइस पर SurfSense खोलें और “यह डिवाइस शेयर करें” पर टैप करें। दिखाया गया %1$d अंकों का कोड डालें।</string>
+    <string name="add_device_code_label">कोड</string>
+    <string name="add_device_confirm">जोड़ें</string>
+    <string name="device_added">डिवाइस जोड़ा गया</string>
+    <string name="share_device_prompt">एक कोड बनाएं, फिर उसे अपने दूसरे डिवाइस पर “डिवाइस जोड़ें” से डालें।</string>
+    <string name="share_create_code">कोड बनाएं</string>
+    <string name="share_creating">कोड बनाया जा रहा है…</string>
+    <string name="share_new_code">नया कोड</string>
+    <string name="share_expires">%1$d मिनट में समाप्त होगा</string>
+    <string name="share_code_failed">कोड नहीं बनाया जा सका। अपना कनेक्शन जांचें और फिर से कोशिश करें।</string>
+    <string name="settings_section_sync">सिंक</string>
+    <string name="settings_sync_interval">बैकग्राउंड में लगभग हर %1$d मिनट में सिंक होता है।</string>
+    <string name="settings_section_device">यह डिवाइस</string>
+    <string name="settings_device_name">डिवाइस का नाम</string>
+    <string name="settings_device_id">डिवाइस ID</string>
+    <string name="settings_section_data">आपका डेटा</string>
+    <string name="export_data">मेरा डेटा एक्सपोर्ट करें</string>
+    <string name="export_data_hint">आपके सभी डिवाइस के पिछले 30 दिन, CSV फ़ाइल के रूप में।</string>
+    <string name="export_preparing">एक्सपोर्ट तैयार हो रहा है…</string>
+    <string name="export_done">एक्सपोर्ट हो गया</string>
+    <string name="export_nothing">अभी एक्सपोर्ट करने के लिए कुछ नहीं है। पहले सिंक करें या कोई डिवाइस लिंक करें।</string>
+    <string name="export_load_failed">आपका पूरा डेटा लोड नहीं हो सका। अपना कनेक्शन जांचें और फिर से कोशिश करें।</string>
+    <string name="export_save_failed">फ़ाइल सेव नहीं हो सकी। फिर से कोशिश करें और कोई दूसरी जगह चुनें।</string>
+    <string name="settings_section_overrides">आपकी चुनी गई श्रेणियां</string>
+    <string name="override_remove_cd">%1$s के लिए अपने-आप तय श्रेणी इस्तेमाल करें</string>
+    <string name="reset_data">सारा डेटा रीसेट करें</string>
+    <string name="reset_data_title">सारा डेटा रीसेट करें?</string>
+    <string name="reset_data_message">इससे इस फ़ोन पर उपयोग का इतिहास और आपकी चुनी गई श्रेणियां मिट जाएंगी। लिंक किए गए डिवाइस लिंक रहेंगे।</string>
+    <string name="privacy_policy_label">गोपनीयता नीति</string>
+    <string name="terms_label">सेवा की शर्तें</string>
+    <string name="about_font_credit">Hanken Grotesk फ़ॉन्ट में, SIL Open Font License के तहत लाइसेंस प्राप्त।</string>
 </resources>

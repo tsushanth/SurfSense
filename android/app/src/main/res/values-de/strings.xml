@@ -155,4 +155,48 @@
         <item quantity="one">%1$d Tag konnte nicht geladen werden. Prüfe deine Verbindung und versuche es erneut.</item>
         <item quantity="other">%1$d Tage konnten nicht geladen werden. Prüfe deine Verbindung und versuche es erneut.</item>
     </plurals>
+
+    <!-- Devices and Settings (10.1.0) -->
+    <string name="devices_add">Gerät hinzufügen</string>
+    <string name="devices_share">Dieses Gerät teilen</string>
+    <string name="devices_section_linked">Verknüpfte Geräte</string>
+    <string name="devices_empty">Um ein weiteres Gerät hinzuzufügen, tippe dort auf „Dieses Gerät teilen“ und gib den Code hier unter „Gerät hinzufügen“ ein.</string>
+    <string name="device_type_browser">Browser</string>
+    <string name="device_type_other">Anderes Gerät</string>
+    <string name="device_remove_cd">%1$s entfernen</string>
+    <string name="device_remove_title">%1$s entfernen?</string>
+    <string name="device_remove_message">Es wird hier nicht mehr angezeigt. Um es wieder hinzuzufügen, verwende einen neuen Code.</string>
+    <string name="device_removed">Gerät entfernt</string>
+    <string name="device_remove_failed">%1$s konnte nicht entfernt werden. Prüfe deine Verbindung und versuche es erneut.</string>
+    <string name="add_device_prompt">Öffne SurfSense auf dem anderen Gerät und tippe auf „Dieses Gerät teilen“. Gib den angezeigten %1$d-stelligen Code ein.</string>
+    <string name="add_device_code_label">Code</string>
+    <string name="add_device_confirm">Hinzufügen</string>
+    <string name="device_added">Gerät hinzugefügt</string>
+    <string name="share_device_prompt">Erstelle einen Code und gib ihn auf deinem anderen Gerät unter „Gerät hinzufügen“ ein.</string>
+    <string name="share_create_code">Code erstellen</string>
+    <string name="share_creating">Code wird erstellt…</string>
+    <string name="share_new_code">Neuer Code</string>
+    <string name="share_expires">Läuft in %1$d Minuten ab</string>
+    <string name="share_code_failed">Code konnte nicht erstellt werden. Prüfe deine Verbindung und versuche es erneut.</string>
+    <string name="settings_section_sync">Synchronisierung</string>
+    <string name="settings_sync_interval">Synchronisiert im Hintergrund etwa alle %1$d Minuten.</string>
+    <string name="settings_section_device">Dieses Gerät</string>
+    <string name="settings_device_name">Gerätename</string>
+    <string name="settings_device_id">Geräte-ID</string>
+    <string name="settings_section_data">Deine Daten</string>
+    <string name="export_data">Meine Daten exportieren</string>
+    <string name="export_data_hint">Die letzten 30 Tage von allen deinen Geräten als CSV-Datei.</string>
+    <string name="export_preparing">Export wird vorbereitet…</string>
+    <string name="export_done">Exportiert</string>
+    <string name="export_nothing">Noch nichts zu exportieren. Synchronisiere zuerst oder verknüpfe ein Gerät.</string>
+    <string name="export_load_failed">Nicht alle Daten konnten geladen werden. Prüfe deine Verbindung und versuche es erneut.</string>
+    <string name="export_save_failed">Die Datei konnte nicht gespeichert werden. Versuche es erneut und wähle einen anderen Speicherort.</string>
+    <string name="settings_section_overrides">Von dir festgelegte Kategorien</string>
+    <string name="override_remove_cd">Automatische Kategorie für %1$s verwenden</string>
+    <string name="reset_data">Alle Daten zurücksetzen</string>
+    <string name="reset_data_title">Alle Daten zurücksetzen?</string>
+    <string name="reset_data_message">Dadurch werden der Nutzungsverlauf und die von dir festgelegten Kategorien auf diesem Telefon gelöscht. Verknüpfte Geräte bleiben verknüpft.</string>
+    <string name="privacy_policy_label">Datenschutzerklärung</string>
+    <string name="terms_label">Nutzungsbedingungen</string>
+    <string name="about_font_credit">Gesetzt in Hanken Grotesk, lizenziert unter der SIL Open Font License.</string>
 </resources>

@@ -153,4 +153,48 @@
         <item quantity="many">تعذّر تحميل %1$d يومًا. تحقق من اتصالك وأعد المحاولة.</item>
         <item quantity="other">تعذّر تحميل %1$d يوم. تحقق من اتصالك وأعد المحاولة.</item>
     </plurals>
+
+    <!-- Devices and Settings (10.1.0) -->
+    <string name="devices_add">إضافة جهاز</string>
+    <string name="devices_share">مشاركة هذا الجهاز</string>
+    <string name="devices_section_linked">الأجهزة المرتبطة</string>
+    <string name="devices_empty">لإضافة جهاز آخر، اضغط على «مشاركة هذا الجهاز» فيه، ثم أدخل رمزه هنا عبر «إضافة جهاز».</string>
+    <string name="device_type_browser">المتصفح</string>
+    <string name="device_type_other">جهاز آخر</string>
+    <string name="device_remove_cd">إزالة %1$s</string>
+    <string name="device_remove_title">إزالة %1$s؟</string>
+    <string name="device_remove_message">لن يظهر هنا بعد الآن. لإضافته مرة أخرى، استخدم رمزًا جديدًا.</string>
+    <string name="device_removed">تمت إزالة الجهاز</string>
+    <string name="device_remove_failed">تعذّرت إزالة %1$s. تحقق من اتصالك وحاول مرة أخرى.</string>
+    <string name="add_device_prompt">على الجهاز الآخر، افتح SurfSense واضغط على «مشاركة هذا الجهاز». أدخل الرمز المكوّن من %1$d أرقام الذي يظهر.</string>
+    <string name="add_device_code_label">الرمز</string>
+    <string name="add_device_confirm">إضافة</string>
+    <string name="device_added">تمت إضافة الجهاز</string>
+    <string name="share_device_prompt">أنشئ رمزًا، ثم أدخله على جهازك الآخر عبر «إضافة جهاز».</string>
+    <string name="share_create_code">إنشاء رمز</string>
+    <string name="share_creating">جارٍ إنشاء الرمز…</string>
+    <string name="share_new_code">رمز جديد</string>
+    <string name="share_expires">تنتهي صلاحيته خلال %1$d دقيقة</string>
+    <string name="share_code_failed">تعذّر إنشاء رمز. تحقق من اتصالك وحاول مرة أخرى.</string>
+    <string name="settings_section_sync">المزامنة</string>
+    <string name="settings_sync_interval">تتم المزامنة في الخلفية كل %1$d دقيقة تقريبًا.</string>
+    <string name="settings_section_device">هذا الجهاز</string>
+    <string name="settings_device_name">اسم الجهاز</string>
+    <string name="settings_device_id">معرّف الجهاز</string>
+    <string name="settings_section_data">بياناتك</string>
+    <string name="export_data">تصدير بياناتي</string>
+    <string name="export_data_hint">آخر 30 يومًا من جميع أجهزتك، في ملف CSV.</string>
+    <string name="export_preparing">جارٍ تجهيز التصدير…</string>
+    <string name="export_done">تم التصدير</string>
+    <string name="export_nothing">لا يوجد شيء لتصديره بعد. زامِن أو اربط جهازًا أولًا.</string>
+    <string name="export_load_failed">تعذّر تحميل كل بياناتك. تحقق من اتصالك وحاول مرة أخرى.</string>
+    <string name="export_save_failed">تعذّر حفظ الملف. حاول مرة أخرى واختر مكانًا آخر.</string>
+    <string name="settings_section_overrides">الفئات التي اخترتها</string>
+    <string name="override_remove_cd">استخدام الفئة التلقائية لـ %1$s</string>
+    <string name="reset_data">إعادة تعيين كل البيانات</string>
+    <string name="reset_data_title">إعادة تعيين كل البيانات؟</string>
+    <string name="reset_data_message">سيؤدي هذا إلى حذف سجل الاستخدام والفئات التي اخترتها على هذا الهاتف. تبقى الأجهزة المرتبطة مرتبطة.</string>
+    <string name="privacy_policy_label">سياسة الخصوصية</string>
+    <string name="terms_label">شروط الخدمة</string>
+    <string name="about_font_credit">الخط المستخدم Hanken Grotesk، مرخّص بموجب SIL Open Font License.</string>
 </resources>

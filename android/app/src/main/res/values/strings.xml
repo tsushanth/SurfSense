@@ -156,4 +156,50 @@
         <item quantity="one">Couldn\'t load %1$d day. Check your connection and try again.</item>
         <item quantity="other">Couldn\'t load %1$d days. Check your connection and try again.</item>
     </plurals>
+
+    <!-- Devices and Settings (10.1.0) -->
+    <string name="device_type_android" translatable="false">Android</string>
+    <string name="device_type_ios" translatable="false">iPhone</string>
+    <string name="devices_add">Add a device</string>
+    <string name="devices_share">Share this device</string>
+    <string name="devices_section_linked">Linked devices</string>
+    <string name="devices_empty">To add another device, tap Share this device on it, then enter its code here with Add a device.</string>
+    <string name="device_type_browser">Browser</string>
+    <string name="device_type_other">Other device</string>
+    <string name="device_remove_cd">Remove %1$s</string>
+    <string name="device_remove_title">Remove %1$s?</string>
+    <string name="device_remove_message">It will no longer appear here. To add it again, use a new code.</string>
+    <string name="device_removed">Device removed</string>
+    <string name="device_remove_failed">Couldn\'t remove %1$s. Check your connection and try again.</string>
+    <string name="add_device_prompt">On the other device, open SurfSense and tap Share this device. Enter the %1$d-digit code it shows.</string>
+    <string name="add_device_code_label">Code</string>
+    <string name="add_device_confirm">Add</string>
+    <string name="device_added">Device added</string>
+    <string name="share_device_prompt">Create a code, then enter it on your other device with Add a device.</string>
+    <string name="share_create_code">Create code</string>
+    <string name="share_creating">Creating code…</string>
+    <string name="share_new_code">New code</string>
+    <string name="share_expires">Expires in %1$d minutes</string>
+    <string name="share_code_failed">Couldn\'t create a code. Check your connection and try again.</string>
+    <string name="settings_section_sync">Sync</string>
+    <string name="settings_sync_interval">Syncs in the background about every %1$d minutes.</string>
+    <string name="settings_section_device">This device</string>
+    <string name="settings_device_name">Device name</string>
+    <string name="settings_device_id">Device ID</string>
+    <string name="settings_section_data">Your data</string>
+    <string name="export_data">Export my data</string>
+    <string name="export_data_hint">Last 30 days from all your devices, as a CSV file.</string>
+    <string name="export_preparing">Preparing export…</string>
+    <string name="export_done">Exported</string>
+    <string name="export_nothing">Nothing to export yet. Sync or link a device first.</string>
+    <string name="export_load_failed">Couldn\'t load all your data. Check your connection and try again.</string>
+    <string name="export_save_failed">Couldn\'t save the file. Try again and choose another location.</string>
+    <string name="settings_section_overrides">Categories you set</string>
+    <string name="override_remove_cd">Use the automatic category for %1$s</string>
+    <string name="reset_data">Reset all data</string>
+    <string name="reset_data_title">Reset all data?</string>
+    <string name="reset_data_message">This deletes usage history and the categories you set on this phone. Linked devices stay linked.</string>
+    <string name="privacy_policy_label">Privacy policy</string>
+    <string name="terms_label">Terms of service</string>
+    <string name="about_font_credit">Set in Hanken Grotesk, licensed under the SIL Open Font License.</string>
 </resources>

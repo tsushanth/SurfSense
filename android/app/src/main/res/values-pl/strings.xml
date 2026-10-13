@@ -159,4 +159,48 @@
         <item quantity="many">Nie udało się wczytać %1$d dni. Sprawdź połączenie i spróbuj ponownie.</item>
         <item quantity="other">Nie udało się wczytać %1$d dnia. Sprawdź połączenie i spróbuj ponownie.</item>
     </plurals>
+
+    <!-- Devices and Settings (10.1.0) -->
+    <string name="devices_add">Dodaj urządzenie</string>
+    <string name="devices_share">Udostępnij to urządzenie</string>
+    <string name="devices_section_linked">Połączone urządzenia</string>
+    <string name="devices_empty">Aby dodać inne urządzenie, kliknij na nim Udostępnij to urządzenie, a potem wpisz tutaj jego kod w Dodaj urządzenie.</string>
+    <string name="device_type_browser">Przeglądarka</string>
+    <string name="device_type_other">Inne urządzenie</string>
+    <string name="device_remove_cd">Usuń %1$s</string>
+    <string name="device_remove_title">Usunąć %1$s?</string>
+    <string name="device_remove_message">Nie będzie już tu widoczne. Aby dodać je ponownie, użyj nowego kodu.</string>
+    <string name="device_removed">Urządzenie usunięte</string>
+    <string name="device_remove_failed">Nie udało się usunąć %1$s. Sprawdź połączenie i spróbuj ponownie.</string>
+    <string name="add_device_prompt">Na drugim urządzeniu otwórz SurfSense i kliknij Udostępnij to urządzenie. Wpisz wyświetlony %1$d-cyfrowy kod.</string>
+    <string name="add_device_code_label">Kod</string>
+    <string name="add_device_confirm">Dodaj</string>
+    <string name="device_added">Urządzenie dodane</string>
+    <string name="share_device_prompt">Utwórz kod, a potem wpisz go na drugim urządzeniu w Dodaj urządzenie.</string>
+    <string name="share_create_code">Utwórz kod</string>
+    <string name="share_creating">Tworzenie kodu…</string>
+    <string name="share_new_code">Nowy kod</string>
+    <string name="share_expires">Wygasa za %1$d min</string>
+    <string name="share_code_failed">Nie udało się utworzyć kodu. Sprawdź połączenie i spróbuj ponownie.</string>
+    <string name="settings_section_sync">Synchronizacja</string>
+    <string name="settings_sync_interval">Synchronizuje się w tle mniej więcej co %1$d min.</string>
+    <string name="settings_section_device">To urządzenie</string>
+    <string name="settings_device_name">Nazwa urządzenia</string>
+    <string name="settings_device_id">Identyfikator urządzenia</string>
+    <string name="settings_section_data">Twoje dane</string>
+    <string name="export_data">Eksportuj moje dane</string>
+    <string name="export_data_hint">Ostatnie 30 dni ze wszystkich Twoich urządzeń jako plik CSV.</string>
+    <string name="export_preparing">Przygotowywanie eksportu…</string>
+    <string name="export_done">Wyeksportowano</string>
+    <string name="export_nothing">Na razie nie ma czego eksportować. Najpierw zsynchronizuj lub połącz urządzenie.</string>
+    <string name="export_load_failed">Nie udało się wczytać wszystkich danych. Sprawdź połączenie i spróbuj ponownie.</string>
+    <string name="export_save_failed">Nie udało się zapisać pliku. Spróbuj ponownie i wybierz inne miejsce.</string>
+    <string name="settings_section_overrides">Kategorie ustawione przez Ciebie</string>
+    <string name="override_remove_cd">Użyj automatycznej kategorii dla %1$s</string>
+    <string name="reset_data">Zresetuj wszystkie dane</string>
+    <string name="reset_data_title">Zresetować wszystkie dane?</string>
+    <string name="reset_data_message">Spowoduje to usunięcie historii użycia i ustawionych przez Ciebie kategorii na tym telefonie. Połączone urządzenia pozostaną połączone.</string>
+    <string name="privacy_policy_label">Polityka prywatności</string>
+    <string name="terms_label">Warunki korzystania z usługi</string>
+    <string name="about_font_credit">Złożono krojem Hanken Grotesk na licencji SIL Open Font License.</string>
 </resources>

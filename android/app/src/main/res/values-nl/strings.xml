@@ -145,4 +145,48 @@
         <item quantity="one">Kan %1$d dag niet laden. Controleer je verbinding en probeer het opnieuw.</item>
         <item quantity="other">Kan %1$d dagen niet laden. Controleer je verbinding en probeer het opnieuw.</item>
     </plurals>
+
+    <!-- Devices and Settings (10.1.0) -->
+    <string name="devices_add">Apparaat toevoegen</string>
+    <string name="devices_share">Dit apparaat delen</string>
+    <string name="devices_section_linked">Gekoppelde apparaten</string>
+    <string name="devices_empty">Tik op het andere apparaat op Dit apparaat delen en voer de code hier in met Apparaat toevoegen.</string>
+    <string name="device_type_browser">Browser</string>
+    <string name="device_type_other">Ander apparaat</string>
+    <string name="device_remove_cd">%1$s verwijderen</string>
+    <string name="device_remove_title">%1$s verwijderen?</string>
+    <string name="device_remove_message">Het verschijnt hier niet meer. Gebruik een nieuwe code om het opnieuw toe te voegen.</string>
+    <string name="device_removed">Apparaat verwijderd</string>
+    <string name="device_remove_failed">Kan %1$s niet verwijderen. Controleer je verbinding en probeer het opnieuw.</string>
+    <string name="add_device_prompt">Open SurfSense op het andere apparaat en tik op Dit apparaat delen. Voer de getoonde code van %1$d cijfers in.</string>
+    <string name="add_device_code_label">Code</string>
+    <string name="add_device_confirm">Toevoegen</string>
+    <string name="device_added">Apparaat toegevoegd</string>
+    <string name="share_device_prompt">Maak een code en voer die op je andere apparaat in met Apparaat toevoegen.</string>
+    <string name="share_create_code">Code maken</string>
+    <string name="share_creating">Code maken…</string>
+    <string name="share_new_code">Nieuwe code</string>
+    <string name="share_expires">Verloopt over %1$d minuten</string>
+    <string name="share_code_failed">Kan geen code maken. Controleer je verbinding en probeer het opnieuw.</string>
+    <string name="settings_section_sync">Synchronisatie</string>
+    <string name="settings_sync_interval">Synchroniseert op de achtergrond ongeveer elke %1$d minuten.</string>
+    <string name="settings_section_device">Dit apparaat</string>
+    <string name="settings_device_name">Apparaatnaam</string>
+    <string name="settings_device_id">Apparaat-ID</string>
+    <string name="settings_section_data">Je gegevens</string>
+    <string name="export_data">Mijn gegevens exporteren</string>
+    <string name="export_data_hint">De laatste 30 dagen van al je apparaten, als CSV-bestand.</string>
+    <string name="export_preparing">Export voorbereiden…</string>
+    <string name="export_done">Geëxporteerd</string>
+    <string name="export_nothing">Nog niets om te exporteren. Synchroniseer eerst of koppel een apparaat.</string>
+    <string name="export_load_failed">Kan niet al je gegevens laden. Controleer je verbinding en probeer het opnieuw.</string>
+    <string name="export_save_failed">Kan het bestand niet opslaan. Probeer het opnieuw en kies een andere locatie.</string>
+    <string name="settings_section_overrides">Door jou gekozen categorieën</string>
+    <string name="override_remove_cd">Automatische categorie gebruiken voor %1$s</string>
+    <string name="reset_data">Alle gegevens resetten</string>
+    <string name="reset_data_title">Alle gegevens resetten?</string>
+    <string name="reset_data_message">Hiermee worden de gebruiksgeschiedenis en de door jou gekozen categorieën op deze telefoon verwijderd. Gekoppelde apparaten blijven gekoppeld.</string>
+    <string name="privacy_policy_label">Privacybeleid</string>
+    <string name="terms_label">Servicevoorwaarden</string>
+    <string name="about_font_credit">Gezet in Hanken Grotesk, gelicentieerd onder de SIL Open Font License.</string>
 </resources>

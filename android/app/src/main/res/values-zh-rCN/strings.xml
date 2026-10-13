@@ -153,4 +153,48 @@
     <plurals name="week_failed">
         <item quantity="other">有 %1$d 天的数据无法加载。请检查网络连接后重试。</item>
     </plurals>
+
+    <!-- Devices and Settings (10.1.0) -->
+    <string name="devices_add">添加设备</string>
+    <string name="devices_share">共享此设备</string>
+    <string name="devices_section_linked">已关联的设备</string>
+    <string name="devices_empty">要添加其他设备，请在该设备上点按“共享此设备”，然后在这里通过“添加设备”输入其代码。</string>
+    <string name="device_type_browser">浏览器</string>
+    <string name="device_type_other">其他设备</string>
+    <string name="device_remove_cd">移除%1$s</string>
+    <string name="device_remove_title">要移除%1$s吗？</string>
+    <string name="device_remove_message">它将不再显示在这里。如需重新添加，请使用新代码。</string>
+    <string name="device_removed">已移除设备</string>
+    <string name="device_remove_failed">无法移除%1$s。请检查网络连接后重试。</string>
+    <string name="add_device_prompt">在另一台设备上打开 SurfSense，然后点按“共享此设备”。输入显示的 %1$d 位代码。</string>
+    <string name="add_device_code_label">代码</string>
+    <string name="add_device_confirm">添加</string>
+    <string name="device_added">已添加设备</string>
+    <string name="share_device_prompt">创建代码，然后在另一台设备上通过“添加设备”输入。</string>
+    <string name="share_create_code">创建代码</string>
+    <string name="share_creating">正在创建代码…</string>
+    <string name="share_new_code">新代码</string>
+    <string name="share_expires">%1$d 分钟后过期</string>
+    <string name="share_code_failed">无法创建代码。请检查网络连接后重试。</string>
+    <string name="settings_section_sync">同步</string>
+    <string name="settings_sync_interval">大约每 %1$d 分钟在后台同步一次。</string>
+    <string name="settings_section_device">此设备</string>
+    <string name="settings_device_name">设备名称</string>
+    <string name="settings_device_id">设备 ID</string>
+    <string name="settings_section_data">您的数据</string>
+    <string name="export_data">导出我的数据</string>
+    <string name="export_data_hint">所有设备最近 30 天的数据，保存为 CSV 文件。</string>
+    <string name="export_preparing">正在准备导出…</string>
+    <string name="export_done">已导出</string>
+    <string name="export_nothing">暂无可导出的数据。请先同步或关联设备。</string>
+    <string name="export_load_failed">无法加载全部数据。请检查网络连接后重试。</string>
+    <string name="export_save_failed">无法保存文件。请重试并选择其他位置。</string>
+    <string name="settings_section_overrides">您设置的类别</string>
+    <string name="override_remove_cd">为%1$s使用自动类别</string>
+    <string name="reset_data">重置所有数据</string>
+    <string name="reset_data_title">要重置所有数据吗？</string>
+    <string name="reset_data_message">这会删除此手机上的使用记录和您设置的类别。已关联的设备仍保持关联。</string>
+    <string name="privacy_policy_label">隐私政策</string>
+    <string name="terms_label">服务条款</string>
+    <string name="about_font_credit">字体采用 Hanken Grotesk，依据 SIL Open Font License 授权。</string>
 </resources>

@@ -153,4 +153,48 @@
     <plurals name="week_failed">
         <item quantity="other">Tidak dapat memuatkan %1$d hari. Semak sambungan anda dan cuba lagi.</item>
     </plurals>
+
+    <!-- Devices and Settings (10.1.0) -->
+    <string name="devices_add">Tambah peranti</string>
+    <string name="devices_share">Kongsi peranti ini</string>
+    <string name="devices_section_linked">Peranti dipautkan</string>
+    <string name="devices_empty">Untuk menambah peranti lain, ketik Kongsi peranti ini pada peranti itu, kemudian masukkan kodnya di sini dengan Tambah peranti.</string>
+    <string name="device_type_browser">Pelayar</string>
+    <string name="device_type_other">Peranti lain</string>
+    <string name="device_remove_cd">Alih keluar %1$s</string>
+    <string name="device_remove_title">Alih keluar %1$s?</string>
+    <string name="device_remove_message">Peranti ini tidak akan dipaparkan di sini lagi. Untuk menambahnya semula, gunakan kod baharu.</string>
+    <string name="device_removed">Peranti dialih keluar</string>
+    <string name="device_remove_failed">Tidak dapat mengalih keluar %1$s. Semak sambungan anda dan cuba lagi.</string>
+    <string name="add_device_prompt">Pada peranti lain, buka SurfSense dan ketik Kongsi peranti ini. Masukkan kod %1$d digit yang dipaparkan.</string>
+    <string name="add_device_code_label">Kod</string>
+    <string name="add_device_confirm">Tambah</string>
+    <string name="device_added">Peranti ditambah</string>
+    <string name="share_device_prompt">Cipta kod, kemudian masukkan pada peranti anda yang lain dengan Tambah peranti.</string>
+    <string name="share_create_code">Cipta kod</string>
+    <string name="share_creating">Mencipta kod…</string>
+    <string name="share_new_code">Kod baharu</string>
+    <string name="share_expires">Tamat tempoh dalam %1$d minit</string>
+    <string name="share_code_failed">Tidak dapat mencipta kod. Semak sambungan anda dan cuba lagi.</string>
+    <string name="settings_section_sync">Penyegerakan</string>
+    <string name="settings_sync_interval">Disegerakkan di latar belakang lebih kurang setiap %1$d minit.</string>
+    <string name="settings_section_device">Peranti ini</string>
+    <string name="settings_device_name">Nama peranti</string>
+    <string name="settings_device_id">ID peranti</string>
+    <string name="settings_section_data">Data anda</string>
+    <string name="export_data">Eksport data saya</string>
+    <string name="export_data_hint">30 hari terakhir daripada semua peranti anda, sebagai fail CSV.</string>
+    <string name="export_preparing">Menyediakan eksport…</string>
+    <string name="export_done">Dieksport</string>
+    <string name="export_nothing">Belum ada apa-apa untuk dieksport. Segerakkan atau pautkan peranti dahulu.</string>
+    <string name="export_load_failed">Tidak dapat memuatkan semua data anda. Semak sambungan anda dan cuba lagi.</string>
+    <string name="export_save_failed">Tidak dapat menyimpan fail. Cuba lagi dan pilih lokasi lain.</string>
+    <string name="settings_section_overrides">Kategori yang anda tetapkan</string>
+    <string name="override_remove_cd">Gunakan kategori automatik untuk %1$s</string>
+    <string name="reset_data">Tetapkan semula semua data</string>
+    <string name="reset_data_title">Tetapkan semula semua data?</string>
+    <string name="reset_data_message">Ini memadam sejarah penggunaan dan kategori yang anda tetapkan pada telefon ini. Peranti yang dipautkan kekal dipautkan.</string>
+    <string name="privacy_policy_label">Dasar privasi</string>
+    <string name="terms_label">Terma perkhidmatan</string>
+    <string name="about_font_credit">Menggunakan fon Hanken Grotesk, dilesenkan di bawah SIL Open Font License.</string>
 </resources>

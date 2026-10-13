@@ -153,4 +153,48 @@
     <plurals name="week_failed">
         <item quantity="other">%1$d일을 불러오지 못했습니다. 연결을 확인하고 다시 시도하세요.</item>
     </plurals>
+
+    <!-- Devices and Settings (10.1.0) -->
+    <string name="devices_add">기기 추가</string>
+    <string name="devices_share">이 기기 공유</string>
+    <string name="devices_section_linked">연결된 기기</string>
+    <string name="devices_empty">다른 기기를 추가하려면 그 기기에서 \'이 기기 공유\'를 탭한 다음 여기서 \'기기 추가\'로 코드를 입력하세요.</string>
+    <string name="device_type_browser">브라우저</string>
+    <string name="device_type_other">기타 기기</string>
+    <string name="device_remove_cd">%1$s 제거</string>
+    <string name="device_remove_title">%1$s을(를) 제거할까요?</string>
+    <string name="device_remove_message">더 이상 여기에 표시되지 않습니다. 다시 추가하려면 새 코드를 사용하세요.</string>
+    <string name="device_removed">기기를 제거했습니다</string>
+    <string name="device_remove_failed">%1$s을(를) 제거하지 못했습니다. 연결을 확인하고 다시 시도하세요.</string>
+    <string name="add_device_prompt">다른 기기에서 SurfSense를 열고 \'이 기기 공유\'를 탭하세요. 표시된 %1$d자리 코드를 입력하세요.</string>
+    <string name="add_device_code_label">코드</string>
+    <string name="add_device_confirm">추가</string>
+    <string name="device_added">기기를 추가했습니다</string>
+    <string name="share_device_prompt">코드를 만든 다음 다른 기기의 \'기기 추가\'에서 입력하세요.</string>
+    <string name="share_create_code">코드 만들기</string>
+    <string name="share_creating">코드 만드는 중…</string>
+    <string name="share_new_code">새 코드</string>
+    <string name="share_expires">%1$d분 후 만료</string>
+    <string name="share_code_failed">코드를 만들지 못했습니다. 연결을 확인하고 다시 시도하세요.</string>
+    <string name="settings_section_sync">동기화</string>
+    <string name="settings_sync_interval">백그라운드에서 약 %1$d분마다 동기화합니다.</string>
+    <string name="settings_section_device">이 기기</string>
+    <string name="settings_device_name">기기 이름</string>
+    <string name="settings_device_id">기기 ID</string>
+    <string name="settings_section_data">내 데이터</string>
+    <string name="export_data">내 데이터 내보내기</string>
+    <string name="export_data_hint">모든 기기의 최근 30일 데이터를 CSV 파일로 내보냅니다.</string>
+    <string name="export_preparing">내보내기 준비 중…</string>
+    <string name="export_done">내보냈습니다</string>
+    <string name="export_nothing">아직 내보낼 데이터가 없습니다. 먼저 동기화하거나 기기를 연결하세요.</string>
+    <string name="export_load_failed">데이터를 모두 불러오지 못했습니다. 연결을 확인하고 다시 시도하세요.</string>
+    <string name="export_save_failed">파일을 저장하지 못했습니다. 다른 위치를 선택해 다시 시도하세요.</string>
+    <string name="settings_section_overrides">직접 지정한 카테고리</string>
+    <string name="override_remove_cd">%1$s에 자동 카테고리 사용</string>
+    <string name="reset_data">모든 데이터 초기화</string>
+    <string name="reset_data_title">모든 데이터를 초기화할까요?</string>
+    <string name="reset_data_message">이 휴대전화의 사용 기록과 직접 지정한 카테고리가 삭제됩니다. 연결된 기기는 계속 연결됩니다.</string>
+    <string name="privacy_policy_label">개인정보처리방침</string>
+    <string name="terms_label">서비스 약관</string>
+    <string name="about_font_credit">Hanken Grotesk 글꼴 사용, SIL Open Font License에 따라 라이선스됨.</string>
 </resources>

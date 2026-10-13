@@ -143,4 +143,48 @@
     <plurals name="week_failed">
         <item quantity="other">โหลดข้อมูล %1$d วันไม่ได้ ตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง</item>
     </plurals>
+
+    <!-- Devices and Settings (10.1.0) -->
+    <string name="devices_add">เพิ่มอุปกรณ์</string>
+    <string name="devices_share">แชร์อุปกรณ์นี้</string>
+    <string name="devices_section_linked">อุปกรณ์ที่เชื่อมโยง</string>
+    <string name="devices_empty">หากต้องการเพิ่มอุปกรณ์อื่น ให้แตะ “แชร์อุปกรณ์นี้” บนอุปกรณ์นั้น แล้วป้อนรหัสที่นี่ผ่าน “เพิ่มอุปกรณ์”</string>
+    <string name="device_type_browser">เบราว์เซอร์</string>
+    <string name="device_type_other">อุปกรณ์อื่น</string>
+    <string name="device_remove_cd">นำ %1$s ออก</string>
+    <string name="device_remove_title">นำ %1$s ออกไหม</string>
+    <string name="device_remove_message">อุปกรณ์นี้จะไม่แสดงที่นี่อีก หากต้องการเพิ่มอีกครั้ง ให้ใช้รหัสใหม่</string>
+    <string name="device_removed">นำอุปกรณ์ออกแล้ว</string>
+    <string name="device_remove_failed">นำ %1$s ออกไม่ได้ ตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง</string>
+    <string name="add_device_prompt">บนอุปกรณ์อีกเครื่อง ให้เปิด SurfSense แล้วแตะ “แชร์อุปกรณ์นี้” ป้อนรหัส %1$d หลักที่แสดง</string>
+    <string name="add_device_code_label">รหัส</string>
+    <string name="add_device_confirm">เพิ่ม</string>
+    <string name="device_added">เพิ่มอุปกรณ์แล้ว</string>
+    <string name="share_device_prompt">สร้างรหัส แล้วป้อนบนอุปกรณ์อีกเครื่องผ่าน “เพิ่มอุปกรณ์”</string>
+    <string name="share_create_code">สร้างรหัส</string>
+    <string name="share_creating">กำลังสร้างรหัส…</string>
+    <string name="share_new_code">รหัสใหม่</string>
+    <string name="share_expires">หมดอายุใน %1$d นาที</string>
+    <string name="share_code_failed">สร้างรหัสไม่ได้ ตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง</string>
+    <string name="settings_section_sync">การซิงค์</string>
+    <string name="settings_sync_interval">ซิงค์ในเบื้องหลังประมาณทุก %1$d นาที</string>
+    <string name="settings_section_device">อุปกรณ์นี้</string>
+    <string name="settings_device_name">ชื่ออุปกรณ์</string>
+    <string name="settings_device_id">ID อุปกรณ์</string>
+    <string name="settings_section_data">ข้อมูลของคุณ</string>
+    <string name="export_data">ส่งออกข้อมูลของฉัน</string>
+    <string name="export_data_hint">ข้อมูล 30 วันล่าสุดจากอุปกรณ์ทั้งหมดของคุณ เป็นไฟล์ CSV</string>
+    <string name="export_preparing">กำลังเตรียมการส่งออก…</string>
+    <string name="export_done">ส่งออกแล้ว</string>
+    <string name="export_nothing">ยังไม่มีข้อมูลให้ส่งออก ซิงค์หรือเชื่อมโยงอุปกรณ์ก่อน</string>
+    <string name="export_load_failed">โหลดข้อมูลทั้งหมดไม่ได้ ตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง</string>
+    <string name="export_save_failed">บันทึกไฟล์ไม่ได้ ลองอีกครั้งและเลือกตำแหน่งอื่น</string>
+    <string name="settings_section_overrides">หมวดหมู่ที่คุณตั้งเอง</string>
+    <string name="override_remove_cd">ใช้หมวดหมู่อัตโนมัติสำหรับ %1$s</string>
+    <string name="reset_data">รีเซ็ตข้อมูลทั้งหมด</string>
+    <string name="reset_data_title">รีเซ็ตข้อมูลทั้งหมดไหม</string>
+    <string name="reset_data_message">การดำเนินการนี้จะลบประวัติการใช้งานและหมวดหมู่ที่คุณตั้งเองบนโทรศัพท์นี้ อุปกรณ์ที่เชื่อมโยงจะยังคงเชื่อมโยงอยู่</string>
+    <string name="privacy_policy_label">นโยบายความเป็นส่วนตัว</string>
+    <string name="terms_label">ข้อกำหนดในการให้บริการ</string>
+    <string name="about_font_credit">ใช้ฟอนต์ Hanken Grotesk ภายใต้สัญญาอนุญาต SIL Open Font License</string>
 </resources>

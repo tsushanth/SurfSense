@@ -145,4 +145,48 @@
         <item quantity="one">%1$d gün yüklenemedi. Bağlantınızı kontrol edip tekrar deneyin.</item>
         <item quantity="other">%1$d gün yüklenemedi. Bağlantınızı kontrol edip tekrar deneyin.</item>
     </plurals>
+
+    <!-- Devices and Settings (10.1.0) -->
+    <string name="devices_add">Cihaz ekle</string>
+    <string name="devices_share">Bu cihazı paylaş</string>
+    <string name="devices_section_linked">Bağlı cihazlar</string>
+    <string name="devices_empty">Başka bir cihaz eklemek için o cihazda Bu cihazı paylaş\'a dokunun, ardından kodunu burada Cihaz ekle ile girin.</string>
+    <string name="device_type_browser">Tarayıcı</string>
+    <string name="device_type_other">Diğer cihaz</string>
+    <string name="device_remove_cd">%1$s cihazını kaldır</string>
+    <string name="device_remove_title">%1$s kaldırılsın mı?</string>
+    <string name="device_remove_message">Artık burada görünmeyecek. Tekrar eklemek için yeni bir kod kullanın.</string>
+    <string name="device_removed">Cihaz kaldırıldı</string>
+    <string name="device_remove_failed">%1$s kaldırılamadı. Bağlantınızı kontrol edip tekrar deneyin.</string>
+    <string name="add_device_prompt">Diğer cihazda SurfSense\'i açın ve Bu cihazı paylaş\'a dokunun. Gösterilen %1$d haneli kodu girin.</string>
+    <string name="add_device_code_label">Kod</string>
+    <string name="add_device_confirm">Ekle</string>
+    <string name="device_added">Cihaz eklendi</string>
+    <string name="share_device_prompt">Bir kod oluşturun, ardından diğer cihazınızda Cihaz ekle ile girin.</string>
+    <string name="share_create_code">Kod oluştur</string>
+    <string name="share_creating">Kod oluşturuluyor…</string>
+    <string name="share_new_code">Yeni kod</string>
+    <string name="share_expires">%1$d dakika içinde sona erer</string>
+    <string name="share_code_failed">Kod oluşturulamadı. Bağlantınızı kontrol edip tekrar deneyin.</string>
+    <string name="settings_section_sync">Senkronizasyon</string>
+    <string name="settings_sync_interval">Arka planda yaklaşık her %1$d dakikada bir senkronize edilir.</string>
+    <string name="settings_section_device">Bu cihaz</string>
+    <string name="settings_device_name">Cihaz adı</string>
+    <string name="settings_device_id">Cihaz kimliği</string>
+    <string name="settings_section_data">Verileriniz</string>
+    <string name="export_data">Verilerimi dışa aktar</string>
+    <string name="export_data_hint">Tüm cihazlarınızdan son 30 gün, CSV dosyası olarak.</string>
+    <string name="export_preparing">Dışa aktarma hazırlanıyor…</string>
+    <string name="export_done">Dışa aktarıldı</string>
+    <string name="export_nothing">Henüz dışa aktarılacak bir şey yok. Önce senkronize edin veya bir cihaz bağlayın.</string>
+    <string name="export_load_failed">Verilerinizin tümü yüklenemedi. Bağlantınızı kontrol edip tekrar deneyin.</string>
+    <string name="export_save_failed">Dosya kaydedilemedi. Tekrar deneyin ve başka bir konum seçin.</string>
+    <string name="settings_section_overrides">Sizin seçtiğiniz kategoriler</string>
+    <string name="override_remove_cd">%1$s için otomatik kategoriyi kullan</string>
+    <string name="reset_data">Tüm verileri sıfırla</string>
+    <string name="reset_data_title">Tüm veriler sıfırlansın mı?</string>
+    <string name="reset_data_message">Bu işlem, bu telefondaki kullanım geçmişini ve seçtiğiniz kategorileri siler. Bağlı cihazlar bağlı kalır.</string>
+    <string name="privacy_policy_label">Gizlilik politikası</string>
+    <string name="terms_label">Hizmet şartları</string>
+    <string name="about_font_credit">Hanken Grotesk yazı tipiyle dizilmiştir, SIL Open Font License ile lisanslıdır.</string>
 </resources>

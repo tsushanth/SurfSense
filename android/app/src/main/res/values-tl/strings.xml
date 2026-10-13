@@ -155,4 +155,48 @@
         <item quantity="one">Hindi ma-load ang %1$d araw. Tingnan ang iyong koneksyon at subukan ulit.</item>
         <item quantity="other">Hindi ma-load ang %1$d araw. Tingnan ang iyong koneksyon at subukan ulit.</item>
     </plurals>
+
+    <!-- Devices and Settings (10.1.0) -->
+    <string name="devices_add">Magdagdag ng device</string>
+    <string name="devices_share">Ibahagi ang device na ito</string>
+    <string name="devices_section_linked">Mga naka-link na device</string>
+    <string name="devices_empty">Para magdagdag ng ibang device, i-tap ang Ibahagi ang device na ito roon, saka ilagay dito ang code nito gamit ang Magdagdag ng device.</string>
+    <string name="device_type_browser">Browser</string>
+    <string name="device_type_other">Ibang device</string>
+    <string name="device_remove_cd">Alisin ang %1$s</string>
+    <string name="device_remove_title">Alisin ang %1$s?</string>
+    <string name="device_remove_message">Hindi na ito lalabas dito. Para idagdag ulit, gumamit ng bagong code.</string>
+    <string name="device_removed">Inalis ang device</string>
+    <string name="device_remove_failed">Hindi maalis ang %1$s. Tingnan ang iyong koneksyon at subukang muli.</string>
+    <string name="add_device_prompt">Sa kabilang device, buksan ang SurfSense at i-tap ang Ibahagi ang device na ito. Ilagay ang ipinapakitang %1$d-digit na code.</string>
+    <string name="add_device_code_label">Code</string>
+    <string name="add_device_confirm">Idagdag</string>
+    <string name="device_added">Naidagdag ang device</string>
+    <string name="share_device_prompt">Gumawa ng code, saka ilagay ito sa iyong ibang device gamit ang Magdagdag ng device.</string>
+    <string name="share_create_code">Gumawa ng code</string>
+    <string name="share_creating">Gumagawa ng code…</string>
+    <string name="share_new_code">Bagong code</string>
+    <string name="share_expires">Mag-e-expire sa loob ng %1$d minuto</string>
+    <string name="share_code_failed">Hindi makagawa ng code. Tingnan ang iyong koneksyon at subukang muli.</string>
+    <string name="settings_section_sync">Sync</string>
+    <string name="settings_sync_interval">Nagsi-sync sa background halos bawat %1$d minuto.</string>
+    <string name="settings_section_device">Ang device na ito</string>
+    <string name="settings_device_name">Pangalan ng device</string>
+    <string name="settings_device_id">ID ng device</string>
+    <string name="settings_section_data">Ang iyong data</string>
+    <string name="export_data">I-export ang aking data</string>
+    <string name="export_data_hint">Huling 30 araw mula sa lahat ng iyong device, bilang CSV file.</string>
+    <string name="export_preparing">Inihahanda ang export…</string>
+    <string name="export_done">Na-export</string>
+    <string name="export_nothing">Wala pang ma-e-export. Mag-sync o mag-link muna ng device.</string>
+    <string name="export_load_failed">Hindi ma-load ang lahat ng iyong data. Tingnan ang iyong koneksyon at subukang muli.</string>
+    <string name="export_save_failed">Hindi ma-save ang file. Subukang muli at pumili ng ibang lokasyon.</string>
+    <string name="settings_section_overrides">Mga kategoryang itinakda mo</string>
+    <string name="override_remove_cd">Gamitin ang awtomatikong kategorya para sa %1$s</string>
+    <string name="reset_data">I-reset ang lahat ng data</string>
+    <string name="reset_data_title">I-reset ang lahat ng data?</string>
+    <string name="reset_data_message">Buburahin nito ang history ng paggamit at ang mga kategoryang itinakda mo sa teleponong ito. Mananatiling naka-link ang mga naka-link na device.</string>
+    <string name="privacy_policy_label">Patakaran sa privacy</string>
+    <string name="terms_label">Mga tuntunin ng serbisyo</string>
+    <string name="about_font_credit">Nakalimbag sa Hanken Grotesk, lisensyado sa ilalim ng SIL Open Font License.</string>
 </resources>

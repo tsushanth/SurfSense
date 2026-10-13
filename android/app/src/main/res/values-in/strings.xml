@@ -143,4 +143,48 @@
     <plurals name="week_failed">
         <item quantity="other">Tidak dapat memuat %1$d hari. Periksa koneksi Anda dan coba lagi.</item>
     </plurals>
+
+    <!-- Devices and Settings (10.1.0) -->
+    <string name="devices_add">Tambahkan perangkat</string>
+    <string name="devices_share">Bagikan perangkat ini</string>
+    <string name="devices_section_linked">Perangkat tertaut</string>
+    <string name="devices_empty">Untuk menambahkan perangkat lain, ketuk Bagikan perangkat ini di perangkat tersebut, lalu masukkan kodenya di sini dengan Tambahkan perangkat.</string>
+    <string name="device_type_browser">Browser</string>
+    <string name="device_type_other">Perangkat lain</string>
+    <string name="device_remove_cd">Hapus %1$s</string>
+    <string name="device_remove_title">Hapus %1$s?</string>
+    <string name="device_remove_message">Perangkat ini tidak akan muncul lagi di sini. Untuk menambahkannya lagi, gunakan kode baru.</string>
+    <string name="device_removed">Perangkat dihapus</string>
+    <string name="device_remove_failed">Tidak dapat menghapus %1$s. Periksa koneksi Anda dan coba lagi.</string>
+    <string name="add_device_prompt">Di perangkat lain, buka SurfSense dan ketuk Bagikan perangkat ini. Masukkan kode %1$d digit yang ditampilkan.</string>
+    <string name="add_device_code_label">Kode</string>
+    <string name="add_device_confirm">Tambahkan</string>
+    <string name="device_added">Perangkat ditambahkan</string>
+    <string name="share_device_prompt">Buat kode, lalu masukkan di perangkat lain Anda dengan Tambahkan perangkat.</string>
+    <string name="share_create_code">Buat kode</string>
+    <string name="share_creating">Membuat kode…</string>
+    <string name="share_new_code">Kode baru</string>
+    <string name="share_expires">Kedaluwarsa dalam %1$d menit</string>
+    <string name="share_code_failed">Tidak dapat membuat kode. Periksa koneksi Anda dan coba lagi.</string>
+    <string name="settings_section_sync">Sinkronisasi</string>
+    <string name="settings_sync_interval">Disinkronkan di latar belakang sekitar setiap %1$d menit.</string>
+    <string name="settings_section_device">Perangkat ini</string>
+    <string name="settings_device_name">Nama perangkat</string>
+    <string name="settings_device_id">ID perangkat</string>
+    <string name="settings_section_data">Data Anda</string>
+    <string name="export_data">Ekspor data saya</string>
+    <string name="export_data_hint">30 hari terakhir dari semua perangkat Anda, sebagai file CSV.</string>
+    <string name="export_preparing">Menyiapkan ekspor…</string>
+    <string name="export_done">Diekspor</string>
+    <string name="export_nothing">Belum ada yang bisa diekspor. Sinkronkan atau tautkan perangkat terlebih dahulu.</string>
+    <string name="export_load_failed">Tidak dapat memuat semua data Anda. Periksa koneksi Anda dan coba lagi.</string>
+    <string name="export_save_failed">Tidak dapat menyimpan file. Coba lagi dan pilih lokasi lain.</string>
+    <string name="settings_section_overrides">Kategori yang Anda pilih</string>
+    <string name="override_remove_cd">Gunakan kategori otomatis untuk %1$s</string>
+    <string name="reset_data">Reset semua data</string>
+    <string name="reset_data_title">Reset semua data?</string>
+    <string name="reset_data_message">Ini menghapus riwayat penggunaan dan kategori yang Anda pilih di ponsel ini. Perangkat tertaut tetap tertaut.</string>
+    <string name="privacy_policy_label">Kebijakan privasi</string>
+    <string name="terms_label">Ketentuan layanan</string>
+    <string name="about_font_credit">Menggunakan font Hanken Grotesk, dilisensikan dengan SIL Open Font License.</string>
 </resources>

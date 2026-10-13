@@ -153,4 +153,48 @@
     <plurals name="week_failed">
         <item quantity="other">%1$d日分を読み込めませんでした。接続を確認してもう一度お試しください。</item>
     </plurals>
+
+    <!-- Devices and Settings (10.1.0) -->
+    <string name="devices_add">デバイスを追加</string>
+    <string name="devices_share">このデバイスを共有</string>
+    <string name="devices_section_linked">リンク済みのデバイス</string>
+    <string name="devices_empty">別のデバイスを追加するには、そのデバイスで「このデバイスを共有」をタップし、ここで「デバイスを追加」からコードを入力します。</string>
+    <string name="device_type_browser">ブラウザ</string>
+    <string name="device_type_other">その他のデバイス</string>
+    <string name="device_remove_cd">%1$sを削除</string>
+    <string name="device_remove_title">%1$sを削除しますか？</string>
+    <string name="device_remove_message">ここに表示されなくなります。もう一度追加するには新しいコードを使用してください。</string>
+    <string name="device_removed">デバイスを削除しました</string>
+    <string name="device_remove_failed">%1$sを削除できませんでした。接続を確認して、もう一度お試しください。</string>
+    <string name="add_device_prompt">もう一方のデバイスで SurfSense を開き、「このデバイスを共有」をタップします。表示された%1$d桁のコードを入力してください。</string>
+    <string name="add_device_code_label">コード</string>
+    <string name="add_device_confirm">追加</string>
+    <string name="device_added">デバイスを追加しました</string>
+    <string name="share_device_prompt">コードを作成し、別のデバイスの「デバイスを追加」で入力します。</string>
+    <string name="share_create_code">コードを作成</string>
+    <string name="share_creating">コードを作成中…</string>
+    <string name="share_new_code">新しいコード</string>
+    <string name="share_expires">%1$d分後に期限切れ</string>
+    <string name="share_code_failed">コードを作成できませんでした。接続を確認して、もう一度お試しください。</string>
+    <string name="settings_section_sync">同期</string>
+    <string name="settings_sync_interval">バックグラウンドで約%1$d分ごとに同期します。</string>
+    <string name="settings_section_device">このデバイス</string>
+    <string name="settings_device_name">デバイス名</string>
+    <string name="settings_device_id">デバイス ID</string>
+    <string name="settings_section_data">あなたのデータ</string>
+    <string name="export_data">データをエクスポート</string>
+    <string name="export_data_hint">すべてのデバイスの過去30日分を CSV ファイルで出力します。</string>
+    <string name="export_preparing">エクスポートを準備中…</string>
+    <string name="export_done">エクスポートしました</string>
+    <string name="export_nothing">エクスポートするデータはまだありません。先に同期するか、デバイスをリンクしてください。</string>
+    <string name="export_load_failed">データをすべて読み込めませんでした。接続を確認して、もう一度お試しください。</string>
+    <string name="export_save_failed">ファイルを保存できませんでした。別の保存先を選んで、もう一度お試しください。</string>
+    <string name="settings_section_overrides">自分で設定したカテゴリ</string>
+    <string name="override_remove_cd">%1$sに自動カテゴリを使用</string>
+    <string name="reset_data">すべてのデータをリセット</string>
+    <string name="reset_data_title">すべてのデータをリセットしますか？</string>
+    <string name="reset_data_message">このスマートフォンの使用履歴と自分で設定したカテゴリが削除されます。リンク済みのデバイスはリンクされたままです。</string>
+    <string name="privacy_policy_label">プライバシーポリシー</string>
+    <string name="terms_label">利用規約</string>
+    <string name="about_font_credit">書体は Hanken Grotesk（SIL Open Font License）を使用しています。</string>
 </resources>

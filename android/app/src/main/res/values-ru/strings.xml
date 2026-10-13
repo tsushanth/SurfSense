@@ -149,4 +149,48 @@
         <item quantity="many">Не удалось загрузить %1$d дней. Проверьте подключение и повторите попытку.</item>
         <item quantity="other">Не удалось загрузить %1$d дня. Проверьте подключение и повторите попытку.</item>
     </plurals>
+
+    <!-- Devices and Settings (10.1.0) -->
+    <string name="devices_add">Добавить устройство</string>
+    <string name="devices_share">Поделиться этим устройством</string>
+    <string name="devices_section_linked">Привязанные устройства</string>
+    <string name="devices_empty">Чтобы добавить другое устройство, нажмите на нём «Поделиться этим устройством», затем введите его код здесь через «Добавить устройство».</string>
+    <string name="device_type_browser">Браузер</string>
+    <string name="device_type_other">Другое устройство</string>
+    <string name="device_remove_cd">Удалить %1$s</string>
+    <string name="device_remove_title">Удалить %1$s?</string>
+    <string name="device_remove_message">Оно больше не будет отображаться здесь. Чтобы добавить его снова, используйте новый код.</string>
+    <string name="device_removed">Устройство удалено</string>
+    <string name="device_remove_failed">Не удалось удалить %1$s. Проверьте подключение и повторите попытку.</string>
+    <string name="add_device_prompt">На другом устройстве откройте SurfSense и нажмите «Поделиться этим устройством». Введите показанный %1$d-значный код.</string>
+    <string name="add_device_code_label">Код</string>
+    <string name="add_device_confirm">Добавить</string>
+    <string name="device_added">Устройство добавлено</string>
+    <string name="share_device_prompt">Создайте код, затем введите его на другом устройстве через «Добавить устройство».</string>
+    <string name="share_create_code">Создать код</string>
+    <string name="share_creating">Создание кода…</string>
+    <string name="share_new_code">Новый код</string>
+    <string name="share_expires">Истекает через %1$d мин</string>
+    <string name="share_code_failed">Не удалось создать код. Проверьте подключение и повторите попытку.</string>
+    <string name="settings_section_sync">Синхронизация</string>
+    <string name="settings_sync_interval">Синхронизация в фоне примерно каждые %1$d мин.</string>
+    <string name="settings_section_device">Это устройство</string>
+    <string name="settings_device_name">Имя устройства</string>
+    <string name="settings_device_id">ID устройства</string>
+    <string name="settings_section_data">Ваши данные</string>
+    <string name="export_data">Экспортировать мои данные</string>
+    <string name="export_data_hint">Последние 30 дней со всех ваших устройств в файле CSV.</string>
+    <string name="export_preparing">Подготовка экспорта…</string>
+    <string name="export_done">Экспортировано</string>
+    <string name="export_nothing">Пока нечего экспортировать. Сначала синхронизируйте или привяжите устройство.</string>
+    <string name="export_load_failed">Не удалось загрузить все данные. Проверьте подключение и повторите попытку.</string>
+    <string name="export_save_failed">Не удалось сохранить файл. Повторите попытку и выберите другое место.</string>
+    <string name="settings_section_overrides">Выбранные вами категории</string>
+    <string name="override_remove_cd">Использовать автоматическую категорию для %1$s</string>
+    <string name="reset_data">Сбросить все данные</string>
+    <string name="reset_data_title">Сбросить все данные?</string>
+    <string name="reset_data_message">Будут удалены история использования и выбранные вами категории на этом телефоне. Привязанные устройства останутся привязанными.</string>
+    <string name="privacy_policy_label">Политика конфиденциальности</string>
+    <string name="terms_label">Условия использования</string>
+    <string name="about_font_credit">Шрифт Hanken Grotesk, лицензия SIL Open Font License.</string>
 </resources>

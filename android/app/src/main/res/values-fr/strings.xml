@@ -157,4 +157,48 @@
         <item quantity="many">Impossible de charger %1$d jours. Vérifiez votre connexion et réessayez.</item>
         <item quantity="other">Impossible de charger %1$d jours. Vérifiez votre connexion et réessayez.</item>
     </plurals>
+
+    <!-- Devices and Settings (10.1.0) -->
+    <string name="devices_add">Ajouter un appareil</string>
+    <string name="devices_share">Partager cet appareil</string>
+    <string name="devices_section_linked">Appareils associés</string>
+    <string name="devices_empty">Pour ajouter un autre appareil, appuyez sur Partager cet appareil sur celui-ci, puis saisissez son code ici avec Ajouter un appareil.</string>
+    <string name="device_type_browser">Navigateur</string>
+    <string name="device_type_other">Autre appareil</string>
+    <string name="device_remove_cd">Retirer %1$s</string>
+    <string name="device_remove_title">Retirer %1$s ?</string>
+    <string name="device_remove_message">Il n\'apparaîtra plus ici. Pour l\'ajouter à nouveau, utilisez un nouveau code.</string>
+    <string name="device_removed">Appareil retiré</string>
+    <string name="device_remove_failed">Impossible de retirer %1$s. Vérifiez votre connexion et réessayez.</string>
+    <string name="add_device_prompt">Sur l\'autre appareil, ouvrez SurfSense et appuyez sur Partager cet appareil. Saisissez le code à %1$d chiffres affiché.</string>
+    <string name="add_device_code_label">Code</string>
+    <string name="add_device_confirm">Ajouter</string>
+    <string name="device_added">Appareil ajouté</string>
+    <string name="share_device_prompt">Créez un code, puis saisissez-le sur votre autre appareil avec Ajouter un appareil.</string>
+    <string name="share_create_code">Créer un code</string>
+    <string name="share_creating">Création du code…</string>
+    <string name="share_new_code">Nouveau code</string>
+    <string name="share_expires">Expire dans %1$d minutes</string>
+    <string name="share_code_failed">Impossible de créer un code. Vérifiez votre connexion et réessayez.</string>
+    <string name="settings_section_sync">Synchronisation</string>
+    <string name="settings_sync_interval">Synchronisation en arrière-plan environ toutes les %1$d minutes.</string>
+    <string name="settings_section_device">Cet appareil</string>
+    <string name="settings_device_name">Nom de l\'appareil</string>
+    <string name="settings_device_id">ID de l\'appareil</string>
+    <string name="settings_section_data">Vos données</string>
+    <string name="export_data">Exporter mes données</string>
+    <string name="export_data_hint">Les 30 derniers jours de tous vos appareils, dans un fichier CSV.</string>
+    <string name="export_preparing">Préparation de l\'export…</string>
+    <string name="export_done">Exporté</string>
+    <string name="export_nothing">Rien à exporter pour l\'instant. Synchronisez ou associez d\'abord un appareil.</string>
+    <string name="export_load_failed">Impossible de charger toutes vos données. Vérifiez votre connexion et réessayez.</string>
+    <string name="export_save_failed">Impossible d\'enregistrer le fichier. Réessayez et choisissez un autre emplacement.</string>
+    <string name="settings_section_overrides">Catégories choisies par vous</string>
+    <string name="override_remove_cd">Utiliser la catégorie automatique pour %1$s</string>
+    <string name="reset_data">Réinitialiser toutes les données</string>
+    <string name="reset_data_title">Réinitialiser toutes les données ?</string>
+    <string name="reset_data_message">Cela supprime l\'historique d\'utilisation et les catégories choisies sur ce téléphone. Les appareils associés restent associés.</string>
+    <string name="privacy_policy_label">Politique de confidentialité</string>
+    <string name="terms_label">Conditions d\'utilisation</string>
+    <string name="about_font_credit">Composé en Hanken Grotesk, sous licence SIL Open Font License.</string>
 </resources>
