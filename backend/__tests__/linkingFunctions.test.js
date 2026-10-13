@@ -96,10 +96,25 @@ describe('getLinkedClients', () => {
 
 describe('completeLinking', () => {
     it('rejects an unknown code with a 400 LinkingError', async () => {
-        h.state.results.linking_requests = { error: { message: 'no rows' } };
+        h.state.results.linking_requests = { error: { code: 'PGRST116', message: 'no rows' } };
         const err = await completeLinking('b-device', '123456').catch(e => e);
         expect(err).toBeInstanceOf(LinkingError);
         expect(err).toMatchObject({ name: 'LinkingError', status: 400, message: 'Invalid or expired code' });
+    });
+
+    it('treats a null row with no error as an unknown code (400 LinkingError)', async () => {
+        h.state.results.linking_requests = { data: null };
+        const err = await completeLinking('b-device', '123456').catch(e => e);
+        expect(err).toBeInstanceOf(LinkingError);
+        expect(err).toMatchObject({ status: 400, message: 'Invalid or expired code' });
+    });
+
+    it('does not map a transient DB lookup error to a 400 LinkingError', async () => {
+        h.state.results.linking_requests = { error: { message: 'connection reset' } };
+        const err = await completeLinking('b-device', '123456').catch(e => e);
+        expect(err).not.toBeInstanceOf(LinkingError);
+        expect(err).toBeInstanceOf(Error);
+        expect(err.message).toContain('connection reset');
     });
 
     it('rejects an expired code with a 400 LinkingError and deletes the request', async () => {

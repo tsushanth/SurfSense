@@ -57,7 +57,10 @@ async function completeLinking(otherClientId, code) {
         .eq('code', code)
         .single();
 
-    if (findError || !request) {
+    if (findError && findError.code !== 'PGRST116') {
+        throw new Error(`Failed to look up linking code: ${findError.message}`);
+    }
+    if (!request) {
         throw new LinkingError('Invalid or expired code');
     }
 
