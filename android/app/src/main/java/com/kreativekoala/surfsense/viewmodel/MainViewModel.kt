@@ -1,6 +1,7 @@
 package com.kreativekoala.surfsense.viewmodel
 
 import android.app.Application
+import android.net.Uri
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.work.Constraints
@@ -18,7 +19,9 @@ import com.kreativekoala.surfsense.history.HistoryRepository
 import com.kreativekoala.surfsense.history.PrefsPastDayCache
 import com.kreativekoala.surfsense.history.fromUsageRepository
 import com.kreativekoala.surfsense.identity.Identity
+import com.kreativekoala.surfsense.insights.CsvExport
 import com.kreativekoala.surfsense.insights.DeviceToday
+import com.kreativekoala.surfsense.insights.ExportRows
 import com.kreativekoala.surfsense.insights.TodayModel
 import com.kreativekoala.surfsense.insights.WeekModel
 import com.kreativekoala.surfsense.insights.WeekView
@@ -62,6 +65,21 @@ data class LinkedDeviceUi(
     val usage: DeviceUsageUi
 )
 
+/** What the last export attempt ended with; the UI turns each into a sentence. */
+enum class ExportOutcome { Saved, NothingToExport, LoadFailed, SaveFailed }
+
+/**
+ * Settings export. [csv] and [fileName] are set once the data is ready; [pickerRequested] asks the UI to open the
+ * system "save as" screen once, and the file is written when the user picks a place.
+ */
+data class ExportState(
+    val preparing: Boolean = false,
+    val csv: String? = null,
+    val fileName: String? = null,
+    val pickerRequested: Boolean = false,
+    val outcome: ExportOutcome? = null,
+)
+
 /** Week screen state. [view] stays from the last successful load while a reload runs. */
 data class WeekState(
     val loading: Boolean = false,
@@ -97,6 +115,7 @@ data class MainUiState(
     val appCategories: Map<String, String> = emptyMap(),
     val categoryOverrides: Map<String, String> = emptyMap(),
     val usageAccessGranted: Boolean = false,
+    val export: ExportState = ExportState(),
 )
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
@@ -104,11 +123,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val localStorage = LocalStorage.getInstance(application)
     private val apiService by lazy { ApiClient.create() }
     private val overrides by lazy { CategoryOverrides(CategoryOverrides.SharedPrefsStore(application)) }
+    private val pastDays by lazy { PrefsPastDayCache(application) }
     private val history by lazy {
-        HistoryRepository(fromUsageRepository(repository), PrefsPastDayCache(application)) { repository.getTodayDate() }
+        HistoryRepository(fromUsageRepository(repository), pastDays) { repository.getTodayDate() }
     }
     private var weekJob: Job? = null
     private var appsJob: Job? = null
+    private var exportJob: Job? = null
 
     private val _uiState = MutableStateFlow(MainUiState())
     val uiState: StateFlow<MainUiState> = _uiState.asStateFlow()
@@ -269,9 +290,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             val result = repository.unlinkDevice(Identity.identity().clientId, targetDeviceId)
             onComplete(result.isSuccess)
             if (result.isSuccess) {
-                _uiState.value = _uiState.value.copy(
-                    linkedDevices = _uiState.value.linkedDevices.filter { it.id != targetDeviceId }
-                )
+                _uiState.update { s ->
+                    val today = s.todayByDevice.filter { it.id != targetDeviceId }
+                    s.copy(
+                        linkedDevices = s.linkedDevices.filter { it.id != targetDeviceId },
+                        todayByDevice = today,
+                        scope = TodayModel.resolveScope(today, s.scope),
+                    )
+                }
             }
         }
     }
@@ -342,13 +368,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         if (weekJob?.isActive == true) return
         weekJob = viewModelScope.launch {
             _uiState.update { it.copy(week = it.week.copy(loading = true)) }
-            val selfId = Identity.identity().clientId
-            val linked = repository.getLinkedClients(selfId).getOrNull()?.data?.clients
-                ?.filter { it.clientId != selfId }
-                ?.distinctBy { it.clientId }
-                ?.map { it.clientId to it.clientName }
-                ?: _uiState.value.todayByDevice.filter { !it.isThisDevice }.map { it.id to it.name }
-            val devices = listOf(selfId to _uiState.value.deviceName) + linked
+            val devices = historyDevices()
             val today = repository.getTodayDate()
             val week = try {
                 val (rows, failed) = withContext(Dispatchers.IO) { history.load(devices, WEEK_HISTORY_DAYS) }
@@ -360,6 +380,91 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 _uiState.value.week.copy(loading = false, loaded = true, failedDays = WEEK_HISTORY_DAYS)
             }
             _uiState.update { it.copy(week = week) }
+        }
+    }
+
+    /** This device then linked devices as (id, name), for history loads. Falls back to the last known list when offline. */
+    private suspend fun historyDevices(): List<Pair<String, String>> {
+        val selfId = Identity.identity().clientId
+        val linked = repository.getLinkedClients(selfId).getOrNull()?.data?.clients
+            ?.filter { it.clientId != selfId }
+            ?.distinctBy { it.clientId }
+            ?.map { it.clientId to it.clientName }
+            ?: _uiState.value.todayByDevice.filter { !it.isThisDevice }.map { it.id to it.name }
+        return listOf(selfId to _uiState.value.deviceName) + linked
+    }
+
+    /**
+     * Loads the last [EXPORT_DAYS] days for this device and linked devices and builds the CSV. Nothing is exported
+     * when some days failed to load (a silently partial file would look complete) or when there is no data.
+     */
+    fun prepareExport() {
+        if (exportJob?.isActive == true) return
+        exportJob = viewModelScope.launch {
+            _uiState.update { it.copy(export = ExportState(preparing = true)) }
+            val next = try {
+                val devices = historyDevices()
+                val (rows, failed) = withContext(Dispatchers.IO) { history.load(devices, EXPORT_DAYS) }
+                val exportRows = ExportRows.from(rows)
+                when {
+                    failed > 0 -> ExportState(outcome = ExportOutcome.LoadFailed)
+                    exportRows.isEmpty() -> ExportState(outcome = ExportOutcome.NothingToExport)
+                    else -> ExportState(
+                        csv = CsvExport.build(exportRows),
+                        fileName = ExportRows.fileName(repository.getTodayDate()),
+                        pickerRequested = true,
+                    )
+                }
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                Timber.e(e, "Export load failed")
+                ExportState(outcome = ExportOutcome.LoadFailed)
+            }
+            _uiState.update { it.copy(export = next) }
+        }
+    }
+
+    /** The UI opened the save screen; do not open it again on recomposition or rotation. */
+    fun exportPickerShown() {
+        _uiState.update { it.copy(export = it.export.copy(pickerRequested = false)) }
+    }
+
+    /** Writes the prepared CSV to [uri] (from the save screen). A null [uri] means the user backed out. */
+    fun writeExport(uri: Uri?) {
+        val csv = _uiState.value.export.csv
+        if (uri == null || csv == null) {
+            _uiState.update { it.copy(export = ExportState()) }
+            return
+        }
+        viewModelScope.launch {
+            _uiState.update { it.copy(export = it.export.copy(preparing = true)) }
+            val ok = withContext(Dispatchers.IO) {
+                try {
+                    val out = getApplication<Application>().contentResolver.openOutputStream(uri, "wt")
+                        ?: return@withContext false
+                    out.use { it.write(csv.toByteArray(Charsets.UTF_8)) }
+                    true
+                } catch (e: Exception) {
+                    Timber.e(e, "Export write failed")
+                    false
+                }
+            }
+            _uiState.update {
+                it.copy(export = ExportState(outcome = if (ok) ExportOutcome.Saved else ExportOutcome.SaveFailed))
+            }
+        }
+    }
+
+    fun clearExportOutcome() {
+        _uiState.update { it.copy(export = it.export.copy(outcome = null)) }
+    }
+
+    /** Reads saved category overrides without touching usage or the network (for Settings). */
+    fun loadOverrides() {
+        viewModelScope.launch {
+            val saved = withContext(Dispatchers.IO) { overrides.all() }
+            _uiState.update { it.copy(categoryOverrides = saved) }
         }
     }
 
@@ -417,12 +522,16 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         return localStorage.getUsageHistory(days)
     }
 
+    /** Deletes everything this phone stores about usage: cached summaries, cached past days and category overrides. */
     fun resetAllData() {
         localStorage.clearAllCache()
+        pastDays.clear()
+        overrides.all().keys.forEach { overrides.remove(it) }
         _uiState.value = MainUiState(
             deviceId = _uiState.value.deviceId,
             deviceName = _uiState.value.deviceName
         )
+        refreshData()
     }
 
     private fun buildDeviceUsage(summary: Map<String, Int>): DeviceUsageUi {
@@ -445,6 +554,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         private const val SYNC_TIMEOUT_MS = 60_000L
         private const val WEEK_HISTORY_DAYS = 14
         private const val APPS_SHOWN = 15
+        private const val EXPORT_DAYS = 30
 
         fun formatSeconds(totalSeconds: Int): String {
             val hours = totalSeconds / 3600
@@ -452,17 +562,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             return when {
                 hours > 0 && minutes > 0 -> "${hours}h ${minutes}m"
                 hours > 0 -> "${hours}h"
-                else -> "${minutes}m"
-            }
-        }
-
-        fun formatMinutes(minutes: Int): String {
-            return when {
-                minutes >= 60 -> {
-                    val h = minutes / 60
-                    val m = minutes % 60
-                    if (m > 0) "${h}h ${m}m" else "${h}h"
-                }
                 else -> "${minutes}m"
             }
         }

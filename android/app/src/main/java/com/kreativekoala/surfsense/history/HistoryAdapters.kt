@@ -43,5 +43,11 @@ class PrefsPastDayCache(context: Context) : HistoryRepository.PastDayCache {
         editor.apply()
     }
 
+    /** Deletes every cached day (used by "Reset all data"). */
+    @Synchronized
+    fun clear() {
+        prefs.edit().clear().apply()
+    }
+
     private companion object { const val MAX_DAYS = 40 }
 }
