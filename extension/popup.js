@@ -1,5 +1,6 @@
 import { localDate } from './lib/dates.js';
 import { ACTIONS } from './lib/messages.js';
+import { shouldStopPolling } from './lib/linkpoll.js';
 
 // The popup never touches the network: everything goes through the background worker.
 function send(action, payload = {}) {
@@ -71,7 +72,7 @@ function renderLinkedDevices(devices) {
     return types[type] || type;
   };
 
-  devices.forEach(device => {
+  devices.filter(d => d && d.clientId).forEach(device => {
     const deviceEl = document.createElement('div');
     deviceEl.className = 'device-item';
 
@@ -86,7 +87,7 @@ function renderLinkedDevices(devices) {
 
     const idSpan = document.createElement('span');
     idSpan.className = 'device-id';
-    idSpan.textContent = `ID: ${device.clientId.substring(0, 8)}...`;
+    idSpan.textContent = `ID: ${String(device.clientId).substring(0, 8)}...`;
 
     infoDiv.appendChild(nameSpan);
     infoDiv.appendChild(idSpan);
@@ -145,7 +146,14 @@ const generateCodeBtn = document.getElementById('generateCodeBtn');
 const linkingCodeContainer = document.getElementById('linkingCodeContainer');
 const linkingCodeEl = document.getElementById('linkingCode');
 
+let pollInterval = null;
+function stopPolling() {
+  if (pollInterval !== null) clearInterval(pollInterval);
+  pollInterval = null;
+}
+
 generateCodeBtn.addEventListener('click', async () => {
+  stopPolling(); // a second click must not stack a second poll
   generateCodeBtn.disabled = true;
   generateCodeBtn.textContent = "Generating...";
   const response = await send(ACTIONS.GENERATE_LINKING_CODE);
@@ -155,23 +163,32 @@ generateCodeBtn.addEventListener('click', async () => {
     linkingCodeEl.textContent = response.code;
     linkingCodeContainer.style.display = 'block';
 
+    // Devices already linked when the code was generated; stop only when one more appears.
+    // If that first read fails, the first successful poll becomes the baseline.
+    const initial = await send(ACTIONS.GET_LINKED_DEVICES);
+    let baseline = initial.success ? (initial.devices || []).length : null;
+
     // Poll for linked devices with timeout (max 5 minutes)
     let pollCount = 0;
     const maxPolls = 100;
-    const pollInterval = setInterval(() => {
+    stopPolling();
+    pollInterval = setInterval(async () => {
       pollCount++;
       if (pollCount >= maxPolls) {
-        clearInterval(pollInterval);
+        stopPolling();
         linkingCodeContainer.style.display = 'none';
         showToast("Linking code expired. Generate a new one.", "info");
         return;
       }
-      loadLinkedDevices().then(devices => {
-        if (devices && devices.length > 0) {
-          clearInterval(pollInterval);
-          linkingCodeContainer.style.display = 'none';
-        }
-      });
+      const r = await send(ACTIONS.GET_LINKED_DEVICES);
+      if (!r.success) return;
+      const devices = r.devices || [];
+      renderLinkedDevices(devices);
+      if (baseline === null) { baseline = devices.length; return; }
+      if (shouldStopPolling(baseline, devices.length)) {
+        stopPolling();
+        linkingCodeContainer.style.display = 'none';
+      }
     }, 3000);
   } else {
     showError("Failed to generate code: ", response);

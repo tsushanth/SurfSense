@@ -142,7 +142,6 @@ test('a change arriving during the submit keeps the day dirty', async () => {
 });
 
 test('a day with an empty domain map makes no request but is cleared', async () => {
-  const { tracker } = setup();
   const storage = fakeStorage();
   storage.data.days = { '2026-06-10': {} };
   storage.data.dirty = { '2026-06-10': 3 };
@@ -153,7 +152,6 @@ test('a day with an empty domain map makes no request but is cleared', async () 
   assert.deepEqual(res, { flushed: ['2026-06-10'], failed: [] });
   assert.equal(api.calls.categorize.length + api.calls.submit.length, 0);
   assert.deepEqual((await t.snapshot()).dirty, {});
-  void tracker;
 });
 
 test('unmapped domains end up under Other', async () => {
@@ -174,4 +172,22 @@ test('categories missing from the api result also fall back to Other', async () 
   const api = { async categorize() { return {}; }, async submitSummary(d, s) { this.s = s; } };
   await flushDirty({ api, tracker });
   assert.deepEqual(api.s, { Other: 9 });
+});
+
+test('a server category named like an Object.prototype member is summed as a number', async () => {
+  const { clock, tracker } = setup();
+  await tracker.activate(1, 'https://a.com');
+  clock.t += 30_000;
+  await tracker.activate(2, 'https://b.com');
+  clock.t += 20_000;
+  await tracker.activate(3, 'https://c.com');
+  clock.t += 10_000;
+  const api = fakeApi({ map: { 'a.com': 'constructor', 'b.com': 'constructor', 'c.com': '__proto__' } });
+  await flushDirty({ api, tracker });
+  const sent = api.calls.submit[0].summary;
+  assert.equal(typeof sent.constructor, 'number');
+  assert.equal(sent.constructor, 50);
+  assert.equal(Object.getOwnPropertyDescriptor(sent, '__proto__').value, 10);
+  assert.equal(Object.getPrototypeOf(sent), Object.prototype);
+  assert.equal(JSON.parse(JSON.stringify(sent)).constructor, 50);
 });

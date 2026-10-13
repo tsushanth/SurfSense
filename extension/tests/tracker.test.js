@@ -381,3 +381,23 @@ test('never records paths, queries or titles', async () => {
   const blob = JSON.stringify(storage.data);
   for (const bad of ['secret', 'token', 'frag', 'pw', 'path']) assert.ok(!blob.includes(bad), bad);
 });
+
+test('hostnames named like Object.prototype members bank numeric seconds without polluting', async () => {
+  const { clock, tracker } = setup();
+  await tracker.activate(1, 'https://constructor/');
+  clock.t += 10_000;
+  await tracker.activate(2, 'https://__proto__/');
+  clock.t += 7_000;
+  await tracker.activate(3, 'https://toString/');
+  clock.t += 5_000;
+  await tracker.pause();
+  const m = (await tracker.getToday());
+  assert.equal(typeof m.constructor, 'number');
+  assert.equal(m.constructor, 10);
+  assert.equal(Object.getPrototypeOf(m), Object.prototype);
+  assert.equal(Object.hasOwn(m, '__proto__'), true);
+  assert.equal(Object.getOwnPropertyDescriptor(m, '__proto__').value, 7);
+  assert.equal(m.tostring, 5);
+  assert.equal(({}).polluted, undefined);
+  assert.equal(Object.keys(Object.prototype).length, 0);
+});

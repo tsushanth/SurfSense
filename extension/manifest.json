@@ -2,6 +2,8 @@
   "manifest_version": 3,
   "name": "SurfSense",
   "version": "4.0.0",
+  "minimum_chrome_version": "99",
+  "incognito": "not_allowed",
   "description": "Track time spent on websites, view top sites, and see visual summaries by category to boost your focus.",
   "permissions": [
     "tabs",

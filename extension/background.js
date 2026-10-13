@@ -71,6 +71,11 @@ function ensureAlarm() {
 }
 ensureAlarm();
 
+// Bumped by every focus change / tab removal. A tab handler captures it before its first await and
+// drops its tracker call if it changed meanwhile (a stale activate would otherwise start a session
+// after the browser lost focus).
+let focusEpoch = 0;
+
 // Tracking only counts while the tab's window has the focus.
 async function windowFocused(windowId) {
   try {
@@ -80,6 +85,7 @@ async function windowFocused(windowId) {
 }
 
 async function startUp() {
+  const epoch = focusEpoch;
   await platformReady;
   await ensureAlarm();
   try { await chrome.storage.local.remove('timeData'); } catch { /* orphaned 3.0 key, best effort */ }
@@ -87,7 +93,7 @@ async function startUp() {
   if (!Number.isFinite(lastFlushMs)) await storage.set({ lastFlushMs: Date.now() });
   try {
     const [tab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
-    if (tab && await windowFocused(tab.windowId)) await tracker.activate(tab.id, tab.url);
+    if (tab && await windowFocused(tab.windowId) && epoch === focusEpoch) await tracker.activate(tab.id, tab.url);
   } catch { /* no window yet */ }
   // After tracking is restored: a slow or offline backend must not delay it.
   try { await api.ensureRegistered(); } catch { /* retried on the next API call */ }
@@ -107,27 +113,33 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 
 // ---------- tab / window events ----------
 chrome.tabs.onActivated.addListener(({ tabId }) => (async () => {
+  const epoch = focusEpoch;
   const tab = await getTab(tabId);
-  if (tab && await windowFocused(tab.windowId)) await tracker.activate(tabId, tab.url);
+  if (tab && await windowFocused(tab.windowId) && epoch === focusEpoch) await tracker.activate(tabId, tab.url);
 })().catch(() => {}));
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => (async () => {
+  const epoch = focusEpoch;
   if (!tab || !tab.active) return;
   if (changeInfo.status !== 'complete' && !changeInfo.url) return;
-  if (!(await windowFocused(tab.windowId))) return;
+  if (!(await windowFocused(tab.windowId)) || epoch !== focusEpoch) return;
   await tracker.navigate(tabId, tab.url);
 })().catch(() => {}));
 
-chrome.tabs.onRemoved.addListener((tabId) =>
+chrome.tabs.onRemoved.addListener((tabId) => {
+  focusEpoch++;
   // navigate() ignores tabs other than the running one; a null URL closes that session.
-  tracker.navigate(tabId, null).catch(() => {}));
+  return tracker.navigate(tabId, null).catch(() => {});
+});
 
 chrome.windows.onFocusChanged.addListener((windowId) => (async () => {
+  const epoch = ++focusEpoch;
   if (windowId === chrome.windows.WINDOW_ID_NONE) {
     await tracker.pause();
     return;
   }
   const [tab] = await chrome.tabs.query({ active: true, windowId });
+  if (epoch !== focusEpoch) return; // a newer focus change owns the state
   if (tab) await tracker.activate(tab.id, tab.url);
   else await tracker.pause(); // e.g. a devtools or popup window
 })().catch(() => {}));

@@ -3,6 +3,13 @@
 import { localDate, startOfNextLocalDay } from './dates.js';
 
 export const MAX_GAP_MS = 150000;
+
+// Adds to an own key of a plain object. Hostnames such as `constructor` or `__proto__` must neither
+// read inherited values nor touch the prototype, so reads use hasOwn and writes define the property.
+function addOwn(obj, key, n) {
+  const prev = Object.hasOwn(obj, key) ? obj[key] : 0;
+  Object.defineProperty(obj, key, { value: prev + n, writable: true, enumerable: true, configurable: true });
+}
 const KEEP_DAYS = 3;
 const KEYS = ['session', 'days', 'dirty', 'rev'];
 
@@ -60,7 +67,7 @@ export function createTracker({ storage, now = () => Date.now() }) {
       if (secs > 0) {
         const day = localDate(cursor);
         const m = (st.days[day] ??= {});
-        m[sess.domain] = (m[sess.domain] || 0) + secs;
+        addOwn(m, sess.domain, secs);
         st.rev += 1;
         st.dirty[day] = st.rev;
       }

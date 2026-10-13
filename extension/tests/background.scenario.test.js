@@ -21,6 +21,7 @@ function makeBackend() {
     requests: [],
     failDays: new Set(), // days whose submit is rejected with 400
     submitAttempts: [], // day of every submit attempt
+    auth401: [], // paths answered with 401
     offline: false,
     seq: 0,
     wipe() { this.clients.clear(); this.keys.clear(); this.summaries.clear(); this.codes.clear(); this.links = []; },
@@ -47,7 +48,7 @@ function makeBackend() {
 
     const auth = (init.headers && init.headers.Authorization) || '';
     const key = auth.replace(/^Bearer /, '');
-    if (!b.keys.has(key)) return json(401, { error: 'Unauthorized' });
+    if (!b.keys.has(key)) { b.auth401.push(path); return json(401, { error: 'Unauthorized' }); }
 
     if (path === '/get-category-mapping') {
       if (!Array.isArray(body.domains) || body.domains.length > 100) return json(400, { error: 'Too many domains' });
@@ -144,7 +145,10 @@ function makeChrome(clock) {
     windows: {
       WINDOW_ID_NONE: -1,
       onFocusChanged: env.onFocus,
-      get: (id, cb) => both(cb, { id, focused: id === env.focusedWindow }),
+      get: (id, cb) => {
+        const w = { id, focused: id === env.focusedWindow }; // decided at call time
+        return env.windowGetGate ? env.windowGetGate.then(() => w) : both(cb, w);
+      },
     },
   };
   env.send = (message) => new Promise((resolve) => {
@@ -159,6 +163,7 @@ function makeChrome(clock) {
     env.tabs.push({ id, url, active: true, windowId });
     return env.onActivated.emit({ tabId: id, windowId });
   };
+  env.setGate = (p) => { env.windowGetGate = p; };
   env.focus = (windowId) => { env.focusedWindow = windowId; return env.onFocus.emit(windowId); };
   return env;
 }
@@ -454,4 +459,81 @@ test('install/startup removes the orphaned 3.0 timeData key and nothing else', a
   assert.equal('timeData' in e.data, false);
   assert.equal(e.data.keepMe, 1);
   assert.ok(e.data.extensionId && e.data.apiKey);
+});
+
+// ---------- final fix wave ----------
+function gate(e) {
+  let release;
+  e.setGate(new Promise((r) => { release = r; }));
+  return () => { release(); e.setGate(null); };
+}
+
+test('focus epoch: onUpdated resolved after the browser lost focus starts no session', async () => {
+  const e = await boot();
+  await e.onInstalled.emit({});
+  e.tabs.push({ id: 7, url: YT, active: true, windowId: 1 });
+  const release = gate(e);
+  const pending = e.onUpdated.emit(7, { status: 'complete' }, { id: 7, active: true, windowId: 1, url: YT });
+  await new Promise((r) => setImmediate(r)); // windows.get is now pending
+  await e.focus(-1); // lands while it is still pending
+  release();
+  await pending;
+  for (let i = 0; i < 4; i++) await e.tick(MIN);
+  assert.deepEqual(await todayOf(e), {});
+});
+
+test('focus epoch: onActivated resolved after the browser lost focus starts no session', async () => {
+  const e = await boot();
+  await e.onInstalled.emit({});
+  e.tabs.push({ id: 7, url: YT, active: true, windowId: 1 });
+  const release = gate(e);
+  const pending = e.onActivated.emit({ tabId: 7, windowId: 1 });
+  await new Promise((r) => setImmediate(r));
+  await e.focus(-1);
+  release();
+  await pending;
+  for (let i = 0; i < 4; i++) await e.tick(MIN);
+  assert.deepEqual(await todayOf(e), {});
+});
+
+test('focus epoch control: the same sequences without a focus change do count', async () => {
+  const e = await boot();
+  await e.onInstalled.emit({});
+  e.tabs.push({ id: 7, url: YT, active: true, windowId: 1 });
+  let release = gate(e);
+  let pending = e.onUpdated.emit(7, { status: 'complete' }, { id: 7, active: true, windowId: 1, url: YT });
+  release();
+  await pending;
+  await e.tick(MIN); await e.tick(MIN);
+  near((await todayOf(e))['youtube.com'], 120);
+  e.tabs.push({ id: 8, url: GH, active: true, windowId: 1 });
+  release = gate(e);
+  pending = e.onActivated.emit({ tabId: 8, windowId: 1 });
+  release();
+  await pending;
+  await e.tick(MIN);
+  near((await todayOf(e))['github.com'], 60);
+});
+
+test('upgrade from 3.0: stale key is recovered once with the same id; timeData is dropped', async () => {
+  const e = await boot({ setup: (env) => {
+    env.data.extensionId = 'legacy-id-3-0';
+    env.data.apiKey = 'stale-key-unknown-to-server';
+    env.data.timeData = { 'old.example': 99 };
+    env.data.keepMe = 'kept';
+    env.tabs.push({ id: 4, url: YT, active: true, windowId: 1 });
+  } });
+  const day = localDate(e.clock.now);
+  await e.onInstalled.emit({ reason: 'update' });
+  assert.equal(e.backend.count('/register-client'), 0, 'a stored key is trusted until the server says otherwise');
+  for (let i = 0; i < 3; i++) await e.tick(MIN);
+  assert.equal((await e.send({ action: ACTIONS.MANUAL_UPDATE })).success, true);
+  assert.equal(e.backend.count('/register-client'), 1);
+  assert.deepEqual([...e.backend.clients.keys()], ['legacy-id-3-0']);
+  assert.deepEqual(e.backend.auth401, ['/get-category-mapping'], 'exactly one 401, on the first authenticated call');
+  assert.equal(e.data.extensionId, 'legacy-id-3-0');
+  assert.notEqual(e.data.apiKey, 'stale-key-unknown-to-server');
+  near(secondsOf(e.backend, 'legacy-id-3-0', day).Entertainment, 180);
+  assert.equal('timeData' in e.data, false);
+  assert.equal(e.data.keepMe, 'kept');
 });
