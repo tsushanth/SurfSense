@@ -247,7 +247,9 @@ private fun AddDeviceDialog(
                 Text(stringResource(R.string.add_device_prompt, Config.LINKING_CODE_LENGTH))
                 OutlinedTextField(
                     value = code,
-                    onValueChange = { if (it.length <= Config.LINKING_CODE_LENGTH && it.all { c -> c.isDigit() }) code = it },
+                    // Keep ASCII 0-9 only (isDigit() would also accept other scripts' digits, which the server rejects);
+                    // filtering rather than rejecting lets a pasted "482 913" through.
+                    onValueChange = { code = it.filter { c -> c in '0'..'9' }.take(Config.LINKING_CODE_LENGTH) },
                     label = { Text(stringResource(R.string.add_device_code_label)) },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     singleLine = true,
