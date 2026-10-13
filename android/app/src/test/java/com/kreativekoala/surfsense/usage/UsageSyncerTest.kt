@@ -102,4 +102,20 @@ class UsageSyncerTest {
         assertEquals(UsageSyncer.Outcome.SUCCESS, f.syncer.run())
         assertEquals("2026-10-12" to mapOf("News" to 40, "Food" to 10), f.submitted)
     }
+
+    @Test fun storedOverridesApplyThroughTheWorkerApplier() = runBlocking {
+        val store = object : CategoryOverrides.Store {
+            var data = emptyMap<String, String>()
+            override fun load() = data
+            override fun save(map: Map<String, String>) { data = map }
+        }
+        CategoryOverrides(store).set("com.c", "Health")
+        val f = Fixture(applyOverrides = CategoryOverrides.applier(store))
+        f.syncer.run()
+        assertEquals("2026-10-12" to mapOf("News" to 150, "Health" to 25), f.submitted)
+        // Removing the override takes effect on the next sync without rebuilding anything.
+        CategoryOverrides(store).remove("com.c")
+        f.syncer.run()
+        assertEquals("2026-10-12" to mapOf("News" to 150, "Other" to 25), f.submitted)
+    }
 }

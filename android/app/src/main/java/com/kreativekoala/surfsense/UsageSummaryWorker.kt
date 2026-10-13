@@ -5,6 +5,7 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.kreativekoala.surfsense.identity.Identity
 import com.kreativekoala.surfsense.usage.CategoryMapper
+import com.kreativekoala.surfsense.usage.CategoryOverrides
 import com.kreativekoala.surfsense.usage.Day
 import com.kreativekoala.surfsense.usage.UsageAccess
 import com.kreativekoala.surfsense.usage.UsageCollector
@@ -32,6 +33,7 @@ class UsageSummaryWorker(appContext: Context, workerParams: WorkerParameters) :
             },
             ensureRegistered = { Identity.registrar().ensureRegistered() },
             dayOf = { Day.dayString(it, TimeZone.getDefault()) },
+            applyOverrides = CategoryOverrides.applier(CategoryOverrides.SharedPrefsStore(applicationContext)),
         )
 
         return try {

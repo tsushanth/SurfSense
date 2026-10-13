@@ -35,6 +35,12 @@ class CategoryOverrides(private val store: Store) {
         return out
     }
 
+    companion object {
+        /** The function [UsageSyncer] takes as `applyOverrides`, reading [store] at sync time. */
+        fun applier(store: Store): (Map<String, String>, Collection<String>) -> Map<String, String> =
+            { mapping, packages -> CategoryOverrides(store).apply(mapping, packages) }
+    }
+
     class SharedPrefsStore(context: Context) : Store {
         private val prefs = context.applicationContext.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
         private val gson = Gson()
