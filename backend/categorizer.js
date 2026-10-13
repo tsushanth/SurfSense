@@ -1,12 +1,14 @@
 /**
  * Domain/Package Categorizer
  *
- * Tiered approach:
- * 1. Check Supabase cache
- * 2. Pattern matching (free)
- * 3. Static database lookup (free)
- * 4. GPT-3.5-turbo fallback (cheap)
+ * Tiered approach (categorizeLocally):
+ * 1. Static database lookup (free, exact)
+ * 2. Pre-labeled domain list (free, domains only; see domainList.js)
+ * 3. Pattern matching (free)
+ * Play Store lookup and "Other" fallback are handled by categorize.js.
  */
+
+import { lookupLabeled } from './domainList.js';
 
 // Pattern-based categorization
 const CATEGORY_PATTERNS = {
@@ -373,7 +375,14 @@ function categorizeLocally(input, isPackage = false) {
     const staticResult = lookupStatic(input, isPackage);
     if (staticResult) return staticResult;
 
-    // 2. Pattern matching
+    // 2. Pre-labeled popular domains. Checked BEFORE the regexes, which
+    //    mislabel names like /post|times|daily/.
+    if (!isPackage) {
+        const labeled = lookupLabeled(input);
+        if (labeled) return labeled;
+    }
+
+    // 3. Pattern matching
     const patternResult = matchByPattern(input, isPackage);
     if (patternResult) return patternResult;
 

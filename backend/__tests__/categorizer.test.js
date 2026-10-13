@@ -129,3 +129,14 @@ describe('categorizeLocally', () => {
         expect(categorizeLocally('')).toBeNull();
     });
 });
+
+describe('categorizeLocally - labeled list outranks regexes', () => {
+    it('uses the labeled list before the regex tier', () => {
+        // "postman.com" is a developer tool in the list; the News regex (/post/) would mislabel it
+        expect(categorizeLocally('postman.com')).toBe('Work/Productivity');
+    });
+
+    it('handles www. and subdomains via the list', () => {
+        expect(categorizeLocally('www.espn.com')).toBe('Entertainment');
+    });
+});
