@@ -1,6 +1,6 @@
 # SurfSense: backend revival, fixes, redesign, release
 
-Date: 2026-10-12. Status: draft, awaiting review.
+Date: 2026-10-12. Status: approved decisions applied 2026-10-12; plan pending.
 
 ## Intent
 
@@ -19,9 +19,9 @@ Success: a new user can install on two devices, link them with a code, and see a
 
 ## Scope
 
-In: backend revival; client bug fixes found by testing real flows; feature additions (below); frontend redesign across the extension popup, iOS and Android; release of all three clients.
+In: backend revival; client bug fixes found by testing real flows; feature additions (below); frontend redesign across the extension popup and Android; release of Android and the extension.
 
-Out: accounts or sign-in, hard app blocking, Family Controls shielding, new platforms, monetization changes.
+Out: iOS release (decision 2026-10-12: ship backend, Android and extension only; iOS working-tree changes stay uncommitted, API stays unchanged so a later iOS release only flips the URL; shipped iOS builds stay broken until then because the old Cloud Run host cannot be redirected), accounts or sign-in, hard app blocking, Family Controls shielding, new platforms, monetization changes.
 
 ## Part 1: Backend revival (blocks everything)
 
@@ -33,7 +33,7 @@ Out: accounts or sign-in, hard app blocking, Family Controls shielding, new plat
 
 ## Part 2: Client fixes
 
-Run the real flows on a simulator or device (iOS, Android) and in Chrome: register, show code, link, submit summary, view history, unlink, offline and cold-start behavior. Fix what fails. Known suspects: hard-coded URLs in three places (centralize per platform), error states when the backend is slow to wake, linking code expiry display.
+Run the real flows on an Android device or emulator and in Chrome: register, show code, link, submit summary, view history, unlink, offline and cold-start behavior. Fix what fails. Known suspects: hard-coded URLs in three places (centralize per platform), error states when the backend is slow to wake, linking code expiry display.
 
 ## Part 3: Features (from market research)
 
@@ -59,17 +59,23 @@ Subject: a calm, descriptive instrument for people who want to see their day, no
 
 ## Part 5: Release
 
-- Versions: iOS 2.0.0 (build above the highest App Store Connect build), Android 10.0.0 (code 10), extension 4.0.0. Confirm against App Store Connect and Play before bumping.
+- Versions: Android 10.0.0 (code 10), extension 4.0.0. Confirm against Play and the Chrome Web Store before bumping.
 - Pre-push secrets scan; push after each merge.
-- iOS: archive, TestFlight, then submit using the fastlane config in `ios/fastlane`. Scheme name check with `xcodebuild -list` first. Note the app was previously removed from sale; confirm availability in App Store Connect.
 - Android: AAB via Gradle, upload to Play (staged rollout). Minify stays off.
 - Extension: zip and submit to the Chrome Web Store.
 
-## Open questions
+## Categorizer (decision 2026-10-12: approach A, B as measured follow-up)
 
-1. **Categorizer fallback.** The backend calls OpenAI as fallback for unknown domains. The OpenAI key found in the sibling's `.env` is old and the portfolio moved off OpenAI. Proposed: keep local pattern matching first, and swap the fallback to a small Claude model through a server-side call (never client-side), cached in `domain_categories`. Needs a decision on the key to use.
-2. **Fly cost.** `min_machines_running = 0` is proposed to keep cost near zero; alternative is one always-on 512 MB machine, a small recurring cost.
-3. **Scope per client.** Assumed all three clients ship. Say so if the extension should wait.
+No LLM and no API key. Tiers: Supabase cache, then patterns and static map, then a pre-labeled list of the top ~20k domains (labels produced once in chat and spot-checked, shipped as static JSON; check the source ranking list's license first), then for Android packages the category on the public Play Store page (fetch only `play.google.com` with the package name regex-validated, so no SSRF surface), else "Other". Users can override any category in one tap. Log how many lookups end as "Other" and what users override.
+
+Tier B (small local zero-shot embedding model for the long tail) is being tested as a throwaway feasibility spike outside the repo. Bars: >=80% accuracy on non-Other predictions, >=50% of previously unknown domains labeled, <=250MB RSS growth, <=8s cold start. Added only if it passes and the logged Other rate justifies it. Option C (fetching page titles) is rejected: SSRF attack surface.
+
+OpenAI is removed from the backend (dependency, env var, README).
+
+## Decisions
+
+- Fly: scale-to-zero, `min_machines_running = 0`.
+- After deploy, update the Fly guide mapping for `usage-tracker-backend` to point at `SurfSense/backend`.
 
 ## Testing
 
