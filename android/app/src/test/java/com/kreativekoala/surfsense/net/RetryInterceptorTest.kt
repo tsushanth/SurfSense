@@ -23,6 +23,7 @@ class RetryInterceptorTest {
     @Before fun setUp() {
         server = MockWebServer().also { it.start() }
         client = OkHttpClient.Builder()
+            // Test-only: isolates RetryPolicy from OkHttp's own retry; production keeps OkHttp's route fallback.
             .retryOnConnectionFailure(false)
             .dns(object : Dns {
                 // MockWebServer listens on IPv4; with retryOnConnectionFailure(false) OkHttp will not fall back from ::1.
@@ -80,5 +81,20 @@ class RetryInterceptorTest {
         server.enqueue(MockResponse().setResponseCode(200))
         assertEquals(200, post("/get-category-mapping").code)
         assertEquals(2, server.requestCount)
+    }
+
+    @Test fun cancelledCallIsNotRetriedAndDoesNotSleep() {
+        server.enqueue(MockResponse().setResponseCode(200))
+        val cancelling = OkHttpClient.Builder()
+            .addInterceptor { chain -> chain.call().cancel(); chain.proceed(chain.request()) }
+            .addInterceptor(RetryInterceptor(sleep = { sleeps.add(it) }))
+            .build()
+        var failed = false
+        try {
+            cancelling.newCall(Request.Builder().url(server.url("/x")).build()).execute()
+        } catch (e: IOException) { failed = true }
+        assertTrue(failed)
+        assertTrue(sleeps.isEmpty())
+        assertEquals(0, server.requestCount)
     }
 }

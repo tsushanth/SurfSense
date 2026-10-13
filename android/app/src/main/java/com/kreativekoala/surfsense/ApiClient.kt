@@ -33,7 +33,6 @@ object ApiClient {
     private fun buildRegistrationService(): ApiService {
         val clientBuilder = OkHttpClient.Builder()
             .dispatcher(Dispatcher())
-            .retryOnConnectionFailure(false)
             .connectTimeout(Config.CONNECT_TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(Config.READ_TIMEOUT, TimeUnit.SECONDS)
             .writeTimeout(Config.WRITE_TIMEOUT, TimeUnit.SECONDS)
@@ -71,7 +70,6 @@ object ApiClient {
 
     private fun buildApiService(): ApiService {
         val clientBuilder = OkHttpClient.Builder()
-            .retryOnConnectionFailure(false)
             .connectTimeout(Config.CONNECT_TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(Config.READ_TIMEOUT, TimeUnit.SECONDS)
             .writeTimeout(Config.WRITE_TIMEOUT, TimeUnit.SECONDS)
@@ -91,7 +89,8 @@ object ApiClient {
             clientBuilder.addInterceptor(loggingInterceptor())
         }
 
-        // Retry connection failures and idempotent 5xx only (see RetryPolicy)
+        // RetryPolicy governs app-level retries. OkHttp's own route fallback / stale-connection recovery stays
+        // enabled on purpose (do not turn it off: it would break IPv6->IPv4 fallback).
         clientBuilder.addInterceptor(RetryInterceptor())
 
         return retrofit(clientBuilder.build())

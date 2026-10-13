@@ -34,6 +34,7 @@ class RetryInterceptor(
                 failure = e
                 null
             }
+            if (failure != null && chain.call().isCanceled()) throw failure
             val retry = RetryPolicy.shouldRetry(
                 request.method, request.url.encodedPath, response?.code, response == null, attempt
             )
