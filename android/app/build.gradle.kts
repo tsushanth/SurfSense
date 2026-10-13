@@ -104,9 +104,6 @@ dependencies {
     implementation(libs.coroutines.core)
     implementation(libs.coroutines.android)
 
-    // Charts
-    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
-
     // WorkManager
     implementation(libs.androidx.work.runtime.ktx)
 

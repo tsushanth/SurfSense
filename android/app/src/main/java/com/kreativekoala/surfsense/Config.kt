@@ -23,33 +23,10 @@ object Config {
     // Logging (disable in production)
     const val ENABLE_NETWORK_LOGGING = false
 
-    // SharedPreferences Keys
-    object Prefs {
-        const val PREFS_NAME = "SurfSensePrefs"
-        const val KEY_LINKED_DEVICE_IDS = "linked_device_ids"
-        const val KEY_NOTIFICATIONS_ENABLED = "notifications_enabled"
-        const val KEY_LAST_SYNC_TIME = "last_sync_time"
-    }
-
     // Client Type
     const val CLIENT_TYPE = "ANDROID"
 
     // External URLs
     const val privacyPolicyURL = "https://kreativekoala.llc/privacy"
     const val termsOfServiceURL = "https://kreativekoala.llc/terms"
-
-    // Categories
-    val CATEGORIES = listOf(
-        "Social Media",
-        "Entertainment",
-        "Work/Productivity",
-        "Shopping",
-        "Education",
-        "News",
-        "Finance",
-        "Health",
-        "Travel",
-        "Food",
-        "Other"
-    )
 }
