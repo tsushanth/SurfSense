@@ -46,8 +46,9 @@ export function mapPlayCategory(raw) {
  * Only ever requests play.google.com with a validated package name and never
  * follows redirects. Result statuses:
  *   ok         category found
- *   not_found  Play has no such app (cache as Other)
- *   error      transient problem (do NOT cache)
+ *   not_found  Play returned HTTP 404 (cache as Other)
+ *   error      transient problem (do NOT cache): unexpected page (200 without a
+ *              category), redirects, 429/5xx, timeouts, network errors
  *   invalid    not a package name; no request made (do NOT cache)
  */
 export async function fetchPlayCategory(pkg, { fetchImpl = fetch, timeoutMs = 4000 } = {}) {
@@ -65,7 +66,7 @@ export async function fetchPlayCategory(pkg, { fetchImpl = fetch, timeoutMs = 40
         if (res.status !== 200) return { status: 'error' };
 
         const raw = parsePlayCategory(await res.text());
-        if (!raw) return { status: 'not_found' };
+        if (!raw) return { status: 'error' };
         return { status: 'ok', category: mapPlayCategory(raw) };
     } catch {
         return { status: 'error' };

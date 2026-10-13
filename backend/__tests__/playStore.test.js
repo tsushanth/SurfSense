@@ -68,15 +68,15 @@ describe('fetchPlayCategory', () => {
         expect(opts.signal).toBeInstanceOf(AbortSignal);
     });
 
-    it('returns not_found on 404 and on a 200 page with no category', async () => {
+    it('returns not_found only on HTTP 404', async () => {
         expect(await fetchPlayCategory('com.nope.x', { fetchImpl: async () => fakeResponse(404) })).toEqual({ status: 'not_found' });
-        expect(await fetchPlayCategory('com.nope.x', { fetchImpl: async () => fakeResponse(200, '<html/>') })).toEqual({ status: 'not_found' });
     });
 
-    it('returns error for 429, 5xx, redirects and thrown errors (transient)', async () => {
+    it('returns error for 429, 5xx, redirects, a 200 page with no category, and thrown errors (transient)', async () => {
         for (const status of [429, 500, 503, 301, 302]) {
             expect(await fetchPlayCategory('com.a.b', { fetchImpl: async () => fakeResponse(status) })).toEqual({ status: 'error' });
         }
+        expect(await fetchPlayCategory('com.a.b', { fetchImpl: async () => fakeResponse(200, '<html/>') })).toEqual({ status: 'error' });
         expect(await fetchPlayCategory('com.a.b', { fetchImpl: async () => { throw new Error('boom'); } })).toEqual({ status: 'error' });
     });
 
