@@ -18,6 +18,7 @@ import {
     unlinkClients,
     getLinkedClients,
 } from './linkingFunctions.js';
+import { canReadSummary, isPartyToLink } from './authz.js';
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -412,10 +413,14 @@ app.get('/get-summary-history', authenticateClient, async (req, res) => {
         return res.status(400).json({ error: 'Missing or invalid userId/day. Day must be in YYYY-MM-DD format.' });
     }
 
-    // Users can query their own data or linked devices' data
-    // For now, allow if authenticated (backend auth ensures legitimacy)
-
     try {
+        if (userId !== req.clientId) {
+            const linked = await getLinkedClients(req.clientId);
+            if (!canReadSummary(req.clientId, userId, linked.map(c => c.clientId))) {
+                return res.status(403).json({ error: 'Not authorized to read this device' });
+            }
+        }
+
         const { data, error } = await supabase
             .from('daily_summaries')
             .select('timestamp, user_id, summary')
@@ -537,6 +542,10 @@ app.post('/complete-linking', authenticateClient, linkingLimiter, async (req, re
             return res.status(400).json({ success: false, error: 'Valid clientId is required' });
         }
 
+        if (resolvedClientId !== req.clientId) {
+            return res.status(403).json({ success: false, error: 'clientId does not match authenticated client' });
+        }
+
         // Validate code is exactly 6 numeric digits
         if (!code || !/^\d{6}$/.test(code)) {
             return res.status(400).json({ success: false, error: 'Code must be exactly 6 numeric digits' });
@@ -558,6 +567,10 @@ app.post('/unlink-device', authenticateClient, async (req, res) => {
             return res.status(400).json({ success: false, error: 'Both clientIdA and clientIdB are required' });
         }
 
+        if (!isPartyToLink(req.clientId, clientIdA, clientIdB)) {
+            return res.status(403).json({ success: false, error: 'Not authorized to unlink these devices' });
+        }
+
         await unlinkClients(clientIdA, clientIdB);
         res.json({ success: true });
     } catch (error) {
@@ -572,6 +585,10 @@ app.get('/get-linked-clients', authenticateClient, async (req, res) => {
 
         if (!clientId || !isValidClientId(clientId)) {
             return res.status(400).json({ success: false, error: 'Valid clientId is required' });
+        }
+
+        if (clientId !== req.clientId) {
+            return res.status(403).json({ success: false, error: 'clientId does not match authenticated client' });
         }
 
         const linkedClients = await getLinkedClients(clientId);
