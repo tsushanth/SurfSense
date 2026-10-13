@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
 // Mock supabase and logger before importing
 // Chainable fake: each from(table) pops a scripted result (or falls back to {}).
@@ -146,6 +146,45 @@ describe('getLinkedClients link activity refresh', () => {
         h.state.results.client_links = [{ data: [{ client_b: 'b' }] }, { data: [] }, {}, {}];
         h.state.results.extension_clients = happyClients;
         await expect(getLinkedClients('me')).resolves.toEqual(expected);
+    });
+});
+
+describe('getLinkedClients link activity deadline', () => {
+    const clients = { data: [{ client_id: 'b', client_name: 'Phone', client_type: 'IOS' }] };
+    afterEach(() => { vi.useRealTimers(); });
+
+    it('resolves with clients and warns when the update never settles', async () => {
+        const { logger } = await import('../logger.js');
+        logger.warn.mockClear();
+        vi.useFakeTimers();
+        h.state.results.client_links = [{ data: [{ client_b: 'b' }] }, { data: [] }, () => new Promise(() => {}), {}];
+        h.state.results.extension_clients = clients;
+        const p = getLinkedClients('me');
+        await vi.advanceTimersByTimeAsync(3000);
+        await expect(p).resolves.toEqual([{ clientId: 'b', clientName: 'Phone', clientType: 'IOS' }]);
+        expect(logger.warn).toHaveBeenCalledTimes(1);
+        expect(logger.warn).toHaveBeenCalledWith('Link activity refresh timed out');
+    });
+
+    it('does not produce an unhandled rejection when updates reject after the deadline', async () => {
+        vi.useFakeTimers();
+        const unhandled = vi.fn();
+        process.on('unhandledRejection', unhandled);
+        try {
+            let rejectLate;
+            const late = new Promise((_, rej) => { rejectLate = rej; });
+            h.state.results.client_links = [{ data: [{ client_b: 'b' }] }, { data: [] }, () => late, {}];
+            h.state.results.extension_clients = clients;
+            const p = getLinkedClients('me');
+            await vi.advanceTimersByTimeAsync(3000);
+            await p;
+            rejectLate(new Error('late failure'));
+            vi.useRealTimers();
+            await new Promise(r => setTimeout(r, 20));
+            expect(unhandled).not.toHaveBeenCalled();
+        } finally {
+            process.off('unhandledRejection', unhandled);
+        }
     });
 });
 

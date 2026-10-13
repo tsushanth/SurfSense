@@ -1,6 +1,7 @@
 import crypto from 'crypto';
 import { supabase } from './supabase.js';
 import { logger } from './logger.js';
+import { withDeadline } from './deadline.js';
 
 /** Expected, user-correctable linking failures. The route maps these to HTTP 400. */
 class LinkingError extends Error {
@@ -124,22 +125,27 @@ async function unlinkClients(clientId1, clientId2) {
     logger.info({ clientA, clientB }, 'Devices unlinked');
 }
 
-/**
- * Get all clients linked to the given one.
- * Uses batch query to avoid N+1 problem.
- */
+const LINK_TOUCH_DEADLINE_MS = 3000;
+const TOUCH_TIMED_OUT = Symbol('touch-timed-out');
+
 /**
  * Best-effort refresh of last_activity_at on every link involving clientId, so
  * cleanup_inactive_links() (30 days idle) only deletes pairings that are really unused.
  * Uses two .eq updates (no .or() filter string built from the id). Never throws.
+ * Bounded by LINK_TOUCH_DEADLINE_MS; on timeout the writes keep running in the background
+ * (withDeadline's race handles a later rejection, so it cannot become unhandled).
  */
 async function touchLinks(clientId) {
     try {
         const now = new Date().toISOString();
-        const results = await Promise.all([
+        const results = await withDeadline(Promise.all([
             supabase.from('client_links').update({ last_activity_at: now }).eq('client_a', clientId),
             supabase.from('client_links').update({ last_activity_at: now }).eq('client_b', clientId)
-        ]);
+        ]), LINK_TOUCH_DEADLINE_MS, TOUCH_TIMED_OUT);
+        if (results === TOUCH_TIMED_OUT) {
+            logger.warn('Link activity refresh timed out');
+            return;
+        }
         for (const r of results) {
             if (r && r.error) logger.warn({ err: r.error.message }, 'Failed to refresh link activity');
         }
@@ -148,6 +154,10 @@ async function touchLinks(clientId) {
     }
 }
 
+/**
+ * Get all clients linked to the given one.
+ * Uses batch query to avoid N+1 problem.
+ */
 async function getLinkedClients(clientId) {
     // Query both directions of the link
     const [resultA, resultB] = await Promise.all([
