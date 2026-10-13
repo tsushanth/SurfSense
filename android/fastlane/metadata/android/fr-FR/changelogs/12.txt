@@ -1,0 +1,1 @@
+Nouveau look : votre journée en une seule ligne, répartie par catégorie. Consultez chaque appareil séparément, comparez cette semaine à la précédente, changez la catégorie d'une appli d'un geste et exportez vos données en CSV.

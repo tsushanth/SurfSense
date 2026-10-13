@@ -1,0 +1,1 @@
+Neues Design: Dein Tag als eine Linie, nach Kategorien aufgeteilt. Sieh jedes Gerät einzeln, vergleiche diese Woche mit der letzten, ändere die Kategorie einer App mit einem Tipp und exportiere deine Daten als CSV-Datei.

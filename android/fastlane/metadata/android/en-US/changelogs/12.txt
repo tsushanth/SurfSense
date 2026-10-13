@@ -1,0 +1,1 @@
+A new look: your day as one line, split by category. See each device on its own, compare this week with last week, change an app's category with a tap, and export your data as a CSV file.

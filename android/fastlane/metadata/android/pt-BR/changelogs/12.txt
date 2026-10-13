@@ -1,0 +1,1 @@
+Novo visual: seu dia em uma única linha, dividido por categoria. Veja cada dispositivo separadamente, compare esta semana com a anterior, mude a categoria de um app com um toque e exporte seus dados em CSV.
