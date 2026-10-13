@@ -17,12 +17,14 @@ class UsageSyncerTest {
     ) {
         var submitted: Pair<String, Map<String, Int>>? = null
         var collected = 0
+        var submitCalls = 0
         val syncer = UsageSyncer(
+            clock = { 1_000L },
             collect = { collected++; usage },
             mapper = CategoryMapper { mapping(it) },
-            submit = { day, summary -> submitted = day to summary; submitReply() },
+            submit = { day, summary -> submitCalls++; submitted = day to summary; submitReply() },
             ensureRegistered = { registered },
-            today = { "2026-10-12" },
+            dayOf = { "2026-10-12" },
         )
     }
 
@@ -56,5 +58,36 @@ class UsageSyncerTest {
         assertEquals(UsageSyncer.Outcome.RETRY, Fixture(submitReply = { Response.error(429, "".toResponseBody(null)) }).syncer.run())
         assertEquals(UsageSyncer.Outcome.FAIL, Fixture(submitReply = { Response.error(400, "".toResponseBody(null)) }).syncer.run())
         assertEquals(UsageSyncer.Outcome.RETRY, Fixture(submitReply = { throw IOException("offline") }).syncer.run())
+    }
+
+    @Test fun usesOneInstantForCollectionAndDay() = runBlocking {
+        var tick = 0L
+        var collectedAt = -1L
+        var dayAt = -1L
+        val syncer = UsageSyncer(
+            clock = { ++tick },
+            collect = { collectedAt = it; mapOf("com.a" to 10) },
+            mapper = CategoryMapper { Response.success(mapOf("com.a" to "News")) },
+            submit = { _, _ -> Response.success(Unit) },
+            ensureRegistered = { true },
+            dayOf = { dayAt = it; "d" },
+        )
+        assertEquals(UsageSyncer.Outcome.SUCCESS, syncer.run())
+        assertEquals(1L, collectedAt)
+        assertEquals(collectedAt, dayAt)
+        assertEquals(1L, tick)
+    }
+
+    @Test fun nothingIsSubmittedWhenMappingFails() = runBlocking {
+        for (code in listOf(503, 429, 400)) {
+            val f = Fixture(mapping = { Response.error(code, "".toResponseBody(null)) })
+            f.syncer.run()
+            assertEquals(0, f.submitCalls)
+        }
+    }
+
+    @Test fun mapping429Retries() = runBlocking {
+        val f = Fixture(mapping = { Response.error(429, "".toResponseBody(null)) })
+        assertEquals(UsageSyncer.Outcome.RETRY, f.syncer.run())
     }
 }

@@ -56,4 +56,38 @@ class ForegroundTimeTest {
         val r = ForegroundTime.secondsByPackage(listOf(UsageEvent("a", 1, end - 30_000), UsageEvent("a", 2, end + 60_000)), start, end)
         assertEquals(mapOf("a" to 30), r)
     }
+
+    private fun act(cls: String, type: Int, atMs: Long) = UsageEvent("p", type, start + atMs, cls)
+
+    @Test fun activityToActivityPlatformOrderKeepsTheWholeSession() {
+        val r = ForegroundTime.secondsByPackage(
+            listOf(
+                act("A1", 1, 0), act("A1", 2, 60_000), act("A2", 1, 60_100),
+                act("A1", 23, 60_300), act("A2", 2, 180_000)
+            ), start, end
+        )
+        assertEquals(mapOf("p" to 179), r)
+    }
+
+    @Test fun reversedActivityOrderCountsContinuously() {
+        val r = ForegroundTime.secondsByPackage(
+            listOf(act("A1", 1, 0), act("A2", 1, 60_000), act("A1", 2, 60_100), act("A2", 2, 180_000)), start, end
+        )
+        assertEquals(mapOf("p" to 180), r)
+    }
+
+    @Test fun twoActivitiesOpenAtOnceAreNotDoubleCounted() {
+        val r = ForegroundTime.secondsByPackage(
+            listOf(act("A1", 1, 0), act("A2", 1, 30_000), act("A1", 2, 60_000), act("A2", 2, 120_000)), start, end
+        )
+        assertEquals(mapOf("p" to 120), r)
+    }
+
+    @Test fun aSessionStartedBeforeTheWindowCountsOnlyTheInWindowPart() {
+        val ws = 10 * 60_000L
+        val r = ForegroundTime.secondsByPackage(
+            listOf(UsageEvent("a", 1, ws - 2 * 60_000), UsageEvent("a", 2, ws + 3 * 60_000)), ws, ws + 60 * 60_000
+        )
+        assertEquals(mapOf("a" to 180), r)
+    }
 }

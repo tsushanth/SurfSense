@@ -52,4 +52,18 @@ class CategoryMapperTest {
         }
         assertTrue(m.map(pkgs(150)) is CategoryMapper.Outcome.Failed)
     }
+
+    @Test fun exactly100IsOneRequestAnd101IsTwo() = runBlocking {
+        val a = ArrayList<Int>()
+        CategoryMapper { c -> a.add(c.size); Response.success(emptyMap()) }.map(pkgs(100))
+        assertEquals(listOf(100), a)
+        val b = ArrayList<Int>()
+        CategoryMapper { c -> b.add(c.size); Response.success(emptyMap()) }.map(pkgs(101))
+        assertEquals(listOf(100, 1), b)
+    }
+
+    @Test fun aSuccessfulResponseWithNoBodyIsARetryableFailure() = runBlocking {
+        val m = CategoryMapper { Response.success<Map<String, String>>(null) }
+        assertEquals(CategoryMapper.Outcome.Failed(retryable = true), m.map(pkgs(1)))
+    }
 }

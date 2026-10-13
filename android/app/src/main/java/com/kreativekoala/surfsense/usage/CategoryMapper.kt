@@ -24,7 +24,8 @@ class CategoryMapper(
                 val code = response.code()
                 return Outcome.Failed(retryable = code == 429 || code >= 500)
             }
-            result.putAll(response.body().orEmpty())
+            val body = response.body() ?: return Outcome.Failed(retryable = true)
+            result.putAll(body)
         }
         return Outcome.Mapped(result)
     }

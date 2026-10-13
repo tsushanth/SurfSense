@@ -13,13 +13,15 @@ class UsageCollector(private val context: Context) {
     fun todaySeconds(nowMs: Long = System.currentTimeMillis(), zone: TimeZone = TimeZone.getDefault()): Map<String, Int> {
         val manager = context.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
         val start = Day.startOfDayMs(nowMs, zone)
-        val events = manager.queryEvents(start, nowMs) ?: return emptyMap()
+        // Query from six hours before local midnight so a session spanning midnight still contributes its
+        // post-midnight part; ForegroundTime clamps everything to [start, nowMs].
+        val events = manager.queryEvents(start - 6 * 60 * 60 * 1000L, nowMs) ?: return emptyMap()
 
         val list = ArrayList<UsageEvent>()
         val event = UsageEvents.Event()
         while (events.hasNextEvent()) {
             events.getNextEvent(event)
-            list.add(UsageEvent(event.packageName, event.eventType, event.timeStamp))
+            list.add(UsageEvent(event.packageName, event.eventType, event.timeStamp, event.className ?: ""))
         }
 
         val excluded = systemSurfaces()

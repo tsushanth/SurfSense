@@ -9,6 +9,7 @@ import com.kreativekoala.surfsense.usage.Day
 import com.kreativekoala.surfsense.usage.UsageAccess
 import com.kreativekoala.surfsense.usage.UsageCollector
 import com.kreativekoala.surfsense.usage.UsageSyncer
+import kotlinx.coroutines.CancellationException
 import timber.log.Timber
 import java.util.TimeZone
 
@@ -21,7 +22,8 @@ class UsageSummaryWorker(appContext: Context, workerParams: WorkerParameters) :
         if (!UsageAccess.isGranted(applicationContext)) return Result.success()
 
         val syncer = UsageSyncer(
-            collect = { UsageCollector(applicationContext).todaySeconds() },
+            clock = System::currentTimeMillis,
+            collect = { UsageCollector(applicationContext).todaySeconds(it) },
             mapper = CategoryMapper { ApiClient.create().getAppCategoryMapping(AppCategoryRequest(it)) },
             submit = { day, summary ->
                 ApiClient.create().submitUsageReport(
@@ -29,7 +31,7 @@ class UsageSummaryWorker(appContext: Context, workerParams: WorkerParameters) :
                 )
             },
             ensureRegistered = { Identity.registrar().ensureRegistered() },
-            today = { Day.dayString(System.currentTimeMillis(), TimeZone.getDefault()) },
+            dayOf = { Day.dayString(it, TimeZone.getDefault()) },
         )
 
         return try {
@@ -38,6 +40,8 @@ class UsageSummaryWorker(appContext: Context, workerParams: WorkerParameters) :
                 UsageSyncer.Outcome.RETRY -> if (runAttemptCount < MAX_RETRIES) Result.retry() else Result.failure()
                 UsageSyncer.Outcome.FAIL -> Result.failure()
             }
+        } catch (e: CancellationException) {
+            throw e
         } catch (e: Exception) {
             Timber.e(e, "Usage sync crashed")
             if (runAttemptCount < MAX_RETRIES) Result.retry() else Result.failure()
