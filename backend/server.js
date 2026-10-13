@@ -12,6 +12,7 @@ import { fetchPlayCategory } from './playStore.js';
 import { createCategorizer } from './categorize.js';
 import { authenticateClient, generateApiKey, hashApiKey } from './middleware/auth.js';
 import pLimit from 'p-limit';
+import { withDeadline } from './deadline.js';
 import {
     initiateLinking,
     completeLinking,
@@ -85,7 +86,12 @@ function isValidClientId(id) {
 }
 
 // --- Categorization (no LLM): see categorize.js ---
-const playLimit = pLimit(4); // cap concurrent Play Store fetches across all requests
+const CATEGORY_BUDGET_MS = 12000; // per-item budget; slow lookups yield 'Other' but still populate the cache when they finish
+const playLimit = pLimit(6); // cap concurrent Play Store fetches across all requests
+const playEnabled = process.env.PLAY_LOOKUP_ENABLED !== 'false';
+if (!playEnabled) {
+    logger.warn('Play Store lookup disabled (PLAY_LOOKUP_ENABLED=false); packages will categorize as Other');
+}
 
 const categorize = createCategorizer({
     cache: {
@@ -106,7 +112,9 @@ const categorize = createCategorizer({
         },
     },
     local: categorizeLocally,
-    play: (pkg) => playLimit(() => fetchPlayCategory(pkg)),
+    play: playEnabled
+        ? (pkg) => playLimit(() => fetchPlayCategory(pkg))
+        : async () => ({ status: 'error' }),
     logger,
 });
 
@@ -116,7 +124,8 @@ const categorize = createCategorizer({
 
 app.get('/health', async (req, res) => {
     try {
-        const { error } = await supabase.from('domain_categories').select('domain').limit(1);
+        const { error } = await supabase.from('domain_categories').select('domain').limit(1)
+            .abortSignal(AbortSignal.timeout(10000));
         if (error) throw error;
         res.json({ status: 'ok', db: 'ok' });
     } catch (err) {
@@ -332,8 +341,8 @@ app.get('/client/:id', async (req, res) => {
 // ==========================================
 
 app.post('/get-category-mapping', authenticateClient, categorizeLimiter, async (req, res) => {
-    const domains = req.body.domains || [];
-    const packages = req.body.packages || [];
+    const domains = req.body?.domains || [];
+    const packages = req.body?.packages || [];
 
     // Input validation
     if (!Array.isArray(domains) || !Array.isArray(packages)) {
@@ -358,7 +367,8 @@ app.post('/get-category-mapping', authenticateClient, categorizeLimiter, async (
     ];
 
     const results = await Promise.allSettled(
-        allItems.map(({ input, isPackage }) => limit(() => categorize(input, isPackage)))
+        allItems.map(({ input, isPackage }) =>
+            withDeadline(limit(() => categorize(input, isPackage)), CATEGORY_BUDGET_MS, 'Other'))
     );
 
     allItems.forEach(({ input }, index) => {
@@ -561,6 +571,9 @@ app.post('/complete-linking', authenticateClient, linkingLimiter, async (req, re
         const { success, linkedWith } = await completeLinking(resolvedClientId, code);
         res.json({ success, linkedWith });
     } catch (error) {
+        if (error.message === 'Cannot link a device to itself') {
+            return res.status(400).json({ success: false, error: 'Cannot link a device to itself' });
+        }
         logger.error({ err: error.message }, 'Failed to complete linking');
         res.status(500).json({ success: false, error: 'Failed to complete device linking' });
     }

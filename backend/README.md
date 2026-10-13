@@ -18,6 +18,7 @@ npm start
 | `SUPABASE_URL` | Yes | Your Supabase project URL |
 | `SUPABASE_SERVICE_KEY` | Yes | Supabase service role key (not the anon key) |
 | `PORT` | No | Server port (default: 8080) |
+| `PLAY_LOOKUP_ENABLED` | No | Default on; set `false` to disable the Play Store lookup (packages categorize as Other, uncached) |
 | `CORS_ORIGINS` | No | Comma-separated allowed origins (empty = allow non-browser) |
 
 ## Database

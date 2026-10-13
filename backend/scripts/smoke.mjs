@@ -29,7 +29,7 @@ const t0 = Date.now();
 let health;
 for (let i = 0; i < 6; i++) {
     try { health = await call('GET', '/health'); if (health.status === 200) break; } catch { /* retry */ }
-    await new Promise(r => setTimeout(r, 5000));
+    if (i < 5) await new Promise(r => setTimeout(r, 5000));
 }
 check('health (cold start ok)', health?.status === 200 && health.json?.db === 'ok', JSON.stringify(health));
 console.log(`      first successful /health after ${Date.now() - t0} ms`);
@@ -60,7 +60,7 @@ const links = await call('GET', `/get-linked-clients?clientId=${ids.a}`, { key: 
 check('A sees B linked', links.json?.data?.clients?.some(c => c.clientId === ids.b), JSON.stringify(links));
 
 const otherLinks = await call('GET', `/get-linked-clients?clientId=${ids.a}`, { key: keys.c });
-check('C cannot list A\'s links (403)', otherLinks.status === 403);
+check('C cannot list A\'s links (403)', otherLinks.status === 403, JSON.stringify(otherLinks));
 
 const now = new Date();
 const day = now.toISOString().split('T')[0];

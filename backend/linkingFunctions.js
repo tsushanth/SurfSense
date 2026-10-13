@@ -61,6 +61,10 @@ async function completeLinking(otherClientId, code) {
         throw new Error('Code expired');
     }
 
+    if (request.client_id === otherClientId) {
+        throw new Error('Cannot link a device to itself');
+    }
+
     const initiatorClientId = request.client_id;
 
     // Canonical order to avoid duplicate link variations
@@ -119,6 +123,10 @@ async function getLinkedClients(clientId) {
         supabase.from('client_links').select('client_a').eq('client_b', clientId)
     ]);
 
+    for (const r of [resultA, resultB]) {
+        if (r.error) throw new Error('Failed to fetch linked clients: ' + r.error.message);
+    }
+
     const linkedClientIds = [
         ...(resultA.data || []).map(row => row.client_b),
         ...(resultB.data || []).map(row => row.client_a)
@@ -127,10 +135,12 @@ async function getLinkedClients(clientId) {
     if (linkedClientIds.length === 0) return [];
 
     // Single batch query instead of N individual queries
-    const { data: clientsData } = await supabase
+    const { data: clientsData, error: clientsError } = await supabase
         .from('extension_clients')
         .select('client_id, client_name, client_type')
         .in('client_id', linkedClientIds);
+
+    if (clientsError) throw new Error('Failed to fetch linked clients: ' + clientsError.message);
 
     return (clientsData || []).map(c => ({
         clientId: c.client_id,

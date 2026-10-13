@@ -1,21 +1,31 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 // Mock supabase and logger before importing
-vi.mock('../supabase.js', () => ({
-    supabase: {
-        from: () => ({
-            select: () => ({ eq: () => ({ single: () => ({}) }) }),
-            upsert: () => ({}),
-            delete: () => ({ eq: () => ({}) }),
-        }),
-    }
-}));
+// Chainable fake: each from(table) pops a scripted result (or falls back to {}).
+const h = vi.hoisted(() => {
+    const state = { results: {}, calls: [] };
+    const builder = (table) => {
+        const b = {};
+        const result = () => {
+            const q = state.results[table];
+            return Array.isArray(q) ? (q.length ? q.shift() : {}) : (q ?? {});
+        };
+        for (const m of ['select', 'eq', 'in', 'lte', 'lt', 'upsert', 'insert', 'delete', 'single']) {
+            b[m] = (...args) => { state.calls.push({ table, m, args }); return b; };
+        }
+        b.then = (res, rej) => Promise.resolve(result()).then(res, rej);
+        return b;
+    };
+    return { state, supabase: { from: (t) => { state.calls.push({ table: t, m: 'from' }); return builder(t); } } };
+});
+
+vi.mock('../supabase.js', () => ({ supabase: h.supabase }));
 
 vi.mock('../logger.js', () => ({
     logger: { info: vi.fn(), error: vi.fn(), warn: vi.fn() }
 }));
 
-const { generateLinkingCode } = await import('../linkingFunctions.js');
+const { generateLinkingCode, getLinkedClients, completeLinking } = await import('../linkingFunctions.js');
 
 describe('generateLinkingCode', () => {
     it('returns a string', () => {
@@ -43,5 +53,54 @@ describe('generateLinkingCode', () => {
             codes.add(generateLinkingCode());
         }
         expect(codes.size).toBeGreaterThan(1);
+    });
+});
+
+beforeEach(() => { h.state.results = {}; h.state.calls = []; });
+
+describe('getLinkedClients', () => {
+    it('throws when the first link query errors', async () => {
+        h.state.results.client_links = [{ error: { message: 'db down' } }, { data: [] }];
+        await expect(getLinkedClients('a')).rejects.toThrow('Failed to fetch linked clients: db down');
+    });
+
+    it('throws when the second link query errors', async () => {
+        h.state.results.client_links = [{ data: [] }, { error: { message: 'db down 2' } }];
+        await expect(getLinkedClients('a')).rejects.toThrow('Failed to fetch linked clients: db down 2');
+    });
+
+    it('throws when the clients query errors', async () => {
+        h.state.results.client_links = [{ data: [{ client_b: 'b' }] }, { data: [] }];
+        h.state.results.extension_clients = { error: { message: 'clients down' } };
+        await expect(getLinkedClients('a')).rejects.toThrow('Failed to fetch linked clients: clients down');
+    });
+
+    it('returns mapped clients on the happy path', async () => {
+        h.state.results.client_links = [{ data: [{ client_b: 'b' }] }, { data: [{ client_a: 'c' }] }];
+        h.state.results.extension_clients = { data: [
+            { client_id: 'b', client_name: 'Phone', client_type: 'IOS' },
+            { client_id: 'c', client_name: null, client_type: null },
+        ] };
+        await expect(getLinkedClients('a')).resolves.toEqual([
+            { clientId: 'b', clientName: 'Phone', clientType: 'IOS' },
+            { clientId: 'c', clientName: 'Unknown', clientType: 'Unknown' },
+        ]);
+    });
+
+    it('returns [] without querying extension_clients when there are no links', async () => {
+        h.state.results.client_links = [{ data: [] }, { data: [] }];
+        await expect(getLinkedClients('a')).resolves.toEqual([]);
+        expect(h.state.calls.some(c => c.table === 'extension_clients')).toBe(false);
+    });
+});
+
+describe('completeLinking', () => {
+    it('rejects self-linking and does not insert a link', async () => {
+        h.state.results.linking_requests = {
+            data: { client_id: 'same-device', expires_at: new Date(Date.now() + 60000).toISOString() },
+        };
+        await expect(completeLinking('same-device', '123456')).rejects.toThrow('Cannot link a device to itself');
+        expect(h.state.calls.some(c => c.table === 'client_links')).toBe(false);
+        expect(h.state.calls.some(c => c.table === 'linking_requests' && c.m === 'delete')).toBe(false);
     });
 });
