@@ -1,11 +1,10 @@
 package com.kreativekoala.surfsense
 
-import android.content.Context
-import android.content.SharedPreferences
-import androidx.security.crypto.EncryptedSharedPreferences
-import androidx.security.crypto.MasterKeys
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
+import com.kreativekoala.surfsense.identity.Identity
+import kotlinx.coroutines.runBlocking
+import okhttp3.Authenticator
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -17,51 +16,11 @@ object ApiClient {
     @Volatile
     private var instance: ApiService? = null
 
-    @Volatile
-    private var apiKey: String? = null
+    private const val RETRIED_AUTH_HEADER = "X-SurfSense-Auth-Retried"
 
     fun create(): ApiService {
         return instance ?: synchronized(this) {
             instance ?: buildApiService().also { instance = it }
-        }
-    }
-
-    fun setApiKey(key: String?) {
-        apiKey = key
-        synchronized(this) {
-            instance = null
-        }
-    }
-
-    fun initialize(context: Context) {
-        val prefs = getSecurePrefs(context)
-        apiKey = prefs.getString("api_key", null)
-    }
-
-    fun saveApiKey(context: Context, key: String) {
-        apiKey = key
-        getSecurePrefs(context)
-            .edit()
-            .putString("api_key", key)
-            .apply()
-        synchronized(this) {
-            instance = null
-        }
-    }
-
-    private fun getSecurePrefs(context: Context): SharedPreferences {
-        return try {
-            val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
-            EncryptedSharedPreferences.create(
-                "surfsense_secure",
-                masterKeyAlias,
-                context,
-                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-            )
-        } catch (e: Exception) {
-            Timber.e(e, "Failed to create encrypted prefs, falling back to standard")
-            context.getSharedPreferences("surfsense_secure", Context.MODE_PRIVATE)
         }
     }
 
@@ -71,17 +30,26 @@ object ApiClient {
             .readTimeout(Config.READ_TIMEOUT, TimeUnit.SECONDS)
             .writeTimeout(Config.WRITE_TIMEOUT, TimeUnit.SECONDS)
 
-        // Auth interceptor
+        // Auth interceptor: attach the current API key (read per request, so a fresh key is picked up)
         clientBuilder.addInterceptor { chain ->
-            val original = chain.request()
-            val requestBuilder = original.newBuilder()
-
-            apiKey?.let { key ->
-                requestBuilder.header("Authorization", "Bearer $key")
-            }
-
-            chain.proceed(requestBuilder.build())
+            val builder = chain.request().newBuilder()
+            Identity.identity().apiKey?.let { builder.header("Authorization", "Bearer $it") }
+            chain.proceed(builder.build())
         }
+
+        // 401 = the server does not recognise our key (e.g. its database was reset): register again once.
+        clientBuilder.authenticator(Authenticator { _, response ->
+            val request = response.request
+            if (request.url.encodedPath.endsWith("/register-client") || request.header(RETRIED_AUTH_HEADER) != null) {
+                return@Authenticator null
+            }
+            val recovered = runBlocking { Identity.registrar().onUnauthorized() }
+            if (!recovered) return@Authenticator null
+            request.newBuilder()
+                .header("Authorization", "Bearer ${Identity.identity().apiKey}")
+                .header(RETRIED_AUTH_HEADER, "1")
+                .build()
+        })
 
         // Only enable logging in debug builds
         if (Config.ENABLE_NETWORK_LOGGING) {

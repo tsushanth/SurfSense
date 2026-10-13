@@ -9,5 +9,6 @@ class SurfSenseApp : Application() {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
+        com.kreativekoala.surfsense.identity.Identity.init(this)
     }
 }

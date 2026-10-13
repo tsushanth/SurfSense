@@ -1,8 +1,6 @@
 package com.kreativekoala.surfsense.viewmodel
 
 import android.app.Application
-import android.os.Build
-import android.provider.Settings
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.work.Constraints
@@ -13,8 +11,8 @@ import com.kreativekoala.surfsense.ApiClient
 import com.kreativekoala.surfsense.Config
 import com.kreativekoala.surfsense.InitiateLinkingRequest
 import com.kreativekoala.surfsense.LocalStorage
-import com.kreativekoala.surfsense.RegisterClientRequest
 import com.kreativekoala.surfsense.UsageSummaryWorker
+import com.kreativekoala.surfsense.identity.Identity
 import com.kreativekoala.surfsense.repository.UsageRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -67,12 +65,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun initialize() {
         val context = getApplication<Application>()
-        val deviceId = Settings.Secure.getString(
-            context.contentResolver, Settings.Secure.ANDROID_ID
-        )
-        val deviceName = Settings.Global.getString(context.contentResolver, "device_name")
-            ?: Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
-            ?: "${Build.MANUFACTURER} ${Build.MODEL}"
+        val deviceId = Identity.identity().clientId
+        val deviceName = Identity.deviceName(context)
 
         _uiState.value = _uiState.value.copy(deviceId = deviceId, deviceName = deviceName)
 
@@ -84,19 +78,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private suspend fun registerDevice() {
         try {
-            val state = _uiState.value
-            val response = apiService.registerClient(
-                RegisterClientRequest(
-                    clientId = state.deviceId,
-                    clientType = Config.CLIENT_TYPE,
-                    clientName = state.deviceName
-                )
-            )
-            if (response.isSuccessful) {
-                response.body()?.apiKey?.let { key ->
-                    ApiClient.saveApiKey(getApplication(), key)
-                }
-            }
+            Identity.registrar().ensureRegistered()
         } catch (e: Exception) {
             Timber.e(e, "Device registration failed")
         }

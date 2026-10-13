@@ -6,7 +6,7 @@ package com.kreativekoala.surfsense
  */
 object Config {
     // API Configuration
-    const val API_BASE_URL = "https://usage-tracker-backend-917362189743.us-central1.run.app/"
+    const val API_BASE_URL = "https://usage-tracker-backend.fly.dev/"
 
     // Timeouts (in seconds)
     const val CONNECT_TIMEOUT = 30L
@@ -32,7 +32,7 @@ object Config {
     }
 
     // Client Type
-    const val CLIENT_TYPE = "ANDROID_PHONE"
+    const val CLIENT_TYPE = "ANDROID"
 
     // External URLs
     const val privacyPolicyURL = "https://surfsense.app/privacy"
