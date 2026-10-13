@@ -1,6 +1,5 @@
 package com.kreativekoala.surfsense.repository
 
-import android.app.usage.UsageStatsManager
 import android.content.Context
 import timber.log.Timber
 import com.kreativekoala.surfsense.ApiClient
@@ -22,35 +21,6 @@ import java.util.Locale
 class UsageRepository(private val context: Context) {
     private val apiService: ApiService = ApiClient.create()
     private val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
-
-    // MARK: - Usage Stats
-
-    suspend fun getUsageStats(): Result<Map<String, Long>> = withContext(Dispatchers.IO) {
-        try {
-            val usageStatsManager = context.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
-            val endTime = System.currentTimeMillis()
-            val startTime = endTime - 24 * 60 * 60 * 1000 // Last 24 hours
-
-            val usageStatsList = usageStatsManager.queryUsageStats(
-                UsageStatsManager.INTERVAL_BEST,
-                startTime,
-                endTime
-            )
-
-            val usageMap = HashMap<String, Long>()
-            usageStatsList?.forEach { stat ->
-                val time = stat.totalTimeInForeground
-                if (time > 0) {
-                    usageMap[stat.packageName] = (usageMap[stat.packageName] ?: 0) + time
-                }
-            }
-
-            Result.success(usageMap)
-        } catch (e: Exception) {
-            Timber.e(e, "Error getting usage stats")
-            Result.failure(e)
-        }
-    }
 
     // MARK: - Category Mapping
 

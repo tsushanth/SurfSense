@@ -1,5 +1,6 @@
 package com.kreativekoala.surfsense
 
+import com.kreativekoala.surfsense.usage.UsageAccess
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -42,15 +43,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun hasUsageStatsPermission(): Boolean {
-        val appOps = getSystemService(Context.APP_OPS_SERVICE) as android.app.AppOpsManager
-        val mode = appOps.checkOpNoThrow(
-            "android:get_usage_stats",
-            android.os.Process.myUid(),
-            packageName
-        )
-        return mode == android.app.AppOpsManager.MODE_ALLOWED
-    }
+    private fun hasUsageStatsPermission(): Boolean = UsageAccess.isGranted(this)
 
     private fun schedulePeriodicWork() {
         val usageWorkRequest = PeriodicWorkRequestBuilder<UsageSummaryWorker>(
