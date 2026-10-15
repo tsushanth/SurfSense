@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (savedInstanceState == null) com.kreativekoala.ratingkit.RatingKit.trackAppOpen(this) // records the first launch; never asks
 
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 

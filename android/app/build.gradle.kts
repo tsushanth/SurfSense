@@ -12,8 +12,8 @@ android {
         applicationId = "com.kreativekoala.surfsense"
         minSdk = 24
         targetSdk = 36
-        versionCode = 12
-        versionName = "10.1.0"
+        versionCode = 13
+        versionName = "10.1.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -71,6 +71,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":ratingkit"))
     // AndroidX Core
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

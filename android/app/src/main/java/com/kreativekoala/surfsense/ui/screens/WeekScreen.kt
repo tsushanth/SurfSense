@@ -50,6 +50,17 @@ fun WeekScreen(week: WeekState, onLoad: () -> Unit, modifier: Modifier = Modifie
     LaunchedEffect(Unit) { if (!week.loaded && !week.loading) onLoad() }
     val view = week.view
 
+    // Ratings: the user is looking at a real week of their own data (the app's value). RatingKit decides whether to ask:
+    // it needs several such days and a few days of use first. A failed day load silences it for a while.
+    val ratingContext = androidx.compose.ui.platform.LocalContext.current
+    LaunchedEffect(view?.comparison?.thisWeekSeconds, week.failedDays) {
+        if (week.failedDays > 0) {
+            com.kreativekoala.ratingkit.RatingKit.reportError()
+        } else if ((view?.comparison?.thisWeekSeconds ?: 0) > 0 && com.kreativekoala.surfsense.RatingMoments.markToday(ratingContext)) {
+            ratingContext.findRatingActivity()?.let { com.kreativekoala.ratingkit.RatingKit.trackAction(it) }
+        }
+    }
+
     LazyColumn(
         modifier.fillMaxSize(),
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp),
@@ -235,4 +246,10 @@ private fun WeekLoadingPreview() {
     SurfSenseTheme {
         WeekScreen(WeekState(loading = true), {}, Modifier.background(MaterialTheme.colorScheme.background))
     }
+}
+
+private tailrec fun android.content.Context.findRatingActivity(): android.app.Activity? = when (this) {
+    is android.app.Activity -> this
+    is android.content.ContextWrapper -> baseContext.findRatingActivity()
+    else -> null
 }
