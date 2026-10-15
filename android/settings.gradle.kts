@@ -22,4 +22,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "SurfSense"
 include(":app")
+include(":ratingkit")
+project(":ratingkit").projectDir = file("/Users/sushanthtiruvaipati/Documents/GitHub/RatingKit-Android/ratingkit")
  
