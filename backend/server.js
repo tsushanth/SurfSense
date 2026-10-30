@@ -21,6 +21,7 @@ import {
     LinkingError,
 } from './linkingFunctions.js';
 import { canReadSummary, isPartyToLink } from './authz.js';
+import { touchLastActive } from './lastActive.js';
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -419,6 +420,7 @@ app.post('/submit-category-summary', authenticateClient, async (req, res) => {
 
         if (error) throw error;
 
+        await touchLastActive(supabase, req.clientId, logger);
         res.json({ status: 'success' });
     } catch (err) {
         logger.error({ err: err.message, userId }, 'Failed to submit category summary');
@@ -499,6 +501,7 @@ app.post('/track-usage', authenticateClient, async (req, res) => {
 
         if (error) throw error;
 
+        await touchLastActive(supabase, req.clientId, logger);
         res.json({ status: 'success', userId });
     } catch (error) {
         logger.error({ err: error.message, userId }, 'Failed to track usage');
