@@ -122,6 +122,7 @@
     <string name="usage_access_message">SurfSense membaca berapa lama setiap aplikasi dibuka hari ini dan mengulanginya secara berkala di latar belakang. Nama aplikasi dihantar ke pelayan SurfSense supaya boleh dikelaskan kepada kategori seperti Media Sosial atau Berita. Jumlah disimpan di bawah ID rawak bersama nama peranti anda (supaya anda dapat mengenalinya pada peranti anda yang lain), bukan nama akaun atau e-mel anda.\n\nSeterusnya, Android akan membuka skrin tetapan di mana anda boleh menghidupkan Akses Penggunaan untuk SurfSense.</string>
     <string name="usage_access_continue">Teruskan</string>
     <string name="usage_access_not_now">Bukan sekarang</string>
+    <string name="usage_access_off_notice">Akses penggunaan dimatikan, jadi aplikasi pada telefon ini tidak dikira.</string>
 
     <!-- Today and Week (10.1.0) -->
     <string name="tab_today">Hari ini</string>

@@ -122,6 +122,7 @@
     <string name="usage_access_message">SurfSenseは、今日各アプリが開かれていた時間を読み取り、バックグラウンドで定期的にこれを繰り返します。アプリ名はSurfSenseのサーバーに送信され、ソーシャルメディアやニュースなどのカテゴリに分類されます。合計時間はランダムなIDとお使いのデバイス名（他のデバイスで見分けられるようにするため）とともに保存され、アカウント名やメールアドレスとは紐付けられません。\n\n次に、Androidの設定画面が開きます。そこでSurfSenseの使用状況へのアクセスをオンにしてください。</string>
     <string name="usage_access_continue">続ける</string>
     <string name="usage_access_not_now">今はしない</string>
+    <string name="usage_access_off_notice">使用状況へのアクセスがオフのため、このスマートフォンのアプリは集計されていません。</string>
 
     <!-- Today and Week (10.1.0) -->
     <string name="tab_today">今日</string>

@@ -112,6 +112,7 @@
     <string name="usage_access_message">SurfSense leest hoe lang elke app vandaag open is geweest en herhaalt dit regelmatig op de achtergrond. App-namen worden naar de SurfSense-server gestuurd zodat ze kunnen worden ingedeeld in categorieën zoals Sociale media of Nieuws. Totalen worden opgeslagen onder een willekeurig ID samen met de naam van je apparaat (zodat je het op je andere apparaten herkent), niet onder je accountnaam of e-mailadres.\n\nDaarna opent Android een instellingenscherm waar je Gebruikstoegang voor SurfSense kunt inschakelen.</string>
     <string name="usage_access_continue">Doorgaan</string>
     <string name="usage_access_not_now">Niet nu</string>
+    <string name="usage_access_off_notice">Gebruikstoegang staat uit, dus de apps op deze telefoon worden niet meegeteld.</string>
 
     <!-- Today and Week (10.1.0) -->
     <string name="tab_today">Vandaag</string>
