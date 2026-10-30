@@ -1,6 +1,7 @@
 import crypto from 'crypto';
 import { supabase } from './supabase.js';
 import { logger } from './logger.js';
+import { reportFailure } from './failureReporter.js';
 import { withDeadline } from './deadline.js';
 
 /** Expected, user-correctable linking failures. The route maps these to HTTP 400. */
@@ -144,13 +145,15 @@ async function touchLinks(clientId) {
         ]), LINK_TOUCH_DEADLINE_MS, TOUCH_TIMED_OUT);
         if (results === TOUCH_TIMED_OUT) {
             logger.warn('Link activity refresh timed out');
+            reportFailure('link-activity-refresh-timeout', new Error('Link activity refresh timed out'));
             return;
         }
         for (const r of results) {
-            if (r && r.error) logger.warn({ err: r.error.message }, 'Failed to refresh link activity');
+            if (r && r.error) { logger.warn({ err: r.error.message }, 'Failed to refresh link activity'); reportFailure('link-activity-refresh', r.error); }
         }
     } catch (err) {
         logger.warn({ err: err.message }, 'Failed to refresh link activity');
+        reportFailure('link-activity-refresh', err);
     }
 }
 

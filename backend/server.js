@@ -21,6 +21,8 @@ import {
     LinkingError,
 } from './linkingFunctions.js';
 import { canReadSummary, isPartyToLink } from './authz.js';
+import { reportRouteError, reportFailure, reportCrash } from './failureReporter.js';
+import { createOutageMonitor } from './outageMonitor.js';
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -94,6 +96,21 @@ if (!playEnabled) {
     logger.warn('Play Store lookup disabled (PLAY_LOOKUP_ENABLED=false); packages fall back to regex or Other');
 }
 
+// A provider-wide Play Store failure otherwise degrades silently (everything becomes "Other").
+const playMonitor = createOutageMonitor({
+    onOutage: ({ errors, total }) => reportFailure('play-lookup-outage', new Error('Play Store lookups are failing'), { errors: String(errors), total: String(total) }),
+});
+const playLookup = async (pkg) => {
+    try {
+        const result = await playLimit(() => fetchPlayCategory(pkg));
+        if (result.status !== 'invalid') playMonitor.record(result.status === 'error');
+        return result;
+    } catch (err) {
+        playMonitor.record(true);
+        throw err;
+    }
+};
+
 const categorize = createCategorizer({
     cache: {
         async get(key) {
@@ -116,7 +133,7 @@ const categorize = createCategorizer({
     curatedPackage: (pkg) => lookupStatic(pkg, true),
     patternPackage: (pkg) => matchByPattern(pkg, true),
     play: playEnabled
-        ? (pkg) => playLimit(() => fetchPlayCategory(pkg))
+        ? playLookup
         : async () => ({ status: 'error' }),
     logger,
 });
@@ -133,6 +150,7 @@ app.get('/health', async (req, res) => {
         res.json({ status: 'ok', db: 'ok' });
     } catch (err) {
         logger.error({ err: err.message }, 'Health check: database unreachable');
+        reportFailure('health-db-unreachable', err);
         res.status(503).json({ status: 'degraded', db: 'error' });
     }
 });
@@ -241,6 +259,7 @@ app.post('/register-client', async (req, res) => {
 
     } catch (error) {
         logger.error({ err: error.message, clientId: req.body?.clientId }, 'Client registration error');
+        reportRouteError(req, error);
         res.status(500).json({ error: 'Failed to register client' });
     }
 });
@@ -335,6 +354,7 @@ app.get('/client/:id', async (req, res) => {
 
     } catch (error) {
         logger.error({ err: error.message, clientId: req.params.id }, 'Client fetch error');
+        reportRouteError(req, error);
         res.status(500).json({ error: 'Failed to fetch client data' });
     }
 });
@@ -422,6 +442,7 @@ app.post('/submit-category-summary', authenticateClient, async (req, res) => {
         res.json({ status: 'success' });
     } catch (err) {
         logger.error({ err: err.message, userId }, 'Failed to submit category summary');
+        reportRouteError(req, err);
         res.status(500).json({ error: 'Failed to save summary' });
     }
 });
@@ -461,6 +482,7 @@ app.get('/get-summary-history', authenticateClient, async (req, res) => {
         }]);
     } catch (err) {
         logger.error({ err: err.message, userId, day }, 'Failed to fetch summary history');
+        reportRouteError(req, err);
         res.status(500).json({ error: 'Failed to retrieve summary data' });
     }
 });
@@ -502,6 +524,7 @@ app.post('/track-usage', authenticateClient, async (req, res) => {
         res.json({ status: 'success', userId });
     } catch (error) {
         logger.error({ err: error.message, userId }, 'Failed to track usage');
+        reportRouteError(req, error);
         res.status(500).json({ error: 'Failed to track usage' });
     }
 });
@@ -529,6 +552,7 @@ app.get('/usage', authenticateClient, async (req, res) => {
         });
     } catch (error) {
         logger.error({ err: error.message, clientId: req.clientId }, 'Failed to fetch usage');
+        reportRouteError(req, error);
         res.status(500).json({ error: 'Failed to retrieve usage data' });
     }
 });
@@ -549,6 +573,7 @@ app.post('/initiate-linking', authenticateClient, async (req, res) => {
         res.json({ success: true, code });
     } catch (error) {
         logger.error({ err: error.message }, 'Failed to initiate linking');
+        reportRouteError(req, error);
         res.status(500).json({ success: false, error: 'Failed to generate linking code' });
     }
 });
@@ -578,6 +603,7 @@ app.post('/complete-linking', authenticateClient, linkingLimiter, async (req, re
             return res.status(error.status).json({ success: false, error: error.message });
         }
         logger.error({ err: error.message }, 'Failed to complete linking');
+        reportRouteError(req, error);
         res.status(500).json({ success: false, error: 'Failed to complete device linking' });
     }
 });
@@ -598,6 +624,7 @@ app.post('/unlink-device', authenticateClient, async (req, res) => {
         res.json({ success: true });
     } catch (error) {
         logger.error({ err: error.message }, 'Failed to unlink device');
+        reportRouteError(req, error);
         res.status(500).json({ success: false, error: 'Failed to unlink device' });
     }
 });
@@ -625,6 +652,7 @@ app.get('/get-linked-clients', authenticateClient, async (req, res) => {
         });
     } catch (error) {
         logger.error({ err: error.message, clientId: req.query.clientId }, 'Failed to fetch linked clients');
+        reportRouteError(req, error);
         res.status(500).json({ success: false, error: 'Failed to fetch linked clients' });
     }
 });
@@ -632,6 +660,25 @@ app.get('/get-linked-clients', authenticateClient, async (req, res) => {
 // NOTE: Cleanup endpoints removed. Use Supabase pg_cron for scheduled cleanup:
 //   SELECT cron.schedule('cleanup-expired-codes', '*/15 * * * *', 'SELECT cleanup_expired_linking_codes()');
 //   SELECT cron.schedule('cleanup-inactive-links', '0 3 * * *', 'SELECT cleanup_inactive_links()');
+
+// Express 5 forwards rejected async handlers here; without it they would only print to the default handler.
+app.use((err, req, res, next) => {
+    const status = err.status || err.statusCode || 500;
+    if (status >= 500) logger.error({ err: err.message }, 'Unhandled request error');
+    reportRouteError(req, err, status);
+    if (res.headersSent) return next(err);
+    res.status(status).json({ error: status >= 500 ? 'Internal server error' : 'Bad request' });
+});
+
+process.on('unhandledRejection', (reason) => {
+    logger.error({ err: String(reason) }, 'Unhandled promise rejection');
+    reportFailure('unhandledRejection', reason);
+});
+process.on('uncaughtException', async (err) => {
+    logger.error({ err: err.message }, 'Uncaught exception');
+    await reportCrash('uncaughtException', err);
+    process.exit(1);
+});
 
 app.listen(port, () => {
     logger.info({ port }, 'Server listening');
