@@ -33,6 +33,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -43,6 +44,7 @@ import com.kreativekoala.surfsense.ui.screens.DevicesScreen
 import com.kreativekoala.surfsense.ui.screens.SettingsScreen
 import com.kreativekoala.surfsense.ui.screens.TodayScreen
 import com.kreativekoala.surfsense.ui.screens.WeekScreen
+import com.kreativekoala.surfsense.usage.UsageAccess
 import com.kreativekoala.surfsense.viewmodel.MainViewModel
 
 enum class Tab(@StringRes val labelRes: Int, val icon: ImageVector, val outlinedIcon: ImageVector) {
@@ -58,12 +60,16 @@ enum class Tab(@StringRes val labelRes: Int, val icon: ImageVector, val outlined
 fun SurfSenseApp(viewModel: MainViewModel) {
     val uiState by viewModel.uiState.collectAsState()
     var selectedTab by rememberSaveable { mutableStateOf(Tab.Today) }
+    val context = LocalContext.current
 
     // Back in the foreground: refresh if the data is over a minute old or the date changed (the VM decides).
     val lifecycleOwner = LocalLifecycleOwner.current
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_RESUME) viewModel.onAppResumed()
+            if (event == Lifecycle.Event.ON_RESUME) {
+                viewModel.refreshUsageAccess()
+                viewModel.onAppResumed()
+            }
         }
         lifecycleOwner.lifecycle.addObserver(observer)
         onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
@@ -118,6 +124,7 @@ fun SurfSenseApp(viewModel: MainViewModel) {
                     onSyncNow = viewModel::syncNow,
                     onLoadApps = viewModel::loadApps,
                     onSetCategory = viewModel::setCategoryOverride,
+                    onOpenUsageAccess = { UsageAccess.openSettings(context) },
                 )
                 Tab.Week -> WeekScreen(uiState.week, onLoad = viewModel::loadWeek)
                 Tab.Devices -> DevicesScreen(

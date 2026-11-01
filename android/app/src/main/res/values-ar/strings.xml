@@ -112,6 +112,7 @@
     <string name="usage_access_message">يقرأ SurfSense المدة التي يظل فيها كل تطبيق مفتوحًا اليوم ويكرر ذلك بانتظام في الخلفية. يتم إرسال أسماء التطبيقات إلى خادم SurfSense ليتم تصنيفها في فئات مثل وسائل التواصل الاجتماعي أو الأخبار. يتم تخزين الإجماليات تحت معرّف عشوائي مع اسم جهازك (حتى تتمكن من التعرف عليه على أجهزتك الأخرى)، وليس باسم حسابك أو بريدك الإلكتروني.\n\nبعد ذلك، سيفتح Android شاشة إعدادات يمكنك فيها تشغيل الوصول إلى الاستخدام لتطبيق SurfSense.</string>
     <string name="usage_access_continue">متابعة</string>
     <string name="usage_access_not_now">ليس الآن</string>
+    <string name="usage_access_off_notice">الوصول إلى الاستخدام متوقف، لذا لا يتم احتساب التطبيقات على هذا الهاتف.</string>
 
     <!-- Today and Week (10.1.0) -->
     <string name="tab_today">اليوم</string>

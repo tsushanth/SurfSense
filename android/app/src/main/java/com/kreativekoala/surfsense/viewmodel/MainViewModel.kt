@@ -33,6 +33,7 @@ import com.kreativekoala.surfsense.usage.AppUsage
 import com.kreativekoala.surfsense.usage.CategoryMapper
 import com.kreativekoala.surfsense.usage.CategoryOverrides
 import com.kreativekoala.surfsense.usage.UsageAccess
+import com.kreativekoala.surfsense.usage.UsageAccessPolicy
 import com.kreativekoala.surfsense.usage.UsageCollector
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineStart
@@ -130,6 +131,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val apiService by lazy { ApiClient.create() }
     private val overrides by lazy { CategoryOverrides(CategoryOverrides.SharedPrefsStore(application)) }
     private val pastDays by lazy { PrefsPastDayCache(application) }
+    private val usageAccessPolicy by lazy { UsageAccessPolicy(UsageAccessPolicy.PrefsStore(application)) }
     private val history by lazy {
         HistoryRepository(fromUsageRepository(repository), pastDays) { repository.getTodayDate() }
     }
@@ -150,7 +152,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         val deviceId = Identity.identity().clientId
         val deviceName = Identity.deviceName(context)
 
-        _uiState.value = _uiState.value.copy(deviceId = deviceId, deviceName = deviceName)
+        // Read the permission now so Today does not flash an "access is off" notice before the first check.
+        _uiState.value = _uiState.value.copy(
+            deviceId = deviceId,
+            deviceName = deviceName,
+            usageAccessGranted = UsageAccess.isGranted(context),
+        )
 
         viewModelScope.launch {
             registerDevice()
@@ -300,6 +307,24 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         if (!stale && !dayChanged) return
         refreshData()
         if (_uiState.value.week.loaded) loadWeek()
+    }
+
+    /**
+     * Called on every resume (including coming back from the Usage Access settings page). Keeps the "access is on"
+     * flag current, and when access has just changed from missing to granted, syncs once and reloads the app list.
+     * Nothing else runs, so ordinary resumes stay cheap.
+     */
+    fun refreshUsageAccess() {
+        val granted = UsageAccess.isGranted(getApplication<Application>())
+        val justGranted = usageAccessPolicy.onChecked(granted)
+        if (_uiState.value.usageAccessGranted != granted) {
+            _uiState.update {
+                it.copy(usageAccessGranted = granted, appsToday = if (granted) it.appsToday else emptyList())
+            }
+        }
+        if (justGranted) {
+            syncNow()
+        }
     }
 
     fun linkDevice(code: String) {

@@ -112,6 +112,7 @@
     <string name="usage_access_message">SurfSense đọc thời gian mỗi ứng dụng được mở trong hôm nay và lặp lại việc này thường xuyên ở chế độ nền. Tên ứng dụng được gửi đến máy chủ SurfSense để phân loại vào các danh mục như Mạng xã hội hoặc Tin tức. Tổng thời gian được lưu dưới một ID ngẫu nhiên cùng với tên thiết bị của bạn (để bạn nhận ra nó trên các thiết bị khác), không phải tên tài khoản hay email của bạn.\n\nTiếp theo, Android sẽ mở màn hình cài đặt để bạn bật Quyền truy cập mức sử dụng cho SurfSense.</string>
     <string name="usage_access_continue">Tiếp tục</string>
     <string name="usage_access_not_now">Để sau</string>
+    <string name="usage_access_off_notice">Quyền truy cập mức sử dụng đang tắt, nên các ứng dụng trên điện thoại này không được tính.</string>
 
     <!-- Today and Week (10.1.0) -->
     <string name="tab_today">Hôm nay</string>

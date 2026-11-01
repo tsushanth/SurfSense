@@ -1,10 +1,8 @@
 package com.kreativekoala.surfsense
 
 import com.kreativekoala.surfsense.usage.UsageAccess
-import android.content.Context
-import android.content.Intent
+import com.kreativekoala.surfsense.usage.UsageAccessPolicy
 import android.os.Bundle
-import android.provider.Settings
 import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.compose.setContent
 import androidx.lifecycle.ViewModelProvider
@@ -21,7 +19,6 @@ import java.util.concurrent.TimeUnit
 class MainActivity : AppCompatActivity() {
 
     private var usageAccessDialog: androidx.appcompat.app.AlertDialog? = null
-    private var awaitingUsageAccess = false
     private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,32 +40,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun requestUsageAccessPermission() {
-        if (hasUsageStatsPermission()) return
+        // At most two showings in total; after that the Today screen carries an "Allow usage access" button.
+        val policy = UsageAccessPolicy(UsageAccessPolicy.PrefsStore(this))
+        if (!policy.shouldShowDialog(UsageAccess.isGranted(this))) return
+        policy.recordDialogShown()
         usageAccessDialog = com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
             .setTitle(R.string.usage_access_title)
             .setMessage(R.string.usage_access_message)
-            .setPositiveButton(R.string.usage_access_continue) { _, _ ->
-                awaitingUsageAccess = true
-                try {
-                    startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
-                } catch (_: android.content.ActivityNotFoundException) {
-                    try {
-                        startActivity(Intent(Settings.ACTION_SETTINGS))
-                    } catch (_: android.content.ActivityNotFoundException) {
-                        // No settings screen available; nothing more we can do.
-                    }
-                }
-            }
+            .setPositiveButton(R.string.usage_access_continue) { _, _ -> UsageAccess.openSettings(this) }
             .setNegativeButton(R.string.usage_access_not_now, null)
             .show()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        if (awaitingUsageAccess && hasUsageStatsPermission()) {
-            awaitingUsageAccess = false
-            viewModel.syncNow()
-        }
     }
 
     override fun onDestroy() {
@@ -76,8 +57,6 @@ class MainActivity : AppCompatActivity() {
         usageAccessDialog = null
         super.onDestroy()
     }
-
-    private fun hasUsageStatsPermission(): Boolean = UsageAccess.isGranted(this)
 
     private fun schedulePeriodicWork() {
         val usageWorkRequest = PeriodicWorkRequestBuilder<UsageSummaryWorker>(
