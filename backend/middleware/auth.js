@@ -1,5 +1,6 @@
 import crypto from 'crypto';
 import { supabase } from '../supabase.js';
+import { reportFailure } from '../failureReporter.js';
 import { logger } from '../logger.js';
 
 /**
@@ -49,6 +50,7 @@ export async function authenticateClient(req, res, next) {
         next();
     } catch (err) {
         logger.error({ err }, 'Auth middleware error');
+        reportFailure('auth-middleware-db', err);
         return res.status(500).json({ error: 'Authentication service unavailable' });
     }
 }
