@@ -1,0 +1,1 @@
+Easier to turn on Usage Access: Today now has an Allow usage access button, and the permission prompt no longer repeats on every launch. Totals start syncing as soon as you allow it.

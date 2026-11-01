@@ -112,6 +112,7 @@
     <string name="usage_access_message">SurfSense bugün her uygulamanın ne kadar süre açık kaldığını okur ve bunu arka planda düzenli olarak tekrarlar. Uygulama adları, Sosyal Medya veya Haberler gibi kategorilere ayrılabilmesi için SurfSense sunucusuna gönderilir. Toplamlar hesap adınız veya e-postanız altında değil, cihazınızın adıyla (diğer cihazlarınızda tanıyabilmeniz için) birlikte rastgele bir kimlik altında saklanır.\n\nArdından Android, SurfSense için Kullanım Erişimini açabileceğiniz bir ayar ekranı açacak.</string>
     <string name="usage_access_continue">Devam</string>
     <string name="usage_access_not_now">Şimdi değil</string>
+    <string name="usage_access_off_notice">Kullanım erişimi kapalı, bu yüzden bu telefondaki uygulamalar sayılmıyor.</string>
 
     <!-- Today and Week (10.1.0) -->
     <string name="tab_today">Bugün</string>

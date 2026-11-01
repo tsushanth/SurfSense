@@ -122,6 +122,7 @@
     <string name="usage_access_message">SurfSense odczytuje, jak długo każda aplikacja była dziś otwarta, i powtarza to regularnie w tle. Nazwy aplikacji są wysyłane na serwer SurfSense, aby przypisać je do kategorii, takich jak media społecznościowe lub wiadomości. Sumy są zapisywane pod losowym identyfikatorem wraz z nazwą Twojego urządzenia (aby można je było rozpoznać na Twoich innych urządzeniach), a nie pod nazwą Twojego konta ani adresem e-mail.\n\nNastępnie Android otworzy ekran ustawień, na którym możesz włączyć dostęp do danych o użyciu dla SurfSense.</string>
     <string name="usage_access_continue">Dalej</string>
     <string name="usage_access_not_now">Nie teraz</string>
+    <string name="usage_access_off_notice">Dostęp do danych o użyciu jest wyłączony, więc aplikacje na tym telefonie nie są liczone.</string>
 
     <!-- Today and Week (10.1.0) -->
     <string name="tab_today">Dziś</string>

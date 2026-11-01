@@ -70,6 +70,7 @@ fun TodayScreen(
     onSyncNow: () -> Unit,
     onLoadApps: () -> Unit,
     onSetCategory: (pkg: String, category: String?) -> Unit,
+    onOpenUsageAccess: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LaunchedEffect(Unit) { onLoadApps() }
@@ -89,8 +90,14 @@ fun TodayScreen(
 
         when {
             !state.todayLoaded -> item { SkeletonLines() }
-            !TodayModel.hasAnyData(devices) -> item { EmptyToday(syncing = state.isLoading, onSyncNow = onSyncNow) }
+            !TodayModel.hasAnyData(devices) -> item { EmptyToday(
+                syncing = state.isLoading,
+                usageAccessGranted = state.usageAccessGranted,
+                onSyncNow = onSyncNow,
+                onOpenUsageAccess = onOpenUsageAccess,
+            ) }
             else -> {
+                if (!state.usageAccessGranted) item { UsageAccessNotice(onOpenUsageAccess) }
                 item { TodayHeader(devices, scope, thisId) }
                 if (multi) {
                     item { ScopeChips(devices, scope, onSelectScope) }
@@ -199,15 +206,44 @@ private fun ScopeChips(devices: List<DeviceToday>, scope: String?, onSelectScope
 }
 
 @Composable
-private fun EmptyToday(syncing: Boolean, onSyncNow: () -> Unit) {
+private fun EmptyToday(
+    syncing: Boolean,
+    usageAccessGranted: Boolean,
+    onSyncNow: () -> Unit,
+    onOpenUsageAccess: () -> Unit,
+) {
     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
         Text(
             stringResource(R.string.today_empty),
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onSurface,
         )
-        Button(onClick = onSyncNow, enabled = !syncing, modifier = Modifier.heightIn(min = 48.dp)) {
-            Text(stringResource(R.string.sync_now))
+        if (!usageAccessGranted) {
+            Button(onClick = onOpenUsageAccess, modifier = Modifier.heightIn(min = 48.dp)) {
+                Text(stringResource(R.string.usage_access_title))
+            }
+            TextButton(onClick = onSyncNow, enabled = !syncing, modifier = Modifier.heightIn(min = 48.dp)) {
+                Text(stringResource(R.string.sync_now))
+            }
+        } else {
+            Button(onClick = onSyncNow, enabled = !syncing, modifier = Modifier.heightIn(min = 48.dp)) {
+                Text(stringResource(R.string.sync_now))
+            }
+        }
+    }
+}
+
+/** Shown above linked-device data when this phone itself is not being counted. */
+@Composable
+private fun UsageAccessNotice(onOpenUsageAccess: () -> Unit) {
+    Column(Modifier.padding(bottom = 16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        Text(
+            stringResource(R.string.usage_access_off_notice),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        TextButton(onClick = onOpenUsageAccess, modifier = Modifier.heightIn(min = 48.dp)) {
+            Text(stringResource(R.string.usage_access_title))
         }
     }
 }
@@ -363,7 +399,7 @@ private val previewState = MainUiState(
 @Composable
 private fun TodayScreenPreview() {
     SurfSenseTheme {
-        TodayScreen(previewState, {}, {}, {}, { _, _ -> }, Modifier.background(MaterialTheme.colorScheme.background))
+        TodayScreen(previewState, {}, {}, {}, { _, _ -> }, {}, Modifier.background(MaterialTheme.colorScheme.background))
     }
 }
 
@@ -373,7 +409,7 @@ private fun TodayEmptyPreview() {
     SurfSenseTheme {
         TodayScreen(
             MainUiState(todayLoaded = true, todayByDevice = listOf(previewDevices[2].copy(isThisDevice = true))),
-            {}, {}, {}, { _, _ -> },
+            {}, {}, {}, { _, _ -> }, {},
             Modifier.background(MaterialTheme.colorScheme.background),
         )
     }
