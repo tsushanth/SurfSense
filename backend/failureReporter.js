@@ -3,7 +3,8 @@
  * Fire-and-forget: never throws, never blocks a request.
  *
  * Off unless FAILURE_REPORTER_KEY is set (Fly secret), and always off under NODE_ENV=test/development
- * or FAILURE_REPORTER_DISABLED=1. Needs a `surfsense#backend` entry in the reporter's APP_KEYS.
+ * or FAILURE_REPORTER_DISABLED=1, or under a test runner (vitest, jest, node --test; FAILURE_REPORTER_FORCE=1 overrides that,
+ * for the reporter's own tests). Needs a `surfsense#backend` entry in the reporter's APP_KEYS.
  *
  * Privacy: callers pass stable messages and route templates only. Never pass device ids, API keys,
  * package names, hostnames, or request bodies: those are the user's browsing/app usage.
@@ -15,7 +16,8 @@ export function isEnabled() {
     return Boolean(process.env.FAILURE_REPORTER_KEY)
         && process.env.FAILURE_REPORTER_DISABLED !== '1'
         && process.env.NODE_ENV !== 'test'
-        && process.env.NODE_ENV !== 'development';
+        && process.env.NODE_ENV !== 'development'
+        && !((process.env.VITEST || process.env.JEST_WORKER_ID || process.env.NODE_TEST_CONTEXT) && process.env.FAILURE_REPORTER_FORCE !== '1');
 }
 
 async function post(kind, flow, err, context, timeoutMs) {
