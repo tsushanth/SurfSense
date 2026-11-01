@@ -32,6 +32,7 @@ describe('failureReporter', () => {
 
     it('posts the route template, never the concrete path or ids', async () => {
         vi.stubEnv('NODE_ENV', 'production');
+        vi.stubEnv('FAILURE_REPORTER_FORCE', '1'); // the test runner would otherwise keep the reporter off
         vi.stubEnv('FAILURE_REPORTER_KEY', 'k');
         reportRouteError({ method: 'GET', path: '/client/abcdef123456', route: { path: '/client/:id' } }, new Error('db down'));
         await flush();
