@@ -1,52 +1,37 @@
-Take control of your digital life with SurfSense — the intelligent screen time tracker that helps you understand and improve your device usage habits across all your devices.
+SurfSense - Browser Focus Tracker for ADHD, Remote Workers & Students
 
-In today's always-connected world, it's easy to lose track of how much time you spend on your phone, tablet, or other devices. SurfSense gives you the clarity you need with beautiful, real-time usage insights and cross-device tracking that no other app offers.
+Where did your day go? SurfSense tracks where your browser time goes and helps you build real focus habits. Categorize sites, set limits, see patterns, take back attention.
 
-KEY FEATURES
+Built For:
+• Knowledge workers fighting tab-switching habits
+• Students with ADHD who lose hours to YouTube and social
+• Remote workers who notice their day evaporating without output
+• Anyone who wants to know where their attention is actually going
 
-Multi-Device Tracking
-Link all your devices together with simple device codes and get a complete picture of your digital habits. Monitor screen time across your phone, tablet, and more — all in one place.
+Track Where Your Time Goes
+SurfSense monitors your active browser tabs and tells you exactly which sites you visited and how long you spent. Sites are auto-organized into categories like Social Media, Work, News, Education, Entertainment, and more.
 
-Smart Usage Trends
-View detailed usage trends over 7, 14, or 30 day periods. Understand how your habits change over time and identify patterns that help you build healthier routines.
+Build Focus Habits
+• Set daily limits on distracting sites
+• Get gentle nudges when you exceed your own limits
+• See weekly trends — is your social media creeping up?
+• Block lists for deep-work sessions
 
-Category Breakdowns
-See exactly where your time goes with intelligent app category breakdowns. Know at a glance how much time you spend on social media, productivity, entertainment, games, and more.
+ADHD-Friendly Design
+• Visual reports that make attention patterns obvious
+• Categorization without judgment — see facts, not "you're bad"
+• Setup takes 30 seconds, no friction to start
+• Works across browsers (Chrome, Edge, Firefox)
 
-Daily Usage Statistics
-Get clear daily stats including total screen time, daily averages, and peak usage days. Track your progress and celebrate when you meet your goals.
+What We Collect
+SurfSense does send some data to our server to build your reports.
+- Browser extension: the website domains you visit (the domain only, not full page addresses or page contents) are sent so they can be sorted into categories like Social Media or News.
+- Android app: if you turn on Usage Access, the app reads how long each app on your phone is open today and sends the app IDs (package names) so they can be sorted into categories.
+- Your daily time totals per category are stored under a random ID and your device's name, so your other devices can show them. SurfSense does not ask for your name or email.
 
-Real-Time Visualization
-Watch your usage come to life with a stunning waveform-style visualization that shows your activity in real time. A beautiful and informative way to stay aware of your habits.
+How It Works:
+1. Install the browser extension on your computer
+2. Link your phone via a one-time code
+3. See real-time activity reports
 
-Auto-Sync
-Set your preferred sync interval and let SurfSense automatically keep your data up to date across all linked devices. No manual effort required.
-
-Quick Stats Dashboard
-See your most used app category and key metrics at a glance from the main dashboard. Get the information you need without digging through menus.
-
-HOW IT WORKS
-
-1. Install SurfSense on your device and grant usage access permissions
-2. Your screen time data is automatically tracked and organized by category
-3. Link additional devices by sharing your unique device code
-4. View your combined usage trends, daily stats, and category breakdowns
-5. Adjust sync intervals and preferences in Settings to suit your needs
-
-PERFECT FOR
-
-- Parents who want to understand family screen time habits
-- Professionals looking to boost productivity by reducing distractions
-- Students aiming to balance study time and device usage
-- Anyone who wants to build healthier digital habits
-- Teams and families who want cross-device usage visibility
-
-YOUR PRIVACY MATTERS
-
-SurfSense is built with privacy at its core. Your usage data stays on your devices and is only shared between devices you explicitly link. You can reset your data at any time from Settings. We believe digital wellness shouldn't come at the cost of your privacy.
-
-CLEAN, MODERN DESIGN
-
-Built with Material Design principles, SurfSense offers a beautiful and intuitive interface that makes tracking your digital wellness a pleasure, not a chore.
-
-Download SurfSense today and start your journey toward mindful, balanced screen time. Your digital wellbeing starts here.
+Stop guessing where your time goes. See it.
