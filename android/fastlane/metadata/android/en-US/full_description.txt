@@ -1,6 +1,6 @@
 SurfSense - Browser Focus Tracker for ADHD, Remote Workers & Students
 
-Where did your day go? SurfSense tracks where your browser time goes and helps you build real focus habits. Categorize sites, set limits, see patterns, take back attention.
+Where did your day go? SurfSense tracks where your browser time goes and helps you build real focus habits. Categorize sites, see patterns, take back attention.
 
 Built For:
 • Knowledge workers fighting tab-switching habits
@@ -12,16 +12,13 @@ Track Where Your Time Goes
 SurfSense monitors your active browser tabs and tells you exactly which sites you visited and how long you spent. Sites are auto-organized into categories like Social Media, Work, News, Education, Entertainment, and more.
 
 Build Focus Habits
-• Set daily limits on distracting sites
-• Get gentle nudges when you exceed your own limits
 • See weekly trends — is your social media creeping up?
-• Block lists for deep-work sessions
 
 ADHD-Friendly Design
 • Visual reports that make attention patterns obvious
 • Categorization without judgment — see facts, not "you're bad"
 • Setup takes 30 seconds, no friction to start
-• Works across browsers (Chrome, Edge, Firefox)
+• Browser extension for Chrome
 
 What We Collect
 SurfSense does send some data to our server to build your reports.
@@ -32,6 +29,6 @@ SurfSense does send some data to our server to build your reports.
 How It Works:
 1. Install the browser extension on your computer
 2. Link your phone via a one-time code
-3. See real-time activity reports
+3. See your activity reports
 
 Stop guessing where your time goes. See it.
