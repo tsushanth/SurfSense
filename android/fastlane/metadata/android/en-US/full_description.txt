@@ -1,6 +1,6 @@
-SurfSense - Browser Focus Tracker for ADHD, Remote Workers & Students
+SurfSense - Screen Time and Browser Focus Tracker
 
-Where did your day go? SurfSense tracks where your browser time goes and helps you build real focus habits. Categorize sites, see patterns, take back attention.
+Where did your day go? SurfSense shows where your phone and browser time goes, so you can spot patterns and build real focus habits.
 
 Built For:
 • Knowledge workers fighting tab-switching habits
@@ -8,17 +8,18 @@ Built For:
 • Remote workers who notice their day evaporating without output
 • Anyone who wants to know where their attention is actually going
 
-Track Where Your Time Goes
-SurfSense monitors your active browser tabs and tells you exactly which sites you visited and how long you spent. Sites are auto-organized into categories like Social Media, Work, News, Education, Entertainment, and more.
-
-Build Focus Habits
-• See weekly trends — is your social media creeping up?
+What You Can Do
+• See today: how long you used your phone and which apps you spent it in, grouped into categories.
+• Compare weeks: a week view shows each day against the same day last week.
+• Correct categories: tap an app to change its category when the automatic one is wrong.
+• Link your devices: create a code on one device, enter it on another, and see phone and browser time together. Remove a device whenever you like.
+• Track your browser: the Chrome extension sorts the websites you visit into categories like Social Media, Work, News, Education and Entertainment.
+• Export your data: save the last 30 days from all your devices as a CSV file.
 
 ADHD-Friendly Design
 • Visual reports that make attention patterns obvious
-• Categorization without judgment — see facts, not "you're bad"
+• Categorization without judgment: see facts, not "you're bad"
 • Setup takes 30 seconds, no friction to start
-• Browser extension for Chrome
 
 What We Collect
 SurfSense does send some data to our server to build your reports.
@@ -27,8 +28,8 @@ SurfSense does send some data to our server to build your reports.
 - Your daily time totals per category are stored under a random ID and your device's name, so your other devices can show them. SurfSense does not ask for your name or email.
 
 How It Works:
-1. Install the browser extension on your computer
-2. Link your phone via a one-time code
-3. See your activity reports
+1. Install SurfSense on your phone and allow Usage Access
+2. Optional: install the browser extension on your computer
+3. Link devices with a one-time code and see your activity reports
 
 Stop guessing where your time goes. See it.
