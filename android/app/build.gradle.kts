@@ -12,8 +12,8 @@ android {
         applicationId = "com.kreativekoala.surfsense"
         minSdk = 24
         targetSdk = 36
-        versionCode = 14
-        versionName = "10.1.2"
+        versionCode = 15
+        versionName = "10.2.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
