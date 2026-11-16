@@ -14,7 +14,7 @@
     <string name="loading_usage_data">Đang tải dữ liệu sử dụng\u2026</string>
     <string name="today_usage_title">Sử Dụng Hôm Nay</string>
     <string name="no_usage_data_yet">Chưa Có Dữ Liệu Sử Dụng</string>
-    <string name="no_usage_data_description">Chạm "Đồng Bộ Ngay" để thu thập và tải lên dữ liệu sử dụng thiết bị của bạn. Cần quyền Truy Cập Sử Dụng.</string>
+    <string name="no_usage_data_description">Chạm \"Đồng Bộ Ngay\" để thu thập và tải lên dữ liệu sử dụng thiết bị của bạn. Cần quyền Truy Cập Sử Dụng.</string>
     <string name="sync_now">Đồng bộ ngay</string>
 
     <!-- Linked Devices Screen -->
@@ -189,4 +189,14 @@
     <string name="privacy_policy_label">Chính sách quyền riêng tư</string>
     <string name="terms_label">Điều khoản dịch vụ</string>
     <string name="about_font_credit">Dùng phông chữ Hanken Grotesk, cấp phép theo SIL Open Font License.</string>
+
+    <!-- wave2: machine-translated, needs native review -->
+    <string name="error_no_connection">Không có kết nối. Hãy kiểm tra internet và thử lại.</string>
+    <string name="error_device_not_recognized">Máy chủ không nhận ra thiết bị này. Hãy đóng và mở lại ứng dụng để kết nối lại.</string>
+    <string name="error_too_many_requests">Quá nhiều yêu cầu. Hãy thử lại sau một phút.</string>
+    <string name="error_server_trouble">Máy chủ đang gặp sự cố. Hãy thử lại sau.</string>
+    <string name="error_something_wrong_code">Đã xảy ra lỗi (%1$d).</string>
+    <string name="error_something_wrong">Đã xảy ra lỗi.</string>
+    <string name="error_failed_link_device">Không thể liên kết thiết bị</string>
+    <string name="error_failed_generate_code">Không thể tạo mã</string>
 </resources>

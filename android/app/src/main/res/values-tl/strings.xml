@@ -14,7 +14,7 @@
     <string name="loading_usage_data">Nilo-load ang data ng paggamit\u2026</string>
     <string name="today_usage_title">Paggamit Ngayong Araw</string>
     <string name="no_usage_data_yet">Wala Pang Data ng Paggamit</string>
-    <string name="no_usage_data_description">I-tap ang "I-sync Ngayon" upang mangolekta at mag-upload ng data ng paggamit ng iyong device. Nangangailangan ito ng pahintulot sa Pag-access ng Paggamit.</string>
+    <string name="no_usage_data_description">I-tap ang \"I-sync Ngayon\" upang mangolekta at mag-upload ng data ng paggamit ng iyong device. Nangangailangan ito ng pahintulot sa Pag-access ng Paggamit.</string>
     <string name="sync_now">I-sync ngayon</string>
 
     <!-- Linked Devices Screen -->
@@ -201,4 +201,14 @@
     <string name="privacy_policy_label">Patakaran sa privacy</string>
     <string name="terms_label">Mga tuntunin ng serbisyo</string>
     <string name="about_font_credit">Nakalimbag sa Hanken Grotesk, lisensyado sa ilalim ng SIL Open Font License.</string>
+
+    <!-- wave2: machine-translated, needs native review -->
+    <string name="error_no_connection">Walang koneksyon. Tingnan ang internet mo at subukan ulit.</string>
+    <string name="error_device_not_recognized">Hindi kinikilala ng server ang device na ito. Isara at buksan muli ang app para kumonekta ulit.</string>
+    <string name="error_too_many_requests">Masyadong maraming request. Subukan ulit pagkalipas ng isang minuto.</string>
+    <string name="error_server_trouble">May problema ang server. Subukan ulit mamaya.</string>
+    <string name="error_something_wrong_code">May nangyaring mali (%1$d).</string>
+    <string name="error_something_wrong">May nangyaring mali.</string>
+    <string name="error_failed_link_device">Hindi na-link ang device</string>
+    <string name="error_failed_generate_code">Hindi nagawa ang code</string>
 </resources>

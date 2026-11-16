@@ -1,5 +1,6 @@
 package com.kreativekoala.surfsense.viewmodel
 
+import com.kreativekoala.surfsense.R
 import android.app.Application
 import android.net.Uri
 import android.os.SystemClock
@@ -269,7 +270,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
                 _uiState.value = _uiState.value.copy(
                     isLoading = false,
-                    error = firstError?.let { ErrorMessages.from(it) } ?: extraError,
+                    error = firstError?.let { ErrorMessages.from(getApplication(), it) } ?: extraError,
                     thisDeviceUsage = thisDeviceUsage,
                     linkedDevices = devices,
                     unifiedUsage = unifiedUsage,
@@ -339,7 +340,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             } else {
                 _uiState.value = _uiState.value.copy(
                     isLinking = false,
-                    linkingError = result.exceptionOrNull()?.let { ErrorMessages.from(it) } ?: "Failed to link device"
+                    linkingError = result.exceptionOrNull()?.let { ErrorMessages.from(getApplication(), it) } ?: getApplication<Application>().getString(R.string.error_failed_link_device)
                 )
             }
         }
@@ -378,12 +379,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     )
                 } else {
                     _uiState.value = _uiState.value.copy(
-                        isGeneratingCode = false, error = "Failed to generate code"
+                        isGeneratingCode = false, error = getApplication<Application>().getString(R.string.error_failed_generate_code)
                     )
                 }
             } catch (e: Exception) {
                 _uiState.value = _uiState.value.copy(
-                    isGeneratingCode = false, error = "Failed to generate code"
+                    isGeneratingCode = false, error = getApplication<Application>().getString(R.string.error_failed_generate_code)
                 )
             }
         }

@@ -14,7 +14,7 @@
     <string name="loading_usage_data">Carregando dados de uso\u2026</string>
     <string name="today_usage_title">Uso de Hoje</string>
     <string name="no_usage_data_yet">Nenhum Dado de Uso Ainda</string>
-    <string name="no_usage_data_description">Toque em "Sincronizar Agora" para coletar e enviar os dados de uso do seu dispositivo. Isso requer a permissão de Acesso ao Uso.</string>
+    <string name="no_usage_data_description">Toque em \"Sincronizar Agora\" para coletar e enviar os dados de uso do seu dispositivo. Isso requer a permissão de Acesso ao Uso.</string>
     <string name="sync_now">Sincronizar agora</string>
 
     <!-- Linked Devices Screen -->
@@ -203,4 +203,14 @@
     <string name="privacy_policy_label">Política de privacidade</string>
     <string name="terms_label">Termos de serviço</string>
     <string name="about_font_credit">Composto em Hanken Grotesk, licenciada sob a SIL Open Font License.</string>
+
+    <!-- wave2: machine-translated, needs native review -->
+    <string name="error_no_connection">Sem conexão. Verifique sua internet e tente novamente.</string>
+    <string name="error_device_not_recognized">Este dispositivo não é reconhecido pelo servidor. Feche e abra o app novamente para reconectar.</string>
+    <string name="error_too_many_requests">Muitas solicitações. Tente novamente em um minuto.</string>
+    <string name="error_server_trouble">O servidor está com problemas. Tente novamente em breve.</string>
+    <string name="error_something_wrong_code">Algo deu errado (%1$d).</string>
+    <string name="error_something_wrong">Algo deu errado.</string>
+    <string name="error_failed_link_device">Falha ao vincular o dispositivo</string>
+    <string name="error_failed_generate_code">Falha ao gerar o código</string>
 </resources>

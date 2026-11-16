@@ -14,7 +14,7 @@
     <string name="loading_usage_data">Caricamento dati di utilizzo\u2026</string>
     <string name="today_usage_title">Utilizzo di Oggi</string>
     <string name="no_usage_data_yet">Nessun Dato di Utilizzo</string>
-    <string name="no_usage_data_description">Tocca "Sincronizza Ora" per raccogliere e caricare i dati di utilizzo del tuo dispositivo. Questo richiede il permesso di Accesso all\'Utilizzo.</string>
+    <string name="no_usage_data_description">Tocca \"Sincronizza Ora\" per raccogliere e caricare i dati di utilizzo del tuo dispositivo. Questo richiede il permesso di Accesso all\'Utilizzo.</string>
     <string name="sync_now">Sincronizza ora</string>
 
     <!-- Linked Devices Screen -->
@@ -203,4 +203,14 @@
     <string name="privacy_policy_label">Informativa sulla privacy</string>
     <string name="terms_label">Termini di servizio</string>
     <string name="about_font_credit">Composto in Hanken Grotesk, con licenza SIL Open Font License.</string>
+
+    <!-- wave2: machine-translated, needs native review -->
+    <string name="error_no_connection">Nessuna connessione. Controlla internet e riprova.</string>
+    <string name="error_device_not_recognized">Il server non riconosce questo dispositivo. Chiudi e riapri l\'app per riconnetterti.</string>
+    <string name="error_too_many_requests">Troppe richieste. Riprova tra un minuto.</string>
+    <string name="error_server_trouble">Il server ha dei problemi. Riprova tra poco.</string>
+    <string name="error_something_wrong_code">Qualcosa è andato storto (%1$d).</string>
+    <string name="error_something_wrong">Qualcosa è andato storto.</string>
+    <string name="error_failed_link_device">Impossibile collegare il dispositivo</string>
+    <string name="error_failed_generate_code">Impossibile generare il codice</string>
 </resources>

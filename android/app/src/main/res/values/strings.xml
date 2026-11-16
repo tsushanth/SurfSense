@@ -204,4 +204,15 @@
     <string name="privacy_policy_label">Privacy policy</string>
     <string name="terms_label">Terms of service</string>
     <string name="about_font_credit">Set in Hanken Grotesk, licensed under the SIL Open Font License.</string>
+
+    <!-- Error messages shown in the app -->
+    <string name="error_no_connection">No connection. Check your internet and try again.</string>
+    <string name="error_device_not_recognized">This device isn\'t recognized by the server. Close and reopen the app to reconnect.</string>
+    <string name="error_too_many_requests">Too many requests. Try again in a minute.</string>
+    <string name="error_server_trouble">The server is having trouble. Try again soon.</string>
+    <!-- %1$d is an HTTP status code such as 404 -->
+    <string name="error_something_wrong_code">Something went wrong (%1$d).</string>
+    <string name="error_something_wrong">Something went wrong.</string>
+    <string name="error_failed_link_device">Failed to link device</string>
+    <string name="error_failed_generate_code">Failed to generate code</string>
 </resources>

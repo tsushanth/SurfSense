@@ -14,7 +14,7 @@
     <string name="loading_usage_data">กำลังโหลดข้อมูลการใช้งาน\u2026</string>
     <string name="today_usage_title">การใช้งานวันนี้</string>
     <string name="no_usage_data_yet">ยังไม่มีข้อมูลการใช้งาน</string>
-    <string name="no_usage_data_description">แตะ "ซิงค์ตอนนี้" เพื่อรวบรวมและอัปโหลดข้อมูลการใช้งานอุปกรณ์ของคุณ ต้องการสิทธิ์การเข้าถึงการใช้งาน</string>
+    <string name="no_usage_data_description">แตะ \"ซิงค์ตอนนี้\" เพื่อรวบรวมและอัปโหลดข้อมูลการใช้งานอุปกรณ์ของคุณ ต้องการสิทธิ์การเข้าถึงการใช้งาน</string>
     <string name="sync_now">ซิงค์ตอนนี้</string>
 
     <!-- Linked Devices Screen -->
@@ -189,4 +189,14 @@
     <string name="privacy_policy_label">นโยบายความเป็นส่วนตัว</string>
     <string name="terms_label">ข้อกำหนดในการให้บริการ</string>
     <string name="about_font_credit">ใช้ฟอนต์ Hanken Grotesk ภายใต้สัญญาอนุญาต SIL Open Font License</string>
+
+    <!-- wave2: machine-translated, needs native review -->
+    <string name="error_no_connection">ไม่มีการเชื่อมต่อ ตรวจสอบอินเทอร์เน็ตแล้วลองอีกครั้ง</string>
+    <string name="error_device_not_recognized">เซิร์ฟเวอร์ไม่รู้จักอุปกรณ์นี้ ปิดแล้วเปิดแอปใหม่เพื่อเชื่อมต่ออีกครั้ง</string>
+    <string name="error_too_many_requests">คำขอมากเกินไป ลองอีกครั้งใน 1 นาที</string>
+    <string name="error_server_trouble">เซิร์ฟเวอร์มีปัญหา ลองอีกครั้งในอีกสักครู่</string>
+    <string name="error_something_wrong_code">เกิดข้อผิดพลาด (%1$d)</string>
+    <string name="error_something_wrong">เกิดข้อผิดพลาด</string>
+    <string name="error_failed_link_device">เชื่อมโยงอุปกรณ์ไม่สำเร็จ</string>
+    <string name="error_failed_generate_code">สร้างรหัสไม่สำเร็จ</string>
 </resources>

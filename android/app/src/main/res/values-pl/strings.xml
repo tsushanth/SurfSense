@@ -14,7 +14,7 @@
     <string name="loading_usage_data">Ładowanie danych użytkowania\u2026</string>
     <string name="today_usage_title">Dzisiejsze użytkowanie</string>
     <string name="no_usage_data_yet">Brak danych użytkowania</string>
-    <string name="no_usage_data_description">Naciśnij „Synchronizuj teraz", aby zebrać i przesłać dane użytkowania urządzenia. Wymaga to uprawnienia dostępu do użytkowania.</string>
+    <string name="no_usage_data_description">Naciśnij „Synchronizuj teraz\", aby zebrać i przesłać dane użytkowania urządzenia. Wymaga to uprawnienia dostępu do użytkowania.</string>
     <string name="sync_now">Synchronizuj teraz</string>
 
     <!-- Linked Devices Screen -->
@@ -205,4 +205,14 @@
     <string name="privacy_policy_label">Polityka prywatności</string>
     <string name="terms_label">Warunki korzystania z usługi</string>
     <string name="about_font_credit">Złożono krojem Hanken Grotesk na licencji SIL Open Font License.</string>
+
+    <!-- wave2: machine-translated, needs native review -->
+    <string name="error_no_connection">Brak połączenia. Sprawdź internet i spróbuj ponownie.</string>
+    <string name="error_device_not_recognized">Serwer nie rozpoznaje tego urządzenia. Zamknij i ponownie otwórz aplikację, aby się połączyć.</string>
+    <string name="error_too_many_requests">Zbyt wiele żądań. Spróbuj ponownie za minutę.</string>
+    <string name="error_server_trouble">Serwer ma problemy. Spróbuj ponownie wkrótce.</string>
+    <string name="error_something_wrong_code">Coś poszło nie tak (%1$d).</string>
+    <string name="error_something_wrong">Coś poszło nie tak.</string>
+    <string name="error_failed_link_device">Nie udało się połączyć urządzenia</string>
+    <string name="error_failed_generate_code">Nie udało się wygenerować kodu</string>
 </resources>

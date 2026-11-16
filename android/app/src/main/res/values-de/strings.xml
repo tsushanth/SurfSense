@@ -14,7 +14,7 @@
     <string name="loading_usage_data">Nutzungsdaten werden geladen\u2026</string>
     <string name="today_usage_title">Heutige Nutzung</string>
     <string name="no_usage_data_yet">Noch Keine Nutzungsdaten</string>
-    <string name="no_usage_data_description">Tippe auf „Jetzt Synchronisieren", um die Nutzungsdaten deines Geräts zu erfassen und hochzuladen. Dies erfordert die Berechtigung für den Nutzungszugriff.</string>
+    <string name="no_usage_data_description">Tippe auf „Jetzt Synchronisieren\", um die Nutzungsdaten deines Geräts zu erfassen und hochzuladen. Dies erfordert die Berechtigung für den Nutzungszugriff.</string>
     <string name="sync_now">Jetzt synchronisieren</string>
 
     <!-- Linked Devices Screen -->
@@ -201,4 +201,14 @@
     <string name="privacy_policy_label">Datenschutzerklärung</string>
     <string name="terms_label">Nutzungsbedingungen</string>
     <string name="about_font_credit">Gesetzt in Hanken Grotesk, lizenziert unter der SIL Open Font License.</string>
+
+    <!-- wave2: machine-translated, needs native review -->
+    <string name="error_no_connection">Keine Verbindung. Prüfe dein Internet und versuche es erneut.</string>
+    <string name="error_device_not_recognized">Der Server erkennt dieses Gerät nicht. Schließe die App und öffne sie erneut, um die Verbindung wiederherzustellen.</string>
+    <string name="error_too_many_requests">Zu viele Anfragen. Versuche es in einer Minute erneut.</string>
+    <string name="error_server_trouble">Der Server hat Probleme. Versuche es bald erneut.</string>
+    <string name="error_something_wrong_code">Etwas ist schiefgelaufen (%1$d).</string>
+    <string name="error_something_wrong">Etwas ist schiefgelaufen.</string>
+    <string name="error_failed_link_device">Gerät konnte nicht verknüpft werden</string>
+    <string name="error_failed_generate_code">Code konnte nicht erstellt werden</string>
 </resources>

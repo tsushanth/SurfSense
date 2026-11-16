@@ -14,7 +14,7 @@
     <string name="loading_usage_data">جارٍ تحميل بيانات الاستخدام\u2026</string>
     <string name="today_usage_title">استخدام اليوم</string>
     <string name="no_usage_data_yet">لا توجد بيانات استخدام بعد</string>
-    <string name="no_usage_data_description">انقر على "مزامنة الآن" لجمع وتحميل بيانات استخدام جهازك. يتطلب ذلك إذن الوصول للاستخدام.</string>
+    <string name="no_usage_data_description">انقر على \"مزامنة الآن\" لجمع وتحميل بيانات استخدام جهازك. يتطلب ذلك إذن الوصول للاستخدام.</string>
     <string name="sync_now">مزامنة الآن</string>
 
     <!-- Linked Devices Screen -->
@@ -199,4 +199,14 @@
     <string name="privacy_policy_label">سياسة الخصوصية</string>
     <string name="terms_label">شروط الخدمة</string>
     <string name="about_font_credit">الخط المستخدم Hanken Grotesk، مرخّص بموجب SIL Open Font License.</string>
+
+    <!-- wave2: machine-translated, needs native review -->
+    <string name="error_no_connection">لا يوجد اتصال. تحقق من الإنترنت وحاول مرة أخرى.</string>
+    <string name="error_device_not_recognized">لم يتعرف الخادم على هذا الجهاز. أغلق التطبيق وافتحه من جديد لإعادة الاتصال.</string>
+    <string name="error_too_many_requests">طلبات كثيرة جدًا. حاول مرة أخرى بعد دقيقة.</string>
+    <string name="error_server_trouble">الخادم يواجه مشكلة. حاول مرة أخرى قريبًا.</string>
+    <string name="error_something_wrong_code">حدث خطأ (%1$d).</string>
+    <string name="error_something_wrong">حدث خطأ.</string>
+    <string name="error_failed_link_device">تعذّر ربط الجهاز</string>
+    <string name="error_failed_generate_code">تعذّر إنشاء الرمز</string>
 </resources>
