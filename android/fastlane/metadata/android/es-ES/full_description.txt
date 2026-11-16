@@ -1,52 +1,35 @@
-Toma el control de tu vida digital con SurfSense, el rastreador inteligente de tiempo de pantalla que te ayuda a comprender y mejorar tus hábitos de uso en todos tus dispositivos.
+SurfSense - Tiempo de pantalla y enfoque en el navegador
 
-En el mundo hiperconectado de hoy, es fácil perder la noción del tiempo que pasas frente a tu teléfono, tableta u otros dispositivos. SurfSense te ofrece la claridad que necesitas con información de uso en tiempo real y seguimiento entre dispositivos que ninguna otra app ofrece.
+¿En qué se fue tu día? SurfSense te muestra en qué se va el tiempo de tu móvil y de tu navegador, para que detectes patrones y crees hábitos de enfoque reales.
 
-FUNCIONES PRINCIPALES
+Pensado para:
+• Profesionales que luchan contra el hábito de cambiar de pestaña
+• Estudiantes con TDAH que pierden horas en YouTube y redes sociales
+• Personas que trabajan en remoto y sienten que el día se les esfuma sin resultados
+• Cualquiera que quiera saber en qué se va realmente su atención
 
-Seguimiento Multidispositivo
-Vincula todos tus dispositivos con códigos simples y obtén una imagen completa de tus hábitos digitales. Controla el tiempo de pantalla en tu teléfono, tableta y más, todo en un solo lugar.
+Qué puedes hacer
+• Ver el día de hoy: cuánto usaste el móvil y en qué apps, agrupadas por categorías.
+• Comparar semanas: la vista semanal muestra cada día junto al mismo día de la semana anterior.
+• Corregir categorías: toca una app para cambiar su categoría cuando la automática no sea la correcta.
+• Vincular tus dispositivos: crea un código en un dispositivo, introdúcelo en otro y mira juntos el tiempo del móvil y del navegador. Puedes quitar un dispositivo cuando quieras.
+• Seguir tu navegador: la extensión de Chrome clasifica los sitios web que visitas en categorías como Redes sociales, Trabajo, Noticias, Educación y Entretenimiento.
+• Exportar tus datos: guarda los últimos 30 días de todos tus dispositivos en un archivo CSV.
 
-Tendencias de Uso Inteligentes
-Visualiza tendencias detalladas de uso en períodos de 7, 14 o 30 días. Comprende cómo cambian tus hábitos con el tiempo e identifica patrones que te ayuden a crear rutinas más saludables.
+Diseño pensado para el TDAH
+• Informes visuales que hacen evidentes los patrones de atención
+• Categorías sin juicios: datos, no reproches
+• La configuración lleva 30 segundos, sin fricción para empezar
 
-Desglose por Categorías
-Descubre exactamente a dónde va tu tiempo con desgloses inteligentes por categorías de apps. Conoce de un vistazo cuánto tiempo dedicas a redes sociales, productividad, entretenimiento, juegos y más.
+Qué datos recopilamos
+SurfSense sí envía algunos datos a nuestro servidor para crear tus informes.
+- Extensión del navegador: se envían los dominios de los sitios web que visitas (solo el dominio, no las direcciones completas ni el contenido de las páginas) para clasificarlos en categorías como Redes sociales o Noticias.
+- App para Android: si activas el acceso al uso, la app lee cuánto tiempo está abierta cada app de tu móvil hoy y envía los identificadores de las apps (nombres de paquete) para clasificarlas en categorías.
+- Tus totales de tiempo diarios por categoría se guardan con un ID aleatorio y el nombre de tu dispositivo, para que tus otros dispositivos puedan mostrarlos. SurfSense no te pide tu nombre ni tu correo electrónico.
 
-Estadísticas Diarias de Uso
-Obtén estadísticas diarias claras que incluyen tiempo total de pantalla, promedios diarios y días de mayor uso. Sigue tu progreso y celebra cuando alcances tus metas.
+Cómo funciona:
+1. Instala SurfSense en tu móvil y permite el acceso al uso
+2. Opcional: instala la extensión del navegador en tu ordenador
+3. Vincula los dispositivos con un código de un solo uso y mira tus informes de actividad
 
-Visualización en Tiempo Real
-Observa tu uso cobrar vida con una impresionante visualización estilo onda que muestra tu actividad en tiempo real. Una forma hermosa e informativa de estar al tanto de tus hábitos.
-
-Sincronización Automática
-Configura tu intervalo de sincronización preferido y deja que SurfSense mantenga automáticamente tus datos actualizados en todos los dispositivos vinculados. Sin esfuerzo manual.
-
-Panel de Estadísticas Rápidas
-Consulta tu categoría de apps más utilizada y las métricas clave de un vistazo desde el panel principal. Obtén la información que necesitas sin buscar en menús.
-
-CÓMO FUNCIONA
-
-1. Instala SurfSense en tu dispositivo y concede los permisos de acceso de uso
-2. Tu tiempo de pantalla se rastrea automáticamente y se organiza por categoría
-3. Vincula dispositivos adicionales compartiendo tu código único de dispositivo
-4. Visualiza tus tendencias de uso combinadas, estadísticas diarias y desgloses por categoría
-5. Ajusta los intervalos de sincronización y preferencias en Configuración según tus necesidades
-
-IDEAL PARA
-
-- Padres que quieren entender los hábitos de tiempo de pantalla de la familia
-- Profesionales que buscan aumentar la productividad reduciendo distracciones
-- Estudiantes que desean equilibrar el tiempo de estudio y el uso del dispositivo
-- Cualquiera que quiera construir hábitos digitales más saludables
-- Equipos y familias que desean visibilidad del uso entre dispositivos
-
-TU PRIVACIDAD IMPORTA
-
-SurfSense está construido con la privacidad como prioridad. Tus datos de uso permanecen en tus dispositivos y solo se comparten entre los dispositivos que vincules explícitamente. Puedes restablecer tus datos en cualquier momento desde Configuración. Creemos que el bienestar digital no debe comprometer tu privacidad.
-
-DISEÑO LIMPIO Y MODERNO
-
-Construido con los principios de Material Design, SurfSense ofrece una interfaz hermosa e intuitiva que hace del seguimiento de tu bienestar digital un placer, no una tarea.
-
-Descarga SurfSense hoy y comienza tu camino hacia un tiempo de pantalla consciente y equilibrado. Tu bienestar digital empieza aquí.
+Deja de adivinar en qué se va tu tiempo. Míralo.

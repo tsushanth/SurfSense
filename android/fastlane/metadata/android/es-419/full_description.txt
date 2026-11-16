@@ -1,0 +1,35 @@
+SurfSense - Tiempo de pantalla y enfoque en el navegador
+
+¿En qué se fue tu día? SurfSense te muestra en qué se va el tiempo de tu celular y de tu navegador, para que detectes patrones y crees hábitos de enfoque reales.
+
+Pensado para:
+• Profesionales que luchan contra el hábito de cambiar de pestaña
+• Estudiantes con TDAH que pierden horas en YouTube y redes sociales
+• Personas que trabajan en remoto y sienten que el día se les esfuma sin resultados
+• Cualquiera que quiera saber en qué se va realmente su atención
+
+Qué puedes hacer
+• Ver el día de hoy: cuánto usaste el celular y en qué apps, agrupadas por categorías.
+• Comparar semanas: la vista semanal muestra cada día junto al mismo día de la semana anterior.
+• Corregir categorías: toca una app para cambiar su categoría cuando la automática no sea la correcta.
+• Vincular tus dispositivos: crea un código en un dispositivo, introdúcelo en otro y mira juntos el tiempo del celular y del navegador. Puedes quitar un dispositivo cuando quieras.
+• Seguir tu navegador: la extensión de Chrome clasifica los sitios web que visitas en categorías como Redes sociales, Trabajo, Noticias, Educación y Entretenimiento.
+• Exportar tus datos: guarda los últimos 30 días de todos tus dispositivos en un archivo CSV.
+
+Diseño pensado para el TDAH
+• Informes visuales que hacen evidentes los patrones de atención
+• Categorías sin juicios: datos, no reproches
+• La configuración lleva 30 segundos, sin fricción para empezar
+
+Qué datos recopilamos
+SurfSense sí envía algunos datos a nuestro servidor para crear tus informes.
+- Extensión del navegador: se envían los dominios de los sitios web que visitas (solo el dominio, no las direcciones completas ni el contenido de las páginas) para clasificarlos en categorías como Redes sociales o Noticias.
+- App para Android: si activas el acceso al uso, la app lee cuánto tiempo está abierta cada app de tu celular hoy y envía los identificadores de las apps (nombres de paquete) para clasificarlas en categorías.
+- Tus totales de tiempo diarios por categoría se guardan con un ID aleatorio y el nombre de tu dispositivo, para que tus otros dispositivos puedan mostrarlos. SurfSense no te pide tu nombre ni tu correo electrónico.
+
+Cómo funciona:
+1. Instala SurfSense en tu celular y permite el acceso al uso
+2. Opcional: instala la extensión del navegador en tu computadora
+3. Vincula los dispositivos con un código de un solo uso y mira tus informes de actividad
+
+Deja de adivinar en qué se va tu tiempo. Míralo.
