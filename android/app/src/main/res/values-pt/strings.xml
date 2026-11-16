@@ -1,0 +1,216 @@
+<resources>
+    <string name="app_name">SurfSense</string>
+
+    <!-- Navigation Tabs -->
+    <string name="tab_this_device">Este Dispositivo</string>
+    <string name="tab_linked_devices">Dispositivos</string>
+    <string name="tab_trends">Tendências</string>
+    <string name="tab_settings">Configurações</string>
+
+    <!-- Content Descriptions -->
+    <string name="cd_refresh">Atualizar</string>
+
+    <!-- This Device Screen -->
+    <string name="loading_usage_data">Carregando dados de uso\u2026</string>
+    <string name="today_usage_title">Uso de Hoje</string>
+    <string name="no_usage_data_yet">Nenhum Dado de Uso Ainda</string>
+    <string name="no_usage_data_description">Toque em \"Sincronizar Agora\" para coletar e enviar os dados de uso do seu dispositivo. Isso requer a permissão de Acesso ao Uso.</string>
+    <string name="sync_now">Sincronizar agora</string>
+
+    <!-- Linked Devices Screen -->
+    <string name="linked_devices_usage_title">Uso dos Dispositivos Vinculados</string>
+    <string name="no_linked_devices">Nenhum Dispositivo Vinculado</string>
+    <string name="no_linked_devices_description">Adicione seu primeiro dispositivo para começar a rastrear o uso em todos os seus dispositivos</string>
+    <string name="add_device">Adicionar Dispositivo</string>
+    <string name="share_this_device">Compartilhar Este Dispositivo</string>
+
+    <!-- Remove Device Dialog -->
+    <string name="remove_device_title">Remover Dispositivo</string>
+    <string name="remove_device_message">Tem certeza de que deseja remover %1$s? Este dispositivo não poderá mais rastrear seu uso.</string>
+    <string name="remove">Remover</string>
+    <string name="cancel">Cancelar</string>
+
+    <!-- Add Device Dialog -->
+    <string name="enter_code_prompt">Digite o código de %1$d dígitos do dispositivo que deseja vincular</string>
+    <string name="device_code_label">Código do Dispositivo</string>
+    <string name="device_linked_success">Dispositivo vinculado com sucesso!</string>
+    <string name="link_device">Vincular Dispositivo</string>
+    <string name="done">Concluído</string>
+
+    <!-- Share Device Dialog -->
+    <string name="share_device_description">Gere um código que outros podem usar para vincular e monitorar o uso deste dispositivo</string>
+    <string name="your_sharing_code">Seu código de compartilhamento:</string>
+    <string name="code_expires_in">O código expira em %1$d minutos</string>
+    <string name="copy">Copiar</string>
+    <string name="new_code">Novo Código</string>
+    <string name="generating">Gerando\u2026</string>
+    <string name="generate_sharing_code">Gerar Código de Compartilhamento</string>
+    <string name="code_copied">Código copiado</string>
+
+    <!-- Trends Screen -->
+    <string name="period_7_days">7 Dias</string>
+    <string name="period_14_days">14 Dias</string>
+    <string name="period_30_days">30 Dias</string>
+    <string name="no_usage_data_trends">Nenhum Dado de Uso Ainda</string>
+    <string name="no_usage_data_trends_description">Comece a rastrear seu uso para ver tendências ao longo do tempo.</string>
+    <string name="summary">Resumo</string>
+    <string name="stat_total">Total</string>
+    <string name="stat_daily_avg">Média Diária</string>
+    <string name="stat_peak_day">Dia de Pico</string>
+    <string name="daily_usage">Uso Diário</string>
+    <string name="category_breakdown">Divisão por Categoria</string>
+    <string name="daily_details">Detalhes Diários</string>
+    <string name="no_data">Sem dados</string>
+    <string name="usage_trends_title">Tendências de Uso</string>
+
+    <!-- Settings Screen -->
+    <string name="section_data_sync">Sincronização de Dados</string>
+    <string name="auto_sync">Sincronização Automática</string>
+    <string name="sync_interval">Intervalo de Sincronização</string>
+    <string name="sync_interval_value">%1$d minutos</string>
+    <string name="section_device">Dispositivo</string>
+    <string name="device_id">ID do Dispositivo</string>
+    <string name="device_name">Nome do Dispositivo</string>
+    <string name="section_about">Sobre</string>
+    <string name="about">Sobre</string>
+    <string name="version">Versão</string>
+    <string name="privacy_policy">Política de Privacidade</string>
+    <string name="terms_of_service">Termos de Serviço</string>
+    <string name="section_data">Dados</string>
+    <string name="reset_all_data">Redefinir Todos os Dados</string>
+    <string name="reset_all_data_title">Redefinir Todos os Dados?</string>
+    <string name="reset_all_data_message">Esta ação não pode ser desfeita. Todos os seus dados locais serão excluídos e os dispositivos serão desvinculados.</string>
+    <string name="reset">Redefinir</string>
+    <string name="data_reset">Dados redefinidos</string>
+
+    <!-- About Dialog -->
+    <string name="about_tagline">Acompanhe seu bem-estar digital em todos os seus dispositivos</string>
+
+    <!-- Usage Card -->
+    <string name="total_screen_time_today">Tempo total de tela hoje</string>
+    <string name="quick_stats">Estatísticas Rápidas</string>
+    <string name="most_used_category">Categoria mais usada</string>
+
+    <!-- Layout XML: dialog_link_device.xml -->
+    <string name="enter_6_digit_code">Digite o Código de 6 Dígitos</string>
+
+    <!-- Layout XML: dialog_generate_code.xml -->
+    <string name="fetching_code">Obtendo código\u2026</string>
+
+    <!-- Layout XML: activity_link_device.xml -->
+    <string name="enter_linking_code">Digite o código de vinculação</string>
+
+    <!-- Layout XML: activity_trends.xml -->
+    <string name="cd_no_data">Sem dados</string>
+    <string name="cd_total">Total</string>
+    <string name="cd_average">Média</string>
+    <string name="cd_peak">Pico</string>
+    <string name="default_time">0h</string>
+
+    <!-- Layout XML: activity_main.xml -->
+    <string name="settings">Configurações</string>
+    <string name="refresh_data">Atualizar Dados</string>
+
+    <!-- Layout XML: item_tracker_row.xml -->
+    <string name="url_placeholder">URL</string>
+    <string name="interval_placeholder">60 min</string>
+    <string name="cd_delete">Excluir</string>
+
+    <!-- Notifications -->
+    <string name="new_notification_title">Nova Notificação: %1$s</string>
+    <string name="usage_access_title">Permitir acesso ao uso</string>
+    <string name="usage_access_message">O SurfSense lê por quanto tempo cada app ficou aberto hoje e repete isso regularmente em segundo plano. Os nomes dos apps são enviados ao servidor do SurfSense para serem classificados em categorias como Redes sociais ou Notícias. Os totais são armazenados com um ID aleatório junto com o nome do seu dispositivo (para que você o reconheça nos seus outros dispositivos), não com o nome da sua conta ou e-mail.\n\nEm seguida, o Android abrirá uma tela de configurações onde você poderá ativar o Acesso ao uso para o SurfSense.</string>
+    <string name="usage_access_continue">Continuar</string>
+    <string name="usage_access_not_now">Agora não</string>
+    <string name="usage_access_off_notice">O acesso ao uso está desativado, então os apps deste celular não estão sendo contados.</string>
+
+    <!-- Today and Week (10.1.0) -->
+    <string name="tab_today">Hoje</string>
+    <string name="tab_week">Semana</string>
+    <string name="today_total_phone">%1$s no seu celular hoje</string>
+    <string name="today_total_device">%1$s em %2$s hoje</string>
+    <string name="scope_all_devices">Todos os dispositivos</string>
+    <string name="today_empty">Nada registrado hoje ainda. Permita o acesso ao uso e sincronize, ou vincule outro dispositivo.</string>
+    <string name="today_device_empty">Nada de %1$s hoje ainda.</string>
+    <string name="apps_on_this_phone">Apps neste celular</string>
+    <string name="apps_hint">Toque em um app para mudar a categoria dele.</string>
+    <string name="change_category">Mudar categoria</string>
+    <string name="use_automatic_category">Usar categoria automática</string>
+    <string name="category_unknown">Categoria desconhecida</string>
+    <string name="category_set_by_you">%1$s (escolhida por você)</string>
+    <string name="week_total">%1$s esta semana</string>
+    <string name="week_more">%1$d%% a mais que na semana passada</string>
+    <string name="week_less">%1$d%% a menos que na semana passada</string>
+    <string name="week_same">Igual à semana passada</string>
+    <string name="week_ghost_legend">Os contornos mostram o mesmo dia na semana passada.</string>
+    <string name="week_empty">Nada registrado nos últimos 7 dias.</string>
+    <string name="try_again">Tentar de novo</string>
+    <string name="week_day_cd">%1$s: %2$s</string>
+    <string name="week_day_cd_last">%1$s: %2$s. Semana passada: %3$s</string>
+    <string name="loading">Carregando</string>
+    <plurals name="today_total_devices">
+        <item quantity="one">%1$s em %2$d dispositivo hoje</item>
+        <item quantity="many">%1$s nos seus %2$d dispositivos hoje</item>
+        <item quantity="other">%1$s nos seus %2$d dispositivos hoje</item>
+    </plurals>
+    <plurals name="week_failed">
+        <item quantity="one">Não foi possível carregar %1$d dia. Verifique sua conexão e tente de novo.</item>
+        <item quantity="many">Não foi possível carregar %1$d dias. Verifique sua conexão e tente de novo.</item>
+        <item quantity="other">Não foi possível carregar %1$d dias. Verifique sua conexão e tente de novo.</item>
+    </plurals>
+
+    <!-- Devices and Settings (10.1.0) -->
+    <string name="devices_add">Adicionar um dispositivo</string>
+    <string name="devices_share">Compartilhar este dispositivo</string>
+    <string name="devices_section_linked">Dispositivos vinculados</string>
+    <string name="devices_empty">Para adicionar outro dispositivo, toque em Compartilhar este dispositivo nele e depois digite o código aqui em Adicionar um dispositivo.</string>
+    <string name="device_type_browser">Navegador</string>
+    <string name="device_type_other">Outro dispositivo</string>
+    <string name="device_remove_cd">Remover %1$s</string>
+    <string name="device_remove_title">Remover %1$s?</string>
+    <string name="device_remove_message">Ele não vai mais aparecer aqui. Para adicioná-lo de novo, use um código novo.</string>
+    <string name="device_removed">Dispositivo removido</string>
+    <string name="device_remove_failed">Não foi possível remover %1$s. Verifique sua conexão e tente novamente.</string>
+    <string name="add_device_prompt">No outro dispositivo, abra o SurfSense e toque em Compartilhar este dispositivo. Digite o código de %1$d dígitos que aparece.</string>
+    <string name="add_device_code_label">Código</string>
+    <string name="add_device_confirm">Adicionar</string>
+    <string name="device_added">Dispositivo adicionado</string>
+    <string name="share_device_prompt">Crie um código e depois digite-o no outro dispositivo em Adicionar um dispositivo.</string>
+    <string name="share_create_code">Criar código</string>
+    <string name="share_creating">Criando código…</string>
+    <string name="share_new_code">Novo código</string>
+    <string name="share_expires">Expira em %1$d minutos</string>
+    <string name="share_code_failed">Não foi possível criar um código. Verifique sua conexão e tente novamente.</string>
+    <string name="settings_section_sync">Sincronização</string>
+    <string name="settings_sync_interval">Sincroniza em segundo plano a cada %1$d minutos, aproximadamente.</string>
+    <string name="settings_section_device">Este dispositivo</string>
+    <string name="settings_device_name">Nome do dispositivo</string>
+    <string name="settings_device_id">ID do dispositivo</string>
+    <string name="settings_section_data">Seus dados</string>
+    <string name="export_data">Exportar meus dados</string>
+    <string name="export_data_hint">Os últimos 30 dias de todos os seus dispositivos, em um arquivo CSV.</string>
+    <string name="export_preparing">Preparando a exportação…</string>
+    <string name="export_done">Exportado</string>
+    <string name="export_nothing">Ainda não há nada para exportar. Sincronize ou vincule um dispositivo primeiro.</string>
+    <string name="export_load_failed">Não foi possível carregar todos os seus dados. Verifique sua conexão e tente novamente.</string>
+    <string name="export_busy">O serviço está ocupado no momento. Tente novamente em um minuto.</string>
+    <string name="export_save_failed">Não foi possível salvar o arquivo. Tente novamente e escolha outro local.</string>
+    <string name="settings_section_overrides">Categorias definidas por você</string>
+    <string name="override_remove_cd">Usar a categoria automática para %1$s</string>
+    <string name="reset_data">Redefinir todos os dados</string>
+    <string name="reset_data_title">Redefinir todos os dados?</string>
+    <string name="reset_data_message">Isso apaga o histórico de uso e as categorias definidas por você neste celular. Os dispositivos vinculados continuam vinculados.</string>
+    <string name="privacy_policy_label">Política de privacidade</string>
+    <string name="terms_label">Termos de serviço</string>
+    <string name="about_font_credit">Composto em Hanken Grotesk, licenciada sob a SIL Open Font License.</string>
+
+    <!-- wave2: machine-translated, needs native review -->
+    <string name="error_no_connection">Sem conexão. Verifique sua internet e tente novamente.</string>
+    <string name="error_device_not_recognized">Este dispositivo não é reconhecido pelo servidor. Feche e abra o app novamente para reconectar.</string>
+    <string name="error_too_many_requests">Muitas solicitações. Tente novamente em um minuto.</string>
+    <string name="error_server_trouble">O servidor está com problemas. Tente novamente em breve.</string>
+    <string name="error_something_wrong_code">Algo deu errado (%1$d).</string>
+    <string name="error_something_wrong">Algo deu errado.</string>
+    <string name="error_failed_link_device">Falha ao vincular o dispositivo</string>
+    <string name="error_failed_generate_code">Falha ao gerar o código</string>
+</resources>
