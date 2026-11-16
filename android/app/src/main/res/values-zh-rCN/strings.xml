@@ -14,7 +14,7 @@
     <string name="loading_usage_data">正在加载使用数据\u2026</string>
     <string name="today_usage_title">今日使用情况</string>
     <string name="no_usage_data_yet">暂无使用数据</string>
-    <string name="no_usage_data_description">点击"立即同步"以收集和上传您设备的使用数据。这需要使用情况访问权限。</string>
+    <string name="no_usage_data_description">点击\"立即同步\"以收集和上传您设备的使用数据。这需要使用情况访问权限。</string>
     <string name="sync_now">立即同步</string>
 
     <!-- Linked Devices Screen -->

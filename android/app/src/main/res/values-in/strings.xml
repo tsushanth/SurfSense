@@ -14,7 +14,7 @@
     <string name="loading_usage_data">Memuat data penggunaan\u2026</string>
     <string name="today_usage_title">Penggunaan Hari Ini</string>
     <string name="no_usage_data_yet">Belum Ada Data Penggunaan</string>
-    <string name="no_usage_data_description">Ketuk "Sinkronkan Sekarang" untuk mengumpulkan dan mengunggah data penggunaan perangkat Anda. Ini memerlukan izin Akses Penggunaan.</string>
+    <string name="no_usage_data_description">Ketuk \"Sinkronkan Sekarang\" untuk mengumpulkan dan mengunggah data penggunaan perangkat Anda. Ini memerlukan izin Akses Penggunaan.</string>
     <string name="sync_now">Sinkronkan sekarang</string>
 
     <!-- Linked Devices Screen -->

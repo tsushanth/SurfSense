@@ -14,7 +14,7 @@
     <string name="loading_usage_data">Ładowanie danych użytkowania\u2026</string>
     <string name="today_usage_title">Dzisiejsze użytkowanie</string>
     <string name="no_usage_data_yet">Brak danych użytkowania</string>
-    <string name="no_usage_data_description">Naciśnij „Synchronizuj teraz", aby zebrać i przesłać dane użytkowania urządzenia. Wymaga to uprawnienia dostępu do użytkowania.</string>
+    <string name="no_usage_data_description">Naciśnij „Synchronizuj teraz\", aby zebrać i przesłać dane użytkowania urządzenia. Wymaga to uprawnienia dostępu do użytkowania.</string>
     <string name="sync_now">Synchronizuj teraz</string>
 
     <!-- Linked Devices Screen -->

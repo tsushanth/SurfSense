@@ -14,7 +14,7 @@
     <string name="loading_usage_data">Cargando datos de uso\u2026</string>
     <string name="today_usage_title">Uso de Hoy</string>
     <string name="no_usage_data_yet">Aún No Hay Datos de Uso</string>
-    <string name="no_usage_data_description">Toca "Sincronizar Ahora" para recopilar y subir los datos de uso de tu dispositivo. Esto requiere el permiso de Acceso de Uso.</string>
+    <string name="no_usage_data_description">Toca \"Sincronizar Ahora\" para recopilar y subir los datos de uso de tu dispositivo. Esto requiere el permiso de Acceso de Uso.</string>
     <string name="sync_now">Sincronizar ahora</string>
 
     <!-- Linked Devices Screen -->

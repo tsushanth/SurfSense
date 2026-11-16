@@ -14,7 +14,7 @@
     <string name="loading_usage_data">Nilo-load ang data ng paggamit\u2026</string>
     <string name="today_usage_title">Paggamit Ngayong Araw</string>
     <string name="no_usage_data_yet">Wala Pang Data ng Paggamit</string>
-    <string name="no_usage_data_description">I-tap ang "I-sync Ngayon" upang mangolekta at mag-upload ng data ng paggamit ng iyong device. Nangangailangan ito ng pahintulot sa Pag-access ng Paggamit.</string>
+    <string name="no_usage_data_description">I-tap ang \"I-sync Ngayon\" upang mangolekta at mag-upload ng data ng paggamit ng iyong device. Nangangailangan ito ng pahintulot sa Pag-access ng Paggamit.</string>
     <string name="sync_now">I-sync ngayon</string>
 
     <!-- Linked Devices Screen -->

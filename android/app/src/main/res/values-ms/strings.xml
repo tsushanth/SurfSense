@@ -14,7 +14,7 @@
     <string name="loading_usage_data">Memuatkan data penggunaan\u2026</string>
     <string name="today_usage_title">Penggunaan Hari Ini</string>
     <string name="no_usage_data_yet">Tiada Data Penggunaan Lagi</string>
-    <string name="no_usage_data_description">Ketik "Segerak Sekarang" untuk mengumpul dan memuat naik data penggunaan peranti anda. Ini memerlukan kebenaran Akses Penggunaan.</string>
+    <string name="no_usage_data_description">Ketik \"Segerak Sekarang\" untuk mengumpul dan memuat naik data penggunaan peranti anda. Ini memerlukan kebenaran Akses Penggunaan.</string>
     <string name="sync_now">Segerak sekarang</string>
 
     <!-- Linked Devices Screen -->

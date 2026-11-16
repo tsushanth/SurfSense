@@ -14,7 +14,7 @@
     <string name="loading_usage_data">사용 데이터 로드 중\u2026</string>
     <string name="today_usage_title">오늘의 사용량</string>
     <string name="no_usage_data_yet">사용 데이터 없음</string>
-    <string name="no_usage_data_description">"지금 동기화"를 눌러 기기의 사용 데이터를 수집하고 업로드하세요. 사용 접근 권한이 필요합니다.</string>
+    <string name="no_usage_data_description">\"지금 동기화\"를 눌러 기기의 사용 데이터를 수집하고 업로드하세요. 사용 접근 권한이 필요합니다.</string>
     <string name="sync_now">지금 동기화</string>
 
     <!-- Linked Devices Screen -->

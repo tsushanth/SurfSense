@@ -14,7 +14,7 @@
     <string name="loading_usage_data">กำลังโหลดข้อมูลการใช้งาน\u2026</string>
     <string name="today_usage_title">การใช้งานวันนี้</string>
     <string name="no_usage_data_yet">ยังไม่มีข้อมูลการใช้งาน</string>
-    <string name="no_usage_data_description">แตะ "ซิงค์ตอนนี้" เพื่อรวบรวมและอัปโหลดข้อมูลการใช้งานอุปกรณ์ของคุณ ต้องการสิทธิ์การเข้าถึงการใช้งาน</string>
+    <string name="no_usage_data_description">แตะ \"ซิงค์ตอนนี้\" เพื่อรวบรวมและอัปโหลดข้อมูลการใช้งานอุปกรณ์ของคุณ ต้องการสิทธิ์การเข้าถึงการใช้งาน</string>
     <string name="sync_now">ซิงค์ตอนนี้</string>
 
     <!-- Linked Devices Screen -->

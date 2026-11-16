@@ -14,7 +14,7 @@
     <string name="loading_usage_data">Caricamento dati di utilizzo\u2026</string>
     <string name="today_usage_title">Utilizzo di Oggi</string>
     <string name="no_usage_data_yet">Nessun Dato di Utilizzo</string>
-    <string name="no_usage_data_description">Tocca "Sincronizza Ora" per raccogliere e caricare i dati di utilizzo del tuo dispositivo. Questo richiede il permesso di Accesso all\'Utilizzo.</string>
+    <string name="no_usage_data_description">Tocca \"Sincronizza Ora\" per raccogliere e caricare i dati di utilizzo del tuo dispositivo. Questo richiede il permesso di Accesso all\'Utilizzo.</string>
     <string name="sync_now">Sincronizza ora</string>
 
     <!-- Linked Devices Screen -->
