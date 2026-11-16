@@ -199,4 +199,14 @@
     <string name="privacy_policy_label">Dasar privasi</string>
     <string name="terms_label">Terma perkhidmatan</string>
     <string name="about_font_credit">Menggunakan fon Hanken Grotesk, dilesenkan di bawah SIL Open Font License.</string>
+
+    <!-- wave2: machine-translated, needs native review -->
+    <string name="error_no_connection">Tiada sambungan. Semak internet anda dan cuba lagi.</string>
+    <string name="error_device_not_recognized">Peranti ini tidak dikenali oleh pelayan. Tutup dan buka semula apl untuk menyambung semula.</string>
+    <string name="error_too_many_requests">Terlalu banyak permintaan. Cuba lagi dalam seminit.</string>
+    <string name="error_server_trouble">Pelayan menghadapi masalah. Cuba lagi sebentar lagi.</string>
+    <string name="error_something_wrong_code">Sesuatu telah berlaku (%1$d).</string>
+    <string name="error_something_wrong">Sesuatu telah berlaku.</string>
+    <string name="error_failed_link_device">Gagal memautkan peranti</string>
+    <string name="error_failed_generate_code">Gagal menjana kod</string>
 </resources>

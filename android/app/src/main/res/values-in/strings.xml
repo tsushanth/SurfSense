@@ -189,4 +189,14 @@
     <string name="privacy_policy_label">Kebijakan privasi</string>
     <string name="terms_label">Ketentuan layanan</string>
     <string name="about_font_credit">Menggunakan font Hanken Grotesk, dilisensikan dengan SIL Open Font License.</string>
+
+    <!-- wave2: machine-translated, needs native review -->
+    <string name="error_no_connection">Tidak ada koneksi. Periksa internet Anda dan coba lagi.</string>
+    <string name="error_device_not_recognized">Perangkat ini tidak dikenali oleh server. Tutup dan buka kembali aplikasi untuk menyambung ulang.</string>
+    <string name="error_too_many_requests">Terlalu banyak permintaan. Coba lagi dalam semenit.</string>
+    <string name="error_server_trouble">Server sedang bermasalah. Coba lagi nanti.</string>
+    <string name="error_something_wrong_code">Terjadi kesalahan (%1$d).</string>
+    <string name="error_something_wrong">Terjadi kesalahan.</string>
+    <string name="error_failed_link_device">Gagal menautkan perangkat</string>
+    <string name="error_failed_generate_code">Gagal membuat kode</string>
 </resources>

@@ -203,4 +203,14 @@
     <string name="privacy_policy_label">Política de privacidad</string>
     <string name="terms_label">Términos del servicio</string>
     <string name="about_font_credit">Tipografía Hanken Grotesk, con licencia SIL Open Font License.</string>
+
+    <!-- wave2: machine-translated, needs native review -->
+    <string name="error_no_connection">Sin conexión. Revisa tu internet e inténtalo de nuevo.</string>
+    <string name="error_device_not_recognized">El servidor no reconoce este dispositivo. Cierra y vuelve a abrir la app para reconectar.</string>
+    <string name="error_too_many_requests">Demasiadas solicitudes. Inténtalo de nuevo en un minuto.</string>
+    <string name="error_server_trouble">El servidor tiene problemas. Inténtalo de nuevo pronto.</string>
+    <string name="error_something_wrong_code">Algo salió mal (%1$d).</string>
+    <string name="error_something_wrong">Algo salió mal.</string>
+    <string name="error_failed_link_device">No se pudo vincular el dispositivo</string>
+    <string name="error_failed_generate_code">No se pudo generar el código</string>
 </resources>

@@ -191,4 +191,14 @@
     <string name="privacy_policy_label">Gizlilik politikası</string>
     <string name="terms_label">Hizmet şartları</string>
     <string name="about_font_credit">Hanken Grotesk yazı tipiyle dizilmiştir, SIL Open Font License ile lisanslıdır.</string>
+
+    <!-- wave2: machine-translated, needs native review -->
+    <string name="error_no_connection">Bağlantı yok. İnternetini kontrol et ve tekrar dene.</string>
+    <string name="error_device_not_recognized">Bu cihaz sunucu tarafından tanınmıyor. Yeniden bağlanmak için uygulamayı kapatıp tekrar aç.</string>
+    <string name="error_too_many_requests">Çok fazla istek. Bir dakika sonra tekrar dene.</string>
+    <string name="error_server_trouble">Sunucuda bir sorun var. Biraz sonra tekrar dene.</string>
+    <string name="error_something_wrong_code">Bir şeyler ters gitti (%1$d).</string>
+    <string name="error_something_wrong">Bir şeyler ters gitti.</string>
+    <string name="error_failed_link_device">Cihaz bağlanamadı</string>
+    <string name="error_failed_generate_code">Kod oluşturulamadı</string>
 </resources>

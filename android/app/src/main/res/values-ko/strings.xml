@@ -199,4 +199,14 @@
     <string name="privacy_policy_label">개인정보처리방침</string>
     <string name="terms_label">서비스 약관</string>
     <string name="about_font_credit">Hanken Grotesk 글꼴 사용, SIL Open Font License에 따라 라이선스됨.</string>
+
+    <!-- wave2: machine-translated, needs native review -->
+    <string name="error_no_connection">연결되지 않았습니다. 인터넷을 확인하고 다시 시도하세요.</string>
+    <string name="error_device_not_recognized">서버가 이 기기를 인식하지 못합니다. 앱을 닫았다가 다시 열어 다시 연결하세요.</string>
+    <string name="error_too_many_requests">요청이 너무 많습니다. 1분 후에 다시 시도하세요.</string>
+    <string name="error_server_trouble">서버에 문제가 있습니다. 잠시 후 다시 시도하세요.</string>
+    <string name="error_something_wrong_code">문제가 발생했습니다(%1$d).</string>
+    <string name="error_something_wrong">문제가 발생했습니다.</string>
+    <string name="error_failed_link_device">기기를 연결하지 못했습니다</string>
+    <string name="error_failed_generate_code">코드를 생성하지 못했습니다</string>
 </resources>

@@ -191,4 +191,14 @@
     <string name="privacy_policy_label">Privacybeleid</string>
     <string name="terms_label">Servicevoorwaarden</string>
     <string name="about_font_credit">Gezet in Hanken Grotesk, gelicentieerd onder de SIL Open Font License.</string>
+
+    <!-- wave2: machine-translated, needs native review -->
+    <string name="error_no_connection">Geen verbinding. Controleer je internet en probeer het opnieuw.</string>
+    <string name="error_device_not_recognized">De server herkent dit apparaat niet. Sluit de app en open hem opnieuw om opnieuw verbinding te maken.</string>
+    <string name="error_too_many_requests">Te veel verzoeken. Probeer het over een minuut opnieuw.</string>
+    <string name="error_server_trouble">De server heeft problemen. Probeer het binnenkort opnieuw.</string>
+    <string name="error_something_wrong_code">Er is iets misgegaan (%1$d).</string>
+    <string name="error_something_wrong">Er is iets misgegaan.</string>
+    <string name="error_failed_link_device">Apparaat koppelen mislukt</string>
+    <string name="error_failed_generate_code">Code genereren mislukt</string>
 </resources>

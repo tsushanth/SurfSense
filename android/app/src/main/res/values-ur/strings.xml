@@ -163,4 +163,14 @@
     <string name="privacy_policy_label">رازداری کی پالیسی</string>
     <string name="terms_label">سروس کی شرائط</string>
     <string name="about_font_credit">Hanken Grotesk فونٹ میں ترتیب دیا گیا، SIL Open Font License کے تحت لائسنس یافتہ۔</string>
+
+    <!-- wave2: machine-translated, needs native review -->
+    <string name="error_no_connection">کنکشن نہیں ہے۔ اپنا انٹرنیٹ چیک کریں اور دوبارہ کوشش کریں۔</string>
+    <string name="error_device_not_recognized">سرور اس ڈیوائس کو نہیں پہچانتا۔ دوبارہ کنیکٹ کرنے کے لیے ایپ بند کر کے دوبارہ کھولیں۔</string>
+    <string name="error_too_many_requests">بہت زیادہ درخواستیں۔ ایک منٹ بعد دوبارہ کوشش کریں۔</string>
+    <string name="error_server_trouble">سرور میں مسئلہ ہے۔ تھوڑی دیر بعد دوبارہ کوشش کریں۔</string>
+    <string name="error_something_wrong_code">کچھ غلط ہو گیا (%1$d)۔</string>
+    <string name="error_something_wrong">کچھ غلط ہو گیا۔</string>
+    <string name="error_failed_link_device">ڈیوائس لنک نہیں ہو سکی</string>
+    <string name="error_failed_generate_code">کوڈ نہیں بن سکا</string>
 </resources>

@@ -195,4 +195,14 @@
     <string name="privacy_policy_label">Политика конфиденциальности</string>
     <string name="terms_label">Условия использования</string>
     <string name="about_font_credit">Шрифт Hanken Grotesk, лицензия SIL Open Font License.</string>
+
+    <!-- wave2: machine-translated, needs native review -->
+    <string name="error_no_connection">Нет подключения. Проверьте интернет и повторите попытку.</string>
+    <string name="error_device_not_recognized">Сервер не распознаёт это устройство. Закройте и снова откройте приложение, чтобы подключиться заново.</string>
+    <string name="error_too_many_requests">Слишком много запросов. Повторите попытку через минуту.</string>
+    <string name="error_server_trouble">На сервере возникли проблемы. Повторите попытку позже.</string>
+    <string name="error_something_wrong_code">Что-то пошло не так (%1$d).</string>
+    <string name="error_something_wrong">Что-то пошло не так.</string>
+    <string name="error_failed_link_device">Не удалось связать устройство</string>
+    <string name="error_failed_generate_code">Не удалось создать код</string>
 </resources>

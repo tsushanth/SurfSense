@@ -203,4 +203,14 @@
     <string name="privacy_policy_label">Politique de confidentialité</string>
     <string name="terms_label">Conditions d\'utilisation</string>
     <string name="about_font_credit">Composé en Hanken Grotesk, sous licence SIL Open Font License.</string>
+
+    <!-- wave2: machine-translated, needs native review -->
+    <string name="error_no_connection">Pas de connexion. Vérifie ta connexion internet et réessaie.</string>
+    <string name="error_device_not_recognized">Cet appareil n\'est pas reconnu par le serveur. Ferme puis rouvre l\'application pour te reconnecter.</string>
+    <string name="error_too_many_requests">Trop de requêtes. Réessaie dans une minute.</string>
+    <string name="error_server_trouble">Le serveur rencontre un problème. Réessaie bientôt.</string>
+    <string name="error_something_wrong_code">Une erreur s\'est produite (%1$d).</string>
+    <string name="error_something_wrong">Une erreur s\'est produite.</string>
+    <string name="error_failed_link_device">Impossible d\'associer l\'appareil</string>
+    <string name="error_failed_generate_code">Impossible de générer le code</string>
 </resources>
