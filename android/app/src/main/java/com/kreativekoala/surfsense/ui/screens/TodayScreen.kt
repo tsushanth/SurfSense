@@ -50,6 +50,7 @@ import com.kreativekoala.surfsense.insights.TideModel
 import com.kreativekoala.surfsense.insights.TodayModel
 import com.kreativekoala.surfsense.ui.components.CategoryPalette
 import com.kreativekoala.surfsense.ui.components.CategoryRow
+import com.kreativekoala.surfsense.ui.components.categoryName
 import com.kreativekoala.surfsense.ui.components.DeviceRow
 import com.kreativekoala.surfsense.ui.components.DurationText
 import com.kreativekoala.surfsense.ui.components.TideLine
@@ -268,8 +269,8 @@ private fun AppsHeader() {
 @Composable
 private fun categoryLabel(category: String?, overridden: Boolean): String = when {
     category == null -> stringResource(R.string.category_unknown)
-    overridden -> stringResource(R.string.category_set_by_you, category)
-    else -> category
+    overridden -> stringResource(R.string.category_set_by_you, categoryName(category))
+    else -> categoryName(category)
 }
 
 @Composable
@@ -360,7 +361,7 @@ private fun CategorySheet(
                 ) {
                     RadioButton(selected = selected, onClick = null)
                     CategoryDot(cat)
-                    Text(cat, style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onSurface)
+                    Text(categoryName(cat), style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onSurface)
                 }
             }
             if (overridden) {

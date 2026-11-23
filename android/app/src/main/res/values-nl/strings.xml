@@ -201,4 +201,23 @@
     <string name="error_something_wrong">Er is iets misgegaan.</string>
     <string name="error_failed_link_device">Apparaat koppelen mislukt</string>
     <string name="error_failed_generate_code">Code genereren mislukt</string>
+
+    <!-- Category display names (storage keys stay English) and backend error code messages -->
+    <string name="category_social_media">Sociale media</string>
+    <string name="category_entertainment">Entertainment</string>
+    <string name="category_work_productivity">Werk/Productiviteit</string>
+    <string name="category_news">Nieuws</string>
+    <string name="category_education">Onderwijs</string>
+    <string name="category_finance">Financiën</string>
+    <string name="category_health">Gezondheid</string>
+    <string name="category_shopping">Winkelen</string>
+    <string name="category_travel">Reizen</string>
+    <string name="category_food">Eten</string>
+    <string name="category_other">Overig</string>
+    <string name="error_link_code_invalid">Die code is ongeldig of verlopen. Controleer hem en probeer het opnieuw.</string>
+    <string name="error_link_code_expired">Die code is verlopen. Genereer een nieuwe op het andere apparaat.</string>
+    <string name="error_link_self">Je kunt een apparaat niet aan zichzelf koppelen.</string>
+    <string name="error_link_code_format">Voer de 6-cijferige code in die op het andere apparaat staat.</string>
+    <string name="error_linking_rate_limited">Te veel koppelpogingen. Probeer het over 15 minuten opnieuw.</string>
+    <string name="error_invalid_request">Het verzoek was ongeldig. Werk de app bij en probeer het opnieuw.</string>
 </resources>

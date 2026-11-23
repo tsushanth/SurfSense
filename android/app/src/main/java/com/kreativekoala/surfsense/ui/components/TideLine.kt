@@ -23,6 +23,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.kreativekoala.surfsense.insights.CategoryNames
 import com.kreativekoala.surfsense.insights.TideSegment
 
 /** True when the system animation scale is 0 (Remove animations / reduce motion). */
@@ -39,8 +40,12 @@ fun rememberReduceMotion(): Boolean {
 }
 
 /** "Social Media 2h 10m, Work/Productivity 1h 48m" for TalkBack. */
-fun tideDescription(segments: List<TideSegment>, lessThanMinute: String = "<1m"): String =
-    segments.joinToString(", ") { "${it.category} ${formatDuration(it.seconds, lessThanMinute)}" }
+fun tideDescription(
+    segments: List<TideSegment>,
+    lessThanMinute: String = "<1m",
+    categoryName: (String) -> String = { it },
+): String =
+    segments.joinToString(", ") { "${categoryName(it.category)} ${formatDuration(it.seconds, lessThanMinute)}" }
 
 @Composable
 fun TideLine(
@@ -60,7 +65,8 @@ fun TideLine(
     val track = MaterialTheme.colorScheme.surfaceVariant
     val largest = segments.maxByOrNull { it.seconds }
     val colors = segments.map { CategoryPalette.colorFor(it.category) }
-    val description = tideDescription(segments)
+    val context = LocalContext.current
+    val description = tideDescription(segments, categoryName = { CategoryNames.label(context, it) })
     val corner = 4.dp
 
     Canvas(

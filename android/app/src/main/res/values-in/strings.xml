@@ -199,4 +199,23 @@
     <string name="error_something_wrong">Terjadi kesalahan.</string>
     <string name="error_failed_link_device">Gagal menautkan perangkat</string>
     <string name="error_failed_generate_code">Gagal membuat kode</string>
+
+    <!-- Category display names (storage keys stay English) and backend error code messages -->
+    <string name="category_social_media">Media Sosial</string>
+    <string name="category_entertainment">Hiburan</string>
+    <string name="category_work_productivity">Kerja/Produktivitas</string>
+    <string name="category_news">Berita</string>
+    <string name="category_education">Pendidikan</string>
+    <string name="category_finance">Keuangan</string>
+    <string name="category_health">Kesehatan</string>
+    <string name="category_shopping">Belanja</string>
+    <string name="category_travel">Perjalanan</string>
+    <string name="category_food">Makanan</string>
+    <string name="category_other">Lainnya</string>
+    <string name="error_link_code_invalid">Kode itu tidak valid atau sudah kedaluwarsa. Periksa dan coba lagi.</string>
+    <string name="error_link_code_expired">Kode itu sudah kedaluwarsa. Buat kode baru di perangkat lain.</string>
+    <string name="error_link_self">Anda tidak dapat menautkan perangkat dengan dirinya sendiri.</string>
+    <string name="error_link_code_format">Masukkan kode 6 digit yang ditampilkan di perangkat lain.</string>
+    <string name="error_linking_rate_limited">Terlalu banyak percobaan penautan. Coba lagi dalam 15 menit.</string>
+    <string name="error_invalid_request">Permintaan tidak valid. Perbarui aplikasi dan coba lagi.</string>
 </resources>

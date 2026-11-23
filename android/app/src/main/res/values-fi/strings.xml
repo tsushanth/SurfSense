@@ -171,4 +171,23 @@
     <string name="error_something_wrong">Jokin meni pieleen.</string>
     <string name="error_failed_link_device">Laitteen yhdistäminen epäonnistui</string>
     <string name="error_failed_generate_code">Koodin luominen epäonnistui</string>
+
+    <!-- Category display names (storage keys stay English) and backend error code messages -->
+    <string name="category_social_media">Sosiaalinen media</string>
+    <string name="category_entertainment">Viihde</string>
+    <string name="category_work_productivity">Työ/Tuottavuus</string>
+    <string name="category_news">Uutiset</string>
+    <string name="category_education">Koulutus</string>
+    <string name="category_finance">Raha-asiat</string>
+    <string name="category_health">Terveys</string>
+    <string name="category_shopping">Ostokset</string>
+    <string name="category_travel">Matkailu</string>
+    <string name="category_food">Ruoka</string>
+    <string name="category_other">Muu</string>
+    <string name="error_link_code_invalid">Koodi ei kelpaa tai se on vanhentunut. Tarkista se ja yritä uudelleen.</string>
+    <string name="error_link_code_expired">Koodi on vanhentunut. Luo uusi toisella laitteella.</string>
+    <string name="error_link_self">Laitetta ei voi yhdistää itseensä.</string>
+    <string name="error_link_code_format">Anna toisella laitteella näkyvä 6-numeroinen koodi.</string>
+    <string name="error_linking_rate_limited">Liian monta yhdistämisyritystä. Yritä uudelleen 15 minuutin kuluttua.</string>
+    <string name="error_invalid_request">Pyyntö oli virheellinen. Päivitä sovellus ja yritä uudelleen.</string>
 </resources>

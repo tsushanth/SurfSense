@@ -175,4 +175,23 @@
     <string name="error_something_wrong">Щось пішло не так.</string>
     <string name="error_failed_link_device">Не вдалося під’єднати пристрій</string>
     <string name="error_failed_generate_code">Не вдалося створити код</string>
+
+    <!-- Category display names (storage keys stay English) and backend error code messages -->
+    <string name="category_social_media">Соцмережі</string>
+    <string name="category_entertainment">Розваги</string>
+    <string name="category_work_productivity">Робота/Продуктивність</string>
+    <string name="category_news">Новини</string>
+    <string name="category_education">Освіта</string>
+    <string name="category_finance">Фінанси</string>
+    <string name="category_health">Здоров’я</string>
+    <string name="category_shopping">Покупки</string>
+    <string name="category_travel">Подорожі</string>
+    <string name="category_food">Їжа</string>
+    <string name="category_other">Інше</string>
+    <string name="error_link_code_invalid">Цей код недійсний або термін його дії минув. Перевірте його й спробуйте ще раз.</string>
+    <string name="error_link_code_expired">Термін дії цього коду минув. Створіть новий на іншому пристрої.</string>
+    <string name="error_link_self">Не можна зв’язати пристрій із самим собою.</string>
+    <string name="error_link_code_format">Введіть 6-значний код, показаний на іншому пристрої.</string>
+    <string name="error_linking_rate_limited">Забагато спроб зв’язування. Спробуйте ще раз через 15 хвилин.</string>
+    <string name="error_invalid_request">Недійсний запит. Оновіть застосунок і спробуйте ще раз.</string>
 </resources>

@@ -205,4 +205,23 @@
     <string name="error_something_wrong">Что-то пошло не так.</string>
     <string name="error_failed_link_device">Не удалось связать устройство</string>
     <string name="error_failed_generate_code">Не удалось создать код</string>
+
+    <!-- Category display names (storage keys stay English) and backend error code messages -->
+    <string name="category_social_media">Соцсети</string>
+    <string name="category_entertainment">Развлечения</string>
+    <string name="category_work_productivity">Работа/Продуктивность</string>
+    <string name="category_news">Новости</string>
+    <string name="category_education">Образование</string>
+    <string name="category_finance">Финансы</string>
+    <string name="category_health">Здоровье</string>
+    <string name="category_shopping">Покупки</string>
+    <string name="category_travel">Путешествия</string>
+    <string name="category_food">Еда</string>
+    <string name="category_other">Другое</string>
+    <string name="error_link_code_invalid">Этот код недействителен или истёк. Проверьте его и повторите попытку.</string>
+    <string name="error_link_code_expired">Срок действия кода истёк. Создайте новый на другом устройстве.</string>
+    <string name="error_link_self">Нельзя связать устройство с самим собой.</string>
+    <string name="error_link_code_format">Введите 6-значный код, показанный на другом устройстве.</string>
+    <string name="error_linking_rate_limited">Слишком много попыток связывания. Повторите через 15 минут.</string>
+    <string name="error_invalid_request">Некорректный запрос. Обновите приложение и повторите попытку.</string>
 </resources>

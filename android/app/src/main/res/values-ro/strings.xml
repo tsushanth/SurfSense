@@ -173,4 +173,23 @@
     <string name="error_something_wrong">Ceva nu a funcționat.</string>
     <string name="error_failed_link_device">Asocierea dispozitivului a eșuat</string>
     <string name="error_failed_generate_code">Generarea codului a eșuat</string>
+
+    <!-- Category display names (storage keys stay English) and backend error code messages -->
+    <string name="category_social_media">Rețele sociale</string>
+    <string name="category_entertainment">Divertisment</string>
+    <string name="category_work_productivity">Muncă/Productivitate</string>
+    <string name="category_news">Știri</string>
+    <string name="category_education">Educație</string>
+    <string name="category_finance">Finanțe</string>
+    <string name="category_health">Sănătate</string>
+    <string name="category_shopping">Cumpărături</string>
+    <string name="category_travel">Călătorii</string>
+    <string name="category_food">Mâncare</string>
+    <string name="category_other">Altele</string>
+    <string name="error_link_code_invalid">Codul nu este valid sau a expirat. Verifică-l și încearcă din nou.</string>
+    <string name="error_link_code_expired">Codul a expirat. Generează unul nou pe celălalt dispozitiv.</string>
+    <string name="error_link_self">Nu poți asocia un dispozitiv cu el însuși.</string>
+    <string name="error_link_code_format">Introdu codul din 6 cifre afișat pe celălalt dispozitiv.</string>
+    <string name="error_linking_rate_limited">Prea multe încercări de asociere. Încearcă din nou peste 15 minute.</string>
+    <string name="error_invalid_request">Cererea nu a fost validă. Actualizează aplicația și încearcă din nou.</string>
 </resources>

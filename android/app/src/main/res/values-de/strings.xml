@@ -211,4 +211,23 @@
     <string name="error_something_wrong">Etwas ist schiefgelaufen.</string>
     <string name="error_failed_link_device">Gerät konnte nicht verknüpft werden</string>
     <string name="error_failed_generate_code">Code konnte nicht erstellt werden</string>
+
+    <!-- Category display names (storage keys stay English) and backend error code messages -->
+    <string name="category_social_media">Soziale Medien</string>
+    <string name="category_entertainment">Unterhaltung</string>
+    <string name="category_work_productivity">Arbeit/Produktivität</string>
+    <string name="category_news">Nachrichten</string>
+    <string name="category_education">Bildung</string>
+    <string name="category_finance">Finanzen</string>
+    <string name="category_health">Gesundheit</string>
+    <string name="category_shopping">Einkaufen</string>
+    <string name="category_travel">Reisen</string>
+    <string name="category_food">Essen</string>
+    <string name="category_other">Sonstiges</string>
+    <string name="error_link_code_invalid">Dieser Code ist ungültig oder abgelaufen. Prüfe ihn und versuche es erneut.</string>
+    <string name="error_link_code_expired">Dieser Code ist abgelaufen. Erzeuge auf dem anderen Gerät einen neuen.</string>
+    <string name="error_link_self">Ein Gerät kann nicht mit sich selbst verknüpft werden.</string>
+    <string name="error_link_code_format">Gib den 6-stelligen Code ein, der auf dem anderen Gerät angezeigt wird.</string>
+    <string name="error_linking_rate_limited">Zu viele Verknüpfungsversuche. Versuche es in 15 Minuten erneut.</string>
+    <string name="error_invalid_request">Die Anfrage war ungültig. Aktualisiere die App und versuche es erneut.</string>
 </resources>

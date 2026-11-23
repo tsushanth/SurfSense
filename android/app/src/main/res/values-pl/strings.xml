@@ -215,4 +215,23 @@
     <string name="error_something_wrong">Coś poszło nie tak.</string>
     <string name="error_failed_link_device">Nie udało się połączyć urządzenia</string>
     <string name="error_failed_generate_code">Nie udało się wygenerować kodu</string>
+
+    <!-- Category display names (storage keys stay English) and backend error code messages -->
+    <string name="category_social_media">Media społecznościowe</string>
+    <string name="category_entertainment">Rozrywka</string>
+    <string name="category_work_productivity">Praca/Produktywność</string>
+    <string name="category_news">Wiadomości</string>
+    <string name="category_education">Edukacja</string>
+    <string name="category_finance">Finanse</string>
+    <string name="category_health">Zdrowie</string>
+    <string name="category_shopping">Zakupy</string>
+    <string name="category_travel">Podróże</string>
+    <string name="category_food">Jedzenie</string>
+    <string name="category_other">Inne</string>
+    <string name="error_link_code_invalid">Ten kod jest nieprawidłowy lub wygasł. Sprawdź go i spróbuj ponownie.</string>
+    <string name="error_link_code_expired">Ten kod wygasł. Wygeneruj nowy na drugim urządzeniu.</string>
+    <string name="error_link_self">Nie można połączyć urządzenia z nim samym.</string>
+    <string name="error_link_code_format">Wpisz 6-cyfrowy kod widoczny na drugim urządzeniu.</string>
+    <string name="error_linking_rate_limited">Zbyt wiele prób połączenia. Spróbuj ponownie za 15 minut.</string>
+    <string name="error_invalid_request">Żądanie było nieprawidłowe. Zaktualizuj aplikację i spróbuj ponownie.</string>
 </resources>

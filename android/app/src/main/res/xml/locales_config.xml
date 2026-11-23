@@ -22,8 +22,6 @@
     <locale android:name="vi" />
     <locale android:name="fa" />
     <locale android:name="ur" />
-    <locale android:name="fa" />
-    <locale android:name="ur" />
     <locale android:name="pt" />
     <locale android:name="cs" />
     <locale android:name="el" />
