@@ -209,4 +209,23 @@
     <string name="error_something_wrong">問題が発生しました。</string>
     <string name="error_failed_link_device">デバイスをリンクできませんでした</string>
     <string name="error_failed_generate_code">コードを生成できませんでした</string>
+
+    <!-- Category display names (storage keys stay English) and backend error code messages -->
+    <string name="category_social_media">ソーシャルメディア</string>
+    <string name="category_entertainment">エンタメ</string>
+    <string name="category_work_productivity">仕事/生産性</string>
+    <string name="category_news">ニュース</string>
+    <string name="category_education">教育</string>
+    <string name="category_finance">金融</string>
+    <string name="category_health">健康</string>
+    <string name="category_shopping">ショッピング</string>
+    <string name="category_travel">旅行</string>
+    <string name="category_food">フード</string>
+    <string name="category_other">その他</string>
+    <string name="error_link_code_invalid">このコードは無効か、有効期限が切れています。確認してもう一度お試しください。</string>
+    <string name="error_link_code_expired">このコードの有効期限が切れています。もう一方のデバイスで新しいコードを生成してください。</string>
+    <string name="error_link_self">デバイスを自分自身にリンクすることはできません。</string>
+    <string name="error_link_code_format">もう一方のデバイスに表示されている6桁のコードを入力してください。</string>
+    <string name="error_linking_rate_limited">リンクの試行回数が多すぎます。15分後にもう一度お試しください。</string>
+    <string name="error_invalid_request">リクエストが無効です。アプリを更新してもう一度お試しください。</string>
 </resources>

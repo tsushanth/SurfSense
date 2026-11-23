@@ -47,7 +47,7 @@ fun CategoryRow(
                 .background(CategoryPalette.colorFor(category), CircleShape)
         )
         Text(
-            category,
+            categoryName(category),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurface,
             maxLines = 2,

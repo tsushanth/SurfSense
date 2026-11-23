@@ -213,4 +213,23 @@
     <string name="error_something_wrong">Qualcosa è andato storto.</string>
     <string name="error_failed_link_device">Impossibile collegare il dispositivo</string>
     <string name="error_failed_generate_code">Impossibile generare il codice</string>
+
+    <!-- Category display names (storage keys stay English) and backend error code messages -->
+    <string name="category_social_media">Social media</string>
+    <string name="category_entertainment">Intrattenimento</string>
+    <string name="category_work_productivity">Lavoro/Produttività</string>
+    <string name="category_news">Notizie</string>
+    <string name="category_education">Istruzione</string>
+    <string name="category_finance">Finanza</string>
+    <string name="category_health">Salute</string>
+    <string name="category_shopping">Shopping</string>
+    <string name="category_travel">Viaggi</string>
+    <string name="category_food">Cibo</string>
+    <string name="category_other">Altro</string>
+    <string name="error_link_code_invalid">Quel codice non è valido o è scaduto. Controllalo e riprova.</string>
+    <string name="error_link_code_expired">Quel codice è scaduto. Generane uno nuovo sull’altro dispositivo.</string>
+    <string name="error_link_self">Non puoi collegare un dispositivo a sé stesso.</string>
+    <string name="error_link_code_format">Inserisci il codice a 6 cifre mostrato sull’altro dispositivo.</string>
+    <string name="error_linking_rate_limited">Troppi tentativi di collegamento. Riprova tra 15 minuti.</string>
+    <string name="error_invalid_request">La richiesta non era valida. Aggiorna l’app e riprova.</string>
 </resources>

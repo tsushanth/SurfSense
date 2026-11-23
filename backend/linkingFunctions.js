@@ -6,10 +6,12 @@ import { withDeadline } from './deadline.js';
 
 /** Expected, user-correctable linking failures. The route maps these to HTTP 400. */
 class LinkingError extends Error {
-    constructor(message, status = 400) {
+    /** [code] is a stable machine-readable id the app maps to a localized message; [message] stays English for logs and old clients. */
+    constructor(message, status = 400, code = 'LINKING_FAILED') {
         super(message);
         this.name = 'LinkingError';
         this.status = status;
+        this.code = code;
     }
 }
 
@@ -63,7 +65,7 @@ async function completeLinking(otherClientId, code) {
         throw new Error(`Failed to look up linking code: ${findError.message}`);
     }
     if (!request) {
-        throw new LinkingError('Invalid or expired code');
+        throw new LinkingError('Invalid or expired code', 400, 'LINK_CODE_INVALID');
     }
 
     // Check if expired
@@ -72,11 +74,11 @@ async function completeLinking(otherClientId, code) {
             .from('linking_requests')
             .delete()
             .eq('client_id', request.client_id);
-        throw new LinkingError('Code expired');
+        throw new LinkingError('Code expired', 400, 'LINK_CODE_EXPIRED');
     }
 
     if (request.client_id === otherClientId) {
-        throw new LinkingError('Cannot link a device to itself');
+        throw new LinkingError('Cannot link a device to itself', 400, 'LINK_SELF');
     }
 
     const initiatorClientId = request.client_id;

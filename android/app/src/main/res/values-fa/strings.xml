@@ -173,4 +173,23 @@
     <string name="error_something_wrong">مشکلی پیش آمد.</string>
     <string name="error_failed_link_device">اتصال دستگاه ناموفق بود</string>
     <string name="error_failed_generate_code">ساخت کد ناموفق بود</string>
+
+    <!-- Category display names (storage keys stay English) and backend error code messages (machine-translated) -->
+    <string name="category_social_media">شبکه‌های اجتماعی</string>
+    <string name="category_entertainment">سرگرمی</string>
+    <string name="category_work_productivity">کار/بهره‌وری</string>
+    <string name="category_news">اخبار</string>
+    <string name="category_education">آموزش</string>
+    <string name="category_finance">مالی</string>
+    <string name="category_health">سلامت</string>
+    <string name="category_shopping">خرید</string>
+    <string name="category_travel">سفر</string>
+    <string name="category_food">غذا</string>
+    <string name="category_other">سایر</string>
+    <string name="error_link_code_invalid">این کد معتبر نیست یا منقضی شده است. آن را بررسی کنید و دوباره تلاش کنید.</string>
+    <string name="error_link_code_expired">این کد منقضی شده است. در دستگاه دیگر کد جدیدی بسازید.</string>
+    <string name="error_link_self">نمی‌توانید یک دستگاه را به خودش متصل کنید.</string>
+    <string name="error_link_code_format">کد ۶ رقمی نمایش‌داده‌شده در دستگاه دیگر را وارد کنید.</string>
+    <string name="error_linking_rate_limited">تلاش‌های اتصال بیش از حد. ۱۵ دقیقه دیگر دوباره تلاش کنید.</string>
+    <string name="error_invalid_request">درخواست نامعتبر بود. برنامه را به‌روزرسانی کنید و دوباره تلاش کنید.</string>
 </resources>

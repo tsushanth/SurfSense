@@ -1,7 +1,5 @@
 {
   "_note": "Per-file count of hard-coded user-visible English literals in src/main. NoHardcodedUiStringsTest fails if a count rises or a new file adds any. Lower counts are fine. Regenerate deliberately with scripts/update-hardcoded-baseline.sh; see docs/hardcoded-ui-strings-guard.md.",
-  "total": 6,
-  "files": {
-    "src/main/java/com/kreativekoala/surfsense/net/ApiFailure.kt": {"count": 6, "h": ["23f01af6", "2f108a15", "389d41b0", "765b0de7", "e31b9718", "f0c50bf5"]}
-  }
+  "total": 0,
+  "files": {}
 }

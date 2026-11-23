@@ -193,7 +193,7 @@ describe('completeLinking', () => {
         h.state.results.linking_requests = { error: { code: 'PGRST116', message: 'no rows' } };
         const err = await completeLinking('b-device', '123456').catch(e => e);
         expect(err).toBeInstanceOf(LinkingError);
-        expect(err).toMatchObject({ name: 'LinkingError', status: 400, message: 'Invalid or expired code' });
+        expect(err).toMatchObject({ name: 'LinkingError', status: 400, code: 'LINK_CODE_INVALID', message: 'Invalid or expired code' });
     });
 
     it('treats a null row with no error as an unknown code (400 LinkingError)', async () => {

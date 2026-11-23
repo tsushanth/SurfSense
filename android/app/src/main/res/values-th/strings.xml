@@ -199,4 +199,23 @@
     <string name="error_something_wrong">เกิดข้อผิดพลาด</string>
     <string name="error_failed_link_device">เชื่อมโยงอุปกรณ์ไม่สำเร็จ</string>
     <string name="error_failed_generate_code">สร้างรหัสไม่สำเร็จ</string>
+
+    <!-- Category display names (storage keys stay English) and backend error code messages -->
+    <string name="category_social_media">โซเชียลมีเดีย</string>
+    <string name="category_entertainment">ความบันเทิง</string>
+    <string name="category_work_productivity">งาน/ประสิทธิภาพ</string>
+    <string name="category_news">ข่าว</string>
+    <string name="category_education">การศึกษา</string>
+    <string name="category_finance">การเงิน</string>
+    <string name="category_health">สุขภาพ</string>
+    <string name="category_shopping">ช้อปปิง</string>
+    <string name="category_travel">การเดินทาง</string>
+    <string name="category_food">อาหาร</string>
+    <string name="category_other">อื่นๆ</string>
+    <string name="error_link_code_invalid">รหัสนี้ไม่ถูกต้องหรือหมดอายุแล้ว ตรวจสอบแล้วลองอีกครั้ง</string>
+    <string name="error_link_code_expired">รหัสนี้หมดอายุแล้ว สร้างรหัสใหม่บนอุปกรณ์อีกเครื่อง</string>
+    <string name="error_link_self">ไม่สามารถลิงก์อุปกรณ์กับตัวมันเองได้</string>
+    <string name="error_link_code_format">ป้อนรหัส 6 หลักที่แสดงบนอุปกรณ์อีกเครื่อง</string>
+    <string name="error_linking_rate_limited">พยายามลิงก์หลายครั้งเกินไป ลองอีกครั้งใน 15 นาที</string>
+    <string name="error_invalid_request">คำขอไม่ถูกต้อง อัปเดตแอปแล้วลองอีกครั้ง</string>
 </resources>

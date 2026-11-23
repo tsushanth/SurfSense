@@ -171,4 +171,23 @@
     <string name="error_something_wrong">Något gick fel.</string>
     <string name="error_failed_link_device">Det gick inte att länka enheten</string>
     <string name="error_failed_generate_code">Det gick inte att skapa koden</string>
+
+    <!-- Category display names (storage keys stay English) and backend error code messages -->
+    <string name="category_social_media">Sociala medier</string>
+    <string name="category_entertainment">Underhållning</string>
+    <string name="category_work_productivity">Arbete/Produktivitet</string>
+    <string name="category_news">Nyheter</string>
+    <string name="category_education">Utbildning</string>
+    <string name="category_finance">Ekonomi</string>
+    <string name="category_health">Hälsa</string>
+    <string name="category_shopping">Shopping</string>
+    <string name="category_travel">Resor</string>
+    <string name="category_food">Mat</string>
+    <string name="category_other">Övrigt</string>
+    <string name="error_link_code_invalid">Koden är ogiltig eller har gått ut. Kontrollera den och försök igen.</string>
+    <string name="error_link_code_expired">Koden har gått ut. Skapa en ny på den andra enheten.</string>
+    <string name="error_link_self">Du kan inte länka en enhet till sig själv.</string>
+    <string name="error_link_code_format">Ange den 6-siffriga koden som visas på den andra enheten.</string>
+    <string name="error_linking_rate_limited">För många länkningsförsök. Försök igen om 15 minuter.</string>
+    <string name="error_invalid_request">Begäran var ogiltig. Uppdatera appen och försök igen.</string>
 </resources>

@@ -209,4 +209,23 @@
     <string name="error_something_wrong">حدث خطأ.</string>
     <string name="error_failed_link_device">تعذّر ربط الجهاز</string>
     <string name="error_failed_generate_code">تعذّر إنشاء الرمز</string>
+
+    <!-- Category display names (storage keys stay English) and backend error code messages -->
+    <string name="category_social_media">وسائل التواصل الاجتماعي</string>
+    <string name="category_entertainment">الترفيه</string>
+    <string name="category_work_productivity">العمل/الإنتاجية</string>
+    <string name="category_news">الأخبار</string>
+    <string name="category_education">التعليم</string>
+    <string name="category_finance">المال</string>
+    <string name="category_health">الصحة</string>
+    <string name="category_shopping">التسوق</string>
+    <string name="category_travel">السفر</string>
+    <string name="category_food">الطعام</string>
+    <string name="category_other">أخرى</string>
+    <string name="error_link_code_invalid">هذا الرمز غير صالح أو انتهت صلاحيته. تحقق منه وحاول مرة أخرى.</string>
+    <string name="error_link_code_expired">انتهت صلاحية هذا الرمز. أنشئ رمزًا جديدًا على الجهاز الآخر.</string>
+    <string name="error_link_self">لا يمكنك ربط جهاز بنفسه.</string>
+    <string name="error_link_code_format">أدخل الرمز المكون من 6 أرقام المعروض على الجهاز الآخر.</string>
+    <string name="error_linking_rate_limited">محاولات ربط كثيرة جدًا. حاول مرة أخرى بعد 15 دقيقة.</string>
+    <string name="error_invalid_request">الطلب غير صالح. حدّث التطبيق وحاول مرة أخرى.</string>
 </resources>

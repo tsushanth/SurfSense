@@ -24,12 +24,12 @@ export function generateApiKey() {
 export async function authenticateClient(req, res, next) {
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-        return res.status(401).json({ error: 'Missing or invalid authorization header' });
+        return res.status(401).json({ error: 'Missing or invalid authorization header', code: 'AUTH_MISSING' });
     }
 
     const token = authHeader.substring(7);
     if (!token || token.length < 16) {
-        return res.status(401).json({ error: 'Invalid API key format' });
+        return res.status(401).json({ error: 'Invalid API key format', code: 'AUTH_INVALID_FORMAT' });
     }
 
     const tokenHash = hashApiKey(token);
@@ -42,7 +42,7 @@ export async function authenticateClient(req, res, next) {
             .single();
 
         if (error || !client) {
-            return res.status(401).json({ error: 'Invalid API key' });
+            return res.status(401).json({ error: 'Invalid API key', code: 'AUTH_INVALID_KEY' });
         }
 
         req.clientId = client.client_id;

@@ -50,6 +50,8 @@ object TideModel {
     }
 
     /** Maps a server/user category name to a palette key; unknown or blank becomes "Other". */
-    fun canonicalCategory(raw: String): String =
-        BY_LOWER[raw.trim().lowercase(Locale.ROOT)] ?: "Other"
+    fun canonicalCategory(raw: String): String = knownCategory(raw) ?: "Other"
+
+    /** The palette key for [raw] (case-insensitive, with the server's aliases), or null if it is not a known category. */
+    fun knownCategory(raw: String): String? = BY_LOWER[raw.trim().lowercase(Locale.ROOT)]
 }

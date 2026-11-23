@@ -47,6 +47,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import com.kreativekoala.surfsense.Config
 import com.kreativekoala.surfsense.R
+import com.kreativekoala.surfsense.ui.components.categoryName
 import com.kreativekoala.surfsense.ui.theme.SurfSenseTheme
 import com.kreativekoala.surfsense.viewmodel.ExportOutcome
 import com.kreativekoala.surfsense.viewmodel.ExportState
@@ -328,7 +329,7 @@ private fun OverrideRow(appName: String, category: String, onRemove: () -> Unit)
     ) {
         Column(Modifier.weight(1f)) {
             Text(appName, style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onSurface)
-            Text(category, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text(categoryName(category), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
         TextButton(
             onClick = onRemove,

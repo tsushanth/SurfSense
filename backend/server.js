@@ -61,7 +61,7 @@ const generalLimiter = rateLimit({
     max: 100,
     standardHeaders: true,
     legacyHeaders: false,
-    message: { error: 'Too many requests, please try again later' },
+    message: { error: 'Too many requests, please try again later', code: 'RATE_LIMITED' },
 });
 
 const categorizeLimiter = rateLimit({
@@ -69,7 +69,7 @@ const categorizeLimiter = rateLimit({
     max: 30,
     standardHeaders: true,
     legacyHeaders: false,
-    message: { error: 'Rate limit exceeded for category lookups' },
+    message: { error: 'Rate limit exceeded for category lookups', code: 'RATE_LIMITED' },
 });
 
 const linkingLimiter = rateLimit({
@@ -77,7 +77,7 @@ const linkingLimiter = rateLimit({
     max: 5,
     standardHeaders: true,
     legacyHeaders: false,
-    message: { error: 'Too many linking attempts, please try again later' },
+    message: { error: 'Too many linking attempts, please try again later', code: 'LINKING_RATE_LIMITED' },
 });
 
 app.use(generalLimiter);
@@ -166,7 +166,7 @@ app.post('/register-client', async (req, res) => {
         const { clientId, clientType, clientName } = req.body;
 
         if (!clientId || !isValidClientId(clientId)) {
-            return res.status(400).json({ error: 'Valid clientId is required (8-128 characters)' });
+            return res.status(400).json({ error: 'Valid clientId is required (8-128 characters)', code: 'INVALID_CLIENT_ID' });
         }
 
         const resolvedType = VALID_CLIENT_TYPES.includes(clientType) ? clientType : 'UNKNOWN';
@@ -272,7 +272,7 @@ app.get('/client/:id', async (req, res) => {
         const { clientType, clientName } = req.query;
 
         if (!id || !isValidClientId(id)) {
-            return res.status(400).json({ error: 'Valid client ID is required' });
+            return res.status(400).json({ error: 'Valid client ID is required', code: 'INVALID_CLIENT_ID' });
         }
 
         const { data: existing, error: fetchError } = await supabase
@@ -370,15 +370,15 @@ app.post('/get-category-mapping', authenticateClient, categorizeLimiter, async (
 
     // Input validation
     if (!Array.isArray(domains) || !Array.isArray(packages)) {
-        return res.status(400).json({ error: 'domains and packages must be arrays' });
+        return res.status(400).json({ error: 'domains and packages must be arrays', code: 'INVALID_LISTS' });
     }
     if (domains.length > 100 || packages.length > 100) {
-        return res.status(400).json({ error: 'Maximum 100 items per array' });
+        return res.status(400).json({ error: 'Maximum 100 items per array', code: 'TOO_MANY_ITEMS' });
     }
     const invalidDomain = domains.find(d => typeof d !== 'string' || d.length > 255);
     const invalidPackage = packages.find(p => typeof p !== 'string' || p.length > 255);
     if (invalidDomain || invalidPackage) {
-        return res.status(400).json({ error: 'Each item must be a string under 255 characters' });
+        return res.status(400).json({ error: 'Each item must be a string under 255 characters', code: 'INVALID_ITEM' });
     }
 
     const response = {};
@@ -407,23 +407,23 @@ app.post('/submit-category-summary', authenticateClient, async (req, res) => {
     const { timestamp, categorySummary, userId } = req.body;
 
     if (!timestamp || !categorySummary || !userId) {
-        return res.status(400).json({ error: 'Missing required fields: timestamp, categorySummary, userId' });
+        return res.status(400).json({ error: 'Missing required fields: timestamp, categorySummary, userId', code: 'MISSING_FIELDS' });
     }
 
     // Validate userId matches authenticated client
     if (userId !== req.clientId) {
-        return res.status(403).json({ error: 'userId does not match authenticated client' });
+        return res.status(403).json({ error: 'userId does not match authenticated client', code: 'USER_ID_MISMATCH' });
     }
 
     // Validate timestamp
     const parsedDate = new Date(timestamp);
     if (isNaN(parsedDate.getTime())) {
-        return res.status(400).json({ error: 'Invalid timestamp format' });
+        return res.status(400).json({ error: 'Invalid timestamp format', code: 'INVALID_TIMESTAMP' });
     }
 
     // Validate categorySummary is an object with valid keys
     if (typeof categorySummary !== 'object' || Array.isArray(categorySummary)) {
-        return res.status(400).json({ error: 'categorySummary must be an object' });
+        return res.status(400).json({ error: 'categorySummary must be an object', code: 'INVALID_CATEGORY_SUMMARY' });
     }
 
     try {
@@ -453,14 +453,14 @@ app.get('/get-summary-history', authenticateClient, async (req, res) => {
     const { day, userId } = req.query;
 
     if (!userId || !/^\d{4}-\d{2}-\d{2}$/.test(day)) {
-        return res.status(400).json({ error: 'Missing or invalid userId/day. Day must be in YYYY-MM-DD format.' });
+        return res.status(400).json({ error: 'Missing or invalid userId/day. Day must be in YYYY-MM-DD format.', code: 'INVALID_DAY' });
     }
 
     try {
         if (userId !== req.clientId) {
             const linked = await getLinkedClients(req.clientId);
             if (!canReadSummary(req.clientId, userId, linked.map(c => c.clientId))) {
-                return res.status(403).json({ error: 'Not authorized to read this device' });
+                return res.status(403).json({ error: 'Not authorized to read this device', code: 'NOT_AUTHORIZED_DEVICE' });
             }
         }
 
@@ -493,23 +493,23 @@ app.post('/track-usage', authenticateClient, async (req, res) => {
     const { userId, timestamp, usage } = req.body;
 
     if (!userId || !timestamp || !usage) {
-        return res.status(400).json({ error: 'Missing required fields: userId, timestamp, usage' });
+        return res.status(400).json({ error: 'Missing required fields: userId, timestamp, usage', code: 'MISSING_FIELDS' });
     }
 
     if (userId !== req.clientId) {
-        return res.status(403).json({ error: 'userId does not match authenticated client' });
+        return res.status(403).json({ error: 'userId does not match authenticated client', code: 'USER_ID_MISMATCH' });
     }
 
     // Validate usage fields are numbers
     const llmCall = Number(usage.llmCall) || 0;
     const cost = Number(usage.cost) || 0;
     if (llmCall < 0 || cost < 0) {
-        return res.status(400).json({ error: 'Usage values cannot be negative' });
+        return res.status(400).json({ error: 'Usage values cannot be negative', code: 'NEGATIVE_USAGE' });
     }
 
     const parsedTimestamp = new Date(timestamp);
     if (isNaN(parsedTimestamp.getTime())) {
-        return res.status(400).json({ error: 'Invalid timestamp format' });
+        return res.status(400).json({ error: 'Invalid timestamp format', code: 'INVALID_TIMESTAMP' });
     }
 
     try {
@@ -565,11 +565,11 @@ app.post('/initiate-linking', authenticateClient, async (req, res) => {
         const { clientId } = req.body;
 
         if (!clientId || !isValidClientId(clientId)) {
-            return res.status(400).json({ success: false, error: 'Valid clientId is required' });
+            return res.status(400).json({ success: false, error: 'Valid clientId is required', code: 'INVALID_CLIENT_ID' });
         }
 
         if (clientId !== req.clientId) {
-            return res.status(403).json({ success: false, error: 'clientId does not match authenticated client' });
+            return res.status(403).json({ success: false, error: 'clientId does not match authenticated client', code: 'CLIENT_ID_MISMATCH' });
         }
 
         const code = await initiateLinking(clientId);
@@ -587,23 +587,23 @@ app.post('/complete-linking', authenticateClient, linkingLimiter, async (req, re
         const resolvedClientId = clientId || mobileClientId;
 
         if (!resolvedClientId || !isValidClientId(resolvedClientId)) {
-            return res.status(400).json({ success: false, error: 'Valid clientId is required' });
+            return res.status(400).json({ success: false, error: 'Valid clientId is required', code: 'INVALID_CLIENT_ID' });
         }
 
         if (resolvedClientId !== req.clientId) {
-            return res.status(403).json({ success: false, error: 'clientId does not match authenticated client' });
+            return res.status(403).json({ success: false, error: 'clientId does not match authenticated client', code: 'CLIENT_ID_MISMATCH' });
         }
 
         // Validate code is exactly 6 numeric digits
         if (!code || !/^\d{6}$/.test(code)) {
-            return res.status(400).json({ success: false, error: 'Code must be exactly 6 numeric digits' });
+            return res.status(400).json({ success: false, error: 'Code must be exactly 6 numeric digits', code: 'INVALID_CODE_FORMAT' });
         }
 
         const { success, linkedWith } = await completeLinking(resolvedClientId, code);
         res.json({ success, linkedWith });
     } catch (error) {
         if (error instanceof LinkingError) {
-            return res.status(error.status).json({ success: false, error: error.message });
+            return res.status(error.status).json({ success: false, error: error.message, code: error.code });
         }
         logger.error({ err: error.message }, 'Failed to complete linking');
         reportRouteError(req, error);
@@ -616,11 +616,11 @@ app.post('/unlink-device', authenticateClient, async (req, res) => {
         const { clientIdA, clientIdB } = req.body;
 
         if (!clientIdA || !clientIdB || !isValidClientId(clientIdA) || !isValidClientId(clientIdB)) {
-            return res.status(400).json({ success: false, error: 'Both clientIdA and clientIdB are required' });
+            return res.status(400).json({ success: false, error: 'Both clientIdA and clientIdB are required', code: 'INVALID_CLIENT_PAIR' });
         }
 
         if (!isPartyToLink(req.clientId, clientIdA, clientIdB)) {
-            return res.status(403).json({ success: false, error: 'Not authorized to unlink these devices' });
+            return res.status(403).json({ success: false, error: 'Not authorized to unlink these devices', code: 'NOT_AUTHORIZED_UNLINK' });
         }
 
         await unlinkClients(clientIdA, clientIdB);
@@ -637,11 +637,11 @@ app.get('/get-linked-clients', authenticateClient, async (req, res) => {
         const { clientId } = req.query;
 
         if (!clientId || !isValidClientId(clientId)) {
-            return res.status(400).json({ success: false, error: 'Valid clientId is required' });
+            return res.status(400).json({ success: false, error: 'Valid clientId is required', code: 'INVALID_CLIENT_ID' });
         }
 
         if (clientId !== req.clientId) {
-            return res.status(403).json({ success: false, error: 'clientId does not match authenticated client' });
+            return res.status(403).json({ success: false, error: 'clientId does not match authenticated client', code: 'CLIENT_ID_MISMATCH' });
         }
 
         const linkedClients = await getLinkedClients(clientId);
@@ -670,7 +670,9 @@ app.use((err, req, res, next) => {
     if (status >= 500) logger.error({ err: err.message }, 'Unhandled request error');
     reportRouteError(req, err, status);
     if (res.headersSent) return next(err);
-    res.status(status).json({ error: status >= 500 ? 'Internal server error' : 'Bad request' });
+    res.status(status).json(status >= 500
+        ? { error: 'Internal server error', code: 'INTERNAL_ERROR' }
+        : { error: 'Bad request', code: 'BAD_REQUEST' });
 });
 
 process.on('unhandledRejection', (reason) => {

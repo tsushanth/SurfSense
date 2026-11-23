@@ -211,4 +211,23 @@
     <string name="error_something_wrong">May nangyaring mali.</string>
     <string name="error_failed_link_device">Hindi na-link ang device</string>
     <string name="error_failed_generate_code">Hindi nagawa ang code</string>
+
+    <!-- Category display names (storage keys stay English) and backend error code messages -->
+    <string name="category_social_media">Social Media</string>
+    <string name="category_entertainment">Libangan</string>
+    <string name="category_work_productivity">Trabaho/Produktibidad</string>
+    <string name="category_news">Balita</string>
+    <string name="category_education">Edukasyon</string>
+    <string name="category_finance">Pananalapi</string>
+    <string name="category_health">Kalusugan</string>
+    <string name="category_shopping">Pamimili</string>
+    <string name="category_travel">Paglalakbay</string>
+    <string name="category_food">Pagkain</string>
+    <string name="category_other">Iba pa</string>
+    <string name="error_link_code_invalid">Hindi valid o nag-expire na ang code na iyon. Suriin ito at subukan ulit.</string>
+    <string name="error_link_code_expired">Nag-expire na ang code na iyon. Gumawa ng bago sa kabilang device.</string>
+    <string name="error_link_self">Hindi mo maaaring i-link ang isang device sa sarili nito.</string>
+    <string name="error_link_code_format">Ilagay ang 6-digit na code na nakikita sa kabilang device.</string>
+    <string name="error_linking_rate_limited">Masyadong maraming pagtatangkang mag-link. Subukan ulit pagkalipas ng 15 minuto.</string>
+    <string name="error_invalid_request">Hindi valid ang request. I-update ang app at subukan ulit.</string>
 </resources>
