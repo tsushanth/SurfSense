@@ -20,13 +20,13 @@
     <!-- Linked Devices Screen -->
     <string name="linked_devices_usage_title">已關聯裝置的使用情況</string>
     <string name="no_linked_devices">沒有已關聯的裝置</string>
-    <string name="no_linked_devices_description">新增您的第一個裝置，開始跟蹤所有裝置的使用情況</string>
+    <string name="no_linked_devices_description">新增您的第一個裝置，開始追蹤所有裝置的使用情況</string>
     <string name="add_device">新增裝置</string>
     <string name="share_this_device">共享此裝置</string>
 
     <!-- Remove Device Dialog -->
     <string name="remove_device_title">移除裝置</string>
-    <string name="remove_device_message">您確定要移除%1$s嗎？此裝置將無法再跟蹤您的使用情況。</string>
+    <string name="remove_device_message">您確定要移除%1$s嗎？此裝置將無法再追蹤您的使用情況。</string>
     <string name="remove">移除</string>
     <string name="cancel">取消</string>
 
@@ -52,7 +52,7 @@
     <string name="period_14_days">14天</string>
     <string name="period_30_days">30天</string>
     <string name="no_usage_data_trends">暫無使用資料</string>
-    <string name="no_usage_data_trends_description">開始跟蹤您的使用情況，以檢視隨時間變化的趨勢。</string>
+    <string name="no_usage_data_trends_description">開始追蹤您的使用情況，以檢視隨時間變化的趨勢。</string>
     <string name="summary">概要</string>
     <string name="stat_total">總計</string>
     <string name="stat_daily_avg">日均</string>
