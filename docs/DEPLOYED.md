@@ -6,7 +6,8 @@ Newest entries first. Backend deploys come from a clean worktree of origin/main.
 
 | Version | Code | Source | Track | Rollback |
 |---|---|---|---|---|
-| 10.2.1 | 16 | main `bc2c300`, tag `play/10.2.1-16` | production, inProgress at 20% (2026-11-23); 10.2.0/15 remains completed | halt the staged rollout in Play Console (users stay on 15); do not promote past 20% until reviewed |
+| 10.2.2 | 17 | main `9620b2a`, tag `play/10.2.2-17` (Traditional Chinese zh-TW/zh-HK) | production, inProgress at 20% (2026-11-23); 10.2.1/16 remains completed | halt the staged rollout in Play Console (users stay on 16); do not promote past 20% until reviewed |
+| 10.2.1 | 16 | main `bc2c300`, tag `play/10.2.1-16` | production, completed at 100% (2026-11-23) | previous release |
 
 ## Backend (Fly app `usage-tracker-backend`)
 
