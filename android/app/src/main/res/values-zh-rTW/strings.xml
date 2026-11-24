@@ -1,0 +1,231 @@
+<resources>
+    <string name="app_name">SurfSense</string>
+
+    <!-- Navigation Tabs -->
+    <string name="tab_this_device">本裝置</string>
+    <string name="tab_linked_devices">裝置</string>
+    <string name="tab_trends">趨勢</string>
+    <string name="tab_settings">設定</string>
+
+    <!-- Content Descriptions -->
+    <string name="cd_refresh">重新整理</string>
+
+    <!-- This Device Screen -->
+    <string name="loading_usage_data">正在載入使用資料\u2026</string>
+    <string name="today_usage_title">今日使用情況</string>
+    <string name="no_usage_data_yet">暫無使用資料</string>
+    <string name="no_usage_data_description">點選\"立即同步\"以收集和上傳您裝置的使用資料。這需要使用情況存取權限。</string>
+    <string name="sync_now">立即同步</string>
+
+    <!-- Linked Devices Screen -->
+    <string name="linked_devices_usage_title">已關聯裝置的使用情況</string>
+    <string name="no_linked_devices">沒有已關聯的裝置</string>
+    <string name="no_linked_devices_description">新增您的第一個裝置，開始跟蹤所有裝置的使用情況</string>
+    <string name="add_device">新增裝置</string>
+    <string name="share_this_device">共享此裝置</string>
+
+    <!-- Remove Device Dialog -->
+    <string name="remove_device_title">移除裝置</string>
+    <string name="remove_device_message">您確定要移除%1$s嗎？此裝置將無法再跟蹤您的使用情況。</string>
+    <string name="remove">移除</string>
+    <string name="cancel">取消</string>
+
+    <!-- Add Device Dialog -->
+    <string name="enter_code_prompt">輸入您要關聯的裝置的%1$d位數字程式碼</string>
+    <string name="device_code_label">裝置程式碼</string>
+    <string name="device_linked_success">裝置關聯成功！</string>
+    <string name="link_device">關聯裝置</string>
+    <string name="done">完成</string>
+
+    <!-- Share Device Dialog -->
+    <string name="share_device_description">生成一個程式碼，其他人可以用它來關聯和監控此裝置的使用情況</string>
+    <string name="your_sharing_code">您的共享程式碼：</string>
+    <string name="code_expires_in">程式碼將在%1$d分鐘後過期</string>
+    <string name="copy">複製</string>
+    <string name="new_code">新程式碼</string>
+    <string name="generating">正在生成\u2026</string>
+    <string name="generate_sharing_code">生成共享程式碼</string>
+    <string name="code_copied">程式碼已複製</string>
+
+    <!-- Trends Screen -->
+    <string name="period_7_days">7天</string>
+    <string name="period_14_days">14天</string>
+    <string name="period_30_days">30天</string>
+    <string name="no_usage_data_trends">暫無使用資料</string>
+    <string name="no_usage_data_trends_description">開始跟蹤您的使用情況，以檢視隨時間變化的趨勢。</string>
+    <string name="summary">概要</string>
+    <string name="stat_total">總計</string>
+    <string name="stat_daily_avg">日均</string>
+    <string name="stat_peak_day">峰值日</string>
+    <string name="daily_usage">每日使用量</string>
+    <string name="category_breakdown">類別細分</string>
+    <string name="daily_details">每日詳情</string>
+    <string name="no_data">無資料</string>
+    <string name="usage_trends_title">使用趨勢</string>
+
+    <!-- Settings Screen -->
+    <string name="section_data_sync">資料同步</string>
+    <string name="auto_sync">自動同步</string>
+    <string name="sync_interval">同步間隔</string>
+    <string name="sync_interval_value">%1$d分鐘</string>
+    <string name="section_device">裝置</string>
+    <string name="device_id">裝置ID</string>
+    <string name="device_name">裝置名稱</string>
+    <string name="section_about">關於</string>
+    <string name="about">關於</string>
+    <string name="version">版本</string>
+    <string name="privacy_policy">隱私政策</string>
+    <string name="terms_of_service">服務條款</string>
+    <string name="section_data">資料</string>
+    <string name="reset_all_data">重置所有資料</string>
+    <string name="reset_all_data_title">重置所有資料？</string>
+    <string name="reset_all_data_message">此操作無法撤銷。所有本地資料將被刪除，裝置將被取消關聯。</string>
+    <string name="reset">重置</string>
+    <string name="data_reset">資料已重置</string>
+
+    <!-- About Dialog -->
+    <string name="about_tagline">在所有裝置上追蹤您的數字健康</string>
+
+    <!-- Usage Card -->
+    <string name="total_screen_time_today">今日總螢幕時間</string>
+    <string name="quick_stats">快速統計</string>
+    <string name="most_used_category">最常使用的類別</string>
+
+    <!-- Layout XML: dialog_link_device.xml -->
+    <string name="enter_6_digit_code">輸入6位數字程式碼</string>
+
+    <!-- Layout XML: dialog_generate_code.xml -->
+    <string name="fetching_code">正在獲取程式碼\u2026</string>
+
+    <!-- Layout XML: activity_link_device.xml -->
+    <string name="enter_linking_code">輸入關聯程式碼</string>
+
+    <!-- Layout XML: activity_trends.xml -->
+    <string name="cd_no_data">無資料</string>
+    <string name="cd_total">總計</string>
+    <string name="cd_average">平均</string>
+    <string name="cd_peak">峰值</string>
+    <string name="default_time">0小時</string>
+
+    <!-- Layout XML: activity_main.xml -->
+    <string name="settings">設定</string>
+    <string name="refresh_data">重新整理資料</string>
+
+    <!-- Layout XML: item_tracker_row.xml -->
+    <string name="url_placeholder">URL</string>
+    <string name="interval_placeholder">60分鐘</string>
+    <string name="cd_delete">刪除</string>
+
+    <!-- Notifications -->
+    <string name="new_notification_title">新通知：%1$s</string>
+    <string name="usage_access_title">允許使用情況存取</string>
+    <string name="usage_access_message">SurfSense 會讀取今天每個應用的開啟時長，並在背景定期重複此操作。應用名稱會傳送到 SurfSense 伺服器，以便歸入社群媒體或新聞等類別。總計資料與您的裝置名稱（以便您在其他裝置上識別它）一起以隨機 ID 儲存，而不是您的帳戶名稱或電子郵件。\n\n接下來，Android 將開啟設定介面，您可以在其中為 SurfSense 開啟“使用情況存取權限”。</string>
+    <string name="usage_access_continue">繼續</string>
+    <string name="usage_access_not_now">暫不</string>
+    <string name="usage_access_off_notice">使用情況存取已關閉，因此不會統計這部手機上的應用。</string>
+
+    <!-- Today and Week (10.1.0) -->
+    <string name="tab_today">今天</string>
+    <string name="tab_week">本週</string>
+    <string name="today_total_phone">今天在手機上 %1$s</string>
+    <string name="today_total_device">今天在 %2$s 上 %1$s</string>
+    <string name="scope_all_devices">所有裝置</string>
+    <string name="today_empty">今天還沒有記錄。請允許使用情況存取權限並同步，或關聯其他裝置。</string>
+    <string name="today_device_empty">今天還沒有來自 %1$s 的記錄。</string>
+    <string name="apps_on_this_phone">此手機上的應用</string>
+    <string name="apps_hint">點按應用可更改其類別。</string>
+    <string name="change_category">更改類別</string>
+    <string name="use_automatic_category">使用自動類別</string>
+    <string name="category_unknown">類別未知</string>
+    <string name="category_set_by_you">%1$s（由你設定）</string>
+    <string name="week_total">本週 %1$s</string>
+    <string name="week_more">比上週多 %1$d%%</string>
+    <string name="week_less">比上週少 %1$d%%</string>
+    <string name="week_same">與上週相同</string>
+    <string name="week_ghost_legend">輪廓表示上週同一天。</string>
+    <string name="week_empty">過去 7 天沒有記錄。</string>
+    <string name="try_again">重試</string>
+    <string name="week_day_cd">%1$s：%2$s</string>
+    <string name="week_day_cd_last">%1$s：%2$s。上週：%3$s</string>
+    <string name="loading">正在載入</string>
+    <plurals name="today_total_devices">
+        <item quantity="other">今天在你的 %2$d 臺裝置上 %1$s</item>
+    </plurals>
+    <plurals name="week_failed">
+        <item quantity="other">有 %1$d 天的資料無法載入。請檢查網路連線後重試。</item>
+    </plurals>
+
+    <!-- Devices and Settings (10.1.0) -->
+    <string name="devices_add">新增裝置</string>
+    <string name="devices_share">共享此裝置</string>
+    <string name="devices_section_linked">已關聯的裝置</string>
+    <string name="devices_empty">要新增其他裝置，請在該裝置上點按“共享此裝置”，然後在這裡透過“新增裝置”輸入其程式碼。</string>
+    <string name="device_type_browser">瀏覽器</string>
+    <string name="device_type_other">其他裝置</string>
+    <string name="device_remove_cd">移除%1$s</string>
+    <string name="device_remove_title">要移除%1$s嗎？</string>
+    <string name="device_remove_message">它將不再顯示在這裡。如需重新新增，請使用新程式碼。</string>
+    <string name="device_removed">已移除裝置</string>
+    <string name="device_remove_failed">無法移除%1$s。請檢查網路連線後重試。</string>
+    <string name="add_device_prompt">在另一臺裝置上開啟 SurfSense，然後點按“共享此裝置”。輸入顯示的 %1$d 位程式碼。</string>
+    <string name="add_device_code_label">程式碼</string>
+    <string name="add_device_confirm">新增</string>
+    <string name="device_added">已新增裝置</string>
+    <string name="share_device_prompt">建立程式碼，然後在另一臺裝置上透過“新增裝置”輸入。</string>
+    <string name="share_create_code">建立程式碼</string>
+    <string name="share_creating">正在建立程式碼…</string>
+    <string name="share_new_code">新程式碼</string>
+    <string name="share_expires">%1$d 分鐘後過期</string>
+    <string name="share_code_failed">無法建立程式碼。請檢查網路連線後重試。</string>
+    <string name="settings_section_sync">同步</string>
+    <string name="settings_sync_interval">大約每 %1$d 分鐘在背景同步一次。</string>
+    <string name="settings_section_device">此裝置</string>
+    <string name="settings_device_name">裝置名稱</string>
+    <string name="settings_device_id">裝置 ID</string>
+    <string name="settings_section_data">您的資料</string>
+    <string name="export_data">匯出我的資料</string>
+    <string name="export_data_hint">所有裝置最近 30 天的資料，儲存為 CSV 檔案。</string>
+    <string name="export_preparing">正在準備匯出…</string>
+    <string name="export_done">已匯出</string>
+    <string name="export_nothing">暫無可匯出的資料。請先同步或關聯裝置。</string>
+    <string name="export_load_failed">無法載入全部資料。請檢查網路連線後重試。</string>
+    <string name="export_busy">服務當前繁忙。請一分鐘後重試。</string>
+    <string name="export_save_failed">無法儲存檔案。請重試並選擇其他位置。</string>
+    <string name="settings_section_overrides">您設定的類別</string>
+    <string name="override_remove_cd">為%1$s使用自動類別</string>
+    <string name="reset_data">重置所有資料</string>
+    <string name="reset_data_title">要重置所有資料嗎？</string>
+    <string name="reset_data_message">這會刪除此手機上的使用記錄和您設定的類別。已關聯的裝置仍保持關聯。</string>
+    <string name="privacy_policy_label">隱私政策</string>
+    <string name="terms_label">服務條款</string>
+    <string name="about_font_credit">字型採用 Hanken Grotesk，依據 SIL Open Font License 授權。</string>
+
+    <!-- wave2: machine-translated, needs native review -->
+    <string name="error_no_connection">無網路連線。請檢查網路後重試。</string>
+    <string name="error_device_not_recognized">伺服器無法識別此裝置。請關閉並重新開啟應用以重新連線。</string>
+    <string name="error_too_many_requests">請求過多。請一分鐘後重試。</string>
+    <string name="error_server_trouble">伺服器出現問題。請稍後重試。</string>
+    <string name="error_something_wrong_code">出了點問題（%1$d）。</string>
+    <string name="error_something_wrong">出了點問題。</string>
+    <string name="error_failed_link_device">無法關聯裝置</string>
+    <string name="error_failed_generate_code">無法生成程式碼</string>
+
+    <!-- Category display names (storage keys stay English) and backend error code messages -->
+    <string name="category_social_media">社群媒體</string>
+    <string name="category_entertainment">娛樂</string>
+    <string name="category_work_productivity">工作/效率</string>
+    <string name="category_news">新聞</string>
+    <string name="category_education">教育</string>
+    <string name="category_finance">金融</string>
+    <string name="category_health">健康</string>
+    <string name="category_shopping">購物</string>
+    <string name="category_travel">旅行</string>
+    <string name="category_food">美食</string>
+    <string name="category_other">其他</string>
+    <string name="error_link_code_invalid">該程式碼無效或已過期。請檢查後重試。</string>
+    <string name="error_link_code_expired">該程式碼已過期。請在另一臺裝置上生成新程式碼。</string>
+    <string name="error_link_self">無法將裝置與其自身關聯。</string>
+    <string name="error_link_code_format">請輸入另一臺裝置上顯示的 6 位程式碼。</string>
+    <string name="error_linking_rate_limited">關聯嘗試次數過多。請 15 分鐘後重試。</string>
+    <string name="error_invalid_request">請求無效。請更新應用後重試。</string>
+</resources>

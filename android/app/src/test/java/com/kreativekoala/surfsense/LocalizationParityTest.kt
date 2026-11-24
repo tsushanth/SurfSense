@@ -89,7 +89,7 @@ class LocalizationParityTest {
         "es" to setOf("one", "many", "other"),
         "it" to setOf("one", "many", "other"),
         "pt-BR" to setOf("one", "many", "other"), "pt" to setOf("one", "many", "other"), "cs" to setOf("one", "few", "many", "other"),
-        "ja" to setOf("other"), "ko" to setOf("other"), "zh-CN" to setOf("other"),
+        "ja" to setOf("other"), "ko" to setOf("other"), "zh-CN" to setOf("other"), "zh-TW" to setOf("other"), "zh-HK" to setOf("other"),
         "th" to setOf("other"), "vi" to setOf("other"), "id" to setOf("other"), "ms" to setOf("other")
     )
 
