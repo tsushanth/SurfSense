@@ -24,6 +24,7 @@ import { canReadSummary, isPartyToLink } from './authz.js';
 import { reportRouteError, reportFailure, reportCrash } from './failureReporter.js';
 import { createOutageMonitor } from './outageMonitor.js';
 import { touchLastActive } from './lastActive.js';
+import { normalizeClientType } from './clientType.js';
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -81,8 +82,6 @@ const linkingLimiter = rateLimit({
 });
 
 app.use(generalLimiter);
-
-const VALID_CLIENT_TYPES = ['CHROME_EXTENSION', 'IOS', 'ANDROID', 'UNKNOWN'];
 
 // --- Helper: validate UUID-like string ---
 function isValidClientId(id) {
@@ -169,7 +168,7 @@ app.post('/register-client', async (req, res) => {
             return res.status(400).json({ error: 'Valid clientId is required (8-128 characters)', code: 'INVALID_CLIENT_ID' });
         }
 
-        const resolvedType = VALID_CLIENT_TYPES.includes(clientType) ? clientType : 'UNKNOWN';
+        const resolvedType = normalizeClientType(clientType);
         const resolvedName = typeof clientName === 'string' ? clientName.substring(0, 255) : 'UNKNOWN';
 
         // Check if client already exists
@@ -284,7 +283,7 @@ app.get('/client/:id', async (req, res) => {
         if (fetchError && fetchError.code !== 'PGRST116') throw fetchError;
 
         if (!existing) {
-            const resolvedType = VALID_CLIENT_TYPES.includes(clientType) ? clientType : 'UNKNOWN';
+            const resolvedType = normalizeClientType(clientType);
             const resolvedName = typeof clientName === 'string' ? clientName.substring(0, 255) : 'UNKNOWN';
             const apiKey = generateApiKey();
             const apiKeyHash = hashApiKey(apiKey);
