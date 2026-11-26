@@ -25,6 +25,7 @@ import { reportRouteError, reportFailure, reportCrash } from './failureReporter.
 import { createOutageMonitor } from './outageMonitor.js';
 import { touchLastActive } from './lastActive.js';
 import { normalizeClientType } from './clientType.js';
+import { rateLimitKey } from './rateLimitKey.js';
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -60,6 +61,7 @@ app.use(express.json({ limit: '1mb' }));
 const generalLimiter = rateLimit({
     windowMs: 60 * 1000,
     max: 100,
+    keyGenerator: rateLimitKey,
     standardHeaders: true,
     legacyHeaders: false,
     message: { error: 'Too many requests, please try again later', code: 'RATE_LIMITED' },
@@ -68,6 +70,7 @@ const generalLimiter = rateLimit({
 const categorizeLimiter = rateLimit({
     windowMs: 60 * 1000,
     max: 30,
+    keyGenerator: rateLimitKey,
     standardHeaders: true,
     legacyHeaders: false,
     message: { error: 'Rate limit exceeded for category lookups', code: 'RATE_LIMITED' },
@@ -76,7 +79,19 @@ const categorizeLimiter = rateLimit({
 const linkingLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 5,
+    keyGenerator: rateLimitKey,
     standardHeaders: true,
+    legacyHeaders: false,
+    message: { error: 'Too many linking attempts, please try again later', code: 'LINKING_RATE_LIMITED' },
+});
+
+// Ceiling on wrong linking codes from all callers together, so guessing from many addresses stays bounded.
+const linkingFailureCeiling = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 100,
+    skipSuccessfulRequests: true,
+    keyGenerator: () => 'all',
+    standardHeaders: false,
     legacyHeaders: false,
     message: { error: 'Too many linking attempts, please try again later', code: 'LINKING_RATE_LIMITED' },
 });
@@ -580,7 +595,7 @@ app.post('/initiate-linking', authenticateClient, async (req, res) => {
     }
 });
 
-app.post('/complete-linking', authenticateClient, linkingLimiter, async (req, res) => {
+app.post('/complete-linking', authenticateClient, linkingLimiter, linkingFailureCeiling, async (req, res) => {
     try {
         const { clientId, mobileClientId, code } = req.body;
         const resolvedClientId = clientId || mobileClientId;
