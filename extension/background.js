@@ -1,286 +1,200 @@
-let activeTabId = null;
-let activeStartTime = null;
-const BACKEND_BASE = "https://usage-tracker-backend-917362189743.us-central1.run.app";
-let lastUsedDate = new Date().toISOString().split("T")[0];
+// MV3 service worker. The ONLY place that owns the api and tracker instances. All listeners are
+// registered synchronously at the top level; state lives in chrome.storage.local so a worker
+// restart loses nothing. The popup talks to this file through chrome.runtime.sendMessage.
+import { createApi, messageFor } from './lib/api.js';
+import { createTracker } from './lib/tracker.js';
+import { flushDirty } from './lib/sync.js';
+import { localDate } from './lib/dates.js';
+import { ACTIONS } from './lib/messages.js';
 
-// --- Auth helper ---
-async function getAuthHeaders() {
-  const { apiKey } = await chrome.storage.local.get("apiKey");
-  const headers = { 'Content-Type': 'application/json' };
-  if (apiKey) {
-    headers['Authorization'] = `Bearer ${apiKey}`;
-  }
-  return headers;
-}
+const ALARM = 'tick';
+const FLUSH_INTERVAL_MS = 5 * 60 * 1000;
 
-// Track tab changes
-chrome.tabs.onActivated.addListener(({ tabId }) => handleTabSwitch(tabId));
+// chrome.* is resolved at call time (never cached) so tests can swap the global.
+const storage = {
+  get: (keys) => chrome.storage.local.get(keys),
+  set: (obj) => chrome.storage.local.set(obj),
+  remove: (keys) => chrome.storage.local.remove(keys),
+};
 
-// Track window focus changes
-chrome.windows.onFocusChanged.addListener((windowId) => {
-  if (windowId === chrome.windows.WINDOW_ID_NONE) {
-    stopTracking();
-  } else {
-    chrome.tabs.query({ active: true, windowId }, (tabs) => {
-      if (tabs[0]) handleTabSwitch(tabs[0].id);
-    });
-  }
-});
-
-// Register client on install
-chrome.runtime.onInstalled.addListener(() => {
-  chrome.runtime.getPlatformInfo((info) => {
-    const os = info.os;
-    const arch = info.arch;
-    const clientName = `${os}-${arch}-${new Date().toISOString().split("T")[0]}`;
-
-    chrome.storage.local.get("extensionId", async (result) => {
-      if (!result.extensionId) {
-        const generatedId = crypto.randomUUID();
-        chrome.storage.local.set({ extensionId: generatedId });
-
-        try {
-          // Use new POST /register-client endpoint
-          const res = await fetch(`${BACKEND_BASE}/register-client`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              clientId: generatedId,
-              clientType: "CHROME_EXTENSION",
-              clientName: clientName
-            })
-          });
-
-          if (res.ok) {
-            const data = await res.json();
-            // Store API key if returned (first registration)
-            if (data.apiKey) {
-              chrome.storage.local.set({ apiKey: data.apiKey });
-            }
-          }
-        } catch (err) {
-          // Silent failure — will retry on next install event
-        }
-      }
-    });
-  });
-});
-
-function getExtensionId(callback) {
-  chrome.storage.local.get("extensionId", (result) => {
-    callback(result.extensionId);
-  });
-}
-
-// Track tab updates (like page reload)
-chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-  if (tab.active && changeInfo.status === 'complete') {
-    handleTabSwitch(tabId);
-  }
-});
-
-function handleTabSwitch(tabId) {
-  stopTracking();
-  activeTabId = tabId;
-  activeStartTime = Date.now();
-}
-
-function stopTracking() {
-  if (!activeTabId || !activeStartTime) return;
-
-  const now = new Date();
-  const today = now.toISOString().split("T")[0];
-  const timeSpent = Math.floor((Date.now() - activeStartTime) / 1000);
-
-  chrome.tabs.get(activeTabId, (tab) => {
-    if (!tab || !tab.url) return;
-    try {
-      const domain = new URL(tab.url).hostname.replace(/^www\./, "");
-      if (!domain) return;
-
-      chrome.storage.local.get(["timeData"], async (result) => {
-        const timeData = result.timeData || {};
-        timeData[domain] = (timeData[domain] || 0) + timeSpent;
-
-        if (today !== lastUsedDate) {
-          await sendDailySummary(timeData);
-          chrome.storage.local.set({ timeData: {} });
-          lastUsedDate = today;
-        } else {
-          chrome.storage.local.set({ timeData });
-        }
-      });
-    } catch {
-      // Invalid URL — skip
-    }
-  });
-
-  activeStartTime = null;
-  activeTabId = null;
-}
-
-async function sendDailySummary(timeData) {
-  const domains = Object.keys(timeData);
-  if (domains.length === 0) return;
-
+let platformName = 'chrome';
+const platformReady = (async () => {
   try {
-    const headers = await getAuthHeaders();
+    const info = await chrome.runtime.getPlatformInfo();
+    if (info && info.os && info.arch) platformName = `${info.os}-${info.arch}`;
+  } catch { /* keep the fallback */ }
+})();
 
-    // 1. Get category mapping
-    const res = await fetch(`${BACKEND_BASE}/get-category-mapping`, {
-      method: "POST",
-      headers,
-      body: JSON.stringify({ domains })
-    });
+const api = createApi({ storage, clientName: () => platformName });
+const tracker = createTracker({ storage });
 
-    const categoryMap = await res.json();
-
-    // 2. Aggregate time by category
-    const newCategorySummary = {};
-    for (const domain of domains) {
-      const category = categoryMap[domain] || "Uncategorized";
-      newCategorySummary[category] = (newCategorySummary[category] || 0) + timeData[domain];
+// ---------- flushing ----------
+let flushChain = Promise.resolve();
+function flushNow() {
+  const run = flushChain.then(async () => {
+    let ok = false;
+    try {
+      const result = await flushDirty({ api, tracker });
+      ok = result.failed.length === 0;
+      return result;
+    } finally {
+      try { await storage.set({ lastFlushMs: Date.now(), lastFlushOk: ok }); } catch { /* ignore */ }
     }
-
-    // 3. Fetch previous summary and merge
-    const today = new Date().toISOString().split("T")[0];
-    getExtensionId(async (extensionId) => {
-      const summaryRes = await fetch(
-        `${BACKEND_BASE}/get-summary-history?day=${today}&userId=${extensionId}`,
-        { headers }
-      );
-
-      let existingSummary = {};
-      if (summaryRes.ok) {
-        const summaryList = await summaryRes.json();
-        const todayEntry = summaryList.find(s => s.timestamp.startsWith(today));
-        if (todayEntry && todayEntry.summary) {
-          existingSummary = todayEntry.summary;
-        }
-      }
-
-      // 4. Merge summaries
-      const mergedSummary = { ...existingSummary };
-      for (const [category, seconds] of Object.entries(newCategorySummary)) {
-        mergedSummary[category] = (mergedSummary[category] || 0) + seconds;
-      }
-
-      // 5. Send to backend
-      const response = await fetch(`${BACKEND_BASE}/submit-category-summary`, {
-        method: "POST",
-        headers,
-        body: JSON.stringify({
-          timestamp: new Date().toISOString(),
-          userId: extensionId,
-          categorySummary: mergedSummary
-        })
-      });
-
-      if (response.ok) {
-        chrome.storage.local.set({ timeData: {} });
-      }
-    });
-  } catch (err) {
-    // Silent failure — data preserved locally for next attempt
-  }
-}
-
-// Save backup every minute to avoid data loss
-setInterval(() => {
-  stopTracking();
-}, 60000);
-
-async function checkAndSendUsage(force = false) {
-  chrome.storage.local.get(["timeData"], async (result) => {
-    const usageData = result.timeData || {};
-    if (Object.keys(usageData).length === 0) return;
-    await sendDailySummary(usageData);
   });
+  flushChain = run.catch(() => {});
+  return run;
 }
 
-// Message handler
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.action === "manualUpdateUsage") {
-    checkAndSendUsage(true).then(() => sendResponse({ success: true }));
-    return true;
-  }
+// Re-establishes tracking if a missed event left the focused window's active tab unwatched.
+// tracker.navigate() acts only when no session runs or the session is for that same tab, so this
+// never replaces a running session on another tab.
+async function selfHeal() {
+  const epoch = focusEpoch;
+  try {
+    const w = await chrome.windows.getLastFocused();
+    if (!w || !w.focused) return;
+    const [tab] = await chrome.tabs.query({ active: true, windowId: w.id });
+    if (tab && epoch === focusEpoch) await tracker.navigate(tab.id, tab.url);
+  } catch { /* no window / tab closed: skip */ }
+}
 
-  switch (message.action) {
-    case "generateLinkingCode":
-      generateLinkingCode()
-        .then(code => sendResponse({ success: true, code }))
-        .catch(error => sendResponse({ success: false, error: error.message }));
-      return true;
+async function onTick() {
+  await tracker.tick();
+  await selfHeal();
+  const { dirty } = await tracker.snapshot();
+  const days = Object.keys(dirty);
+  if (days.length === 0) return;
+  const now = Date.now();
+  const { lastFlushMs, lastFlushOk } = await storage.get(['lastFlushMs', 'lastFlushOk']);
+  const due = !Number.isFinite(lastFlushMs) || now - lastFlushMs >= FLUSH_INTERVAL_MS;
+  // A finished day is sent at once, but only while the previous attempt did not fail:
+  // after a failure everything waits for the regular 5-minute backoff.
+  const pastDay = lastFlushOk !== false && days.some((d) => d !== localDate(now));
+  if (due || pastDay) await flushNow();
+}
 
-    case "unlinkDevice":
-      unlinkDevice(message.deviceId)
-        .then(() => sendResponse({ success: true }))
-        .catch(error => sendResponse({ success: false, error: error.message }));
-      return true;
+// ---------- lifecycle ----------
+// Idempotent and shared: one get-then-create per worker lifetime.
+let alarmReady = null;
+function ensureAlarm() {
+  alarmReady ??= (async () => {
+    const existing = await chrome.alarms.get(ALARM);
+    if (!existing) chrome.alarms.create(ALARM, { periodInMinutes: 1 });
+  })().catch(() => { alarmReady = null; });
+  return alarmReady;
+}
+ensureAlarm();
 
-    case "getLinkedDevices":
-      loadLinkedDevices()
-        .then(devices => sendResponse({ success: true, devices }))
-        .catch(error => sendResponse({ success: false, error: error.message }));
-      return true;
-  }
+// Bumped by every focus change. A tab handler captures it before its first await and
+// drops its tracker call if it changed meanwhile (a stale activate would otherwise start a session
+// after the browser lost focus).
+let focusEpoch = 0;
+
+// Tracking only counts while the tab's window has the focus.
+async function windowFocused(windowId) {
+  try {
+    const w = await chrome.windows.get(windowId);
+    return !!(w && w.focused);
+  } catch { return false; }
+}
+
+async function startUp() {
+  const epoch = focusEpoch;
+  await platformReady;
+  await ensureAlarm();
+  try { await chrome.storage.local.remove('timeData'); } catch { /* orphaned 3.0 key, best effort */ }
+  const { lastFlushMs } = await storage.get('lastFlushMs');
+  if (!Number.isFinite(lastFlushMs)) await storage.set({ lastFlushMs: Date.now() });
+  try {
+    const [tab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
+    if (tab && await windowFocused(tab.windowId) && epoch === focusEpoch) await tracker.activate(tab.id, tab.url);
+  } catch { /* no window yet */ }
+  // After tracking is restored: a slow or offline backend must not delay it.
+  try { await api.ensureRegistered(); } catch { /* retried on the next API call */ }
+}
+
+async function getTab(tabId) {
+  try { return (await chrome.tabs.get(tabId)) || null; } catch { return null; }
+}
+
+chrome.runtime.onInstalled.addListener(() => startUp().catch(() => {}));
+chrome.runtime.onStartup.addListener(() => startUp().catch(() => {}));
+
+chrome.alarms.onAlarm.addListener((alarm) => {
+  if (!alarm || alarm.name !== ALARM) return undefined;
+  return onTick().catch(() => {});
 });
 
-async function generateLinkingCode() {
-  const { extensionId: clientId } = await chrome.storage.local.get("extensionId");
-  if (!clientId) throw new Error("No clientId found in storage");
+// ---------- tab / window events ----------
+chrome.tabs.onActivated.addListener(({ tabId }) => (async () => {
+  const epoch = focusEpoch;
+  const tab = await getTab(tabId);
+  if (tab && await windowFocused(tab.windowId) && epoch === focusEpoch) await tracker.activate(tabId, tab.url);
+})().catch(() => {}));
 
-  const headers = await getAuthHeaders();
-  const response = await fetch(`${BACKEND_BASE}/initiate-linking`, {
-    method: 'POST',
-    headers,
-    body: JSON.stringify({ clientId })
-  });
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => (async () => {
+  const epoch = focusEpoch;
+  if (!tab || !tab.active) return;
+  if (changeInfo.status !== 'complete' && !changeInfo.url) return;
+  if (!(await windowFocused(tab.windowId)) || epoch !== focusEpoch) return;
+  await tracker.navigate(tabId, tab.url);
+})().catch(() => {}));
 
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => ({}));
-    throw new Error(errorData.error || `Server responded with ${response.status}`);
+chrome.tabs.onRemoved.addListener((tabId) => {
+  // navigate() ignores tabs other than the running one; a null URL closes that session.
+  return tracker.navigate(tabId, null).catch(() => {});
+});
+
+chrome.windows.onFocusChanged.addListener((windowId) => (async () => {
+  const epoch = ++focusEpoch;
+  if (windowId === chrome.windows.WINDOW_ID_NONE) {
+    await tracker.pause();
+    return;
   }
+  const [tab] = await chrome.tabs.query({ active: true, windowId });
+  if (epoch !== focusEpoch) return; // a newer focus change owns the state
+  if (tab) await tracker.activate(tab.id, tab.url);
+  else await tracker.pause(); // e.g. a devtools or popup window
+})().catch(() => {}));
 
-  const { code } = await response.json();
-  return code;
-}
+// ---------- messages from the popup ----------
+const INVALID = Symbol('invalid');
+const isId = (v) => typeof v === 'string' && v.length > 0;
+const need = (ok) => { if (!ok) throw INVALID; };
 
-async function unlinkDevice(deviceId) {
-  const { extensionId: clientId } = await chrome.storage.local.get("extensionId");
-  const headers = await getAuthHeaders();
+const handlers = {
+  [ACTIONS.MANUAL_UPDATE]: async () => {
+    await platformReady;
+    const { failed } = await flushNow();
+    return { failed: failed.length };
+  },
+  [ACTIONS.GET_TODAY]: async () => ({ today: await tracker.getToday() }),
+  [ACTIONS.GENERATE_LINKING_CODE]: async () => { await platformReady; return { code: await api.initiateLinking() }; },
+  [ACTIONS.COMPLETE_LINKING]: async (m) => { need(typeof m.code === 'string' && /^\d{6}$/.test(m.code)); await platformReady; return api.completeLinking(m.code); },
+  [ACTIONS.UNLINK_DEVICE]: async (m) => { need(isId(m.deviceId)); await platformReady; await api.unlinkDevice(m.deviceId); return {}; },
+  [ACTIONS.GET_LINKED_DEVICES]: async () => { await platformReady; return { devices: await api.getLinkedClients() }; },
+  [ACTIONS.GET_SUMMARY]: async (m) => {
+    need(isId(m.userId) && typeof m.day === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(m.day));
+    await platformReady;
+    const day = m.day;
+    const list = await api.getSummaryHistory(m.userId, day);
+    const hit = list.find((s) => s && typeof s.timestamp === 'string' && s.timestamp.startsWith(day));
+    return { summary: (hit && hit.summary) || null };
+  },
+  [ACTIONS.GET_IDENTITY]: async () => {
+    await platformReady;
+    try { await api.ensureRegistered(); } catch { /* identity may still exist */ }
+    return { extensionId: (await api.getIdentity()).extensionId };
+  },
+};
 
-  const response = await fetch(`${BACKEND_BASE}/unlink-device`, {
-    method: 'POST',
-    headers,
-    body: JSON.stringify({
-      clientIdA: clientId,
-      clientIdB: deviceId
-    })
-  });
-
-  if (!response.ok) {
-    throw new Error("Failed to unlink device");
-  }
-}
-
-async function loadLinkedDevices() {
-  const { extensionId: clientId } = await chrome.storage.local.get("extensionId");
-  const headers = await getAuthHeaders();
-
-  const response = await fetch(`${BACKEND_BASE}/get-linked-clients?clientId=${clientId}`, {
-    method: 'GET',
-    headers
-  });
-
-  if (!response.ok) {
-    throw new Error(`HTTP ${response.status}`);
-  }
-
-  const result = await response.json();
-
-  if (result.success && result.data) {
-    return result.data.clients || [];
-  }
-  return [];
-}
+chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
+  const handler = message && Object.hasOwn(handlers, message.action) ? handlers[message.action] : null;
+  if (!handler) return false;
+  // manualUpdateUsage must also bank the running session (flushDirty ticks first).
+  Promise.resolve()
+    .then(() => handler(message))
+    .then((result) => sendResponse({ success: true, ...(result || {}) }))
+    .catch((e) => sendResponse({ success: false, error: e === INVALID ? 'Invalid request.' : messageFor(e) }));
+  return true;
+});

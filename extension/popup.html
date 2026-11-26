@@ -44,7 +44,7 @@
     </style>
   </head>
   <body>
-    <h2>Top 5 Sites</h2>
+    <h2>Top 10 Sites</h2>
     <ul id="siteList"></ul>
 
     <div class="category-section">
@@ -60,7 +60,6 @@
       <button id="addOtherDeviceBtn">Add Device</button>
       <div id="addDeviceForm" style="display: none;">
         <input type="text" id="otherDeviceCode" placeholder="6-digit code" maxlength="6" pattern="[0-9]{6}" />
-        <input type="text" id="otherDeviceName" placeholder="Device Name" maxlength="64" />
         <button id="submitOtherDevice">Submit</button>
       </div>
       <div id="otherDevicesUsage"></div>
@@ -77,6 +76,6 @@
         <p>Enter this code on your mobile device</p>
       </div>
     </div>
-    <script src="popup.js"></script>
+    <script type="module" src="popup.js"></script>
   </body>
 </html>
