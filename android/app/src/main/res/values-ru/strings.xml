@@ -113,6 +113,10 @@
     <string name="usage_access_continue">Продолжить</string>
     <string name="usage_access_not_now">Не сейчас</string>
     <string name="usage_access_off_notice">Доступ к данным об использовании выключен, поэтому приложения на этом телефоне не учитываются.</string>
+    <string name="usage_access_why_title">Зачем SurfSense нужен доступ к данным об использовании</string>
+    <string name="usage_access_why_body">Android не показывает, сколько вы пользуетесь каждым приложением, пока вы это не разрешите. SurfSense это нужно, чтобы показывать экранное время. Названия приложений отправляются на сервер SurfSense для распределения по категориям, а итоги хранятся под случайным идентификатором вместе с названием вашего устройства.</string>
+    <string name="usage_access_steps">Нажмите кнопку ниже. Если появится список, выберите SurfSense. Включите доступ к данным об использовании и вернитесь.</string>
+    <string name="usage_access_still_off">Доступ к данным об использовании всё ещё выключен, поэтому на этом телефоне нечего подсчитать.</string>
 
     <!-- Today and Week (10.1.0) -->
     <string name="tab_today">Сегодня</string>

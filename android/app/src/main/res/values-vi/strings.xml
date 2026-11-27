@@ -113,6 +113,10 @@
     <string name="usage_access_continue">Tiếp tục</string>
     <string name="usage_access_not_now">Để sau</string>
     <string name="usage_access_off_notice">Quyền truy cập mức sử dụng đang tắt, nên các ứng dụng trên điện thoại này không được tính.</string>
+    <string name="usage_access_why_title">Vì sao SurfSense cần quyền truy cập dữ liệu sử dụng</string>
+    <string name="usage_access_why_body">Android không cho biết bạn dùng mỗi ứng dụng bao lâu cho đến khi bạn cho phép. SurfSense cần thông tin đó để hiển thị thời gian sử dụng màn hình của bạn. Tên ứng dụng được gửi đến máy chủ SurfSense để phân loại, và tổng thời gian được lưu dưới một ID ngẫu nhiên cùng tên thiết bị của bạn.</string>
+    <string name="usage_access_steps">Nhấn nút bên dưới. Nếu thấy danh sách, hãy chọn SurfSense. Bật quyền truy cập dữ liệu sử dụng rồi quay lại.</string>
+    <string name="usage_access_still_off">Quyền truy cập dữ liệu sử dụng vẫn đang tắt nên không thể tính được gì trên điện thoại này.</string>
 
     <!-- Today and Week (10.1.0) -->
     <string name="tab_today">Hôm nay</string>

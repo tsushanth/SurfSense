@@ -26,6 +26,7 @@ import { createOutageMonitor } from './outageMonitor.js';
 import { touchLastActive } from './lastActive.js';
 import { normalizeClientType } from './clientType.js';
 import { rateLimitKey } from './rateLimitKey.js';
+import { usageAccessReport } from './usageAccessReport.js';
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -94,6 +95,16 @@ const linkingFailureCeiling = rateLimit({
     standardHeaders: false,
     legacyHeaders: false,
     message: { error: 'Too many linking attempts, please try again later', code: 'LINKING_RATE_LIMITED' },
+});
+
+// An app sends at most a handful of these in its life; the cap keeps one caller from filling the failure reporter.
+const usageAccessLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 10,
+    keyGenerator: rateLimitKey,
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: { error: 'Too many reports, please try again later', code: 'RATE_LIMITED' },
 });
 
 app.use(generalLimiter);
@@ -415,6 +426,21 @@ app.post('/get-category-mapping', authenticateClient, categorizeLimiter, async (
     });
 
     res.json(response);
+});
+
+/**
+ * POST /usage-access-refused  { reason, device, android, appVersion }
+ * The Android app says the user did not turn Usage Access on. Nothing is stored; one failure report (flow
+ * usage_access_refused, no client id) goes to the reporter, which dedupes and counts them. The opposite outcome needs no
+ * call: a phone with access submits its first summary at once.
+ */
+app.post('/usage-access-refused', authenticateClient, usageAccessLimiter, (req, res) => {
+    const report = usageAccessReport(req.body);
+    if (!report) {
+        return res.status(400).json({ error: 'Valid reason is required', code: 'INVALID_REASON' });
+    }
+    reportFailure('usage_access_refused', new Error(`Usage access not granted: ${report.reason}`), report.context);
+    res.status(202).json({ status: 'recorded' });
 });
 
 app.post('/submit-category-summary', authenticateClient, async (req, res) => {

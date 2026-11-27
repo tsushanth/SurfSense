@@ -34,6 +34,7 @@ Run `schema.sql` in the Supabase SQL Editor to create all tables, indexes, RLS p
 ### Authenticated (Bearer token)
 - `POST /get-category-mapping` — Categorize domains/packages
 - `POST /submit-category-summary` — Submit daily usage summary
+- `POST /usage-access-refused` — Android reports that Usage Access was not turned on (fixed reason, phone model, versions; forwarded to the failure reporter as `usage_access_refused`, nothing stored, no id forwarded)
 - `GET /get-summary-history` — Fetch usage history for a device
 - `POST /track-usage` — Track LLM API usage
 - `GET /usage` — Get own usage data

@@ -97,6 +97,10 @@
     <string name="usage_access_continue">Tovább</string>
     <string name="usage_access_not_now">Most nem</string>
     <string name="usage_access_off_notice">A használati hozzáférés ki van kapcsolva, ezért a telefonon lévő alkalmazásokat nem számoljuk.</string>
+    <string name="usage_access_why_title">Miért kell a SurfSense-nek a használati adatokhoz való hozzáférés</string>
+    <string name="usage_access_why_body">Az Android csak az engedélyed után mutatja meg, mennyi ideig használod az egyes alkalmazásokat. A SurfSense-nek erre a képernyőidő megjelenítéséhez van szüksége. Az alkalmazásnevek a kategorizáláshoz a SurfSense szerverére kerülnek, az összesítések pedig egy véletlen azonosító alatt, az eszközöd nevével együtt tárolódnak.</string>
+    <string name="usage_access_steps">Koppints az alábbi gombra. Ha listát látsz, válaszd a SurfSense-t. Kapcsold be a használati adatok elérését, majd gyere vissza.</string>
+    <string name="usage_access_still_off">A használati adatokhoz való hozzáférés még ki van kapcsolva, ezért ezen a telefonon semmi sem számolható.</string>
     <string name="tab_today">Ma</string>
     <string name="tab_week">Hét</string>
     <string name="today_total_phone">%1$s ma a telefonodon</string>

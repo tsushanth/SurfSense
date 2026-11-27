@@ -35,6 +35,12 @@ import com.kreativekoala.surfsense.usage.CategoryMapper
 import com.kreativekoala.surfsense.usage.CategoryOverrides
 import com.kreativekoala.surfsense.usage.UsageAccess
 import com.kreativekoala.surfsense.usage.UsageAccessPolicy
+import com.kreativekoala.surfsense.usage.AccessRefusal
+import com.kreativekoala.surfsense.usage.UsageAccessReports
+import com.kreativekoala.surfsense.UsageAccessRefusedRequest
+import com.kreativekoala.surfsense.BuildConfig
+import android.content.Context
+import android.os.Build
 import com.kreativekoala.surfsense.usage.UsageCollector
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineStart
@@ -123,6 +129,8 @@ data class MainUiState(
     val appCategories: Map<String, String> = emptyMap(),
     val categoryOverrides: Map<String, String> = emptyMap(),
     val usageAccessGranted: Boolean = false,
+    /** The user came back from the settings page (or it did not open) and access is still off. */
+    val usageAccessStillOff: Boolean = false,
     val export: ExportState = ExportState(),
 )
 
@@ -133,6 +141,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val overrides by lazy { CategoryOverrides(CategoryOverrides.SharedPrefsStore(application)) }
     private val pastDays by lazy { PrefsPastDayCache(application) }
     private val usageAccessPolicy by lazy { UsageAccessPolicy(UsageAccessPolicy.PrefsStore(application)) }
+    private val accessReports by lazy {
+        UsageAccessReports(UsageAccessReports.PrefsStore(application)) { reason ->
+            Identity.registrar().ensureRegistered() && apiService.reportUsageAccessRefused(
+                UsageAccessRefusedRequest(reason, "${Build.MANUFACTURER} ${Build.MODEL}", Build.VERSION.RELEASE.orEmpty(), BuildConfig.VERSION_NAME)
+            ).isSuccessful
+        }
+    }
     private val history by lazy {
         HistoryRepository(fromUsageRepository(repository), pastDays) { repository.getTodayDate() }
     }
@@ -318,14 +333,38 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun refreshUsageAccess() {
         val granted = UsageAccess.isGranted(getApplication<Application>())
         val justGranted = usageAccessPolicy.onChecked(granted)
+        val gaveUp = usageAccessPolicy.cameBackWithoutAccess(granted)
         if (_uiState.value.usageAccessGranted != granted) {
             _uiState.update {
                 it.copy(usageAccessGranted = granted, appsToday = if (granted) it.appsToday else emptyList())
             }
         }
+        _uiState.update { it.copy(usageAccessStillOff = !granted && (gaveUp || it.usageAccessStillOff)) }
+        if (gaveUp) accessReports.record(AccessRefusal.RETURNED_WITHOUT_ACCESS)
+        sendAccessReports()
         if (justGranted) {
             syncNow()
         }
+    }
+
+    /** Every "Allow usage access" button: opens the settings page and notes the visit. */
+    fun openUsageAccess(context: Context) {
+        usageAccessPolicy.openingSettings()
+        if (UsageAccess.openSettings(context)) return
+        usageAccessPolicy.settingsNotOpened()
+        _uiState.update { it.copy(usageAccessStillOff = true) }
+        accessReports.record(AccessRefusal.SETTINGS_UNAVAILABLE)
+        sendAccessReports()
+    }
+
+    /** "Not now" on the first-run dialog, or the dialog dismissed. */
+    fun declineUsageAccess() {
+        accessReports.record(AccessRefusal.NOT_NOW)
+        sendAccessReports()
+    }
+
+    private fun sendAccessReports() {
+        viewModelScope.launch(Dispatchers.IO) { accessReports.flush() }
     }
 
     fun linkDevice(code: String) {

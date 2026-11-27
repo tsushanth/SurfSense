@@ -113,6 +113,10 @@
     <string name="usage_access_continue">Lanjutkan</string>
     <string name="usage_access_not_now">Nanti saja</string>
     <string name="usage_access_off_notice">Akses penggunaan mati, jadi aplikasi di ponsel ini tidak dihitung.</string>
+    <string name="usage_access_why_title">Mengapa SurfSense memerlukan akses penggunaan</string>
+    <string name="usage_access_why_body">Android tidak menampilkan berapa lama Anda memakai tiap aplikasi sebelum Anda mengizinkannya. SurfSense memerlukannya untuk menampilkan waktu layar Anda. Nama aplikasi dikirim ke server SurfSense untuk dikelompokkan, dan totalnya disimpan dengan ID acak beserta nama perangkat Anda.</string>
+    <string name="usage_access_steps">Ketuk tombol di bawah. Jika muncul daftar, pilih SurfSense. Aktifkan akses penggunaan, lalu kembali.</string>
+    <string name="usage_access_still_off">Akses penggunaan masih nonaktif, jadi tidak ada yang bisa dihitung di ponsel ini.</string>
 
     <!-- Today and Week (10.1.0) -->
     <string name="tab_today">Hari ini</string>

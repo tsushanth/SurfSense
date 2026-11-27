@@ -123,6 +123,10 @@
     <string name="usage_access_continue">जारी रखें</string>
     <string name="usage_access_not_now">अभी नहीं</string>
     <string name="usage_access_off_notice">उपयोग एक्सेस बंद है, इसलिए इस फ़ोन के ऐप्स गिने नहीं जा रहे हैं।</string>
+    <string name="usage_access_why_title">SurfSense को उपयोग ऐक्सेस क्यों चाहिए</string>
+    <string name="usage_access_why_body">जब तक आप अनुमति नहीं देते, Android यह नहीं बताता कि आप हर ऐप कितनी देर इस्तेमाल करते हैं। आपका स्क्रीन समय दिखाने के लिए SurfSense को इसकी ज़रूरत है। ऐप के नाम श्रेणियों में बाँटने के लिए SurfSense सर्वर पर भेजे जाते हैं और कुल समय आपके डिवाइस के नाम के साथ एक रैंडम ID के तहत सहेजा जाता है।</string>
+    <string name="usage_access_steps">नीचे दिए बटन पर टैप करें। सूची दिखे तो SurfSense चुनें। उपयोग ऐक्सेस चालू करें, फिर वापस आएँ।</string>
+    <string name="usage_access_still_off">उपयोग ऐक्सेस अभी भी बंद है, इसलिए इस फ़ोन पर कुछ भी नहीं गिना जा सकता।</string>
 
     <!-- Today and Week (10.1.0) -->
     <string name="tab_today">आज</string>

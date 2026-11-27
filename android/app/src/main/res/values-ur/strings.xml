@@ -97,6 +97,10 @@
     <string name="usage_access_continue">جاری رکھیں</string>
     <string name="usage_access_not_now">ابھی نہیں</string>
     <string name="usage_access_off_notice">استعمال تک رسائی بند ہے، اس لیے اس فون کی ایپس شمار نہیں ہو رہیں۔</string>
+    <string name="usage_access_why_title">SurfSense کو استعمال کی رسائی کیوں چاہیے</string>
+    <string name="usage_access_why_body">جب تک آپ اجازت نہ دیں، Android یہ نہیں بتاتا کہ آپ ہر ایپ کتنی دیر استعمال کرتے ہیں۔ آپ کا اسکرین ٹائم دکھانے کے لیے SurfSense کو اس کی ضرورت ہے۔ ایپ کے نام زمرہ بندی کے لیے SurfSense سرور کو بھیجے جاتے ہیں، اور کل وقت ایک بے ترتیب ID کے تحت آپ کے آلے کے نام کے ساتھ محفوظ ہوتا ہے۔</string>
+    <string name="usage_access_steps">نیچے والا بٹن دبائیں۔ اگر فہرست نظر آئے تو SurfSense منتخب کریں۔ استعمال کی رسائی آن کریں، پھر واپس آئیں۔</string>
+    <string name="usage_access_still_off">استعمال کی رسائی ابھی بھی بند ہے، اس لیے اس فون پر کچھ بھی شمار نہیں ہو سکتا۔</string>
     <string name="tab_today">آج</string>
     <string name="tab_week">ہفتہ</string>
     <string name="today_total_phone">آج آپ کے فون پر %1$s</string>

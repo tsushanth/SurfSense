@@ -97,6 +97,10 @@
     <string name="usage_access_continue">Συνέχεια</string>
     <string name="usage_access_not_now">Όχι τώρα</string>
     <string name="usage_access_off_notice">Η πρόσβαση χρήσης είναι απενεργοποιημένη, επομένως οι εφαρμογές σε αυτό το τηλέφωνο δεν καταμετρώνται.</string>
+    <string name="usage_access_why_title">Γιατί το SurfSense χρειάζεται πρόσβαση στα δεδομένα χρήσης</string>
+    <string name="usage_access_why_body">Το Android δεν δείχνει πόση ώρα χρησιμοποιείς κάθε εφαρμογή μέχρι να το επιτρέψεις. Το SurfSense το χρειάζεται για να εμφανίζει τον χρόνο οθόνης σου. Τα ονόματα των εφαρμογών στέλνονται στον διακομιστή του SurfSense για κατηγοριοποίηση και τα σύνολα αποθηκεύονται με ένα τυχαίο αναγνωριστικό και το όνομα της συσκευής σου.</string>
+    <string name="usage_access_steps">Πάτησε το παρακάτω κουμπί. Αν δεις λίστα, επίλεξε SurfSense. Ενεργοποίησε την πρόσβαση στα δεδομένα χρήσης και γύρισε εδώ.</string>
+    <string name="usage_access_still_off">Η πρόσβαση στα δεδομένα χρήσης είναι ακόμα ανενεργή, οπότε δεν μπορεί να μετρηθεί τίποτα σε αυτό το τηλέφωνο.</string>
     <string name="tab_today">Σήμερα</string>
     <string name="tab_week">Εβδομάδα</string>
     <string name="today_total_phone">%1$s στο τηλέφωνό σου σήμερα</string>

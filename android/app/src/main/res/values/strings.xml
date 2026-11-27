@@ -124,6 +124,10 @@
     <string name="usage_access_continue">Continue</string>
     <string name="usage_access_not_now">Not now</string>
     <string name="usage_access_off_notice">Usage access is off, so apps on this phone are not being counted.</string>
+    <string name="usage_access_why_title">Why SurfSense needs usage access</string>
+    <string name="usage_access_why_body">Android hides how long you use each app until you allow it. SurfSense needs that to show your screen time. App names are sent to the SurfSense server to sort them into categories, and totals are stored under a random ID with your device\'s name.</string>
+    <string name="usage_access_steps">Tap the button below. If you see a list, choose SurfSense. Turn usage access on, then come back.</string>
+    <string name="usage_access_still_off">Usage access is still off, so nothing on this phone can be counted.</string>
 
     <!-- Today and Week (10.1.0) -->
     <string name="tab_today">Today</string>

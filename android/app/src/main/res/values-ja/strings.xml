@@ -123,6 +123,10 @@
     <string name="usage_access_continue">続ける</string>
     <string name="usage_access_not_now">今はしない</string>
     <string name="usage_access_off_notice">使用状況へのアクセスがオフのため、このスマートフォンのアプリは集計されていません。</string>
+    <string name="usage_access_why_title">SurfSenseに使用状況へのアクセスが必要な理由</string>
+    <string name="usage_access_why_body">許可するまで、Androidは各アプリの使用時間を提供しません。SurfSenseはスクリーンタイムを表示するためにこの情報が必要です。アプリ名は分類のためにSurfSenseのサーバーに送信され、合計はランダムなIDに端末名とともに保存されます。</string>
+    <string name="usage_access_steps">下のボタンをタップします。一覧が表示されたらSurfSenseを選びます。使用状況へのアクセスをオンにして、ここに戻ってください。</string>
+    <string name="usage_access_still_off">使用状況へのアクセスがまだオフのため、このスマートフォンでは何も計測できません。</string>
 
     <!-- Today and Week (10.1.0) -->
     <string name="tab_today">今日</string>

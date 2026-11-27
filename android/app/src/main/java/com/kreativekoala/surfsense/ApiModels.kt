@@ -164,3 +164,14 @@ data class RegisterClientResponse(
     val data: Map<String, Any>?
 )
 
+/** Why this phone's usage cannot be read. No id and no usage data: the server knows the caller from its key and does not forward it. */
+data class UsageAccessRefusedRequest(
+    @SerializedName("reason")
+    val reason: String,
+    @SerializedName("device")
+    val device: String,
+    @SerializedName("android")
+    val android: String,
+    @SerializedName("appVersion")
+    val appVersion: String
+)

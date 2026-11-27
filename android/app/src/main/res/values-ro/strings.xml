@@ -99,6 +99,10 @@
     <string name="usage_access_continue">Continuă</string>
     <string name="usage_access_not_now">Nu acum</string>
     <string name="usage_access_off_notice">Accesul la datele de utilizare este dezactivat, așa că aplicațiile de pe acest telefon nu sunt contorizate.</string>
+    <string name="usage_access_why_title">De ce are SurfSense nevoie de acces la datele de utilizare</string>
+    <string name="usage_access_why_body">Android nu arată cât timp folosești fiecare aplicație până nu permiți acest lucru. SurfSense are nevoie de această informație ca să afișeze timpul petrecut în fața ecranului. Numele aplicațiilor sunt trimise la serverul SurfSense pentru clasificare, iar totalurile sunt stocate sub un ID aleatoriu, cu numele dispozitivului tău.</string>
+    <string name="usage_access_steps">Atinge butonul de mai jos. Dacă apare o listă, alege SurfSense. Activează accesul la datele de utilizare, apoi revino.</string>
+    <string name="usage_access_still_off">Accesul la datele de utilizare este încă dezactivat, așa că nimic de pe acest telefon nu poate fi numărat.</string>
     <string name="tab_today">Astăzi</string>
     <string name="tab_week">Săptămâna</string>
     <string name="today_total_phone">%1$s pe telefonul tău astăzi</string>
