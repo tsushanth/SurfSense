@@ -13,9 +13,12 @@ Newest entries first. Backend deploys come from a clean worktree of origin/main.
 
 | Release | Date (PT) | Source | Image | Rollback |
 |---|---|---|---|---|
+| v9 | 2026-11-26 | origin/main `02f80d2` (tree `02585fe2`, backend tree `77ecced3`, PR #26: `POST /usage-access-refused`) | `registry.fly.io/usage-tracker-backend:deployment-01M8D8KN5EGBXVBZCQTSS88F6B` | `cd backend && flyctl deploy -a usage-tracker-backend --image registry.fly.io/usage-tracker-backend:deployment-01M8CSB9RMSH9DTAJ0T6KEK9SX` |
 | v8 | 2026-11-26 | origin/main `98fcdbd` (tree `cb7f676f`, PR #22: rate limits counted per caller) | `registry.fly.io/usage-tracker-backend:deployment-01M8CSB9RMSH9DTAJ0T6KEK9SX` | `cd backend && flyctl deploy -a usage-tracker-backend --image registry.fly.io/usage-tracker-backend:deployment-01M8A0MMYSFE0CTPCBMMGZY0KZ` |
 | v7 | 2026-11-25 | origin/main `40e4eec` (tree `3702a033`, PR #20: `ANDROID_PHONE` stored as `ANDROID`) | `registry.fly.io/usage-tracker-backend:deployment-01M8A0MMYSFE0CTPCBMMGZY0KZ` | `cd backend && flyctl deploy -a usage-tracker-backend --image registry.fly.io/usage-tracker-backend:deployment-01M852RPQ8QJNXCQBAK10HJEXC` |
 | v6 | 2026-11-23 | origin/main `f9da028` (tree `359787f5`, PR #13: stable `code` on every 4xx, `error` text unchanged) | `registry.fly.io/usage-tracker-backend:deployment-01M852RPQ8QJNXCQBAK10HJEXC` | `cd backend && flyctl deploy -a usage-tracker-backend --image registry.fly.io/usage-tracker-backend:deployment-01M6BTT1ATG50YJA0VA8JEJNHX` |
+
+Verified after v9: `/health` ok; the new route answers 401 without a key and with a wrong key (it existed in no earlier release); machine logs show "Server listening" and no error. The 202 and 400 answers and the single report were checked only on a local run against a mock database and reporter, not in production (that would have created a test client and sent an alert). No schema or secret change. The Android side is merged and not released.
 
 Verified after v8: two callers have separate `ratelimit-remaining` counters, a forged `Fly-Client-IP` or `X-Forwarded-For` does not start a new one, and device linking passed in both directions (published extension 4.0.0 in headless Chromium, Android request shapes over HTTP): code shown, code entered, wrong code refused, each side reads the other's day, unlink, read refused afterwards. Test devices deleted. No Android build was run.
 
