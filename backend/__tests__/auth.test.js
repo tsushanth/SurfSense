@@ -1,9 +1,12 @@
 import { describe, it, expect, vi } from 'vitest';
 
+// Each test sets lookup.result to what the API key query resolves with
+const lookup = vi.hoisted(() => ({ result: {} }));
+
 // Mock supabase before importing auth (auth.js imports supabase.js transitively)
 vi.mock('../supabase.js', () => ({
     supabase: {
-        from: () => ({ select: () => ({ eq: () => ({ single: () => ({}) }) }) }),
+        from: () => ({ select: () => ({ eq: () => ({ single: async () => lookup.result }) }) }),
     }
 }));
 
@@ -11,7 +14,52 @@ vi.mock('../logger.js', () => ({
     logger: { info: vi.fn(), error: vi.fn(), warn: vi.fn() }
 }));
 
-const { hashApiKey, generateApiKey } = await import('../middleware/auth.js');
+vi.mock('../failureReporter.js', () => ({ reportFailure: vi.fn() }));
+
+const { hashApiKey, generateApiKey, authenticateClient } = await import('../middleware/auth.js');
+const { logger } = await import('../logger.js');
+const { reportFailure } = await import('../failureReporter.js');
+
+describe('authenticateClient', () => {
+    async function authenticate(result) {
+        lookup.result = result;
+        const req = { headers: { authorization: `Bearer ${'a'.repeat(64)}` } };
+        const res = { status: vi.fn().mockReturnThis(), json: vi.fn() };
+        const next = vi.fn();
+        await authenticateClient(req, res, next);
+        return { req, res, next };
+    }
+
+    it('passes a known key through with the client attached', async () => {
+        const { req, res, next } = await authenticate({
+            data: { client_id: 'client-1', client_type: 'android' }, error: null,
+        });
+        expect(next).toHaveBeenCalledOnce();
+        expect(res.status).not.toHaveBeenCalled();
+        expect(req).toMatchObject({ clientId: 'client-1', clientType: 'android' });
+    });
+
+    it('answers 401 when the lookup finds no row', async () => {
+        for (const error of [{ code: 'PGRST116' }, null]) {
+            const { res, next } = await authenticate({ data: null, error });
+            expect(res.status).toHaveBeenCalledWith(401);
+            expect(res.json).toHaveBeenCalledWith({ error: 'Invalid API key', code: 'AUTH_INVALID_KEY' });
+            expect(next).not.toHaveBeenCalled();
+        }
+    });
+
+    // Regression: a 401 makes the Android app drop its key and register as a new identity
+    it('answers 503, not 401, when the lookup itself fails', async () => {
+        const { res, next } = await authenticate({
+            data: null, error: { code: '57014', message: 'canceling statement due to statement timeout' },
+        });
+        expect(res.status).toHaveBeenCalledWith(503);
+        expect(res.json).toHaveBeenCalledWith({ error: 'Authentication service unavailable' });
+        expect(next).not.toHaveBeenCalled();
+        expect(reportFailure).toHaveBeenCalledWith('auth-middleware-db', new Error('API key lookup failed'));
+        expect(logger.error).toHaveBeenCalledWith({ code: '57014' }, 'API key lookup failed');
+    });
+});
 
 describe('generateApiKey', () => {
     it('returns a string', () => {
