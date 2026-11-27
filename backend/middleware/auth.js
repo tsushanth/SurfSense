@@ -41,7 +41,14 @@ export async function authenticateClient(req, res, next) {
             .eq('api_key_hash', tokenHash)
             .single();
 
-        if (error || !client) {
+        // PGRST116 = no row. Any other error says nothing about the key, and clients discard it on a 401.
+        if (error && error.code !== 'PGRST116') {
+            logger.error({ code: error.code }, 'API key lookup failed');
+            reportFailure('auth-middleware-db', new Error('API key lookup failed'));
+            return res.status(503).json({ error: 'Authentication service unavailable' });
+        }
+
+        if (!client) {
             return res.status(401).json({ error: 'Invalid API key', code: 'AUTH_INVALID_KEY' });
         }
 
