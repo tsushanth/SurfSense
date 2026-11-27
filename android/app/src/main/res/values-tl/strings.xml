@@ -123,6 +123,10 @@
     <string name="usage_access_continue">Magpatuloy</string>
     <string name="usage_access_not_now">Huwag muna</string>
     <string name="usage_access_off_notice">Naka-off ang access sa paggamit, kaya hindi binibilang ang mga app sa teleponong ito.</string>
+    <string name="usage_access_why_title">Bakit kailangan ng SurfSense ang access sa paggamit</string>
+    <string name="usage_access_why_body">Hindi ipinapakita ng Android kung gaano mo katagal ginagamit ang bawat app hangga\'t hindi mo pinapayagan. Kailangan ito ng SurfSense para maipakita ang iyong screen time. Ipinapadala ang mga pangalan ng app sa server ng SurfSense para ayusin sa mga kategorya, at iniimbak ang mga kabuuan sa ilalim ng random na ID kasama ang pangalan ng iyong device.</string>
+    <string name="usage_access_steps">I-tap ang button sa ibaba. Kung may listahan, piliin ang SurfSense. I-on ang access sa paggamit, pagkatapos ay bumalik.</string>
+    <string name="usage_access_still_off">Naka-off pa rin ang access sa paggamit, kaya walang mabibilang sa teleponong ito.</string>
 
     <!-- Today and Week (10.1.0) -->
     <string name="tab_today">Ngayon</string>

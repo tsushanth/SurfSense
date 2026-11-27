@@ -123,6 +123,10 @@
     <string name="usage_access_continue">Continuer</string>
     <string name="usage_access_not_now">Pas maintenant</string>
     <string name="usage_access_off_notice">L\'accès à l\'utilisation est désactivé, donc les applications de ce téléphone ne sont pas comptabilisées.</string>
+    <string name="usage_access_why_title">Pourquoi SurfSense a besoin de l’accès aux données d’utilisation</string>
+    <string name="usage_access_why_body">Android ne communique pas le temps passé dans chaque application tant que vous ne l’autorisez pas. SurfSense en a besoin pour afficher votre temps d’écran. Les noms des applications sont envoyés au serveur SurfSense pour être classés, et les totaux sont enregistrés sous un identifiant aléatoire avec le nom de votre appareil.</string>
+    <string name="usage_access_steps">Touchez le bouton ci-dessous. Si une liste s’affiche, choisissez SurfSense. Activez l’accès aux données d’utilisation, puis revenez.</string>
+    <string name="usage_access_still_off">L’accès aux données d’utilisation est toujours désactivé : rien ne peut être compté sur ce téléphone.</string>
 
     <!-- Today and Week (10.1.0) -->
     <string name="tab_today">Aujourd\'hui</string>

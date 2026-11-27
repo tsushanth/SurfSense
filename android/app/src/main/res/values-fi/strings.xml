@@ -97,6 +97,10 @@
     <string name="usage_access_continue">Jatka</string>
     <string name="usage_access_not_now">Ei nyt</string>
     <string name="usage_access_off_notice">Käyttötietojen käyttöoikeus on pois päältä, joten tämän puhelimen sovelluksia ei lasketa.</string>
+    <string name="usage_access_why_title">Miksi SurfSense tarvitsee käyttötietojen käyttöoikeuden</string>
+    <string name="usage_access_why_body">Android ei kerro, kauanko käytät kutakin sovellusta, ennen kuin sallit sen. SurfSense tarvitsee tiedon näyttääkseen näyttöaikasi. Sovellusten nimet lähetetään SurfSense-palvelimelle luokittelua varten, ja summat tallennetaan satunnaisen tunnisteen alle laitteesi nimen kanssa.</string>
+    <string name="usage_access_steps">Napauta alla olevaa painiketta. Jos näet luettelon, valitse SurfSense. Ota käyttötietojen käyttöoikeus käyttöön ja palaa tänne.</string>
+    <string name="usage_access_still_off">Käyttötietojen käyttöoikeus on yhä pois päältä, joten tässä puhelimessa ei voida laskea mitään.</string>
     <string name="tab_today">Tänään</string>
     <string name="tab_week">Viikko</string>
     <string name="today_total_phone">%1$s tänään puhelimellasi</string>

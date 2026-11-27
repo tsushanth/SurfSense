@@ -123,6 +123,10 @@
     <string name="usage_access_continue">繼續</string>
     <string name="usage_access_not_now">暫不</string>
     <string name="usage_access_off_notice">使用情況存取已關閉，因此不會統計這部手機上的應用。</string>
+    <string name="usage_access_why_title">SurfSense 為何需要使用情況存取權</string>
+    <string name="usage_access_why_body">在您允許之前，Android 不會提供各應用程式的使用時間。SurfSense 需要這項資料才能顯示您的螢幕使用時間。應用程式名稱會傳送到 SurfSense 伺服器進行分類，總計會與您的裝置名稱一起儲存在隨機 ID 下。</string>
+    <string name="usage_access_steps">點按下方按鈕。如果出現清單，請選擇 SurfSense。開啟使用情況存取權，然後返回。</string>
+    <string name="usage_access_still_off">使用情況存取權仍未開啟，因此無法統計這支手機上的任何資料。</string>
 
     <!-- Today and Week (10.1.0) -->
     <string name="tab_today">今天</string>

@@ -123,6 +123,10 @@
     <string name="usage_access_continue">Dalej</string>
     <string name="usage_access_not_now">Nie teraz</string>
     <string name="usage_access_off_notice">Dostęp do danych o użyciu jest wyłączony, więc aplikacje na tym telefonie nie są liczone.</string>
+    <string name="usage_access_why_title">Dlaczego SurfSense potrzebuje dostępu do danych o użyciu</string>
+    <string name="usage_access_why_body">Android nie pokazuje, jak długo korzystasz z poszczególnych aplikacji, dopóki na to nie pozwolisz. SurfSense potrzebuje tego, aby pokazać czas przed ekranem. Nazwy aplikacji są wysyłane na serwer SurfSense w celu przypisania do kategorii, a sumy są zapisywane pod losowym identyfikatorem wraz z nazwą urządzenia.</string>
+    <string name="usage_access_steps">Dotknij przycisku poniżej. Jeśli pojawi się lista, wybierz SurfSense. Włącz dostęp do danych o użyciu i wróć.</string>
+    <string name="usage_access_still_off">Dostęp do danych o użyciu jest nadal wyłączony, więc na tym telefonie nie można nic policzyć.</string>
 
     <!-- Today and Week (10.1.0) -->
     <string name="tab_today">Dziś</string>

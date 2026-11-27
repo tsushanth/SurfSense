@@ -113,6 +113,10 @@
     <string name="usage_access_continue">Doorgaan</string>
     <string name="usage_access_not_now">Niet nu</string>
     <string name="usage_access_off_notice">Gebruikstoegang staat uit, dus de apps op deze telefoon worden niet meegeteld.</string>
+    <string name="usage_access_why_title">Waarom SurfSense gebruikstoegang nodig heeft</string>
+    <string name="usage_access_why_body">Android laat pas zien hoe lang je elke app gebruikt nadat je dat toestaat. SurfSense heeft dat nodig om je schermtijd te tonen. App-namen worden naar de SurfSense-server gestuurd om ze in categorieën te delen, en totalen worden onder een willekeurige ID met de naam van je apparaat bewaard.</string>
+    <string name="usage_access_steps">Tik op de knop hieronder. Zie je een lijst, kies dan SurfSense. Zet gebruikstoegang aan en kom terug.</string>
+    <string name="usage_access_still_off">Gebruikstoegang staat nog uit, dus op deze telefoon kan niets worden geteld.</string>
 
     <!-- Today and Week (10.1.0) -->
     <string name="tab_today">Vandaag</string>

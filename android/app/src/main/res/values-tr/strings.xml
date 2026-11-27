@@ -113,6 +113,10 @@
     <string name="usage_access_continue">Devam</string>
     <string name="usage_access_not_now">Şimdi değil</string>
     <string name="usage_access_off_notice">Kullanım erişimi kapalı, bu yüzden bu telefondaki uygulamalar sayılmıyor.</string>
+    <string name="usage_access_why_title">SurfSense neden kullanım erişimine ihtiyaç duyar</string>
+    <string name="usage_access_why_body">İzin verene kadar Android her uygulamayı ne kadar kullandığınızı göstermez. SurfSense ekran sürenizi gösterebilmek için buna ihtiyaç duyar. Uygulama adları kategorilere ayrılmak üzere SurfSense sunucusuna gönderilir, toplamlar ise cihazınızın adıyla birlikte rastgele bir kimlik altında saklanır.</string>
+    <string name="usage_access_steps">Aşağıdaki düğmeye dokunun. Liste görürseniz SurfSense\'i seçin. Kullanım erişimini açın ve geri dönün.</string>
+    <string name="usage_access_still_off">Kullanım erişimi hâlâ kapalı, bu yüzden bu telefonda hiçbir şey sayılamıyor.</string>
 
     <!-- Today and Week (10.1.0) -->
     <string name="tab_today">Bugün</string>

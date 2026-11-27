@@ -94,11 +94,12 @@ fun TodayScreen(
             !TodayModel.hasAnyData(devices) -> item { EmptyToday(
                 syncing = state.isLoading,
                 usageAccessGranted = state.usageAccessGranted,
+                usageAccessStillOff = state.usageAccessStillOff,
                 onSyncNow = onSyncNow,
                 onOpenUsageAccess = onOpenUsageAccess,
             ) }
             else -> {
-                if (!state.usageAccessGranted) item { UsageAccessNotice(onOpenUsageAccess) }
+                if (!state.usageAccessGranted) item { UsageAccessNotice(state.usageAccessStillOff, onOpenUsageAccess) }
                 item { TodayHeader(devices, scope, thisId) }
                 if (multi) {
                     item { ScopeChips(devices, scope, onSelectScope) }
@@ -210,6 +211,7 @@ private fun ScopeChips(devices: List<DeviceToday>, scope: String?, onSelectScope
 private fun EmptyToday(
     syncing: Boolean,
     usageAccessGranted: Boolean,
+    usageAccessStillOff: Boolean,
     onSyncNow: () -> Unit,
     onOpenUsageAccess: () -> Unit,
 ) {
@@ -220,6 +222,7 @@ private fun EmptyToday(
             color = MaterialTheme.colorScheme.onSurface,
         )
         if (!usageAccessGranted) {
+            UsageAccessWhy(usageAccessStillOff)
             Button(onClick = onOpenUsageAccess, modifier = Modifier.heightIn(min = 48.dp)) {
                 Text(stringResource(R.string.usage_access_title))
             }
@@ -236,16 +239,46 @@ private fun EmptyToday(
 
 /** Shown above linked-device data when this phone itself is not being counted. */
 @Composable
-private fun UsageAccessNotice(onOpenUsageAccess: () -> Unit) {
+private fun UsageAccessNotice(stillOff: Boolean, onOpenUsageAccess: () -> Unit) {
     Column(Modifier.padding(bottom = 16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
         Text(
             stringResource(R.string.usage_access_off_notice),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
+        UsageAccessWhy(stillOff)
         TextButton(onClick = onOpenUsageAccess, modifier = Modifier.heightIn(min = 48.dp)) {
             Text(stringResource(R.string.usage_access_title))
         }
+    }
+}
+
+/** Why the permission is needed, what leaves the phone, and which switch to find. Shown wherever the button to grant it is. */
+@Composable
+private fun UsageAccessWhy(stillOff: Boolean) {
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        if (stillOff) {
+            Text(
+                stringResource(R.string.usage_access_still_off),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.error,
+            )
+        }
+        Text(
+            stringResource(R.string.usage_access_why_title),
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onSurface,
+        )
+        Text(
+            stringResource(R.string.usage_access_why_body),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        Text(
+            stringResource(R.string.usage_access_steps),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
     }
 }
 

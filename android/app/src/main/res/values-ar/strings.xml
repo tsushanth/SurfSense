@@ -113,6 +113,10 @@
     <string name="usage_access_continue">متابعة</string>
     <string name="usage_access_not_now">ليس الآن</string>
     <string name="usage_access_off_notice">الوصول إلى الاستخدام متوقف، لذا لا يتم احتساب التطبيقات على هذا الهاتف.</string>
+    <string name="usage_access_why_title">لماذا يحتاج SurfSense إلى الوصول إلى بيانات الاستخدام</string>
+    <string name="usage_access_why_body">يخفي Android مدة استخدامك لكل تطبيق إلى أن تسمح بذلك. يحتاج SurfSense إلى هذه المعلومة ليعرض وقت استخدام الشاشة. تُرسل أسماء التطبيقات إلى خادم SurfSense لتصنيفها، وتُحفظ المجاميع تحت معرّف عشوائي مع اسم جهازك.</string>
+    <string name="usage_access_steps">اضغط الزر أدناه. إذا ظهرت لك قائمة فاختر SurfSense. فعّل الوصول إلى بيانات الاستخدام ثم عد إلى هنا.</string>
+    <string name="usage_access_still_off">لا يزال الوصول إلى بيانات الاستخدام متوقفًا، لذا لا يمكن احتساب أي شيء على هذا الهاتف.</string>
 
     <!-- Today and Week (10.1.0) -->
     <string name="tab_today">اليوم</string>

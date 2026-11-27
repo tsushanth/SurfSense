@@ -101,6 +101,10 @@
     <string name="usage_access_continue">Pokračovat</string>
     <string name="usage_access_not_now">Teď ne</string>
     <string name="usage_access_off_notice">Přístup k využití je vypnutý, proto se aplikace v tomto telefonu nepočítají.</string>
+    <string name="usage_access_why_title">Proč SurfSense potřebuje přístup k údajům o využití</string>
+    <string name="usage_access_why_body">Android neukáže, jak dlouho jednotlivé aplikace používáš, dokud to nepovolíš. SurfSense to potřebuje, aby zobrazil tvůj čas u obrazovky. Názvy aplikací se posílají na server SurfSense kvůli zařazení do kategorií a součty se ukládají pod náhodným ID s názvem tvého zařízení.</string>
+    <string name="usage_access_steps">Klepni na tlačítko níže. Pokud se zobrazí seznam, vyber SurfSense. Zapni přístup k údajům o využití a vrať se.</string>
+    <string name="usage_access_still_off">Přístup k údajům o využití je stále vypnutý, takže v tomto telefonu nelze nic počítat.</string>
     <string name="tab_today">Dnes</string>
     <string name="tab_week">Týden</string>
     <string name="today_total_phone">%1$s dnes na tvém telefonu</string>

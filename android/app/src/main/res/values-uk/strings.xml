@@ -101,6 +101,10 @@
     <string name="usage_access_continue">Продовжити</string>
     <string name="usage_access_not_now">Не зараз</string>
     <string name="usage_access_off_notice">Доступ до даних про використання вимкнено, тому застосунки на цьому телефоні не враховуються.</string>
+    <string name="usage_access_why_title">Навіщо SurfSense доступ до даних про використання</string>
+    <string name="usage_access_why_body">Android не показує, скільки ви користуєтеся кожним застосунком, доки ви це не дозволите. SurfSense це потрібно, щоб показувати екранний час. Назви застосунків надсилаються на сервер SurfSense для розподілу за категоріями, а підсумки зберігаються під випадковим ідентифікатором разом із назвою вашого пристрою.</string>
+    <string name="usage_access_steps">Натисніть кнопку нижче. Якщо з’явиться список, виберіть SurfSense. Увімкніть доступ до даних про використання й поверніться.</string>
+    <string name="usage_access_still_off">Доступ до даних про використання досі вимкнено, тому на цьому телефоні нічого не можна порахувати.</string>
     <string name="tab_today">Сьогодні</string>
     <string name="tab_week">Тиждень</string>
     <string name="today_total_phone">%1$s на вашому телефоні сьогодні</string>

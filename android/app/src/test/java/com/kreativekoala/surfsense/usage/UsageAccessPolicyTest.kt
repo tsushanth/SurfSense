@@ -11,6 +11,32 @@ class UsageAccessPolicyTest {
         override fun setDialogShown(count: Int) { shown = count }
         override fun lastGranted() = last
         override fun setLastGranted(granted: Boolean) { last = granted }
+        private var awaiting = false
+        override fun awaitingReturn() = awaiting
+        override fun setAwaitingReturn(awaiting: Boolean) { this.awaiting = awaiting }
+    }
+
+    @Test fun comingBackFromSettingsWithoutAccessCountsOnce() {
+        val store = FakeStore()
+        UsageAccessPolicy(store).openingSettings()
+        val afterRestart = UsageAccessPolicy(store)
+        assertTrue(afterRestart.cameBackWithoutAccess(granted = false))
+        assertFalse(afterRestart.cameBackWithoutAccess(granted = false))
+    }
+
+    @Test fun comingBackWithAccessOrWithoutAVisitIsNotARefusal() {
+        val policy = UsageAccessPolicy(FakeStore())
+        assertFalse(policy.cameBackWithoutAccess(granted = false))
+        policy.openingSettings()
+        assertFalse(policy.cameBackWithoutAccess(granted = true))
+        assertFalse(policy.cameBackWithoutAccess(granted = false))
+    }
+
+    @Test fun aSettingsPageThatNeverOpenedIsNotAVisit() {
+        val policy = UsageAccessPolicy(FakeStore())
+        policy.openingSettings()
+        policy.settingsNotOpened()
+        assertFalse(policy.cameBackWithoutAccess(granted = false))
     }
 
     @Test fun dialogIsShownTwiceInTotalThenNever() {

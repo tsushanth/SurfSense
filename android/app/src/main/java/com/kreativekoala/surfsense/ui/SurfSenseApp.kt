@@ -44,7 +44,6 @@ import com.kreativekoala.surfsense.ui.screens.DevicesScreen
 import com.kreativekoala.surfsense.ui.screens.SettingsScreen
 import com.kreativekoala.surfsense.ui.screens.TodayScreen
 import com.kreativekoala.surfsense.ui.screens.WeekScreen
-import com.kreativekoala.surfsense.usage.UsageAccess
 import com.kreativekoala.surfsense.viewmodel.MainViewModel
 
 enum class Tab(@StringRes val labelRes: Int, val icon: ImageVector, val outlinedIcon: ImageVector) {
@@ -124,7 +123,7 @@ fun SurfSenseApp(viewModel: MainViewModel) {
                     onSyncNow = viewModel::syncNow,
                     onLoadApps = viewModel::loadApps,
                     onSetCategory = viewModel::setCategoryOverride,
-                    onOpenUsageAccess = { UsageAccess.openSettings(context) },
+                    onOpenUsageAccess = { viewModel.openUsageAccess(context) },
                 )
                 Tab.Week -> WeekScreen(uiState.week, onLoad = viewModel::loadWeek)
                 Tab.Devices -> DevicesScreen(

@@ -47,8 +47,9 @@ class MainActivity : AppCompatActivity() {
         usageAccessDialog = com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
             .setTitle(R.string.usage_access_title)
             .setMessage(R.string.usage_access_message)
-            .setPositiveButton(R.string.usage_access_continue) { _, _ -> UsageAccess.openSettings(this) }
-            .setNegativeButton(R.string.usage_access_not_now, null)
+            .setPositiveButton(R.string.usage_access_continue) { _, _ -> viewModel.openUsageAccess(this) }
+            .setNegativeButton(R.string.usage_access_not_now) { _, _ -> viewModel.declineUsageAccess() }
+            .setOnCancelListener { viewModel.declineUsageAccess() }
             .show()
     }
 

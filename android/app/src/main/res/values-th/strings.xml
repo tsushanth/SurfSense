@@ -113,6 +113,10 @@
     <string name="usage_access_continue">ดำเนินการต่อ</string>
     <string name="usage_access_not_now">ไม่ใช่ตอนนี้</string>
     <string name="usage_access_off_notice">การเข้าถึงข้อมูลการใช้งานปิดอยู่ จึงไม่มีการนับแอปบนโทรศัพท์เครื่องนี้</string>
+    <string name="usage_access_why_title">ทำไม SurfSense ต้องใช้สิทธิ์เข้าถึงข้อมูลการใช้งาน</string>
+    <string name="usage_access_why_body">Android จะไม่เปิดเผยว่าคุณใช้แต่ละแอปนานเท่าใดจนกว่าคุณจะอนุญาต SurfSense ต้องใช้ข้อมูลนี้เพื่อแสดงเวลาหน้าจอของคุณ ชื่อแอปจะถูกส่งไปยังเซิร์ฟเวอร์ SurfSense เพื่อจัดหมวดหมู่ และยอดรวมจะถูกเก็บภายใต้ ID แบบสุ่มพร้อมชื่ออุปกรณ์ของคุณ</string>
+    <string name="usage_access_steps">แตะปุ่มด้านล่าง หากมีรายการให้เลือก SurfSense เปิดสิทธิ์เข้าถึงข้อมูลการใช้งาน แล้วกลับมา</string>
+    <string name="usage_access_still_off">สิทธิ์เข้าถึงข้อมูลการใช้งานยังปิดอยู่ จึงนับข้อมูลใด ๆ บนโทรศัพท์เครื่องนี้ไม่ได้</string>
 
     <!-- Today and Week (10.1.0) -->
     <string name="tab_today">วันนี้</string>

@@ -123,6 +123,10 @@
     <string name="usage_access_continue">계속</string>
     <string name="usage_access_not_now">나중에</string>
     <string name="usage_access_off_notice">사용 기록 접근이 꺼져 있어 이 휴대전화의 앱이 집계되지 않습니다.</string>
+    <string name="usage_access_why_title">SurfSense에 사용 정보 접근 권한이 필요한 이유</string>
+    <string name="usage_access_why_body">허용하기 전에는 Android가 앱별 사용 시간을 알려 주지 않아요. SurfSense가 화면 사용 시간을 보여 주려면 이 정보가 필요해요. 앱 이름은 분류를 위해 SurfSense 서버로 전송되고, 합계는 기기 이름과 함께 임의의 ID로 저장돼요.</string>
+    <string name="usage_access_steps">아래 버튼을 누르세요. 목록이 보이면 SurfSense를 선택하세요. 사용 정보 접근을 켠 다음 돌아오세요.</string>
+    <string name="usage_access_still_off">사용 정보 접근이 아직 꺼져 있어 이 휴대전화에서는 아무것도 집계할 수 없어요.</string>
 
     <!-- Today and Week (10.1.0) -->
     <string name="tab_today">오늘</string>

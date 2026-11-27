@@ -45,6 +45,9 @@ interface ApiService {
     @POST("submit-category-summary")
     suspend fun submitUsageReport(@Body request: UsageReportRequest): Response<Unit>
 
+    @POST("usage-access-refused")
+    suspend fun reportUsageAccessRefused(@Body request: UsageAccessRefusedRequest): Response<Unit>
+
     @POST("initiate-linking")
     suspend fun initiateLinking(@Body request: InitiateLinkingRequest): Response<InitiateLinkingResponse>
 }
